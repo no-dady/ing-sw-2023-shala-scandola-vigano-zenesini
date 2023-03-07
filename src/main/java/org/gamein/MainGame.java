@@ -1,6 +1,6 @@
-package org.example;
+package org.gamein;
 
-public class App 
+public class MainGame
 {
     public static void main( String[] args )
     {
