@@ -1,9 +1,10 @@
 package org.gamein.model;
 
-public class EmptyTile implements Tile{
+public class EmptyTile extends Tile{
     private String tileType;
 
-    public String getType() {
+    @Override
+    public String getTileType() {
         return tileType;
     }
 }

@@ -1,10 +1,9 @@
 package org.gamein.model;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
-public class PlayableTile implements Tile {
+public class PlayableTile extends Tile {
     private String tileType;
-    public String getType() {
-        return tileType;
+    @Override
+    public String getTileType() {
+        return  tileType;
     }
 }

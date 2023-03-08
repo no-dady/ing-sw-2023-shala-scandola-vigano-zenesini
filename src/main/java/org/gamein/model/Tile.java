@@ -1,6 +1,5 @@
 package org.gamein.model;
 
-// TODO: Riempire interfaccia
-public interface Tile {
-    public String getType();
+public abstract class Tile {
+    public abstract String getTileType();
 }
