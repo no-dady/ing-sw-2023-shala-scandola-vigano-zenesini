@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-03-08T09:51:37.875Z" agent="5.0 (Macintosh)" etag="OmQk-A1sIjjsP4m9dowq" version="21.0.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-08T10:01:15.601Z" agent="5.0 (Macintosh)" etag="jywY5O8Avui6D9HiNJID" version="21.0.2" type="github">
   <diagram name="Page-1" id="abXqsiAvNOBpLmgc7sRD">
-    <mxGraphModel dx="2168" dy="2077" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1920" math="0" shadow="0">
+    <mxGraphModel dx="2155" dy="2064" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1200" pageHeight="1920" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -22,7 +22,7 @@
         <mxCell id="W-a8Z3a5T_GDQ8VBCvMg-42" value="- userName : String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="i-W6GYdH-GwYL7Cr7SAN-5" vertex="1">
           <mxGeometry y="136" width="250" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="i-W6GYdH-GwYL7Cr7SAN-9" value="TilePlayable" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+        <mxCell id="i-W6GYdH-GwYL7Cr7SAN-9" value="PlayableTile" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="380" y="-810" width="140" height="104" as="geometry" />
         </mxCell>
         <mxCell id="i-W6GYdH-GwYL7Cr7SAN-10" value="TileId : Int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="i-W6GYdH-GwYL7Cr7SAN-9" vertex="1">
@@ -37,7 +37,7 @@
         <mxCell id="i-W6GYdH-GwYL7Cr7SAN-13" value="Bookshelf" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="60" y="-830" width="270" height="104" as="geometry" />
         </mxCell>
-        <mxCell id="i-W6GYdH-GwYL7Cr7SAN-14" value="- slots: &amp;lt;ArrayList&amp;lt;ArrayList&amp;lt;TilePlayable&amp;gt;&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="i-W6GYdH-GwYL7Cr7SAN-13" vertex="1">
+        <mxCell id="i-W6GYdH-GwYL7Cr7SAN-14" value="- slots: &amp;lt;ArrayList&amp;lt;ArrayList&amp;lt;PlayableTile&amp;gt;&amp;gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="i-W6GYdH-GwYL7Cr7SAN-13" vertex="1">
           <mxGeometry y="26" width="270" height="26" as="geometry" />
         </mxCell>
         <mxCell id="i-W6GYdH-GwYL7Cr7SAN-15" value="+ field: type" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="i-W6GYdH-GwYL7Cr7SAN-13" vertex="1">
