@@ -1,5 +1,18 @@
 package org.gamein.model;
 
-public abstract class Tile {
-    public abstract String getTileType();
+import java.util.Optional;
+
+public class Tile {
+    private Optional<Integer> tileID;
+    private TileType tileType;
+
+    public TileType getTileType()
+    {
+        return this.tileType;
+    }
+
+    public Optional<Integer> getTileId()
+    {
+        return this.tileID;
+    }
 }

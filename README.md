@@ -8,7 +8,5 @@
 
 - [ ] Builder per Tile e Board
 - [ ] Riscrivere meglio le classi
-- [ ] Guardare se è meglio togliere la distinzione tra oggetti playable-tile-empty con una proprietà e racchiudere tutto in un unico oggetto tile
-- [ ] Riguardare l'UML
-- [ ] Strategy patetrn per common_goal_card in controller
+- [ ] Strategy pattern per common_goal_card in controller
 - [ ]  
