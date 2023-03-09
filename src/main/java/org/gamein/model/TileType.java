@@ -2,7 +2,7 @@ package org.gamein.model;
 
 import java.util.Random;
 
-// TODO: Completare enumerazione con tutte le tiles
+// TODO: Complete enumeration
 public enum TileType {
     ;
 
