@@ -4,9 +4,12 @@ import java.util.List;
 
 public class Bookshelf {
     private final Tile[][] slots;
+    private final int rows;
 
     Bookshelf() {
-        slots = new Tile[6][5];
+        rows = 6;
+        int cols = 5;
+        slots = new Tile[rows][cols];
     }
 
     public Tile[][] getSlots() {
@@ -14,9 +17,9 @@ public class Bookshelf {
     }
 
     public void setSlots(int column, List<Tile> selectedTiles) {
-        int i = 5;
-        while(slots[i][column] != null) {
-            --i;
+        int i = 0;
+        while(i < rows && slots[i][column] != null) {
+            ++i;
         }
 
         for(Tile t : selectedTiles) {

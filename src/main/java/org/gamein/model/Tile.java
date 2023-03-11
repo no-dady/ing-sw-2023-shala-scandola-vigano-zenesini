@@ -3,7 +3,7 @@ package org.gamein.model;
 import java.util.Optional;
 
 public class Tile {
-    private Optional<Integer> tileID;
+    private Integer tileID;
     private TileType tileType;
 
     public TileType getTileType()
@@ -13,6 +13,6 @@ public class Tile {
 
     public Optional<Integer> getTileId()
     {
-        return this.tileID;
+        return Optional.of(this.tileID);
     }
 }
