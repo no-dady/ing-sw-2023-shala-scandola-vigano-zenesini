@@ -5,10 +5,8 @@ public class Board {
     private final CommonGoalCard[] commonGoalCards;
     private Tile[][] slots;
 
-    Board(CommonGoalCard[] cards) {
-        int rows = 9;
-        int cols = 9;
-        slots = new Tile[rows][cols];
+    Board(CommonGoalCard[] cards, Tile[][] slots) {
+        this.slots = slots;
         commonGoalCards = cards;
     }
 
