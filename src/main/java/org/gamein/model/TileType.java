@@ -2,7 +2,6 @@ package org.gamein.model;
 
 import java.util.Random;
 
-// TODO: Complete enumeration
 public enum TileType {
     CAT("green"), TROPHY("cyan"), BOOK("white"), TOYS("orange"), FRAMES("blue"), FLOWERS("pink");
     private final String color;
@@ -11,6 +10,7 @@ public enum TileType {
     TileType(String color)
     {
         Random r = new Random();
+        // assigns randomly a picture to the tile
         image = r.ints(1,3).iterator().nextInt();
         this.color = color;
     }

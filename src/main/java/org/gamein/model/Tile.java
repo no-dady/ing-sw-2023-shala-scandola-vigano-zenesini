@@ -4,7 +4,11 @@ import java.util.Optional;
 
 public class Tile {
     private Integer tileID;
-    private TileType tileType;
+    private final TileType tileType;
+
+    public Tile(TileType type) {
+        this.tileType = type;
+    }
 
     public TileType getTileType()
     {

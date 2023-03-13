@@ -2,13 +2,14 @@ package org.gamein.model;
 
 
 public class Board {
-    private CommonGoalCard[] commonGoalCards;
+    private final CommonGoalCard[] commonGoalCards;
     private Tile[][] slots;
 
-    Board() {
+    Board(CommonGoalCard[] cards) {
         int rows = 9;
         int cols = 9;
         slots = new Tile[rows][cols];
+        commonGoalCards = cards;
     }
 
     public void fillBoard(Tile[][] tiles) {
@@ -24,7 +25,4 @@ public class Board {
     }
 
 
-    public void setCommonGoalCards(CommonGoalCard[] commonGoalCards) {
-        this.commonGoalCards = commonGoalCards;
-    }
 }
