@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Bookshelf {
     private final Tile[][] slots;
-    private final int rows = 6;
-    private final int cols = 5;
+    private static final int rows = 6;
+    private static final int cols = 5;
 
     Bookshelf() {
         slots = new Tile[rows][cols];
@@ -25,5 +25,12 @@ public class Bookshelf {
             slots[i][column] = t;
             ++i;
         }
+    }
+
+    public static int getRows() {
+        return rows;
+    }
+    public static int getCols() {
+        return cols;
     }
 }
