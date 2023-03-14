@@ -22,5 +22,4 @@ public class Board {
         return commonGoalCards;
     }
 
-
 }

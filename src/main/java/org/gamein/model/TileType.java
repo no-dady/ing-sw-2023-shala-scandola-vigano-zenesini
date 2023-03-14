@@ -3,7 +3,7 @@ package org.gamein.model;
 import java.util.Random;
 
 public enum TileType {
-    CAT("green"), TROPHY("cyan"), BOOK("white"), TOYS("orange"), FRAMES("blue"), FLOWERS("pink");
+    CAT("green"), TROPHY("cyan"), BOOK("white"), TOYS("orange"), FRAMES("blue"), FLOWERS("pink"), EMPTY("");
     private final String color;
     private final int image;
 

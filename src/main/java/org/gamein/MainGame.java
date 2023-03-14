@@ -1,14 +1,21 @@
 package org.gamein;
 
-import jdk.jshell.spi.ExecutionControl;
-import org.gamein.model.CommonGoalCard;
+import org.gamein.controller.TileBuilder;
 import org.gamein.model.Tile;
-import org.gamein.model.TileType;
+
+import java.util.ArrayList;
+
+import static java.lang.System.*;
 
 public class MainGame
 {
     public static void main( String[] args )
     {
-        System.out.println("[ERROR] Not Implemented Exception");
+        TileBuilder builder = new TileBuilder();
+        ArrayList<Tile> ret = builder.createTileListPocket(132);
+        for (Tile ts : ret)
+        {
+            out.println(ts.getTileType().toString() + " " + ts.getTileId().orElse(999999));
+        }
     }
 }

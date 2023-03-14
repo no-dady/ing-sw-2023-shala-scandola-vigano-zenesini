@@ -2,8 +2,6 @@ package org.gamein.model;
 
 import org.javatuples.Pair;
 
-import java.awt.print.Book;
-
 public class Player {
     private final int userId;
     private final String userName;

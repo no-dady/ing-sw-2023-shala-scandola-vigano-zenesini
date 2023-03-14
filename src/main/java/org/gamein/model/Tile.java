@@ -6,8 +6,13 @@ public class Tile {
     private Integer tileID;
     private final TileType tileType;
 
-    public Tile(TileType type) {
+    public Tile(TileType type, Integer id) {
         this.tileType = type;
+        this.tileID = id;
+    }
+
+    public Tile(){
+        this.tileType = TileType.EMPTY;
     }
 
     public TileType getTileType()

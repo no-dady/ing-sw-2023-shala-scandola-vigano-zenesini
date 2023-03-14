@@ -4,11 +4,10 @@ import java.util.List;
 
 public class Bookshelf {
     private final Tile[][] slots;
-    private final int rows;
+    private final int rows = 6;
+    private final int cols = 5;
 
     Bookshelf() {
-        rows = 6;
-        int cols = 5;
         slots = new Tile[rows][cols];
     }
 
