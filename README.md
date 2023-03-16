@@ -8,5 +8,4 @@
 
 - [ ] Builder per Tile e Board
 - [ ] Riscrivere meglio le classi
-- [ ] Strategy pattern per common_goal_card in controller
-- [ ]  
+- [ ] Controllare le implementazioni delle CommonGoalCards(CGC) tramite test
