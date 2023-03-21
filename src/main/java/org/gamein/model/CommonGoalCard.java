@@ -39,13 +39,13 @@ public enum CommonGoalCard {
     // . . = . .
     // . . . = .
     // . . . . =
-    CGC11(8, new Cgc11_12()),
+    CGC11(8, new Cgc11_12(3, true)),
     // * . . . .
     // * * . . .
     // * * * . .
     // * * * * .
     // * * * * *
-    CGC12(8, new Cgc11_12());
+    CGC12(8, new Cgc11_12(3, false));
     private int scoreValue;
     private final CommonGoalCardCondition condition;
 

@@ -3,9 +3,19 @@ package org.gamein.cgc;
 import org.gamein.model.Tile;
 import org.gamein.model.TileType;
 
+//TODO MAYBE WE COULD SEPARATE THE 11TH AND THE 12TH INTO TWO SEPARATE OBJECT USING THE .size OF
+//THE COLUMN TO CALCULATE THE 12TH CARD
 public class Cgc11_12 implements CommonGoalCardCondition{
+    private final int numToLook;
+    private final boolean isEleven;
+
+    public Cgc11_12(int numToLook, boolean isEleven) {
+        this.numToLook = numToLook;
+        this.isEleven = isEleven;
+    }
+
     @Override
-    public boolean ConditionCheck(Tile[][] slots, int numToLook, boolean isEqual, boolean isVert) {
+    public boolean ConditionCheck(Tile[][] slots) {
         int rowMax = slots.length - numToLook;
         boolean isRising = false;
         boolean isDiagonal = false;
@@ -42,65 +52,68 @@ public class Cgc11_12 implements CommonGoalCardCondition{
             }
         }
 
-        if (isEqual)
+        if (isDiagonal)
         {
-            if (isRising) {
-                TileType typeFound = slots[rowMax][0].getTileType();
-                if (slots[rowMax + 1][1].getTileType().equals(typeFound)) {
-                    if (slots[rowMax + 2][2].getTileType().equals(typeFound)) {
-                        if (slots[rowMax + 3][3].getTileType().equals(typeFound)) {
-                            if (slots[rowMax + 4][4].getTileType().equals(typeFound)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-            else {
-                TileType typeFound = slots[rowMax][4].getTileType();
-                if (slots[rowMax + 1][3].getTileType().equals(typeFound)) {
-                    if (slots[rowMax + 2][2].getTileType().equals(typeFound)) {
-                        if (slots[rowMax + 3][1].getTileType().equals(typeFound)) {
-                            if (slots[rowMax + 4][0].getTileType().equals(typeFound)) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        else {
-            if (isRising)
+            if (isEleven)
             {
-                if (slots[rowMax + 1][0] == null) {
-                    if (slots[rowMax + 2][1] == null) {
-                        if (slots[rowMax + 3][2] == null) {
-                            if (slots[rowMax + 4][3] == null) {
-                                if (rowMax == 1) {
+                if (isRising) {
+                    TileType typeFound = slots[rowMax][0].getTileType();
+                    if (slots[rowMax + 1][1].getTileType().equals(typeFound)) {
+                        if (slots[rowMax + 2][2].getTileType().equals(typeFound)) {
+                            if (slots[rowMax + 3][3].getTileType().equals(typeFound)) {
+                                if (slots[rowMax + 4][4].getTileType().equals(typeFound)) {
                                     return true;
                                 }
-                                else {
-                                    if (slots[rowMax + 5][3] == null) {
+                            }
+                        }
+                    }
+                }
+                else {
+                    TileType typeFound = slots[rowMax][4].getTileType();
+                    if (slots[rowMax + 1][3].getTileType().equals(typeFound)) {
+                        if (slots[rowMax + 2][2].getTileType().equals(typeFound)) {
+                            if (slots[rowMax + 3][1].getTileType().equals(typeFound)) {
+                                if (slots[rowMax + 4][0].getTileType().equals(typeFound)) {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            else {
+                if (isRising)
+                {
+                    if (slots[rowMax + 1][0] == null) {
+                        if (slots[rowMax + 2][1] == null) {
+                            if (slots[rowMax + 3][2] == null) {
+                                if (slots[rowMax + 4][3] == null) {
+                                    if (rowMax == 1) {
                                         return true;
+                                    }
+                                    else {
+                                        if (slots[rowMax + 5][3] == null) {
+                                            return true;
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
-            else {
-                if (slots[rowMax + 1][4] == null) {
-                    if (slots[rowMax + 2][3] == null) {
-                        if (slots[rowMax + 3][2] == null) {
-                            if (slots[rowMax + 4][1] == null) {
-                                if (rowMax == 1) {
-                                    return true;
-                                }
-                                else {
-                                    if (slots[rowMax + 5][0] == null) {
+                else {
+                    if (slots[rowMax + 1][4] == null) {
+                        if (slots[rowMax + 2][3] == null) {
+                            if (slots[rowMax + 3][2] == null) {
+                                if (slots[rowMax + 4][1] == null) {
+                                    if (rowMax == 1) {
                                         return true;
+                                    }
+                                    else {
+                                        if (slots[rowMax + 5][0] == null) {
+                                            return true;
+                                        }
                                     }
                                 }
                             }
