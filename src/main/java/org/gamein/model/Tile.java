@@ -5,6 +5,8 @@ import java.util.Optional;
 public class Tile {
     private Integer tileID;
     private final TileType tileType;
+    
+    private boolean pickable; 
 
     public Tile(TileType type, Integer id) {
         this.tileType = type;
@@ -23,5 +25,13 @@ public class Tile {
     public Optional<Integer> getTileId()
     {
         return Optional.of(this.tileID);
+    }
+
+    public boolean IsPickable() {
+        return pickable;
+    }
+    
+    public void setPickable(boolean pickable){
+        this.pickable = pickable;
     }
 }

@@ -2,20 +2,22 @@ package org.gamein.cgc;
 
 import org.gamein.model.Tile;
 
-import java.util.Arrays;
-
 public class Cgc1_8 implements CommonGoalCardCondition {
+
+    int numToLook;
+
+    public Cgc1_8(int numToLook){
+        this.numToLook = numToLook;
+    }
 
     public boolean indexEqual(Tile[] toCheck){
         if (toCheck[0] != null && toCheck[1] != null && toCheck[2] != null && toCheck[3] != null)
-            if (toCheck[0].getTileType() == toCheck[1].getTileType() && toCheck[1].getTileType() == toCheck[2].getTileType() && toCheck[2].getTileType() == toCheck[3].getTileType()) {
-                return true;
-            }
+            return toCheck[0].getTileType() == toCheck[1].getTileType() && toCheck[1].getTileType() == toCheck[2].getTileType() && toCheck[2].getTileType() == toCheck[3].getTileType();
         return false;
     }
 
     @Override
-    public boolean ConditionCheck(Tile[][] shelf, int numToLook, boolean isEqual, boolean isVert) {
+    public boolean ConditionCheck(Tile[][] shelf) {
         int count = 0;
         Tile[] corners = new Tile[4];
         corners[0] = shelf[0][0];
@@ -38,8 +40,7 @@ public class Cgc1_8 implements CommonGoalCardCondition {
                     }
                 }
             }
-            if (count == 2) return true;
-            return false;
+            return count == 2;
         }
     }
 }

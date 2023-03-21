@@ -18,6 +18,8 @@ public class Board {
         return slots;
     }
 
+    public Tile getTile(int x, int y){ return slots[x][y];}
+
     public CommonGoalCard[] getCommonGoalCards() {
         return commonGoalCards;
     }

@@ -4,26 +4,26 @@ import org.gamein.cgc.*;
 
 public enum CommonGoalCard {
     // 2 squares of 4 tiles of the same type
-    CGC1(8, new Cgc1_8()),
+    CGC1(8, new Cgc1_8(2)),
     // 2 columns made of all distinct tiles
-    CGC2(8, new Cgc2_3_4_6(2, Bookshelf.getCols(), false, true)),
+    CGC2(8, new Cgc2_3_4_5_6_7(2, Bookshelf.getCols(), false, true)),
     // 4 vertical strips of 4 tiles of the same type
-    CGC3(8, new Cgc2_3_4_6(4, 4, true, true)),
+    CGC3(8, new Cgc2_3_4_5_6_7(4, 4, true, true)),
     // 6 vertical strips of 2 tiles of the same type
-    CGC4(8, new Cgc2_3_4_6(6, 2, true, true)),
+    CGC4(8, new Cgc2_3_4_5_6_7(6, 2, true, true)),
     // 3 columns full of tiles with at least 3 tiles of the same type
-    CGC5(8, new Cgc2_3_4_6(3, 3, true, true)),
+    CGC5(8, new Cgc2_3_4_5_6_7(3, 3, true, true)),
     // 2 rows full of distinct tiles
-    CGC6(8, new Cgc2_3_4_6(2, Bookshelf.getRows(), false, false)),
+    CGC6(8, new Cgc2_3_4_5_6_7(2, Bookshelf.getRows(), false, false)),
     // 4 rows full of tiles with at least 2 tiles of the same type
-    CGC7(8, new Cgc2_3_4_6(4, 2, true, false)),
+    CGC7(8, new Cgc2_3_4_5_6_7(4, 2, true, false)),
     // = . . . =
     // . . . . .
     // . . . . .
     // . . . . .
     // . . . . .
     // = . . . =
-    CGC8(8, new Cgc1_8()),
+    CGC8(8, new Cgc1_8(1)),
     // . = . = .
     // . . . . .
     // = . = . =
@@ -33,7 +33,7 @@ public enum CommonGoalCard {
     // = . =
     // . = .
     // = . =
-    CGC10(8, new Cgc10()),
+    CGC10(8, new Cgc10(3)),
     // = . . . .
     // . = . . .
     // . . = . .
