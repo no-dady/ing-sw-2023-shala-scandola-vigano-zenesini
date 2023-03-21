@@ -13,11 +13,14 @@ public class PersonalGoalCard {
     private Pair<Integer, Integer> blue;
     private Pair<Integer, Integer> pink;
 
-    public PersonalGoalCard(Triplet<Integer, Integer, TileType>[] conditions) {
-        this.conditions = conditions;
+    public PersonalGoalCard(Pair<Integer, Integer> red, Pair<Integer, Integer> cyan, Pair<Integer, Integer> white, Pair<Integer, Integer> orange, Pair<Integer, Integer> blue, Pair<Integer, Integer> pink) {
+        this.red = red;
+        this.cyan = cyan;
+        this.white = white;
+        this.orange = orange;
+        this.blue = blue;
+        this.pink = pink;
     }
 
-    public Triplet<Integer, Integer, TileType> getConditions(TileType tile) {
-        return this.conditions[tile.ordinal()];
-    }
+
 }

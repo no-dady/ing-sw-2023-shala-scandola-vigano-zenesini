@@ -1,6 +1,10 @@
 package org.gamein.controller;
 
+import org.gamein.model.*;
 
+import java.io.Console;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameController {
     ArrayList<Player> players = null;

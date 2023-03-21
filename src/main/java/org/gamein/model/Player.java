@@ -2,17 +2,21 @@ package org.gamein.model;
 
 import org.javatuples.Pair;
 
+import java.awt.print.Book;
+
 public class Player {
     private final int userId;
-    private final String userName;
+    private String userName;
     private int score;
     private Bookshelf personalBookshelf;
-    private PersonalGoalCard personalGoalCard;
+    private final PersonalGoalCard personalGoalCard;
     private Pair <Boolean, Boolean> achievedCommon;
 
-    Player(int userId, String userName) {
+    public Player(int userId, String userName, Bookshelf personalBookshelf, PersonalGoalCard personalGoalCard) {
         this.userId = userId;
         this.userName = userName;
+        this.personalBookshelf = personalBookshelf;
+        this.personalGoalCard = personalGoalCard;
     }
 
     public Pair <Boolean,Boolean> getAchieved()
@@ -54,4 +58,6 @@ public class Player {
     {
         this.achievedCommon = achievedInTurn;
     }
+
+    public void setUserName(String userName) { this.userName = userName; }
 }
