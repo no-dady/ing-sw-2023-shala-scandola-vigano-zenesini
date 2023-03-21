@@ -1,5 +1,5 @@
 package org.gamein.controller;
 
-public class BoardBuilder {
-    
+public interface class BoardBuilder {
+    void buildBoard();
 }
