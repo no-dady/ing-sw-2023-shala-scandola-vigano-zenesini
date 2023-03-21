@@ -17,6 +17,7 @@ public class Player {
         this.userName = userName;
         this.personalBookshelf = personalBookshelf;
         this.personalGoalCard = personalGoalCard;
+        this.achievedCommon = new Pair(Boolean.FALSE, Boolean.FALSE);
     }
 
     public Pair <Boolean,Boolean> getAchieved()
