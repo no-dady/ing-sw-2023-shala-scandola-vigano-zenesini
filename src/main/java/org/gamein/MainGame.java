@@ -1,6 +1,7 @@
 package org.gamein;
 
-import org.gamein.controller.TileBuilder;
+import org.gamein.controller.PocketBuilder;
+import org.gamein.model.Pocket;
 import org.gamein.model.Tile;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public class MainGame
 {
     public static void main( String[] args )
     {
-        TileBuilder builder = new TileBuilder();
+        PocketBuilder builder = new PocketBuilder();
         ArrayList<Tile> ret = builder.createTileListPocket(132);
         for (Tile ts : ret)
         {

@@ -7,7 +7,7 @@ public class Bookshelf {
     private static final int rows = 6;
     private static final int cols = 5;
 
-    Bookshelf() {
+    public Bookshelf() {
         slots = new Tile[rows][cols];
     }
 
