@@ -5,7 +5,7 @@ public class Board {
     private final CommonGoalCard[] commonGoalCards;
     private Tile[][] slots;
 
-    Board(CommonGoalCard[] cards, Tile[][] slots) {
+    public Board(CommonGoalCard[] cards, Tile[][] slots) {
         this.slots = slots;
         commonGoalCards = cards;
     }

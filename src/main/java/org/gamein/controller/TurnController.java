@@ -9,11 +9,11 @@ import jdk.jshell.spi.ExecutionControl.*;
 public class TurnController {
     boolean stop;
 
-    private void SelectedTileControl(Board board, int x, int y) throws NotPickableTileException {
+    private void SelectedTileControl(Board board, int x, int y) throws InvalidTileException {
         if(board.getTile(x,y).IsPickable()){
         }
         else{
-            throw new NotPickableTileException (x + y + "is not a valid tile");
+            throw new InvalidTileException (x + y + "is not a valid tile");
         }
     }
 

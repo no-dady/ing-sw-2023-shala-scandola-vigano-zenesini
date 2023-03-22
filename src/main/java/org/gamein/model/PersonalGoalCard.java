@@ -1,4 +1,4 @@
 package org.gamein.model;
 
-public record PersonalGoalCard(Coordinate red, Coordinate cyan, Coordinate white, Coordinate orange, Coordinate blue, Coordinate pink) {
+public record PersonalGoalCard(Coordinates green, Coordinates cyan, Coordinates white, Coordinates orange, Coordinates blue, Coordinates pink) {
 }

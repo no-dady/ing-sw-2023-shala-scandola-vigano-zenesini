@@ -8,7 +8,7 @@ public class Player {
     private final int userId;
     private String userName;
     private int score;
-    private Bookshelf personalBookshelf;
+    private final Bookshelf personalBookshelf;
     private final PersonalGoalCard personalGoalCard;
     private Pair <Boolean, Boolean> achievedCommon;
 
@@ -17,7 +17,7 @@ public class Player {
         this.userName = userName;
         this.personalBookshelf = personalBookshelf;
         this.personalGoalCard = personalGoalCard;
-        this.achievedCommon = new Pair(Boolean.FALSE, Boolean.FALSE);
+        this.achievedCommon = new Pair<>(Boolean.FALSE, Boolean.FALSE);
     }
 
     public Pair <Boolean,Boolean> getAchieved()

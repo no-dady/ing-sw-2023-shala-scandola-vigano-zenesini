@@ -3,6 +3,7 @@ package org.gamein.model;
 import java.util.ArrayList;
 
 public class GameState {
+
     private ArrayList<Player> players;
     private int turnNumber;
     private Board board;
@@ -28,4 +29,19 @@ public class GameState {
 
     public Pocket getPocket() { return this.pocket; }
 
+    public void setTurnNumber(int turnNumber) {
+        this.turnNumber = turnNumber;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void setPocket(Pocket pocket) {
+        this.pocket = pocket;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
 }
