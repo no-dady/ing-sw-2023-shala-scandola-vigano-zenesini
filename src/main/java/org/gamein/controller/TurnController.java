@@ -4,9 +4,13 @@ import org.gamein.model.Board;
 import org.gamein.model.Bookshelf;
 import org.gamein.model.Tile;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
 import jdk.jshell.spi.ExecutionControl.*;
 
-public class TurnController {
+@Deprecated
+public class TurnController implements Observer {
     boolean stop;
 
     private void SelectedTileControl(Board board, int x, int y) throws InvalidTileException {
@@ -21,13 +25,17 @@ public class TurnController {
         throw new NotImplementedException("Todo");
     }
 
-    public void SelectTile()throws NotImplementedException {
+    public void SelectTile() throws NotImplementedException {
         throw new NotImplementedException("Todo");
     }
 
-    public void SelectColumn() throws NotImplementedException{
+    public void SelectColumn() throws NotImplementedException {
         throw new NotImplementedException("Todo");
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+
+    }
 }
 

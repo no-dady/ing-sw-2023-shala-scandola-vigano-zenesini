@@ -47,7 +47,7 @@ public class GameController {
         }
         System.exit(0);
         // TODO: Player needed object generation
-        players.add(new Player(0, "Dady", new Bookshelf(), pgcList.get(1)));
+        players.add(new Player(0, "Test1", new Bookshelf(), pgcList.get(1)));
 
         // TODO: Make call to method for generating random CommonGoalCard
         cgcEnum = new CommonGoalCard[2];
@@ -84,7 +84,6 @@ public class GameController {
     }
     void start(List<String> usernames) {
 
-        }
-
     }
+}
 
