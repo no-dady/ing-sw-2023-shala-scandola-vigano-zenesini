@@ -29,7 +29,7 @@ public class GameController {
         players = new ArrayList<>();
 
         try {
-            Reader reader = Files.newBufferedReader(Paths.get("/Users/daniel/Documents/GitHub/ing-sw-2023-shala-scandola-vigano-zenesini/src/main/java/org/gamein/personalgoalcards.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("src/main/java/org/gamein/personalgoalcards.json"));
             pgcList = new Gson().fromJson(reader, new TypeToken<List<PersonalGoalCard>>() {}.getType());
             /* DEBUG
             for(var x : pgcList) {
