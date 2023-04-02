@@ -9,7 +9,7 @@ public class Cgc10 implements CommonGoalCardCondition {
         this.numToLook = numToLook;
     }
     @Override
-    public boolean ConditionCheck(Tile[][] shelf) {
+    public boolean conditionCheck(Tile[][] shelf) {
         int rowMax = shelf.length - numToLook + 1;
         int columnMax = -1;
         if (rowMax > 0)

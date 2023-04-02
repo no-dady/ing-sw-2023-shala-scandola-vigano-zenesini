@@ -17,7 +17,7 @@ public class Cgc1_8 implements CommonGoalCardCondition {
     }
 
     @Override
-    public boolean ConditionCheck(Tile[][] shelf) {
+    public boolean conditionCheck(Tile[][] shelf) {
         int count = 0;
         Tile[] corners = new Tile[4];
         corners[0] = shelf[0][0];

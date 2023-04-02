@@ -22,7 +22,7 @@ public class Cgc2_3_4_5_6_7 implements CommonGoalCardCondition {
 
     // 4 vertical strips of 4 tiles of the same type
     @Override
-    public boolean ConditionCheck(Tile[][] slots) {
+    public boolean conditionCheck(Tile[][] slots) {
         return isVert ? checkColumns(slots) : checkRows(slots);
     }
 

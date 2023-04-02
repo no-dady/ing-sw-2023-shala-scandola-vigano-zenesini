@@ -15,7 +15,7 @@ public class Cgc11_12 implements CommonGoalCardCondition{
     }
 
     @Override
-    public boolean ConditionCheck(Tile[][] slots) {
+    public boolean conditionCheck(Tile[][] slots) {
         int rowMax = slots.length - numToLook;
         boolean isRising = false;
         boolean isDiagonal = false;
