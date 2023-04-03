@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public class Tile {
     private Integer tileID;
-    private final TileType tileType;
+    private TileType tileType;
     
     private boolean pickable; 
 

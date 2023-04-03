@@ -6,6 +6,4 @@
 
 ## ToDo list:
 
-- [ ] Builder per Tile e Board
-- [ ] Riscrivere meglio le classi
 - [ ] Controllare le implementazioni delle CommonGoalCards(CGC) tramite test

@@ -1,8 +1,21 @@
 package org.gamein;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.gamein.model.CommonGoalCard;
+import org.gamein.model.PersonalGoalCard;
+import org.gamein.model.Tile;
+
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Unit test for simple App.
@@ -10,6 +23,11 @@ import junit.framework.TestSuite;
 public class AppTest 
     extends TestCase
 {
+    static class TestShelf {
+        public Tile[][] shelf;
+
+    }
+    public List<TestShelf> shelves;
     /**
      * Create the test case
      *
@@ -18,6 +36,16 @@ public class AppTest
     public AppTest( String testName )
     {
         super( testName );
+
+        try {
+            Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/example_shelf.json"));
+            Gson gson = new GsonBuilder().serializeNulls().create();
+            shelves = gson.fromJson(reader, new TypeToken<List<TestShelf>>() {
+            }.getType());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            fail();
+        }
     }
 
     /**
@@ -33,6 +61,15 @@ public class AppTest
      */
     public void testApp()
     {
-        assertTrue( true );
+        Tile[][] shelf = shelves.get(0).shelf;
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
+        CommonGoalCard myTest = CommonGoalCard.TWO_DISTINCT_COLUMNS;
+
+        assertFalse("Found two full distinct columns when not expected!", myTest.getCondition().conditionCheck(shelf));
     }
 }

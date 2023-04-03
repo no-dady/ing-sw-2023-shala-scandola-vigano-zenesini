@@ -1,19 +1,18 @@
 package org.gamein.cgc;
 
 import org.gamein.model.Bookshelf;
+import org.gamein.model.CommonGoalCard;
 import org.gamein.model.Tile;
-
-import java.awt.print.Book;
-import java.util.Arrays;
+import org.gamein.model.TileType;
 
 // TODO: Test algorithms for performance and correctness
-public class Cgc2_3_4_5_6_7 implements CommonGoalCardCondition {
+public class StraightDirection implements CommonGoalCardCondition {
     private int numToLook;
     private int timesToLook;
     private boolean isEqual;
     private boolean isVert;
 
-    public Cgc2_3_4_5_6_7(int timesToLook, int numToLook, boolean isEqual, boolean isVert) {
+    public StraightDirection(int timesToLook, int numToLook, boolean isEqual, boolean isVert) {
         this.timesToLook = timesToLook;
         this.numToLook = numToLook;
         this.isEqual = isEqual;
@@ -30,21 +29,21 @@ public class Cgc2_3_4_5_6_7 implements CommonGoalCardCondition {
         int count = 0, checked = 0;
 
         for(int i = 0; i < Bookshelf.getCols() && checked < timesToLook; i++) {
-            for(int j = 1; j < Bookshelf.getRows() && slots[j][i] != null; ++j) {
-                if(count == numToLook) {
-                    checked++;
-                    break;
-                }
-                if((slots[j][i].getTileType() == slots[j-1][i].getTileType()) == isEqual) {
+            count = 0;
+            for(int j = 1; j < Bookshelf.getRows() && slots[j][i].getTileType() != TileType.EMPTY; ++j) {
+                if((slots[j][i].getTileType().compareTo(slots[j-1][i].getTileType()) == 0) == isEqual) {
                     count++;
-                } else {
-                    count = 0;
                 }
+                if(Bookshelf.getRows() - j + count < numToLook) break;
             }
-            if (numToLook - checked < Bookshelf.getCols() - i) {
+            if(count == numToLook) {
+                checked++;
+            }
+            if (timesToLook - count < Bookshelf.getCols() - i) {
                 return false;
             }
         }
+
         return true;
     }
 

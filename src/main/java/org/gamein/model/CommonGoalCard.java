@@ -6,17 +6,17 @@ public enum CommonGoalCard {
     // 2 squares of 4 tiles of the same type
     CGC1(8, new Cgc1_8(2)),
     // 2 columns made of all distinct tiles
-    CGC2(8, new Cgc2_3_4_5_6_7(2, Bookshelf.getCols(), false, true)),
+    TWO_DISTINCT_COLUMNS(8, new StraightDirection(2, Bookshelf.getCols(), false, true)),
     // 4 vertical strips of 4 tiles of the same type
-    CGC3(8, new Cgc2_3_4_5_6_7(4, 4, true, true)),
+    CGC3(8, new StraightDirection(4, 4, true, true)),
     // 6 vertical strips of 2 tiles of the same type
-    CGC4(8, new Cgc2_3_4_5_6_7(6, 2, true, true)),
+    CGC4(8, new StraightDirection(6, 2, true, true)),
     // 3 columns full of tiles with at least 3 tiles of the same type
-    CGC5(8, new Cgc2_3_4_5_6_7(3, 3, true, true)),
+    CGC5(8, new StraightDirection(3, 3, true, true)),
     // 2 rows full of distinct tiles
-    CGC6(8, new Cgc2_3_4_5_6_7(2, Bookshelf.getRows(), false, false)),
+    CGC6(8, new StraightDirection(2, Bookshelf.getRows(), false, false)),
     // 4 rows full of tiles with at least 2 tiles of the same type
-    CGC7(8, new Cgc2_3_4_5_6_7(4, 2, true, false)),
+    CGC7(8, new StraightDirection(4, 2, true, false)),
     // = . . . =
     // . . . . .
     // . . . . .

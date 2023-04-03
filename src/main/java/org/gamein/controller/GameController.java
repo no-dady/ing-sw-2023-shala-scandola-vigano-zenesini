@@ -52,7 +52,7 @@ public class GameController {
         // TODO: Make call to method for generating random CommonGoalCard
         cgcEnum = new CommonGoalCard[2];
         cgcEnum[0] = CommonGoalCard.CGC1;
-        cgcEnum[1] = CommonGoalCard.CGC2;
+        cgcEnum[1] = CommonGoalCard.TWO_DISTINCT_COLUMNS;
 
         // TODO: Generate slots to pass to the board constructor
         slots = new Tile[6][5];
