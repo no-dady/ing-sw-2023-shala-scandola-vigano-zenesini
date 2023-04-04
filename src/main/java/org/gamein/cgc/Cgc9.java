@@ -1,14 +1,15 @@
 package org.gamein.cgc;
 
 import org.gamein.model.Tile;
+import org.gamein.model.TileType;
 
 public class Cgc9 implements CommonGoalCardCondition{
 
     @Override
     public boolean conditionCheck(Tile[][] shelf) {
-        int k=0;
-        for (int p = 0; p < 2; p++){
-            if (shelf[k][p] != null && shelf[k][p+2] != null && shelf[k][p+4] != null && shelf[k+2][p] != null && shelf[k+2][p+2] != null && shelf[k+2][p+4] != null && shelf[k+4][p+3] != null && shelf[k+4][p+5] != null && shelf[k][p].getTileType() == shelf[k][p+2].getTileType() && shelf[k][p+2].getTileType() == shelf[k][p+4].getTileType() && shelf[k][p+4].getTileType() == shelf[k+2][p].getTileType() && shelf[k+2][p].getTileType() == shelf[k+2][p+2].getTileType() && shelf[k+2][p+2].getTileType() == shelf[k+2][p+4].getTileType() && shelf[k+2][p+4].getTileType() == shelf[k+6][p+3].getTileType() && shelf[k+6][p+3].getTileType() == shelf[k+6][p+5].getTileType())
+        int p=0;
+        for (int k = 0; k < 2; k++){
+            if (shelf[k][p].getTileType() != TileType.EMPTY && shelf[k][p+2].getTileType() != TileType.EMPTY && shelf[k][p+4].getTileType() != TileType.EMPTY && shelf[k+2][p].getTileType() != TileType.EMPTY && shelf[k+2][p+2].getTileType() != TileType.EMPTY && shelf[k+2][p+4].getTileType() != TileType.EMPTY && shelf[k+4][p+3].getTileType() != TileType.EMPTY && shelf[k+4][p+1].getTileType() != TileType.EMPTY && shelf[k][p].getTileType() == shelf[k][p+2].getTileType() && shelf[k][p+2].getTileType() == shelf[k][p+4].getTileType() && shelf[k][p+4].getTileType() == shelf[k+2][p].getTileType() && shelf[k+2][p].getTileType() == shelf[k+2][p+2].getTileType() && shelf[k+2][p+2].getTileType() == shelf[k+2][p+4].getTileType() && shelf[k+2][p+4].getTileType() == shelf[k+4][p+1].getTileType() && shelf[k+4][p+1].getTileType() == shelf[k+4][p+3].getTileType())
             {
                 return true;
             }
