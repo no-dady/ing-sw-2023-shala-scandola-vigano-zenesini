@@ -5,6 +5,9 @@ import org.gamein.model.CommonGoalCard;
 import org.gamein.model.Tile;
 import org.gamein.model.TileType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // TODO: Test algorithms for performance and correctness
 public class StraightDirection implements CommonGoalCardCondition {
     private int numToLook;
@@ -29,43 +32,45 @@ public class StraightDirection implements CommonGoalCardCondition {
         int count = 0, checked = 0;
 
         for(int i = 0; i < Bookshelf.getCols() && checked < timesToLook; i++) {
+            var tile = slots[0][i];
             count = 0;
-            for(int j = 1; j < Bookshelf.getRows() && slots[j][i].getTileType() != TileType.EMPTY; ++j) {
-                if((slots[j][i].getTileType().compareTo(slots[j-1][i].getTileType()) == 0) == isEqual) {
+            for(int j = 0; j < Bookshelf.getRows() && slots[j][i].getTileType() != TileType.EMPTY && count < numToLook; ++j) {
+                if((slots[j][i].getTileType().equals(tile.getTileType())) == isEqual) {
                     count++;
+                } else {
+                    tile = slots[j][i];
+                    count = 0;
                 }
-                if(Bookshelf.getRows() - j + count < numToLook) break;
             }
             if(count == numToLook) {
                 checked++;
             }
-            if (timesToLook - count < Bookshelf.getCols() - i) {
-                return false;
-            }
+
         }
 
-        return true;
+        return (checked == timesToLook);
     }
 
     private boolean checkRows(Tile[][] slots) {
         int count = 0, checked = 0;
 
         for(int i = 0; i < Bookshelf.getRows() && checked < timesToLook; i++) {
-            for(int j = 1; j < Bookshelf.getCols() && slots[i][j] != null; ++j) {
-                if(count == numToLook) {
-                    checked++;
-                    break;
-                }
-                if((slots[i][j].getTileType() == slots[i][j-1].getTileType()) == isEqual) {
+            var tile = slots[i][0];
+            count = 0;
+            for(int j = 0; j < Bookshelf.getCols() && slots[i][j].getTileType() != TileType.EMPTY && count < numToLook; ++j) {
+                if((slots[i][j].getTileType().equals(tile.getTileType())) == isEqual) {
                     count++;
                 } else {
+                    tile = slots[i][j];
                     count = 0;
                 }
             }
-            if (numToLook - checked < Bookshelf.getRows() - i) {
-                return false;
+            if(count == numToLook) {
+                checked++;
             }
+
         }
-        return true;
+
+        return (checked == timesToLook);
     }
 }

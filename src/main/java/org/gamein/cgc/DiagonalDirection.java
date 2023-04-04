@@ -6,11 +6,11 @@ import org.gamein.model.TileType;
 //TODO MAYBE WE COULD SEPARATE THE 11TH AND THE 12TH INTO TWO SEPARATE OBJECT USING THE .size OF
 //THE COLUMN TO CALCULATE THE 12TH CARD
 //DIAGONALDIRECTION
-public class Cgc11_12 implements CommonGoalCardCondition{
+public class DiagonalDirection implements CommonGoalCardCondition{
     private final int numToLook;
     private final boolean isEleven;
 
-    public Cgc11_12(int numToLook, boolean isEleven) {
+    public DiagonalDirection(int numToLook, boolean isEleven) {
         this.numToLook = numToLook;
         this.isEleven = isEleven;
     }
