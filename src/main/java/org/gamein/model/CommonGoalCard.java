@@ -2,6 +2,8 @@ package org.gamein.model;
 
 import org.gamein.cgc.*;
 
+import java.util.List;
+
 public enum CommonGoalCard {
     // 2 squares of 4 tiles of the same type
     CGC1(8, new Cgc1_8(2)),
@@ -47,6 +49,8 @@ public enum CommonGoalCard {
     // * * * * *
     CGC12(8, new Cgc11_12(5, false));
     private int scoreValue;
+
+    private List<Player> players;
     private final CommonGoalCardCondition condition;
 
     CommonGoalCard(int startScore, CommonGoalCardCondition cond) {
@@ -63,6 +67,12 @@ public enum CommonGoalCard {
         this.scoreValue = scoreValue;
     }
 
+    public void addPlayer(Player player){
+        this.players.add(player);
+    }
+    public List<Player> getPlayers(){
+        return this.players;
+    }
     public CommonGoalCardCondition getCondition() {
         return condition;
     }
