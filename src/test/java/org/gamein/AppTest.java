@@ -9,6 +9,7 @@ import junit.framework.TestSuite;
 import org.gamein.model.CommonGoalCard;
 import org.gamein.model.PersonalGoalCard;
 import org.gamein.model.Tile;
+import org.gamein.model.TileType;
 
 import java.io.Reader;
 import java.nio.file.Files;
@@ -23,11 +24,7 @@ import java.util.List;
 public class AppTest 
     extends TestCase
 {
-    static class TestShelf {
-        public Tile[][] shelf;
-
-    }
-    public List<TestShelf> shelves;
+    public List<Tile[][]> prova;
     /**
      * Create the test case
      *
@@ -38,10 +35,10 @@ public class AppTest
         super( testName );
 
         try {
-            Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/example_shelf.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/prova.json"));
+
             Gson gson = new GsonBuilder().serializeNulls().create();
-            shelves = gson.fromJson(reader, new TypeToken<List<TestShelf>>() {
-            }.getType());
+            prova = gson.fromJson(reader, new TypeToken<List<Tile[][]>>(){}.getType());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             fail();
@@ -61,7 +58,7 @@ public class AppTest
      */
     public void testApp()
     {
-        Tile[][] shelf = shelves.get(0).shelf;
+        Tile[][] shelf = prova.get(0);
         for(int i = 5; i >= 0; i--) {
             for(int j = 0; j < 5; j++) {
                 System.out.print(shelf[i][j].getTileType() + "\t|\t");
@@ -70,6 +67,9 @@ public class AppTest
         }
         CommonGoalCard myTest = CommonGoalCard.TWO_DISTINCT_COLUMNS;
 
-        assertFalse("Found two full distinct columns when not expected!", myTest.getCondition().conditionCheck(shelf));
+        var x = myTest.getCondition().conditionCheck(shelf);
+        System.out.println(x);
+        assertFalse("Found two full distinct columns when not expected!", x);
+        System.out.println("Test Passsato!");
     }
 }
