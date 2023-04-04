@@ -5,6 +5,7 @@ import org.gamein.model.TileType;
 
 //TODO MAYBE WE COULD SEPARATE THE 11TH AND THE 12TH INTO TWO SEPARATE OBJECT USING THE .size OF
 //THE COLUMN TO CALCULATE THE 12TH CARD
+//DIAGONALDIRECTION
 public class Cgc11_12 implements CommonGoalCardCondition{
     private final int numToLook;
     private final boolean isEleven;
@@ -22,11 +23,11 @@ public class Cgc11_12 implements CommonGoalCardCondition{
 
         for (int row = 0; row <= rowMax; row++)
         {
-            if (slots[row][0] != null) {
-                if (slots[row + 1][1] != null) {
-                    if (slots[row + 2][2] != null) {
-                        if (slots[row + 3][3] != null) {
-                            if (slots[row + 4][4] != null) {
+            if (!slots[row][0].getTileType().equals(TileType.EMPTY)) {
+                if (!slots[row + 1][1].getTileType().equals(TileType.EMPTY)) {
+                    if (!slots[row + 2][2].getTileType().equals(TileType.EMPTY)) {
+                        if (!slots[row + 3][3].getTileType().equals(TileType.EMPTY)) {
+                            if (!slots[row + 4][4].getTileType().equals(TileType.EMPTY)) {
                                 isRising = true;
                                 isDiagonal = true;
                                 rowMax = row;
@@ -36,11 +37,11 @@ public class Cgc11_12 implements CommonGoalCardCondition{
                     }
                 }
             }
-            else if (slots[row][4] != null) {
-                if (slots[row + 1][3] != null) {
-                    if (slots[row + 2][2] != null) {
-                        if (slots[row + 3][1] != null) {
-                            if (slots[row + 4][0] != null) {
+            if (!slots[row][4].getTileType().equals(TileType.EMPTY)) {
+                if (!slots[row + 1][3].getTileType().equals(TileType.EMPTY)) {
+                    if (!slots[row + 2][2].getTileType().equals(TileType.EMPTY)) {
+                        if (!slots[row + 3][1].getTileType().equals(TileType.EMPTY)) {
+                            if (!slots[row + 4][0].getTileType().equals(TileType.EMPTY)) {
                                 isRising = false;
                                 isDiagonal = true;
                                 rowMax = row;
@@ -85,15 +86,15 @@ public class Cgc11_12 implements CommonGoalCardCondition{
             else {
                 if (isRising)
                 {
-                    if (slots[rowMax + 1][0] == null) {
-                        if (slots[rowMax + 2][1] == null) {
-                            if (slots[rowMax + 3][2] == null) {
-                                if (slots[rowMax + 4][3] == null) {
+                    if (slots[rowMax + 1][0].getTileType().equals(TileType.EMPTY)) {
+                        if (slots[rowMax + 2][1].getTileType().equals(TileType.EMPTY)) {
+                            if (slots[rowMax + 3][2].getTileType().equals(TileType.EMPTY)) {
+                                if (slots[rowMax + 4][3].getTileType().equals(TileType.EMPTY)) {
                                     if (rowMax == 1) {
                                         return true;
                                     }
                                     else {
-                                        if (slots[rowMax + 5][3] == null) {
+                                        if (slots[rowMax + 5][3].getTileType().equals(TileType.EMPTY)) {
                                             return true;
                                         }
                                     }
@@ -103,15 +104,15 @@ public class Cgc11_12 implements CommonGoalCardCondition{
                     }
                 }
                 else {
-                    if (slots[rowMax + 1][4] == null) {
-                        if (slots[rowMax + 2][3] == null) {
-                            if (slots[rowMax + 3][2] == null) {
-                                if (slots[rowMax + 4][1] == null) {
+                    if (slots[rowMax + 1][4].getTileType().equals(TileType.EMPTY)) {
+                        if (slots[rowMax + 2][3].getTileType().equals(TileType.EMPTY)) {
+                            if (slots[rowMax + 3][2].getTileType().equals(TileType.EMPTY)) {
+                                if (slots[rowMax + 4][1].getTileType().equals(TileType.EMPTY)) {
                                     if (rowMax == 1) {
                                         return true;
                                     }
                                     else {
-                                        if (slots[rowMax + 5][0] == null) {
+                                        if (slots[rowMax + 5][0].getTileType().equals(TileType.EMPTY)) {
                                             return true;
                                         }
                                     }
