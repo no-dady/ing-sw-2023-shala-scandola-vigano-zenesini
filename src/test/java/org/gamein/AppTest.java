@@ -68,8 +68,22 @@ public class AppTest
         CommonGoalCard myTest = CommonGoalCard.TWO_DISTINCT_COLUMNS;
 
         var x = myTest.getCondition().conditionCheck(shelf);
-        System.out.println(x);
         assertFalse("Found two full distinct columns when not expected!", x);
-        System.out.println("Test Passsato!");
+        myTest = CommonGoalCard.FOUR_VSTRIPS_4EQUAL;
+        x = myTest.getCondition().conditionCheck(shelf);
+        assertFalse("Found four strips of 4 equal vertical tiles when not expected!", x);
+        myTest = CommonGoalCard.SIX_VSTRIPS_2EQUAL;
+        x = myTest.getCondition().conditionCheck(shelf);
+        assertFalse("Found six pairs of distinct vertical tiles when not expected!",x);
+        myTest = CommonGoalCard.THREE_COL_MIN3EQUAL;
+        x = myTest.getCondition().conditionCheck(shelf);
+        assertFalse("Found 3 columns with at least 3 tiles of the same type when not expected",x);
+        myTest = CommonGoalCard.TWO_DISTINCT_ROWS;
+        x = myTest.getCondition().conditionCheck(shelf);
+        assertFalse("Found 2 rows full of distinct tiles when not expected!",x);
+        myTest = CommonGoalCard.FOUR_ROWS_MIN2EQUAL;
+        x = myTest.getCondition().conditionCheck(shelf);
+        assertTrue("Didnt find 4 rows with at least 2 tiles of the same type when expected!",x);
+        System.out.println("\nTest Passsato!");
     }
 }

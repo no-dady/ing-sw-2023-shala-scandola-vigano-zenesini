@@ -4,9 +4,9 @@ import org.gamein.model.Tile;
 import org.gamein.model.TileType;
 
 //CROSSDIRECTION
-public class Cgc10 implements CommonGoalCardCondition {
+public class CrossDirection implements CommonGoalCardCondition {
     private final int numToLook;
-    public Cgc10(int numToLook) {
+    public CrossDirection(int numToLook) {
         this.numToLook = numToLook;
     }
     @Override
