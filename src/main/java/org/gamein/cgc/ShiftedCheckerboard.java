@@ -3,7 +3,7 @@ package org.gamein.cgc;
 import org.gamein.model.Tile;
 import org.gamein.model.TileType;
 
-public class Cgc9 implements CommonGoalCardCondition{
+public class ShiftedCheckerboard implements CommonGoalCardCondition{
 
     @Override
     public boolean conditionCheck(Tile[][] shelf) {

@@ -6,7 +6,7 @@ import java.util.List;
 
 public enum CommonGoalCard {
     // 2 squares of 4 tiles of the same type
-    CGC1(8, new Cgc1_8(2)),
+    CGC1(8, new SquareCheck(2)),
     // 2 columns made of all distinct tiles
     TWO_DISTINCT_COLUMNS(8, new StraightDirection(2, Bookshelf.getCols(), false, true)),
     // 4 vertical strips of 4 tiles of the same type
@@ -25,13 +25,13 @@ public enum CommonGoalCard {
     // . . . . .
     // . . . . .
     // = . . . =
-    CGC8(8, new Cgc1_8(1)),
+    CGC8(8, new SquareCheck(1)),
     // . = . = .
     // . . . . .
     // = . = . =
     // . . . . .
     // = . = . =
-    CGC9(8, new Cgc9()),
+    CGC9(8, new ShiftedCheckerboard()),
     // = . =
     // . = .
     // = . =
