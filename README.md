@@ -4,7 +4,7 @@
 > Team: Shala, Scandola, Viganò, Zenesini \
 > Prof: Gianpaolo Cugola
 
-## ToDo list:
+## TODO list:
 
 - [ ] Controllare le implementazioni delle CommonGoalCards(CGC) tramite test
 - [ ] JA board constructor righe dall'alto al basso scendendo filler
