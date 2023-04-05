@@ -6,7 +6,7 @@ import java.util.List;
 
 public enum CommonGoalCard {
     // 2 squares of 4 tiles of the same type
-    CGC1(8, new SquareCheck(2)),
+    TWO_4EQ_TILES_SQUARE(new SquareCheck(2)),
     // 2 columns made of all distinct tiles
     TWO_DISTINCT_COLUMNS(new StraightDirection(2, Bookshelf.getCols(), false, true)),
     // 4 vertical strips of 4 tiles of the same type
@@ -25,46 +25,35 @@ public enum CommonGoalCard {
     // . . . . .
     // . . . . .
     // = . . . =
-    CGC8(8, new SquareCheck(1)),
+    SHELF_CORNERS_EQ(new SquareCheck(1)),
     // . = . = .
     // . . . . .
     // = . = . =
     // . . . . .
     // = . = . =
-    CGC9(8, new ShiftedCheckerboard()),
+    SHIFTED_CHECKERBOARD_EQ( new ShiftedCheckerboard()),
     // = . =
     // . = .
     // = . =
-    CGC10(new CrossDirection(3)),
+    CROSS_EQ(new CrossDirection(3)),
     // = . . . .
     // . = . . .
     // . . = . .
     // . . . = .
     // . . . . =
-    CGC11(new DiagonalDirection(5, true)),
+    SEC_DIAGONAL_EQ(new DiagonalDirection(5, true)),
     // * . . . .
     // * * . . .
     // * * * . .
     // * * * * .
     // * * * * *
-    CGC12(new DiagonalDirection(5, false));
-    private int scoreValue;
+    LOW_TRI_MATRIX(new DiagonalDirection(5, false));
 
     private List<Player> players;
     private final CommonGoalCardCondition condition;
 
-    CommonGoalCard(int startScore, CommonGoalCardCondition cond) {
-        this.scoreValue = startScore;
+    CommonGoalCard(CommonGoalCardCondition cond) {
         this.condition = cond;
-    }
-
-    public int getScoreValue()
-    {
-        return scoreValue;
-    }
-
-    public void setScoreValue(int scoreValue) {
-        this.scoreValue = scoreValue;
     }
 
     public void addPlayer(Player player){
