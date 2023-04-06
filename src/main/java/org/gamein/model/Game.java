@@ -2,41 +2,58 @@ package org.gamein.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 public class Game implements Serializable {
 
+    public static final Random rand = new Random();
     private static final long serialVersionUID = 1L;
 
-    private static Game instance;
+    private static Map<String,Game> instance;
 
     private ArrayList<Player> players;
-    private int turnNumber;
+    private String uuid;
+    private int numPlayers;
     private Board board;
     private Pocket pocket;
+    private boolean gameStarted;
 
-    // Singleton Game istance initialisation
-    private Game() {
-        init();
+    public Game() {
+        this.players = new ArrayList<>();
+//        board = new Board(); // Board instance without tiles (creates cells)
+        this.pocket = new Pocket();
+        this.numPlayers = 0;
+
+        if(instance == null) {
+            instance = new HashMap<String,Game>();
+        }
+
+        this.uuid = UUID.randomUUID().toString();
+        while(instance.containsKey(uuid)) {
+            this.uuid = UUID.randomUUID().toString();
+        }
+
+        instance.put(this.uuid, this);
+
     }
 
-    public void init() {
-        players = new ArrayList<>();
-        turnNumber = 0;
-        pocket = new Pocket();
-
+    /*
+     * Returns the Singleton instance of the game if it has not been created it instanciates it as
+     * well
+     */
+    public Game getInstance(String instanceUUID) {
+        return instance.getOrDefault(instanceUUID, null);
     }
-//    public Game(ArrayList<Player> players, Board board, Pocket pocket)
-//    {
-//        this.players = players;
-//        this.board = board;
-//        this.pocket = pocket;
-//        this.turnNumber = 0;
-//    }
 
+    public void setGameStarted(boolean gameStarted) {
+        this.gameStarted = gameStarted;
+    }
 
-
-    public Player getSinglePlayer(int index) {
-        return this.players.get(index);
+    public String getGameUUID() {
+        return this.uuid;
     }
 
     public ArrayList<Player> getPlayers() {
@@ -47,10 +64,6 @@ public class Game implements Serializable {
 
     public Pocket getPocket() { return this.pocket; }
 
-    public void setTurnNumber(int turnNumber) {
-        this.turnNumber = turnNumber;
-    }
-
     public void setBoard(Board board) {
         this.board = board;
     }
@@ -59,7 +72,8 @@ public class Game implements Serializable {
         this.pocket = pocket;
     }
 
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
+    public void addPlayer(Player player) {
+        if(players.size() < numPlayers)
+        this.players.add(player);
     }
 }
