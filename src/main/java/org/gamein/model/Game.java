@@ -1,0 +1,65 @@
+package org.gamein.model;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Game implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private static Game instance;
+
+    private ArrayList<Player> players;
+    private int turnNumber;
+    private Board board;
+    private Pocket pocket;
+
+    // Singleton Game istance initialisation
+    private Game() {
+        init();
+    }
+
+    public void init() {
+        players = new ArrayList<>();
+        turnNumber = 0;
+        pocket = new Pocket();
+
+    }
+//    public Game(ArrayList<Player> players, Board board, Pocket pocket)
+//    {
+//        this.players = players;
+//        this.board = board;
+//        this.pocket = pocket;
+//        this.turnNumber = 0;
+//    }
+
+
+
+    public Player getSinglePlayer(int index) {
+        return this.players.get(index);
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return this.players;
+    }
+
+    public Board getBoard() { return this.board; }
+
+    public Pocket getPocket() { return this.pocket; }
+
+    public void setTurnNumber(int turnNumber) {
+        this.turnNumber = turnNumber;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public void setPocket(Pocket pocket) {
+        this.pocket = pocket;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+}
