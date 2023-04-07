@@ -9,7 +9,6 @@ import java.util.UUID;
 
 public class Game implements Serializable {
 
-    public static final Random rand = new Random();
     private static final long serialVersionUID = 1L;
 
     private static Map<String,Game> instance;
