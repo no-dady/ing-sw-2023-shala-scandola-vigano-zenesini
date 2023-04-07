@@ -1,7 +1,8 @@
 package org.gamein.model;
 
+import java.io.Serializable;
 
-public class Board {
+public class Board implements Serializable {
     private final CommonGoalCard[] commonGoalCards;
     private Tile[][] slots;
 

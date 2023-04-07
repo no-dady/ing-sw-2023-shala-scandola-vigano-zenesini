@@ -51,18 +51,53 @@ public class Game implements Serializable {
         this.gameStarted = gameStarted;
     }
 
+    /*
+     * @return this instance UUID
+     */
     public String getGameUUID() {
         return this.uuid;
     }
 
+    /*
+     * @return all players of the game
+     */
     public ArrayList<Player> getPlayers() {
         return this.players;
     }
 
+    /*
+     * @return the board of the game
+     */
     public Board getBoard() { return this.board; }
 
+    /*
+     * @return the pocket instance
+     */
     public Pocket getPocket() { return this.pocket; }
 
+    /*
+     * @param player new player joined
+     */
+    public void addPlayer(Player player) {
+        if(players.size() < numPlayers)
+            this.players.add(player);
+    }
+
+    /*
+     * @return True if all players have joined the game
+     */
+    public boolean canStart() {
+        return players.size() == numPlayers;
+    }
+
+    /*
+     * @return True if game has winner
+     */
+    public boolean hasWinner() {
+        return players.stream().anyMatch((x) -> x.isWinner());
+    }
+
+    /*
     public void setBoard(Board board) {
         this.board = board;
     }
@@ -70,9 +105,6 @@ public class Game implements Serializable {
     public void setPocket(Pocket pocket) {
         this.pocket = pocket;
     }
+    */
 
-    public void addPlayer(Player player) {
-        if(players.size() < numPlayers)
-        this.players.add(player);
-    }
 }
