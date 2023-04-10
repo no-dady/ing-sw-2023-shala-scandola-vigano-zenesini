@@ -55,7 +55,7 @@ public class Test_CGC_Diagonal_Direction extends TestCase {
             }
             System.out.println();
         }
-        CommonGoalCard cgc11 = CommonGoalCard.CGC11;
+        CommonGoalCard cgc11 = CommonGoalCard.SEC_DIAGONAL_EQ;
 
         assertTrue("CGC11 Not Passed", cgc11.getCondition().conditionCheck(shelf));
     }
@@ -64,7 +64,7 @@ public class Test_CGC_Diagonal_Direction extends TestCase {
     {
         Tile[][] shelf = shelves.get(0);
 
-        CommonGoalCard cgc12 = CommonGoalCard.CGC12;
+        CommonGoalCard cgc12 = CommonGoalCard.LOW_TRI_MATRIX;
 
         assertTrue("CGC12 Not Passed", cgc12.getCondition().conditionCheck(shelf));
     }

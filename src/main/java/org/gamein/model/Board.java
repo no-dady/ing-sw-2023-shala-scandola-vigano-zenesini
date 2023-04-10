@@ -11,6 +11,7 @@ public class Board {
     }
 
     public void fillBoard(Tile[][] tiles) {
+
         slots = tiles;
     }
 

@@ -56,7 +56,7 @@ public class AppTest_cgc_8 extends TestCase {
                 }
                 System.out.println();
             }
-            CommonGoalCard myTest = CommonGoalCard.CGC8;
+            CommonGoalCard myTest = CommonGoalCard.SHELF_CORNERS_EQ;
             assertTrue("All corners look the same!", myTest.getCondition().conditionCheck(shelf));
         }
 }

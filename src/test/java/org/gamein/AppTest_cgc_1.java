@@ -56,7 +56,7 @@ public class AppTest_cgc_1 extends TestCase {
             }
             System.out.println();
         }
-        CommonGoalCard myTest = CommonGoalCard.CGC1;
+        CommonGoalCard myTest = CommonGoalCard.TWO_4EQ_TILES_SQUARE;
         assertTrue("Found two full distinct squares!", myTest.getCondition().conditionCheck(shelf));
     }
 }

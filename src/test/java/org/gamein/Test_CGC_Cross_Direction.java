@@ -55,7 +55,7 @@ public class Test_CGC_Cross_Direction extends TestCase {
             }
             System.out.println();
         }
-        CommonGoalCard cgc10 = CommonGoalCard.CGC10;
+        CommonGoalCard cgc10 = CommonGoalCard.CROSS_EQ;
 
         assertTrue("CGC10 Not Passed", cgc10.getCondition().conditionCheck(shelf));
     }

@@ -67,7 +67,7 @@ public class TestCgc9
      */
     public void testApp()
     {
-        CommonGoalCard Test = CommonGoalCard.CGC9;
+        CommonGoalCard Test = CommonGoalCard.SHIFTED_CHECKERBOARD_EQ;
 
         Tile[][] shelf1 = shelfa.get(0);
         for(int i = 5; i >= 0; i--) {

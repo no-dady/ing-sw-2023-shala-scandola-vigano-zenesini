@@ -2,18 +2,13 @@ package org.gamein.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.gamein.MainGame;
-import org.gamein.cgc.CommonGoalCardCondition;
 import org.gamein.model.*;
 
-import java.io.Console;
-import java.io.FileReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class GameController {
 
@@ -51,11 +46,11 @@ public class GameController {
 
         // TODO: Make call to method for generating random CommonGoalCard
         cgcEnum = new CommonGoalCard[2];
-        cgcEnum[0] = CommonGoalCard.CGC1;
+        cgcEnum[0] = CommonGoalCard.TWO_4EQ_TILES_SQUARE;
         cgcEnum[1] = CommonGoalCard.TWO_DISTINCT_COLUMNS;
 
         // TODO: Generate slots to pass to the board constructor
-        slots = new Tile[6][5];
+        slots = BoardInitializer.newEmptyBoard();
         board = new Board(cgcEnum, slots);
 
         gameState = new GameState(players, board, pocket);
@@ -64,6 +59,7 @@ public class GameController {
     void createLobby(int playerNumber) throws IllegalPlayersNumberException {
         PersonalGoalCard personalGoalCard;
         PocketBuilder builder = new PocketBuilder();
+        BoardFiller builderBoard = new BoardFiller();
         pocket = new Pocket(builder.createTileListPocket(132));
         for (int i = 0; i < playerNumber; i++) {
             //personalGoalCard.select();
@@ -72,14 +68,15 @@ public class GameController {
 
         switch (playerNumber) {
             case 2:
-                //board = BoardBuilder2();
+                board = new Board(cgcEnum, builderBoard.fillBoard(board.getSlots(), pocket, playerNumber));
             case 3:
-                //board = BoardBuilder3();
+                board = new Board(cgcEnum, builderBoard.fillBoard(board.getSlots(), pocket, playerNumber));
             case 4:
-                //board = BoardBuilder4();
+                board = new Board(cgcEnum, builderBoard.fillBoard(board.getSlots(), pocket, playerNumber));
             default:
                 throw new IllegalPlayersNumberException("wait, you are doing something wrong");
         }
+
         //gameState = new GameState(players, board, pocket);
     }
     void start(List<String> usernames) {
