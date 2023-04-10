@@ -7,8 +7,8 @@
 ## TODO list:
 
 - [ ] Controllare le implementazioni delle CommonGoalCards(CGC) tramite test
-- [ ] JA board constructor righe dall'alto al basso scendendo filler
-- [ ] JA test su board
+- [x] JA board constructor righe dall'alto al basso scendendo filler
+- [x] JA test su board
 - [ ] CA inizializzare bookshelf con empty e non null
 - [ ] JJ test pocket
 - [ ] DA test da finire su straightDirection
