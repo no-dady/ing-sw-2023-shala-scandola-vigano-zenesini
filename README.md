@@ -10,7 +10,7 @@
 - [x] JA board constructor righe dall'alto al basso scendendo filler
 - [x] JA test su board
 - [ ] CA inizializzare bookshelf con empty e non null
-- [ ] JJ test pocket
+- [x] JJ test pocket
 - [ ] DA test da finire su straightDirection
 - [ ] CA finire  json personl goal card
 - [ ] CA test personal goal card
