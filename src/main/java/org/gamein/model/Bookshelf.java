@@ -9,6 +9,13 @@ public class Bookshelf {
 
     public Bookshelf() {
         slots = new Tile[rows][cols];
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                slots[i][j]= new Tile();
+            }
+        }
     }
 
     public Tile[][] getSlots() {
