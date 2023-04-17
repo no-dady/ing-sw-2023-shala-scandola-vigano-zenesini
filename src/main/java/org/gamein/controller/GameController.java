@@ -8,6 +8,7 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameController {
@@ -63,21 +64,16 @@ public class GameController {
         pocket = new Pocket(builder.createTileListPocket(132));
         for (int i = 0; i < playerNumber; i++) {
             //personalGoalCard.select();
-            //players.add(new Player(i, "player" + i, new Bookshelf(), personalGoalCard));
+            Collections.shuffle(pgcList);
+            personalGoalCard = pgcList.remove(0);
+            players.add(new Player(i, "player" + i, new Bookshelf(), personalGoalCard));
         }
-
         switch (playerNumber) {
-            case 2:
-                board = new Board(cgcEnum, builderBoard.fillBoard(board.getSlots(), pocket, playerNumber));
-            case 3:
-                board = new Board(cgcEnum, builderBoard.fillBoard(board.getSlots(), pocket, playerNumber));
-            case 4:
-                board = new Board(cgcEnum, builderBoard.fillBoard(board.getSlots(), pocket, playerNumber));
-            default:
-                throw new IllegalPlayersNumberException("wait, you are doing something wrong");
+            case 2, 3, 4 -> board = new Board(cgcEnum, builderBoard.fillBoard(board.getSlots(), pocket, playerNumber));
+            default -> throw new IllegalPlayersNumberException("wait, you are doing something wrong");
         }
 
-        //gameState = new GameState(players, board, pocket);
+        gameState = new GameState(players, board, pocket);
     }
     void start(List<String> usernames) {
 

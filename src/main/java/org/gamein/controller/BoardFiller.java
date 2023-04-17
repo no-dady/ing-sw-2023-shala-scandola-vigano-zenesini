@@ -16,24 +16,8 @@ public class BoardFiller {
             BoardConfig boardConfig = gson.fromJson(reader, BoardConfig.class);
             for (int i = 0; i < boardConfig.rows; i++) {
                 for (int j = 0; j < boardConfig.cols; j++) {
-                    switch (playerNum) {
-                        case 2 -> {
-                            if ((boardConfig.pattern[i][j] == playerNum) & board[i][j].getTileType().equals(TileType.EMPTY)) {
-                                System.out.println(" sono alla posizione " + i + " " + j + " " + playerNum + " è uguale a " + boardConfig.pattern[i][j] + " e qui ho tile di tipo " + board[i][j].getTileType());
-                                board[i][j] = pocket.popTiles(1).get(0);
-                                System.out.println(" ho posizionato " + board[i][j].getTileType());
-                            }
-                        }
-                        case 3 -> {
-                            if ((boardConfig.pattern[i][j] == playerNum || boardConfig.pattern[i][j] == playerNum - 1) & board[i][j].getTileType().equals(TileType.EMPTY)) {
-                                board[i][j] = pocket.popTiles(1).get(0);
-                            }
-                        }
-                        case 4 -> {
-                            if ((boardConfig.pattern[i][j] == playerNum || boardConfig.pattern[i][j] == playerNum - 1 || boardConfig.pattern[i][j] == playerNum - 2) & board[i][j].getTileType().equals(TileType.EMPTY)) {
-                                board[i][j] = pocket.popTiles(1).get(0);
-                            }
-                        }
+                    if ((boardConfig.pattern[i][j] <= playerNum  && boardConfig.pattern[i][j] != 0) & board[i][j].getTileType().equals(TileType.EMPTY)) {
+                        board[i][j] = pocket.popTiles(1).get(0);
                     }
                 }
             }
