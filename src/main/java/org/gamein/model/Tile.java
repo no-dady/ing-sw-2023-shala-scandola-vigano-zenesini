@@ -27,8 +27,27 @@ public class Tile {
         return Optional.of(this.tileID);
     }
 
-    public boolean IsPickable() {
-        return pickable;
+    public boolean IsPickable(Board board, int x, int y) {
+        int count = 0;
+        if((board.getTile(x-1,y).getTileType().equals(TileType.EMPTY))){
+            count=count+1;
+        }
+        if((board.getTile(x+1,y).getTileType().equals(TileType.EMPTY))){
+            count=count+1;
+        }
+        if((board.getTile(x,y-1).getTileType().equals(TileType.EMPTY))){
+            count=count+1;
+        }
+        if((board.getTile(x,y+1).getTileType().equals(TileType.EMPTY))){
+            count=count+1;
+        }
+        if( count >= 2) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
     }
     
     public void setPickable(boolean pickable){

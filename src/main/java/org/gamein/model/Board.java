@@ -15,11 +15,17 @@ public class Board {
         slots = tiles;
     }
 
+    public void removeTile(int x, int y) {
+        slots[x][y] = null;
+    }
+
     public Tile[][] getSlots() {
         return slots;
     }
 
-    public Tile getTile(int x, int y){ return slots[x][y];}
+    public Tile getTile(int x, int y) {
+        return slots[x][y];
+    }
 
     public CommonGoalCard[] getCommonGoalCards() {
         return commonGoalCards;

@@ -40,4 +40,14 @@ public class Bookshelf {
     public static int getCols() {
         return cols;
     }
+
+    public int getTilePerCol(int index, Bookshelf input) { //conta celle libere per la colonna selezionata
+        int count = 0;
+        for(Tile x: input.getSlots()[index]){
+            if(x.getTileId().isEmpty()){
+                count++;
+            }
+        }
+        return count;
+    }
 }
