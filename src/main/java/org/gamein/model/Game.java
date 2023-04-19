@@ -2,48 +2,46 @@ package org.gamein.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.UUID;
 
 public class Game implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static Map<String,Game> instance;
+    private static List<Game> instance;
 
     private ArrayList<Player> players;
-    private String uuid;
+    private int gameID;
     private int numPlayers;
     private Board board;
     private Pocket pocket;
     private boolean gameStarted;
 
     public Game() {
-        this.players = new ArrayList<>();
+        this.players = new ArrayList<Player>();
 //        board = new Board(); // Board instance without tiles (creates cells)
         this.pocket = new Pocket();
         this.numPlayers = 0;
-
         if(instance == null) {
-            instance = new HashMap<String,Game>();
+            instance = new ArrayList<Game>(1);
         }
 
-        this.uuid = UUID.randomUUID().toString();
-        while(instance.containsKey(uuid)) {
-            this.uuid = UUID.randomUUID().toString();
-        }
-
-        instance.put(this.uuid, this);
+        this.gameID = instance.size()-1;
+        instance.add(this);
 
     }
 
+    public static Game newGame() {
+        return new Game();
+    }
+
     /*
-     * Returns the Singleton instance of the game if it has not been created it instanciates it as
-     * well
+     * Returns the istance of the game
      */
-    public Game getInstance(String instanceUUID) {
-        return instance.getOrDefault(instanceUUID, null);
+    public Game getInstance(int gameId) {
+        if(gameId < 0 || gameId >= instance.size());
+        return instance.get(gameID);
     }
 
     public void setGameStarted(boolean gameStarted) {
@@ -53,8 +51,8 @@ public class Game implements Serializable {
     /*
      * @return this instance UUID
      */
-    public String getGameUUID() {
-        return this.uuid;
+    public int getGameId() {
+        return this.gameID;
     }
 
     /*
