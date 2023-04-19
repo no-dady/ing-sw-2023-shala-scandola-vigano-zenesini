@@ -1,64 +1,76 @@
 package org.gamein.model;
 
-import org.javatuples.Pair;
+import java.io.Serializable;
 
-import java.awt.print.Book;
-
-public class Player {
+public class Player implements Serializable {
     private final int userId;
-    private String userName;
+    private String username;
     private int score;
     private final Bookshelf personalBookshelf;
     private final PersonalGoalCard personalGoalCard;
-    private Pair <Boolean, Boolean> achievedCommon;
 
-    public Player(int userId, String userName, Bookshelf personalBookshelf, PersonalGoalCard personalGoalCard) {
+    public Player(int userId, String username, Bookshelf personalBookshelf, PersonalGoalCard personalGoalCard) {
         this.userId = userId;
-        this.userName = userName;
+        this.username = username;
         this.personalBookshelf = personalBookshelf;
         this.personalGoalCard = personalGoalCard;
-        this.achievedCommon = new Pair<>(Boolean.FALSE, Boolean.FALSE);
     }
 
-    public Pair <Boolean,Boolean> getAchieved()
-    {
-        return this.achievedCommon;
-    }
-
-    public int getScore()
-    {
-        return this.score;
-    }
-
+    /*
+     * @return player's userid
+     */
     public int getUserId()
     {
         return this.userId;
     }
 
+    /*
+     * @return player's username
+     */
     public String getUserName()
     {
-        return this.userName;
+        return this.username;
     }
 
+    /*
+     * @return istance of the player's shelf
+     */
     public Bookshelf getBookshelf()
     {
         return this.personalBookshelf;
     }
 
+    /*
+     * @return istance of the player's personalGoalCard
+     */
     public PersonalGoalCard getPersonalGoalCard()
     {
         return this.personalGoalCard;
     }
 
+    /*
+     * @param score Sets the player score
+     */
     public void setScore(int score)
     {
         this.score = score;
     }
 
-    public void setAchievedCommon(Pair <Boolean,Boolean> achievedInTurn)
+    /*
+     * @return player score
+     */
+    public int getScore()
     {
-        this.achievedCommon = achievedInTurn;
+        return this.score;
     }
 
-    public void setUserName(String userName) { this.userName = userName; }
+    /*
+     * @NotNull
+     * @param username not already taken
+     */
+    public void setUserName(String username) { this.username = username; }
+
+    public boolean isWinner() {
+        return personalBookshelf.getNumTiles() == (Bookshelf.getRows() * Bookshelf.getCols());
+    }
 }

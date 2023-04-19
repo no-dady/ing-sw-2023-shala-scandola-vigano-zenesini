@@ -6,16 +6,11 @@ public class Bookshelf {
     private final Tile[][] slots;
     private static final int rows = 6;
     private static final int cols = 5;
+    private int tileCount;
 
     public Bookshelf() {
         slots = new Tile[rows][cols];
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                slots[i][j]= new Tile();
-            }
-        }
+        tileCount = 0;
     }
 
     public Tile[][] getSlots() {
@@ -30,6 +25,7 @@ public class Bookshelf {
 
         for(Tile t : selectedTiles) {
             slots[i][column] = t;
+            ++tileCount;
             ++i;
         }
     }
@@ -49,5 +45,11 @@ public class Bookshelf {
             }
         }
         return count;
+    }
+    /*
+     * @return number of tiles in the bookshelf;
+     */
+    public int getNumTiles() {
+        return tileCount;
     }
 }
