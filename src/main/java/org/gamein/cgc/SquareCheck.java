@@ -1,7 +1,7 @@
 package org.gamein.cgc;
 
 import org.gamein.model.Tile;
-import org.gamein.model.TileType;
+
 
 public class SquareCheck implements CommonGoalCardCondition {
 
@@ -12,7 +12,7 @@ public class SquareCheck implements CommonGoalCardCondition {
     }
 
     public boolean indexEqual(Tile[] toCheck){
-        if (toCheck[0].getTileType() != TileType.EMPTY && toCheck[1].getTileType() != TileType.EMPTY && toCheck[2].getTileType() != TileType.EMPTY && toCheck[3].getTileType() != TileType.EMPTY)
+        if (!toCheck[0].Empty() && !toCheck[1].Empty() && !toCheck[2].Empty() && !toCheck[3].Empty())
             return toCheck[0].getTileType() == toCheck[1].getTileType() && toCheck[1].getTileType() == toCheck[2].getTileType() && toCheck[2].getTileType() == toCheck[3].getTileType();
         return false;
     }

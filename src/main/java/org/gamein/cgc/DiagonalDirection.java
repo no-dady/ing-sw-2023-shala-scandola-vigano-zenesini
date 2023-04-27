@@ -23,11 +23,11 @@ public class DiagonalDirection implements CommonGoalCardCondition{
 
         for (int row = 0; row <= rowMax; row++)
         {
-            if (!slots[row][0].getTileType().equals(TileType.EMPTY)) {
-                if (!slots[row + 1][1].getTileType().equals(TileType.EMPTY)) {
-                    if (!slots[row + 2][2].getTileType().equals(TileType.EMPTY)) {
-                        if (!slots[row + 3][3].getTileType().equals(TileType.EMPTY)) {
-                            if (!slots[row + 4][4].getTileType().equals(TileType.EMPTY)) {
+            if (!slots[row][0].Empty()) {
+                if (!slots[row + 1][1].Empty()) {
+                    if (!slots[row + 2][2].Empty()) {
+                        if (!slots[row + 3][3].Empty()) {
+                            if (!slots[row + 4][4].Empty()) {
                                 isRising = true;
                                 isDiagonal = true;
                                 rowMax = row;
@@ -37,11 +37,11 @@ public class DiagonalDirection implements CommonGoalCardCondition{
                     }
                 }
             }
-            if (!slots[row][4].getTileType().equals(TileType.EMPTY)) {
-                if (!slots[row + 1][3].getTileType().equals(TileType.EMPTY)) {
-                    if (!slots[row + 2][2].getTileType().equals(TileType.EMPTY)) {
-                        if (!slots[row + 3][1].getTileType().equals(TileType.EMPTY)) {
-                            if (!slots[row + 4][0].getTileType().equals(TileType.EMPTY)) {
+            if (!slots[row][4].Empty()) {
+                if (!slots[row + 1][3].Empty()) {
+                    if (!slots[row + 2][2].Empty()) {
+                        if (!slots[row + 3][1].Empty()) {
+                            if (!slots[row + 4][0].Empty()) {
                                 isRising = false;
                                 isDiagonal = true;
                                 rowMax = row;
@@ -58,7 +58,7 @@ public class DiagonalDirection implements CommonGoalCardCondition{
             if (isEleven)
             {
                 if (isRising) {
-                    TileType typeFound = slots[rowMax][0].getTileType();
+                    String typeFound = slots[rowMax][0].getTileType();
                     if (slots[rowMax + 1][1].getTileType().equals(typeFound)) {
                         if (slots[rowMax + 2][2].getTileType().equals(typeFound)) {
                             if (slots[rowMax + 3][3].getTileType().equals(typeFound)) {
@@ -70,7 +70,7 @@ public class DiagonalDirection implements CommonGoalCardCondition{
                     }
                 }
                 else {
-                    TileType typeFound = slots[rowMax][4].getTileType();
+                    String typeFound = slots[rowMax][4].getTileType();
                     if (slots[rowMax + 1][3].getTileType().equals(typeFound)) {
                         if (slots[rowMax + 2][2].getTileType().equals(typeFound)) {
                             if (slots[rowMax + 3][1].getTileType().equals(typeFound)) {
@@ -86,15 +86,15 @@ public class DiagonalDirection implements CommonGoalCardCondition{
             else {
                 if (isRising)
                 {
-                    if (slots[rowMax + 1][0].getTileType().equals(TileType.EMPTY)) {
-                        if (slots[rowMax + 2][1].getTileType().equals(TileType.EMPTY)) {
-                            if (slots[rowMax + 3][2].getTileType().equals(TileType.EMPTY)) {
-                                if (slots[rowMax + 4][3].getTileType().equals(TileType.EMPTY)) {
+                    if (slots[rowMax + 1][0].Empty()) {
+                        if (slots[rowMax + 2][1].Empty()) {
+                            if (slots[rowMax + 3][2].Empty()) {
+                                if (slots[rowMax + 4][3].Empty()) {
                                     if (rowMax == 1) {
                                         return true;
                                     }
                                     else {
-                                        if (slots[rowMax + 5][3].getTileType().equals(TileType.EMPTY)) {
+                                        if (slots[rowMax + 5][3].Empty()) {
                                             return true;
                                         }
                                     }
@@ -104,15 +104,15 @@ public class DiagonalDirection implements CommonGoalCardCondition{
                     }
                 }
                 else {
-                    if (slots[rowMax + 1][4].getTileType().equals(TileType.EMPTY)) {
-                        if (slots[rowMax + 2][3].getTileType().equals(TileType.EMPTY)) {
-                            if (slots[rowMax + 3][2].getTileType().equals(TileType.EMPTY)) {
-                                if (slots[rowMax + 4][1].getTileType().equals(TileType.EMPTY)) {
+                    if (slots[rowMax + 1][4].Empty()) {
+                        if (slots[rowMax + 2][3].Empty()) {
+                            if (slots[rowMax + 3][2].Empty()) {
+                                if (slots[rowMax + 4][1].Empty()) {
                                     if (rowMax == 1) {
                                         return true;
                                     }
                                     else {
-                                        if (slots[rowMax + 5][0].getTileType().equals(TileType.EMPTY)) {
+                                        if (slots[rowMax + 5][0].Empty()) {
                                             return true;
                                         }
                                     }

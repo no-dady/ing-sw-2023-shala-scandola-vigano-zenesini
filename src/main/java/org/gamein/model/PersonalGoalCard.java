@@ -25,7 +25,7 @@ public class PersonalGoalCard {
         for(String key : goals.keySet()) {
             var coord = goals.get(key);
 
-            if(slots[coord.x()][coord.y()].getTileType() != TileType.valueOf(key)) {
+            if(!slots[coord.x()][coord.y()].getTileType().equals(key)){
                 return false;
             }
         }

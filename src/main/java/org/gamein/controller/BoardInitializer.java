@@ -2,6 +2,7 @@ package org.gamein.controller;
 
 import com.google.gson.Gson;
 import org.gamein.model.Tile;
+import org.gamein.model.TileType;
 
 
 import java.io.FileReader;
