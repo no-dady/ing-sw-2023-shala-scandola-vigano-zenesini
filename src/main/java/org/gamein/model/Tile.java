@@ -1,8 +1,9 @@
 package org.gamein.model;
 
+import java.io.Serializable;
 import java.util.Optional;
 
-public class Tile {
+public class Tile implements Serializable {
     private Integer tileID;
     private TileType tileType;
     
