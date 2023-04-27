@@ -21,8 +21,7 @@ public class PersonalGoalCard {
      * @returns true if all goals are completed
      * @param shelf: player bookshelf not null
      */
-    public boolean completed(Bookshelf shelf) {
-        var slots = shelf.getSlots();
+    public boolean completed(Tile[][] slots) {
         for(String key : goals.keySet()) {
             var coord = goals.get(key);
 

@@ -11,7 +11,7 @@ public class BoardInitializer {
     public static Tile[][] newEmptyBoard() {
         Gson gson = new Gson();
         Tile[][] board = new Tile[0][0];
-        try (FileReader reader = new FileReader("src/test/resources/json/shelves/board_config.json")) {
+        try (FileReader reader = new FileReader("src/main/resources/json/board_config.json")) {
             BoardConfig boardConfig = gson.fromJson(reader, BoardConfig.class);
              board = new Tile[boardConfig.cols][boardConfig.rows];
              for (int i = 0; i < boardConfig.rows; i++) {

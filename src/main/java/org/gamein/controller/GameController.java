@@ -3,7 +3,7 @@ package org.gamein.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.gamein.model.*;
-
+import org.gamein.Exceptions.*;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -14,7 +14,7 @@ import java.util.List;
 public class GameController {
 
     protected static ArrayList<Player> players = null;
-    protected static GameState gameState;
+    protected static Game game;
     protected static Board board;
     protected static Pocket pocket;
     protected static List<PersonalGoalCard> pgcList;
@@ -54,7 +54,7 @@ public class GameController {
         slots = BoardInitializer.newEmptyBoard();
         board = new Board(cgcEnum, slots);
 
-        gameState = new GameState(players, board, pocket);
+        //game = new Game(players, board, pocket);
     }
 
     void createLobby(int playerNumber) throws IllegalPlayersNumberException {
@@ -73,7 +73,7 @@ public class GameController {
             default -> throw new IllegalPlayersNumberException("wait, you are doing something wrong");
         }
 
-        gameState = new GameState(players, board, pocket);
+        //gameState = new GameState(players, board, pocket);
     }
     void start(List<String> usernames) {
 

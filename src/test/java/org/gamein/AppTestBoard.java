@@ -9,6 +9,7 @@ import org.gamein.controller.PocketBuilder;
 
 import org.gamein.model.Pocket;
 import org.gamein.model.Tile;
+import org.gamein.view.TextUI;
 
 
 
@@ -85,7 +86,10 @@ public class AppTestBoard extends TestCase {
             }
             System.out.println();
         }
-        boolean assetion = true;
-        assertTrue("stampati tutti?", assetion);
+        boolean assertion = true;
+        TextUI textView = new TextUI();
+        textView.openTextualArt();
+        textView.printArt(board,textView.boardArt);
+        assertTrue("did it print everything?", assertion);
     }
 }

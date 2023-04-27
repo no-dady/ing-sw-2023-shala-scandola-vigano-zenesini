@@ -17,7 +17,7 @@ public class Board implements Serializable {
     }
 
     public void removeTile(int x, int y) {
-        slots[x][y] = null;
+        slots[x][y] = new Tile();
     }
 
     public Tile[][] getSlots() {

@@ -67,7 +67,7 @@ public class Test_PersonalGoalCard extends TestCase {
         }
         PersonalGoalCard card = pgcList.get(0);
 
-        assertTrue("PGC1 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC1 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard2()
@@ -75,7 +75,7 @@ public class Test_PersonalGoalCard extends TestCase {
         Tile[][] shelf = shelves.get(0);
         PersonalGoalCard card = pgcList.get(1);
 
-        assertTrue("PGC2 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC2 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard3()
@@ -83,7 +83,7 @@ public class Test_PersonalGoalCard extends TestCase {
         Tile[][] shelf = shelves.get(0);
         PersonalGoalCard card = pgcList.get(2);
 
-        assertTrue("PGC3 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC3 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard4()
@@ -91,7 +91,7 @@ public class Test_PersonalGoalCard extends TestCase {
         Tile[][] shelf = shelves.get(0);
         PersonalGoalCard card = pgcList.get(3);
 
-        assertTrue("PGC4 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC4 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard5()
@@ -99,7 +99,7 @@ public class Test_PersonalGoalCard extends TestCase {
         Tile[][] shelf = shelves.get(0);
         PersonalGoalCard card = pgcList.get(4);
 
-        assertTrue("PGC5 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC5 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard6()
@@ -107,7 +107,7 @@ public class Test_PersonalGoalCard extends TestCase {
         Tile[][] shelf = shelves.get(0);
         PersonalGoalCard card = pgcList.get(5);
 
-        assertTrue("PGC6 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC6 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard7()
@@ -115,7 +115,7 @@ public class Test_PersonalGoalCard extends TestCase {
         Tile[][] shelf = shelves.get(0);
         PersonalGoalCard card = pgcList.get(6);
 
-        assertTrue("PGC7 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC7 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard8()
@@ -123,7 +123,7 @@ public class Test_PersonalGoalCard extends TestCase {
         Tile[][] shelf = shelves.get(0);
         PersonalGoalCard card = pgcList.get(7);
 
-        assertTrue("PGC8 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC8 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard9()
@@ -131,7 +131,7 @@ public class Test_PersonalGoalCard extends TestCase {
         Tile[][] shelf = shelves.get(0);
         PersonalGoalCard card = pgcList.get(8);
 
-        assertTrue("PGC9 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC9 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard10()
@@ -139,7 +139,7 @@ public class Test_PersonalGoalCard extends TestCase {
         Tile[][] shelf = shelves.get(0);
         PersonalGoalCard card = pgcList.get(9);
 
-        assertTrue("PGC10 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC10 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard11()
@@ -147,7 +147,7 @@ public class Test_PersonalGoalCard extends TestCase {
         Tile[][] shelf = shelves.get(0);
         PersonalGoalCard card = pgcList.get(10);
 
-        assertTrue("PGC11 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC11 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard12()
@@ -155,7 +155,7 @@ public class Test_PersonalGoalCard extends TestCase {
         Tile[][] shelf = shelves.get(0);
         PersonalGoalCard card = pgcList.get(11);
 
-        assertTrue("PGC12 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC12 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard13()
@@ -163,6 +163,6 @@ public class Test_PersonalGoalCard extends TestCase {
         Tile[][] shelf = shelves.get(0);
         PersonalGoalCard card = pgcList.get(12);
 
-        assertTrue("PGC13 Not Passed", card.conditionCheck(shelf));
+        assertTrue("PGC13 Not Passed", card.completed(shelf));
     }
 }
