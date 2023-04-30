@@ -1,0 +1,37 @@
+{
+  "CAT": {
+    "color": "42m",
+    "sign": "CAT",
+    "images":["a","b","c"]
+  },
+  "TROPHY": {
+    "color": "46m",
+    "sign": "TRO",
+    "images":["a","b","c"]
+  },
+  "FLOWERS": {
+    "color": "45m",
+    "sign": "FLO",
+    "images":["a","b","c"]
+  },
+  "TOYS": {
+    "color": "0;101m",
+    "sign": "TOY",
+    "images":["a","b","c"]
+  },
+  "FRAMES": {
+    "color": "1;34m",
+    "sign": "FRA",
+    "images":["a","b","c"]
+  },
+  "BOOKS": {
+    "color": "0;107m",
+    "sign": "BOO",
+    "images":["a","b","c"]
+  },
+  "EMPTY": {
+    "color": "0m",
+    "sign": "   ",
+    "images":["","",""]
+  }
+}

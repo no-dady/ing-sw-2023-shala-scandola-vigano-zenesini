@@ -46,13 +46,13 @@ public class GameController {
         players.add(new Player(0, "Test1", new Bookshelf(), pgcList.get(1)));
 
         // TODO: Make call to method for generating random CommonGoalCard
-        cgcEnum = new CommonGoalCard[2];
-        cgcEnum[0] = CommonGoalCard.TWO_4EQ_TILES_SQUARE;
-        cgcEnum[1] = CommonGoalCard.TWO_DISTINCT_COLUMNS;
+        //cgcEnum = new CommonGoalCard[2];
+        //cgcEnum[0] = CommonGoalCard.TWO_4EQ_TILES_SQUARE;
+        //cgcEnum[1] = CommonGoalCard.TWO_DISTINCT_COLUMNS;
 
         // TODO: Generate slots to pass to the board constructor
         slots = BoardInitializer.newEmptyBoard();
-        board = new Board(cgcEnum, slots);
+        //board = new Board(cgcEnum, slots);
 
         //game = new Game(players, board, pocket);
     }
@@ -69,7 +69,7 @@ public class GameController {
             players.add(new Player(i, "player" + i, new Bookshelf(), personalGoalCard));
         }
         switch (playerNumber) {
-            case 2, 3, 4 -> board = new Board(cgcEnum, builderBoard.fillBoard(board.getSlots(), pocket, playerNumber));
+            //case 2, 3, 4 -> board = new Board(cgcEnum, builderBoard.fillBoard(board.getSlots(), pocket, playerNumber));
             default -> throw new IllegalPlayersNumberException("wait, you are doing something wrong");
         }
 

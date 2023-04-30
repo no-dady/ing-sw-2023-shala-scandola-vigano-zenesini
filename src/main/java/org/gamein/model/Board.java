@@ -1,14 +1,17 @@
 package org.gamein.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Board implements Serializable {
-    private final CommonGoalCard[] commonGoalCards;
+    private final ArrayList<CommonGoalCard> commonGoalCards;
     private Tile[][] slots;
 
-    public Board(CommonGoalCard[] cards, Tile[][] slots) {
+    public Board(CommonGoalCard commonGoalStrategy, Tile[][] slots) {
+        this.commonGoalCards = new ArrayList<>(2);
+        this.commonGoalCards.add(commonGoalStrategy.getRandGoalCard());
+        this.commonGoalCards.add(commonGoalStrategy.getRandGoalCard());
         this.slots = slots;
-        commonGoalCards = cards;
     }
 
     public void fillBoard(Tile[][] tiles) {
@@ -28,7 +31,7 @@ public class Board implements Serializable {
         return slots[x][y];
     }
 
-    public CommonGoalCard[] getCommonGoalCards() {
+    public ArrayList<CommonGoalCard> getCommonGoalCards() {
         return commonGoalCards;
     }
 

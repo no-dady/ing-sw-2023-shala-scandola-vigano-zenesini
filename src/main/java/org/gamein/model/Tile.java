@@ -3,11 +3,12 @@ package org.gamein.model;
 import java.io.Serializable;
 import java.util.Optional;
 
+
 public class Tile implements Serializable {
     private Integer tileID;
     private TileType tileType;
     
-    private boolean pickable; 
+    private boolean pickable;
 
     public Tile(TileType type, Integer id) {
         this.tileType = type;
@@ -15,12 +16,14 @@ public class Tile implements Serializable {
     }
 
     public Tile(){
-        this.tileType = TileType.EMPTY;
+        this.tileType = new TileType("EMPTY", 0);
     }
-
-    public TileType getTileType()
+    public boolean Empty(){
+        return this.getTileType().equals("EMPTY");
+    }
+    public String getTileType()
     {
-        return this.tileType;
+        return this.tileType.getKey();
     }
 
     public Optional<Integer> getTileId()
@@ -30,16 +33,16 @@ public class Tile implements Serializable {
 
     public boolean IsPickable(Board board, int x, int y) {
         int count = 0;
-        if((board.getTile(x-1,y).getTileType().equals(TileType.EMPTY))){
+        if((board.getTile(x-1,y).Empty())){
             count=count+1;
         }
-        if((board.getTile(x+1,y).getTileType().equals(TileType.EMPTY))){
+        if((board.getTile(x+1,y).Empty())){
             count=count+1;
         }
-        if((board.getTile(x,y-1).getTileType().equals(TileType.EMPTY))){
+        if((board.getTile(x,y-1).Empty())){
             count=count+1;
         }
-        if((board.getTile(x,y+1).getTileType().equals(TileType.EMPTY))){
+        if((board.getTile(x,y+1).Empty())){
             count=count+1;
         }
         if( count >= 2) {

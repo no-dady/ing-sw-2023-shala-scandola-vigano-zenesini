@@ -5,6 +5,8 @@ import com.google.gson.Gson;
 import java.io.FileReader;
 import java.io.IOException;
 
+import static org.gamein.model.TileType.getTileMap;
+
 public class TextUI {
     public String boardArt = "";
     public String bookshelfArt = "";
@@ -28,7 +30,9 @@ public class TextUI {
         int x = 0, y = 0;
         for (int i = 0; i < art.length(); i++) {
             if ( 'X' == art.charAt(i)) {
-                System.out.print(slots[x][y].getTileType().getColor() + ConsoleColors.BLACK_BOLD +  slots[x][y].getTileType().getSign() + ConsoleColors.RESET );
+                String PRESET = "\033[";
+                String color = ConsoleColors.BLUE_BACKGROUND + PRESET + getTileMap().get(slots[x][y].getTileType()).color;
+                System.out.print( color + getTileMap().get(slots[x][y].getTileType()).sign + ConsoleColors.RESET );
                 y++;
             }
             else{

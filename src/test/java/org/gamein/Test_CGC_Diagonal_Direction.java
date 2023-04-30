@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.gamein.cgc.CommonGoalCardCondition;
 import org.gamein.model.CommonGoalCard;
 import org.gamein.model.Tile;
 
@@ -48,6 +49,7 @@ public class Test_CGC_Diagonal_Direction extends TestCase {
      */
     public void testCGC11()
     {
+        CommonGoalCard test = new CommonGoalCard();
         Tile[][] shelf = shelves.get(0);
         for(int i = 5; i >= 0; i--) {
             for(int j = 0; j < 5; j++) {
@@ -55,17 +57,17 @@ public class Test_CGC_Diagonal_Direction extends TestCase {
             }
             System.out.println();
         }
-        CommonGoalCard cgc11 = CommonGoalCard.SEC_DIAGONAL_EQ;
+        CommonGoalCardCondition cgc11 = CommonGoalCard.getCgcMap().get("SEC_DIAGONAL_EQ");
 
-        assertTrue("CGC11 Not Passed", cgc11.getCondition().conditionCheck(shelf));
+        assertTrue("CGC11 Not Passed", cgc11.conditionCheck(shelf));
     }
 
     public void testCGC12()
     {
         Tile[][] shelf = shelves.get(0);
 
-        CommonGoalCard cgc12 = CommonGoalCard.LOW_TRI_MATRIX;
+        CommonGoalCardCondition cgc12 = CommonGoalCard.getCgcMap().get("LOW_TRI_MATRIX");
 
-        assertTrue("CGC12 Not Passed", cgc12.getCondition().conditionCheck(shelf));
+        assertTrue("CGC12 Not Passed", cgc12.conditionCheck(shelf));
     }
 }
