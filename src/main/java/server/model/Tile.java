@@ -31,29 +31,10 @@ public class Tile implements Serializable {
         return Optional.of(this.tileID);
     }
 
-    public boolean IsPickable(Board board, int x, int y) {
-        int count = 0;
-        if((board.getTile(x-1,y).Empty())){
-            count=count+1;
-        }
-        if((board.getTile(x+1,y).Empty())){
-            count=count+1;
-        }
-        if((board.getTile(x,y-1).Empty())){
-            count=count+1;
-        }
-        if((board.getTile(x,y+1).Empty())){
-            count=count+1;
-        }
-        if( count >= 2) {
-            return true;
-        }
-        else {
-            return false;
-        }
-
+    public boolean isPickable() {
+        return pickable;
     }
-    
+
     public void setPickable(boolean pickable){
         this.pickable = pickable;
     }

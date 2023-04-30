@@ -96,6 +96,12 @@ public class Game implements Serializable {
         return players.stream().anyMatch((x) -> x.isWinner());
     }
 
+    public void lastMessage() {
+    }
+
+    public void errorMessage(int idPlayer) {
+    }
+
     /*
     public void setBoard(Board board) {
         this.board = board;

@@ -14,7 +14,7 @@ import java.util.Scanner;
 import static java.lang.Integer.parseInt;
 
 @Deprecated
-public class TurnController implements Observer {
+public class TurnController extends Controller {
 
 private Tile SelectedTileControl(Board board, int x, int y) throws InvalidTileException {
         if(board.getTile(x,y).isPickable()){

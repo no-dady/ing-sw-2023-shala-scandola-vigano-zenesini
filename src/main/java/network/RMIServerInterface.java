@@ -1,6 +1,6 @@
-package org.gamein.network;
+package network;
 
-import org.gamein.model.Tile;
+import server.model.Tile;
 
 import java.rmi.*;
 

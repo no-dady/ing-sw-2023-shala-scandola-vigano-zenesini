@@ -1,5 +1,6 @@
 package network;
 
+import client.UI;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -37,5 +38,14 @@ public class RMIClientClass {
         {
             System.out.println("Errore Client: " + ea);
         }
+    }
+
+    private UI gui = null;
+    private UI tui = null;
+
+    public UI getUI(){
+        if(gui==null)
+            return tui;
+        return gui;
     }
 }

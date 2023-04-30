@@ -1,4 +1,4 @@
-package org.gamein.model;
+package server.model;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class Bookshelf {
         return cols;
     }
 
-    public int getTilePerCol(int index, Bookshelf input) { //conta celle libere per la colonna selezionata
+    public int getTilePerCol(int index, Bookshelf input) {
         int count = 0;
         for(Tile x: input.getSlots()[index]){
             if(x.getTileId().isEmpty()){

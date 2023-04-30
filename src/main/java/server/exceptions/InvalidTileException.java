@@ -1,4 +1,4 @@
-package org.gamein.Exceptions;
+package server.exceptions;
 
 public class InvalidTileException extends Throwable {
     public InvalidTileException(String s) {
