@@ -3,14 +3,12 @@ package org.gamein;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.gamein.controller.BoardFiller;
-import org.gamein.controller.BoardInitializer;
-import org.gamein.controller.PocketBuilder;
+import server.controller.BoardFiller;
+import server.controller.BoardInitializer;
+import server.controller.PocketBuilder;
 
-import org.gamein.model.Pocket;
-import org.gamein.model.Tile;
-import org.gamein.view.TextUI;
-
+import server.model.Pocket;
+import server.model.Tile;
 
 
 public class AppTestBoard extends TestCase {
@@ -87,9 +85,6 @@ public class AppTestBoard extends TestCase {
             System.out.println();
         }
         boolean assertion = true;
-        TextUI textView = new TextUI();
-        textView.openTextualArt();
-        textView.printArt(board,textView.boardArt);
         assertTrue("did it print everything?", assertion);
     }
 }

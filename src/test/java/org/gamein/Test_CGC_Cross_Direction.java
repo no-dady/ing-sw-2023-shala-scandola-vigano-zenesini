@@ -6,10 +6,9 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.gamein.cgc.CommonGoalCardCondition;
-import org.gamein.model.CommonGoalCard;
-import org.gamein.model.Tile;
-import org.gamein.view.TextUI;
+import server.cgc.CommonGoalCardCondition;
+import server.model.CommonGoalCard;
+import server.model.Tile;
 
 import java.io.Reader;
 import java.nio.file.Files;
@@ -59,9 +58,6 @@ public class Test_CGC_Cross_Direction extends TestCase {
             System.out.println();
         }
         CommonGoalCardCondition cgc10 = CommonGoalCard.getCgcMap().get("CROSS_EQ");
-        TextUI textUI = new TextUI();
-        textUI.openTextualArt();
-        textUI.printArt(shelf, textUI.bookshelfArt);
 
         assertTrue("CGC10 Not Passed", cgc10.conditionCheck(shelf));
     }
