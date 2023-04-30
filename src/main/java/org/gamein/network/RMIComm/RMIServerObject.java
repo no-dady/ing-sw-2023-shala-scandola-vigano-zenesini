@@ -1,9 +1,8 @@
-package org.gamein.network;
+package org.gamein.network.RMIComm;
 
 import org.gamein.model.Board;
 import org.gamein.model.Bookshelf;
 import org.gamein.model.Tile;
-import org.gamein.model.TileType;
 
 import java.rmi.*;
 import java.rmi.server.*;

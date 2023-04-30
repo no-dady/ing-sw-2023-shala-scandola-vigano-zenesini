@@ -1,4 +1,4 @@
-package org.gamein.network;
+package org.gamein.network.RMIComm;
 
 import org.gamein.model.Tile;
 

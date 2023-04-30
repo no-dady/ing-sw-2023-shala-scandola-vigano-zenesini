@@ -1,4 +1,4 @@
-package org.gamein.network;
+package org.gamein.network.RMIComm;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
