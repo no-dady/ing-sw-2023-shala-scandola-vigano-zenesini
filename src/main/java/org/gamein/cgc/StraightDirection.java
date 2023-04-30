@@ -30,7 +30,7 @@ public class StraightDirection implements CommonGoalCardCondition {
         for(int i = 0; i < Bookshelf.getCols() && checked < timesToLook; i++) {
             var tile = slots[0][i];
             count = 0;
-            for(int j = 0; j < Bookshelf.getRows() && slots[j][i].getTileType() != TileType.EMPTY && count < numToLook; ++j) {
+            for(int j = 0; j < Bookshelf.getRows() && !slots[j][i].Empty() && count < numToLook; ++j) {
                 if((slots[j][i].getTileType().equals(tile.getTileType())) == isEqual) {
                     count++;
                 } else {
@@ -53,7 +53,7 @@ public class StraightDirection implements CommonGoalCardCondition {
         for(int i = 0; i < Bookshelf.getRows() && checked < timesToLook; i++) {
             var tile = slots[i][0];
             count = 0;
-            for(int j = 0; j < Bookshelf.getCols() && slots[i][j].getTileType() != TileType.EMPTY && count < numToLook; ++j) {
+            for(int j = 0; j < Bookshelf.getCols() && !slots[i][j].Empty() && count < numToLook; ++j) {
                 if((slots[i][j].getTileType().equals(tile.getTileType())) == isEqual) {
                     count++;
                 } else {

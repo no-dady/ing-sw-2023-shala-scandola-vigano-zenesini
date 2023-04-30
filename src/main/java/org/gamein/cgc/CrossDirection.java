@@ -19,9 +19,9 @@ public class CrossDirection implements CommonGoalCardCondition {
         }
         for (int row = 0; row < rowMax; row++) {
             for (int column = 0; column < columnMax; column++) {
-                if (!shelf[row][column].getTileType().equals(TileType.EMPTY))
+                if (!shelf[row][column].Empty())
                 {
-                    TileType typeFound = shelf[row][column].getTileType();
+                    String typeFound = shelf[row][column].getTileType();
 
                     if (shelf[row + 2][column].getTileType().equals(typeFound) && shelf[row + 1][column + 1].getTileType().equals(typeFound) && shelf[row][column + 2].getTileType().equals(typeFound) && shelf[row + 2][column + 2].getTileType().equals(typeFound))
                     {
