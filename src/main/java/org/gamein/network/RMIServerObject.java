@@ -1,5 +1,7 @@
 package org.gamein.network;
 
+import org.gamein.model.Board;
+import org.gamein.model.Bookshelf;
 import org.gamein.model.Tile;
 import org.gamein.model.TileType;
 
@@ -23,7 +25,7 @@ public class RMIServerObject extends UnicastRemoteObject implements RMIServerInt
         return nstr;
     }
 
-    public Tile[][] testStrangeObj(Tile[][] shelf)
+    public void sendShelf(Tile[][] shelf)
     {
         for(int i = 5; i >= 0; i--) {
             for(int j = 0; j < 5; j++) {
@@ -31,8 +33,15 @@ public class RMIServerObject extends UnicastRemoteObject implements RMIServerInt
             }
             System.out.println();
         }
+    }
 
-        shelf[1][1] = new Tile(TileType.TROPHY, 56);
-        return shelf;
+    public void sendBoard(Board board) throws RemoteException
+    {
+
+    }
+
+    public void sendBookshelf(Bookshelf bookshelf) throws RemoteException
+    {
+
     }
 }

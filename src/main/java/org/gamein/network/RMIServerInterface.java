@@ -1,5 +1,7 @@
 package org.gamein.network;
 
+import org.gamein.model.Board;
+import org.gamein.model.Bookshelf;
 import org.gamein.model.Tile;
 
 import java.rmi.*;
@@ -8,5 +10,9 @@ public interface RMIServerInterface extends Remote {
 
     public String send(String string) throws RemoteException;
 
-    public Tile[][] testStrangeObj(Tile[][] shelf) throws RemoteException;
+    public void sendShelf(Tile[][] shelf) throws RemoteException;
+
+    public void sendBoard(Board board) throws RemoteException;
+
+    public void sendBookshelf(Bookshelf bookshelf) throws RemoteException;
 }

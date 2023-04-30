@@ -24,18 +24,11 @@ public class RMIClientClass {
             List<Tile[][]> shelves = gson.fromJson(reader, new TypeToken<List<Tile[][]>>() {}.getType());
             Tile[][] shelf = shelves.get(0);
 
-            Tile[][] res = access.testStrangeObj(shelf);
-
-            for(int i = 5; i >= 0; i--) {
-                for(int j = 0; j < 5; j++) {
-                    System.out.print(res[i][j].getTileType() + "\t|\t");
-                }
-                System.out.println();
-            }
+            access.sendShelf(shelf);
         }
         catch (Exception ea)
         {
-            System.out.println("Errore Client: " + ea);
+            System.out.println("Client Error: " + ea);
         }
     }
 }
