@@ -1,10 +1,12 @@
 package org.gamein.model;
 
+import java.io.Serializable;
 import java.util.Optional;
 
-public class Tile {
-    private int tileID;
-    private final TileType tileType;
+
+public class Tile implements Serializable {
+    private Integer tileID;
+    private TileType tileType;
     
     private boolean pickable;
 
