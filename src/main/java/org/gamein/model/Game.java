@@ -1,5 +1,7 @@
 package org.gamein.model;
 
+import org.gamein.controller.BoardInitializer;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,8 @@ public class Game implements Serializable {
 
     public Game() {
         this.players = new ArrayList<Player>();
-//        board = new Board(); // Board instance without tiles (creates cells)
+        CommonGoalCard commonGoalStrategy = new CommonGoalCard();
+        this.board = new Board(commonGoalStrategy, BoardInitializer.newEmptyBoard());
         this.pocket = new Pocket();
         this.numPlayers = 0;
         if(instance == null) {

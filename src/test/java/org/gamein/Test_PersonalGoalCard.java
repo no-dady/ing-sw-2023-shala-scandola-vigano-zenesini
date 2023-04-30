@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.gamein.model.CommonGoalCard;
 import org.gamein.model.PersonalGoalCard;
 import org.gamein.model.Tile;
 

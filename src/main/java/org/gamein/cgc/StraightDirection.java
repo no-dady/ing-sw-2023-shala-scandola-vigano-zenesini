@@ -1,12 +1,8 @@
 package org.gamein.cgc;
 
 import org.gamein.model.Bookshelf;
-import org.gamein.model.CommonGoalCard;
 import org.gamein.model.Tile;
 import org.gamein.model.TileType;
-
-import java.util.ArrayList;
-import java.util.List;
 
 // TODO: Test algorithms for performance and correctness
 public class StraightDirection implements CommonGoalCardCondition {

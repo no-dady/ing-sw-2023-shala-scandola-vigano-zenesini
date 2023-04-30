@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.gamein.cgc.CommonGoalCardCondition;
 import org.gamein.model.CommonGoalCard;
 import org.gamein.model.Tile;
 
@@ -49,6 +50,7 @@ public class AppTest_cgc_8 extends TestCase {
          */
         public void testApp_cgc_8()
         {
+            CommonGoalCard test = new CommonGoalCard();
             Tile[][] shelf = shelves.get(0);
             for(int i = 5; i >= 0; i--) {
                 for(int j = 0; j < 5; j++) {
@@ -56,8 +58,8 @@ public class AppTest_cgc_8 extends TestCase {
                 }
                 System.out.println();
             }
-            CommonGoalCard myTest = CommonGoalCard.SHELF_CORNERS_EQ;
-            assertTrue("All corners look the same!", myTest.getCondition().conditionCheck(shelf));
+            CommonGoalCardCondition myTest = CommonGoalCard.getCgcMap().get("SHELF_CORNERS_EQ");
+            assertTrue("All corners look the same!", myTest.conditionCheck(shelf));
         }
 }
 
