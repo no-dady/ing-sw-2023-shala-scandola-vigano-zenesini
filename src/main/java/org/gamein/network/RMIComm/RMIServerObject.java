@@ -12,18 +12,6 @@ public class RMIServerObject extends UnicastRemoteObject implements RMIServerInt
         super();
     }
 
-    public String send(String string) throws RemoteException {
-        System.out.println(string);
-        char ch;
-        String nstr = "";
-        for (int i=0; i<string.length(); i++)
-        {
-            ch= string.charAt(i);
-            nstr= ch+nstr;
-        }
-        return nstr;
-    }
-
     public void sendShelf(Tile[][] shelf)
     {
         for(int i = 5; i >= 0; i--) {

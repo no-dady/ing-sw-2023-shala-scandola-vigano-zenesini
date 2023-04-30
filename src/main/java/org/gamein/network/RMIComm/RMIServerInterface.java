@@ -8,8 +8,6 @@ import java.rmi.*;
 
 public interface RMIServerInterface extends Remote {
 
-    public String send(String string) throws RemoteException;
-
     public void sendShelf(Tile[][] shelf) throws RemoteException;
 
     public void sendBoard(Board board) throws RemoteException;
