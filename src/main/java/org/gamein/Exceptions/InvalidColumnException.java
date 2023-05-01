@@ -1,4 +1,4 @@
-package org.gamein.controller;
+package org.gamein.Exceptions;
 
 public class InvalidColumnException extends Throwable {
     public InvalidColumnException(String columnIsNotAvailable) {

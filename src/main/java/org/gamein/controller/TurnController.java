@@ -1,5 +1,6 @@
 package org.gamein.controller;
 
+import org.gamein.Exceptions.InvalidTileException;
 import org.gamein.model.Board;
 import org.gamein.model.Bookshelf;
 import org.gamein.model.Tile;
@@ -16,7 +17,7 @@ public class TurnController implements Observer {
 
     private Tile SelectedTileControl(Board board, int x, int y) throws InvalidTileException {
         if(board.getTile(x,y).IsPickable(board,x,y)){
-            board.removeTile(x,y); //imposta la Tile come non pickable oppure la rimuove del tutto dalla board
+            board.removeTile(x,y); //setting the tile as not pickable and removing it from the board
             return board.getTile(x,y);
         }
         else{
@@ -25,8 +26,8 @@ public class TurnController implements Observer {
     }
 
     private boolean SelectedColumnControl(Bookshelf bookshelf, int x, ArrayList<Tile> tileList) throws InvalidColumnException{
-        if(bookshelf.getTilePerCol(x,bookshelf)+tileList.size()<6){ //controlla che ci sia spazio
-            bookshelf.setSlots(x,tileList); //aggiunge alla bookshelf
+        if(bookshelf.getTilePerCol(x,bookshelf)+tileList.size()<6){ //the condition verifies that you have enough space
+            bookshelf.setSlots(x,tileList); //add the selected list of tile to the bookshelf
             return true;
         }
         else{
@@ -39,15 +40,15 @@ public class TurnController implements Observer {
         ArrayList<Tile> selected = null;
         while(more <= 2){
             Scanner coordinates = new Scanner(System.in);
-            int x = parseInt(coordinates.nextLine());//devono essere passate in gui quindi dalla view
+            int x = parseInt(coordinates.nextLine());//to be passed by the gui
             int y = parseInt(coordinates.nextLine());//
-            more = parseInt(coordinates.nextLine());//in test se si vogliono prendere meno di 3 tiles si può cambiare il valore di more
+            more = parseInt(coordinates.nextLine());//in a test case the more parameters can be modified
             if(board.getTile(x,y).IsPickable(board,x,y)){
                 selected.add(SelectedTileControl(board,x,y));
                 more++;
             }
             else{
-                System.out.println("Tile's not pickable"); //lancia errore senza però togliere la possibilità di scegliere la tile
+                System.out.println("Tile's not pickable"); //throws an error even if you'll still be able to pick another tile
             }
         }
         Scanner col = new Scanner(System.in);
@@ -60,7 +61,7 @@ public class TurnController implements Observer {
         }
     }
 
-    public void SelectColumn() throws NotImplementedException {
+    public void SelectColumn() throws NotImplementedException { //useless
         throw new NotImplementedException("Todo");
     }
 
