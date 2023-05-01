@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 
+//It implements the client, but it will be used on the server-side to call functions
 public class ClientSkeleton implements Client {
     private final ObjectOutputStream oos;
     private final ObjectInputStream ois;
@@ -38,7 +39,7 @@ public class ClientSkeleton implements Client {
 
     //Action n 1
     @Override
-    public void sendChoice(int columnChoice) throws RemoteException
+    public void sendShelf(Tile[][] shelf) throws RemoteException
     {
         try
         {
@@ -46,22 +47,22 @@ public class ClientSkeleton implements Client {
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send action number sendChoice", e);
+            throw new RemoteException("Cannot send action number sendShelf", e);
         }
 
         try
         {
-            oos.writeInt(columnChoice);
+            oos.writeObject(shelf);
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send column choice", e);
+            throw new RemoteException("Cannot send shelf", e);
         }
     }
 
     //Action n 2
     @Override
-    public void sendPick(Tile[] tilePick) throws RemoteException
+    public void sendBoard(Board board) throws RemoteException
     {
         try
         {
@@ -69,22 +70,22 @@ public class ClientSkeleton implements Client {
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send action number sendPick", e);
+            throw new RemoteException("Cannot send action number sendBoard", e);
         }
 
         try
         {
-            oos.writeObject(tilePick);
+            oos.writeObject(board);
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send tile pick from board", e);
+            throw new RemoteException("Cannot send board", e);
         }
     }
 
     //Action n 3
     @Override
-    public void testSend(String string) throws RemoteException
+    public void sendBookshelf(Bookshelf bookshelf) throws RemoteException
     {
         try
         {
@@ -92,7 +93,30 @@ public class ClientSkeleton implements Client {
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send action number sendTest", e);
+            throw new RemoteException("Cannot send action number sendBookshelf", e);
+        }
+
+        try
+        {
+            oos.writeObject(bookshelf);
+        }
+        catch (IOException e)
+        {
+            throw new RemoteException("Cannot send the bookshelf", e);
+        }
+    }
+
+    //Action n 4
+    @Override
+    public void testSend(String string) throws RemoteException
+    {
+        try
+        {
+            oos.writeInt(4);
+        }
+        catch (IOException e)
+        {
+            throw new RemoteException("Cannot send action number testSend", e);
         }
 
         try
@@ -101,7 +125,7 @@ public class ClientSkeleton implements Client {
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send string from client", e);
+            throw new RemoteException("Cannot send the String", e);
         }
     }
 
@@ -120,36 +144,26 @@ public class ClientSkeleton implements Client {
 
         switch (actionNumber) {
             case 1 -> {
-                Tile[][] shelf;
+                int choice;
                 try {
-                    shelf = (Tile[][]) ois.readObject();
+                    choice = ois.readInt();
                 } catch (IOException e) {
-                    throw new RemoteException("Cannot receive Shelf from client", e);
-                } catch (ClassNotFoundException e) {
-                    throw new RemoteException("Cannot deserialize Shelf from client", e);
+                    throw new RemoteException("Cannot receive choice from client", e);
                 }
+                server.sendChoice(choice);
             }
             case 2 -> {
-                Board board;
+                Tile[] tilePick;
                 try {
-                    board = (Board) ois.readObject();
+                    tilePick = (Tile[]) ois.readObject();
                 } catch (IOException e) {
-                    throw new RemoteException("Cannot receive Board from client", e);
+                    throw new RemoteException("Cannot receive tilePick from client", e);
                 } catch (ClassNotFoundException e) {
-                    throw new RemoteException("Cannot deserialize Board from client", e);
+                    throw new RemoteException("Cannot deserialize tilePick from client", e);
                 }
+                server.sendPick(tilePick);
             }
             case 3 -> {
-                Bookshelf bookshelf;
-                try {
-                    bookshelf = (Bookshelf) ois.readObject();
-                } catch (IOException e) {
-                    throw new RemoteException("Cannot receive Bookshelf from client", e);
-                } catch (ClassNotFoundException e) {
-                    throw new RemoteException("Cannot deserialize Bookshelf from client", e);
-                }
-            }
-            case 4 -> {
                 String string;
                 try {
                     string = (String) ois.readObject();
@@ -158,7 +172,7 @@ public class ClientSkeleton implements Client {
                 } catch (ClassNotFoundException e) {
                     throw new RemoteException("Cannot deserialize String from client", e);
                 }
-                System.out.println("Ricevuto: " + string);
+                server.testSend(string);
             }
         }
     }

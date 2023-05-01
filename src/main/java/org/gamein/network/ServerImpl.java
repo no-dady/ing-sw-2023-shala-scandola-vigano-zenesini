@@ -8,6 +8,14 @@ import java.rmi.*;
 import java.rmi.server.*;
 
 public class ServerImpl extends UnicastRemoteObject implements Server {
+
+    //Temporary position for testing purpose
+    public Client client;
+
+    public Client getClient() {
+        return this.client;
+    }
+
     public ServerImpl() throws RemoteException {
         super();
     }
@@ -15,28 +23,19 @@ public class ServerImpl extends UnicastRemoteObject implements Server {
     @Override
     public void register(Client client)
     {
-
+        try {
+            client.testSend("Test RMI string from server to client");
+        } catch(RemoteException e) { System.out.println(e); }
     }
 
     @Override
-    public void sendShelf(Tile[][] shelf)
-    {
-        for(int i = 5; i >= 0; i--) {
-            for(int j = 0; j < 5; j++) {
-                System.out.print(shelf[i][j].getTileType() + "\t|\t");
-            }
-            System.out.println();
-        }
-    }
-
-    @Override
-    public void sendBoard(Board board) throws RemoteException
+    public void sendChoice(int columnChoice) throws RemoteException
     {
 
     }
 
     @Override
-    public void sendBookshelf(Bookshelf bookshelf) throws RemoteException
+    public void sendPick(Tile[] tilePick) throws RemoteException
     {
 
     }

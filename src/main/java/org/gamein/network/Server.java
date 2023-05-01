@@ -8,13 +8,15 @@ import java.rmi.*;
 
 public interface Server extends Remote {
 
-    public void register(Client client)  throws RemoteException;;
+    //Needed to registry (and intercept) the client when it connects to the server
+    public void register(Client client) throws RemoteException;
 
-    public void sendShelf(Tile[][] shelf) throws RemoteException;
+    //Send the chosen Column number of the client's bookshelf to server
+    public void sendChoice(int columnChoice) throws RemoteException;
 
-    public void sendBoard(Board board) throws RemoteException;
+    //Send the Tile picked from the board from server to server
+    public void sendPick(Tile[] tilePick) throws RemoteException;
 
-    public void sendBookshelf(Bookshelf bookshelf) throws RemoteException;
-
+    //Test function
     public void testSend(String string) throws RemoteException;
 }

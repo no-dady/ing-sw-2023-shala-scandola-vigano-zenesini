@@ -1,5 +1,6 @@
 package org.gamein.network.SocketComm;
 
+import org.gamein.network.Client;
 import org.gamein.network.Server;
 import org.gamein.network.ServerImpl;
 
@@ -19,6 +20,8 @@ public class TestAppServerSocket {
                 {
                     ClientSkeleton clientSkeleton = new ClientSkeleton(socket);
                     Server server = new ServerImpl();
+                    //To send the info you have to call the clientSkeleton's function on the server-side
+                    clientSkeleton.testSend("Test Socket string from server to client");
                     while (true) {
                         clientSkeleton.receive(server);
                     }

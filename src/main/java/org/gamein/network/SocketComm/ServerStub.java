@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 
+//It implements the Server, but it will be used on the client-side to communicate
 public class ServerStub implements Server {
     String ip;
 
@@ -58,9 +59,17 @@ public class ServerStub implements Server {
         }
     }
 
+    public void close() throws RemoteException {
+        try {
+            socket.close();
+        } catch (IOException e) {
+            throw new RemoteException("Cannot close socket", e);
+        }
+    }
+
     //Action n 1
     @Override
-    public void sendShelf(Tile[][] shelf) throws RemoteException
+    public void sendChoice(int columnChoice) throws RemoteException
     {
         try
         {
@@ -68,22 +77,22 @@ public class ServerStub implements Server {
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send action number sendShelf", e);
+            throw new RemoteException("Cannot send action number sendChoice", e);
         }
 
         try
         {
-            oos.writeObject(shelf);
+            oos.writeInt(columnChoice);
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send shelf", e);
+            throw new RemoteException("Cannot send column choice", e);
         }
     }
 
     //Action n 2
     @Override
-    public void sendBoard(Board board) throws RemoteException
+    public void sendPick(Tile[] tilePick) throws RemoteException
     {
         try
         {
@@ -91,22 +100,22 @@ public class ServerStub implements Server {
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send action number sendBoard", e);
+            throw new RemoteException("Cannot send action number sendPick", e);
         }
 
         try
         {
-            oos.writeObject(board);
+            oos.writeObject(tilePick);
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send board", e);
+            throw new RemoteException("Cannot send tile pick from board", e);
         }
     }
 
     //Action n 3
     @Override
-    public void sendBookshelf(Bookshelf bookshelf) throws RemoteException
+    public void testSend(String string) throws RemoteException
     {
         try
         {
@@ -114,30 +123,7 @@ public class ServerStub implements Server {
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send action number sendBookshelf", e);
-        }
-
-        try
-        {
-            oos.writeObject(bookshelf);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send the bookshelf", e);
-        }
-    }
-
-    //Action n 4
-    @Override
-    public void testSend(String string) throws RemoteException
-    {
-        try
-        {
-            oos.writeInt(4);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send action number testSend", e);
+            throw new RemoteException("Cannot send action number sendTest", e);
         }
 
         try
@@ -146,15 +132,7 @@ public class ServerStub implements Server {
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send the String", e);
-        }
-    }
-
-    public void close() throws RemoteException {
-        try {
-            socket.close();
-        } catch (IOException e) {
-            throw new RemoteException("Cannot close socket", e);
+            throw new RemoteException("Cannot send string from client", e);
         }
     }
 
@@ -173,24 +151,39 @@ public class ServerStub implements Server {
 
         switch (actionNumber) {
             case 1 -> {
-                int choice;
+                Tile[][] shelf;
                 try {
-                    choice = ois.readInt();
+                    shelf = (Tile[][]) ois.readObject();
                 } catch (IOException e) {
-                    throw new RemoteException("Cannot receive choice from client", e);
+                    throw new RemoteException("Cannot receive Shelf from client", e);
+                } catch (ClassNotFoundException e) {
+                    throw new RemoteException("Cannot deserialize Shelf from client", e);
                 }
+                client.sendShelf(shelf);
             }
             case 2 -> {
-                Tile[] tilePick;
+                Board board;
                 try {
-                    tilePick = (Tile[]) ois.readObject();
+                    board = (Board) ois.readObject();
                 } catch (IOException e) {
-                    throw new RemoteException("Cannot receive tilePick from client", e);
+                    throw new RemoteException("Cannot receive Board from client", e);
                 } catch (ClassNotFoundException e) {
-                    throw new RemoteException("Cannot deserialize tilePick from client", e);
+                    throw new RemoteException("Cannot deserialize Board from client", e);
                 }
+                client.sendBoard(board);
             }
             case 3 -> {
+                Bookshelf bookshelf;
+                try {
+                    bookshelf = (Bookshelf) ois.readObject();
+                } catch (IOException e) {
+                    throw new RemoteException("Cannot receive Bookshelf from client", e);
+                } catch (ClassNotFoundException e) {
+                    throw new RemoteException("Cannot deserialize Bookshelf from client", e);
+                }
+                client.sendBookshelf(bookshelf);
+            }
+            case 4 -> {
                 String string;
                 try {
                     string = (String) ois.readObject();
@@ -199,7 +192,7 @@ public class ServerStub implements Server {
                 } catch (ClassNotFoundException e) {
                     throw new RemoteException("Cannot deserialize String from client", e);
                 }
-                System.out.println("Ricevuto: " + string);
+                client.testSend(string);
             }
         }
     }

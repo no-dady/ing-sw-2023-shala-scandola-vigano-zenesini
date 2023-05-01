@@ -1,5 +1,6 @@
 package org.gamein.network.RMIComm;
 
+import org.gamein.network.ClientImpl;
 import org.gamein.network.Server;
 
 import java.rmi.*;
@@ -10,11 +11,12 @@ public class TestAppClientRMI {
     {
         try
         {
-            Server access = (Server)Naming.lookup("rmi://localhost:1900" + "/myShelfie");
+            Server server = (Server)Naming.lookup("rmi://localhost:1900" + "/myShelfie");
 
-            String string = "Ciao";
+            String string = "Test RMI string from client to server";
 
-            access.testSend(string);
+            ClientImpl client = new ClientImpl(server);
+            server.testSend(string);
         }
         catch (Exception ea)
         {

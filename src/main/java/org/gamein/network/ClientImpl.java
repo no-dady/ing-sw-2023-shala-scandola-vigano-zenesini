@@ -1,5 +1,7 @@
 package org.gamein.network;
 
+import org.gamein.model.Board;
+import org.gamein.model.Bookshelf;
 import org.gamein.model.Tile;
 
 import java.rmi.RemoteException;
@@ -16,18 +18,27 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
         server.register(this);
     }
 
-    public void sendChoice(int columnChoice) throws RemoteException
+    @Override
+    public void sendShelf(Tile[][] shelf)
     {
 
     }
 
-    public void sendPick(Tile[] tilePick) throws RemoteException
+    @Override
+    public void sendBoard(Board board) throws RemoteException
     {
 
     }
 
+    @Override
+    public void sendBookshelf(Bookshelf bookshelf) throws RemoteException
+    {
+
+    }
+
+    @Override
     public void testSend(String string) throws RemoteException
     {
-
+        System.out.println("Ricevuto: " + string);
     }
 }
