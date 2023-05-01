@@ -8,10 +8,17 @@ import java.rmi.*;
 import java.rmi.server.*;
 
 public class RMIServerObject extends UnicastRemoteObject implements RMIServerInterface {
-    RMIServerObject() throws RemoteException {
+    public RMIServerObject() throws RemoteException {
         super();
     }
 
+    @Override
+    public void register(RMIClientInterface client)
+    {
+
+    }
+
+    @Override
     public void sendShelf(Tile[][] shelf)
     {
         for(int i = 5; i >= 0; i--) {
@@ -22,13 +29,19 @@ public class RMIServerObject extends UnicastRemoteObject implements RMIServerInt
         }
     }
 
+    @Override
     public void sendBoard(Board board) throws RemoteException
     {
 
     }
 
+    @Override
     public void sendBookshelf(Bookshelf bookshelf) throws RemoteException
     {
 
     }
+
+    @Override
+    public void testSend(String string) throws RemoteException
+    {}
 }

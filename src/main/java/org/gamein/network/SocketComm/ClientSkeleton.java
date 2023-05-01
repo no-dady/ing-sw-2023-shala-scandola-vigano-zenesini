@@ -37,6 +37,7 @@ public class ClientSkeleton implements RMIClientInterface {
     }
 
     //Action n 1
+    @Override
     public void sendChoice(int columnChoice) throws RemoteException
     {
         try
@@ -59,6 +60,7 @@ public class ClientSkeleton implements RMIClientInterface {
     }
 
     //Action n 2
+    @Override
     public void sendPick(Tile[] tilePick) throws RemoteException
     {
         try
@@ -77,6 +79,29 @@ public class ClientSkeleton implements RMIClientInterface {
         catch (IOException e)
         {
             throw new RemoteException("Cannot send tile pick from board", e);
+        }
+    }
+
+    //Action n 3
+    @Override
+    public void testSend(String string) throws RemoteException
+    {
+        try
+        {
+            oos.writeInt(3);
+        }
+        catch (IOException e)
+        {
+            throw new RemoteException("Cannot send action number sendTest", e);
+        }
+
+        try
+        {
+            oos.writeObject(string);
+        }
+        catch (IOException e)
+        {
+            throw new RemoteException("Cannot send string from client", e);
         }
     }
 
@@ -123,6 +148,17 @@ public class ClientSkeleton implements RMIClientInterface {
                 } catch (ClassNotFoundException e) {
                     throw new RemoteException("Cannot deserialize Bookshelf from client", e);
                 }
+            }
+            case 4 -> {
+                String string;
+                try {
+                    string = (String) ois.readObject();
+                } catch (IOException e) {
+                    throw new RemoteException("Cannot receive String from client", e);
+                } catch (ClassNotFoundException e) {
+                    throw new RemoteException("Cannot deserialize String from client", e);
+                }
+                System.out.println("Ricevuto: " + string);
             }
         }
     }

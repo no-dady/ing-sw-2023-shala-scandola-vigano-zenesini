@@ -8,9 +8,13 @@ import java.rmi.*;
 
 public interface RMIServerInterface extends Remote {
 
+    public void register(RMIClientInterface client)  throws RemoteException;;
+
     public void sendShelf(Tile[][] shelf) throws RemoteException;
 
     public void sendBoard(Board board) throws RemoteException;
 
     public void sendBookshelf(Bookshelf bookshelf) throws RemoteException;
+
+    public void testSend(String string) throws RemoteException;
 }

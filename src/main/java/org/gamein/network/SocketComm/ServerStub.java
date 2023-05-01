@@ -31,6 +31,7 @@ public class ServerStub implements RMIServerInterface {
         this.port = port;
     }
 
+    @Override
     public void register(RMIClientInterface client) throws RemoteException
     {
         try
@@ -128,6 +129,37 @@ public class ServerStub implements RMIServerInterface {
         }
     }
 
+    //Action n 4
+    @Override
+    public void testSend(String string) throws RemoteException
+    {
+        try
+        {
+            oos.writeInt(4);
+        }
+        catch (IOException e)
+        {
+            throw new RemoteException("Cannot send action number testSend", e);
+        }
+
+        try
+        {
+            oos.writeObject(string);
+        }
+        catch (IOException e)
+        {
+            throw new RemoteException("Cannot send the String", e);
+        }
+    }
+
+    public void close() throws RemoteException {
+        try {
+            socket.close();
+        } catch (IOException e) {
+            throw new RemoteException("Cannot close socket", e);
+        }
+    }
+
     public void receive(RMIClientInterface client) throws RemoteException
     {
         int actionNumber;
@@ -159,6 +191,17 @@ public class ServerStub implements RMIServerInterface {
                 } catch (ClassNotFoundException e) {
                     throw new RemoteException("Cannot deserialize tilePick from client", e);
                 }
+            }
+            case 3 -> {
+                String string;
+                try {
+                    string = (String) ois.readObject();
+                } catch (IOException e) {
+                    throw new RemoteException("Cannot receive String from client", e);
+                } catch (ClassNotFoundException e) {
+                    throw new RemoteException("Cannot deserialize String from client", e);
+                }
+                System.out.println("Ricevuto: " + string);
             }
         }
     }

@@ -8,4 +8,6 @@ public interface RMIClientInterface extends Remote {
     public void sendChoice(int columnChoice) throws RemoteException;
 
     public void sendPick(Tile[] tilePick) throws RemoteException;
+
+    public void testSend(String string) throws RemoteException;
 }
