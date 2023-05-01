@@ -1,14 +1,16 @@
 package org.gamein.network.RMIComm;
 
+import org.gamein.network.ServerImpl;
+
 import java.rmi.*;
 import java.rmi.registry.*;
 
-public class RMIServerClass {
+public class TestAppServerRMI {
     public static void main(String arg[])
     {
         try
         {
-            RMIServerObject obj = new RMIServerObject();
+            ServerImpl obj = new ServerImpl();
 
             LocateRegistry.createRegistry(1900);
 

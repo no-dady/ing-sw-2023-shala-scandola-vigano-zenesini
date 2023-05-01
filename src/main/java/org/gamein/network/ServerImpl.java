@@ -1,4 +1,4 @@
-package org.gamein.network.RMIComm;
+package org.gamein.network;
 
 import org.gamein.model.Board;
 import org.gamein.model.Bookshelf;
@@ -7,13 +7,13 @@ import org.gamein.model.Tile;
 import java.rmi.*;
 import java.rmi.server.*;
 
-public class RMIServerObject extends UnicastRemoteObject implements RMIServerInterface {
-    public RMIServerObject() throws RemoteException {
+public class ServerImpl extends UnicastRemoteObject implements Server {
+    public ServerImpl() throws RemoteException {
         super();
     }
 
     @Override
-    public void register(RMIClientInterface client)
+    public void register(Client client)
     {
 
     }
@@ -43,5 +43,7 @@ public class RMIServerObject extends UnicastRemoteObject implements RMIServerInt
 
     @Override
     public void testSend(String string) throws RemoteException
-    {}
+    {
+        System.out.println("Ricevuto: " + string);
+    }
 }

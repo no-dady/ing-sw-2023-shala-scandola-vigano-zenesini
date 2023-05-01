@@ -3,18 +3,16 @@ package org.gamein.network.SocketComm;
 import org.gamein.model.Board;
 import org.gamein.model.Bookshelf;
 import org.gamein.model.Tile;
-import org.gamein.network.RMIComm.RMIClientInterface;
-import org.gamein.network.RMIComm.RMIServerInterface;
+import org.gamein.network.Client;
+import org.gamein.network.Server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.ObjectStreamException;
 import java.net.Socket;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public class ServerStub implements RMIServerInterface {
+public class ServerStub implements Server {
     String ip;
 
     int port;
@@ -32,7 +30,7 @@ public class ServerStub implements RMIServerInterface {
     }
 
     @Override
-    public void register(RMIClientInterface client) throws RemoteException
+    public void register(Client client) throws RemoteException
     {
         try
         {
@@ -160,7 +158,7 @@ public class ServerStub implements RMIServerInterface {
         }
     }
 
-    public void receive(RMIClientInterface client) throws RemoteException
+    public void receive(Client client) throws RemoteException
     {
         int actionNumber;
 

@@ -3,8 +3,8 @@ package org.gamein.network.SocketComm;
 import org.gamein.model.Board;
 import org.gamein.model.Bookshelf;
 import org.gamein.model.Tile;
-import org.gamein.network.RMIComm.RMIClientInterface;
-import org.gamein.network.RMIComm.RMIServerInterface;
+import org.gamein.network.Client;
+import org.gamein.network.Server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -12,7 +12,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 
-public class ClientSkeleton implements RMIClientInterface {
+public class ClientSkeleton implements Client {
     private final ObjectOutputStream oos;
     private final ObjectInputStream ois;
 
@@ -105,7 +105,7 @@ public class ClientSkeleton implements RMIClientInterface {
         }
     }
 
-    public void receive(RMIServerInterface server) throws RemoteException
+    public void receive(Server server) throws RemoteException
     {
         int actionNumber;
 

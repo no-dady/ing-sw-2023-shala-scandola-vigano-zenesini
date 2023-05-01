@@ -1,17 +1,17 @@
-package org.gamein.network.RMIComm;
+package org.gamein.network;
 
 import org.gamein.model.Tile;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-public class RMIClientObject extends UnicastRemoteObject implements RMIClientInterface {
-    public RMIClientObject(RMIServerInterface server) throws RemoteException {
+public class ClientImpl extends UnicastRemoteObject implements Client {
+    public ClientImpl(Server server) throws RemoteException {
         super();
         initialize(server);
     }
 
-    public void initialize(RMIServerInterface server) throws RemoteException
+    public void initialize(Server server) throws RemoteException
     {
         server.register(this);
     }

@@ -1,14 +1,12 @@
-package org.gamein.network;
+package org.gamein.network.SocketComm;
 
-import org.gamein.network.RMIComm.RMIServerInterface;
-import org.gamein.network.RMIComm.RMIServerObject;
-import org.gamein.network.SocketComm.ClientSkeleton;
+import org.gamein.network.Server;
+import org.gamein.network.ServerImpl;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.RemoteException;
-import java.util.Objects;
 
 public class TestAppServerSocket {
     public static void main(String[] args) throws RemoteException
@@ -20,7 +18,7 @@ public class TestAppServerSocket {
                 try (Socket socket = serverSocket.accept())
                 {
                     ClientSkeleton clientSkeleton = new ClientSkeleton(socket);
-                    RMIServerInterface server = new RMIServerObject();
+                    Server server = new ServerImpl();
                     while (true) {
                         clientSkeleton.receive(server);
                     }

@@ -1,4 +1,4 @@
-package org.gamein.network.RMIComm;
+package org.gamein.network;
 
 import org.gamein.model.Board;
 import org.gamein.model.Bookshelf;
@@ -6,9 +6,9 @@ import org.gamein.model.Tile;
 
 import java.rmi.*;
 
-public interface RMIServerInterface extends Remote {
+public interface Server extends Remote {
 
-    public void register(RMIClientInterface client)  throws RemoteException;;
+    public void register(Client client)  throws RemoteException;;
 
     public void sendShelf(Tile[][] shelf) throws RemoteException;
 

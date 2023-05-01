@@ -1,7 +1,6 @@
-package org.gamein.network;
+package org.gamein.network.SocketComm;
 
-import org.gamein.network.RMIComm.RMIClientObject;
-import org.gamein.network.SocketComm.ServerStub;
+import org.gamein.network.ClientImpl;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -10,7 +9,7 @@ public class TestAppClientSocket {
     public static void main(String[] args) throws RemoteException
     {
         ServerStub serverStub = new ServerStub("localhost", 1234);
-        RMIClientObject client = new RMIClientObject(serverStub);
+        ClientImpl client = new ClientImpl(serverStub);
         while (true) {
             try {
                 serverStub.receive(client);
