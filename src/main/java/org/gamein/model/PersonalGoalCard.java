@@ -2,24 +2,36 @@ package org.gamein.model;
 
 import java.util.Map;
 
+/**
+ * The type Personal goal card.
+ */
 public class PersonalGoalCard {
     private Map<String, Coordinates> goals;
 
+    /**
+     * Instantiates a new Personal goal card.
+     *
+     * @param goals the goals
+     */
     public PersonalGoalCard(Map<String, Coordinates> goals) {
         this.goals = goals;
     }
 
-    /*
-     * @returns the Coordinates object mapped to the goal key
-     * @param goal not null
+    /**
+     * Gets coordinates.
+     *
+     * @param goal the goal
+     * @return the coordinates
      */
     public Coordinates getCoordinates(String goal) {
         return goals.getOrDefault(goal, null);
     }
 
-    /*
-     * @returns true if all goals are completed
-     * @param shelf: player bookshelf not null
+    /**
+     * Completed boolean.
+     *
+     * @param slots the slots
+     * @return the boolean
      */
     public boolean completed(Tile[][] slots) {
         for(String key : goals.keySet()) {

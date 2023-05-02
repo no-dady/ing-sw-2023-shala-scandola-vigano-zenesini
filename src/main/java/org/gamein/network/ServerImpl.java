@@ -7,15 +7,31 @@ import org.gamein.model.Tile;
 import java.rmi.*;
 import java.rmi.server.*;
 
+/**
+ * The type Server.
+ */
 public class ServerImpl extends UnicastRemoteObject implements Server {
 
-    //Temporary position for testing purpose
+    /**
+     * The Client.
+     */
+//Temporary position for testing purpose
     public Client client;
 
+    /**
+     * Gets client.
+     *
+     * @return the client
+     */
     public Client getClient() {
         return this.client;
     }
 
+    /**
+     * Instantiates a new Server.
+     *
+     * @throws RemoteException the remote exception
+     */
     public ServerImpl() throws RemoteException {
         super();
     }

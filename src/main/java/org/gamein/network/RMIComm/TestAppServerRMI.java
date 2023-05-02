@@ -6,7 +6,15 @@ import org.gamein.network.Client;
 import java.rmi.*;
 import java.rmi.registry.*;
 
+/**
+ * The type Test app server rmi.
+ */
 public class TestAppServerRMI {
+    /**
+     * Main.
+     *
+     * @param arg the arg
+     */
     public static void main(String arg[])
     {
         try

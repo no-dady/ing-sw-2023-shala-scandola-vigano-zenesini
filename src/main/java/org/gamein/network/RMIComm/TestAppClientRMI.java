@@ -5,8 +5,16 @@ import org.gamein.network.Server;
 
 import java.rmi.*;
 
+/**
+ * The type Test app client rmi.
+ */
 public class TestAppClientRMI {
 
+    /**
+     * Main.
+     *
+     * @param arg the arg
+     */
     public static void main(String arg[])
     {
         try

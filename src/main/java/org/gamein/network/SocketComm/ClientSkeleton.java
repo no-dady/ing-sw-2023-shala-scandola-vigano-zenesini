@@ -12,11 +12,20 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 
+/**
+ * The type Client skeleton.
+ */
 //It implements the client, but it will be used on the server-side to call functions
 public class ClientSkeleton implements Client {
     private final ObjectOutputStream oos;
     private final ObjectInputStream ois;
 
+    /**
+     * Instantiates a new Client skeleton.
+     *
+     * @param socket the socket
+     * @throws RemoteException the remote exception
+     */
     public ClientSkeleton(Socket socket) throws RemoteException
     {
         try
@@ -129,6 +138,12 @@ public class ClientSkeleton implements Client {
         }
     }
 
+    /**
+     * Receive.
+     *
+     * @param server the server
+     * @throws RemoteException the remote exception
+     */
     public void receive(Server server) throws RemoteException
     {
         int actionNumber;

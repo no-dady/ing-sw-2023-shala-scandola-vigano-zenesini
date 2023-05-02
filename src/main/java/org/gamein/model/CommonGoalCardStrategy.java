@@ -4,11 +4,28 @@ import org.gamein.cgc.*;
 
 import java.util.*;
 
+/**
+ * The type Common goal card strategy.
+ */
 public abstract class CommonGoalCardStrategy {
+    /**
+     * The List common goal list.
+     */
     protected static List<CommonGoalCardStrategy> listCommonGoalList = null;
 
+    /**
+     * Condition check boolean.
+     *
+     * @param shelf the shelf
+     * @return the boolean
+     */
     public abstract boolean conditionCheck (Tile[][] shelf);
 
+    /**
+     * Gets random card.
+     *
+     * @return the random card
+     */
     public static CommonGoalCardStrategy getRandomCard() {
         if(listCommonGoalList == null) {
             listCommonGoalList = new ArrayList<CommonGoalCardStrategy>();
@@ -64,9 +81,21 @@ public abstract class CommonGoalCardStrategy {
     }
 
     private List<Player> players;
+
+    /**
+     * Add player.
+     *
+     * @param player the player
+     */
     public void addPlayer(Player player){
         this.players.add(player);
     }
+
+    /**
+     * Get players list.
+     *
+     * @return the list
+     */
     public List<Player> getPlayers(){
         return this.players;
     }

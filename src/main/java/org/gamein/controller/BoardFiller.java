@@ -8,8 +8,19 @@ import org.gamein.model.TileType;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * The type Board filler.
+ */
 public class BoardFiller {
 
+    /**
+     * Fill board tile [ ] [ ].
+     *
+     * @param board     the board
+     * @param pocket    the pocket
+     * @param playerNum the player num
+     * @return the tile [ ] [ ]
+     */
     public Tile[][] fillBoard(Tile[][] board, Pocket pocket, int playerNum) {
 
         Gson gson = new Gson();

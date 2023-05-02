@@ -12,6 +12,9 @@ import jdk.jshell.spi.ExecutionControl.*;
 
 import static java.lang.Integer.parseInt;
 
+/**
+ * The type Turn controller.
+ */
 @Deprecated
 public class TurnController implements Observer {
 
@@ -35,6 +38,14 @@ public class TurnController implements Observer {
         }
     }
 
+    /**
+     * Select tile.
+     *
+     * @param board     the board
+     * @param bookshelf the bookshelf
+     * @throws InvalidTileException   the invalid tile exception
+     * @throws InvalidColumnException the invalid column exception
+     */
     public void SelectTile(Board board, Bookshelf bookshelf) throws InvalidTileException, InvalidColumnException {
         int more = 0;
         ArrayList<Tile> selected = null;
@@ -61,6 +72,11 @@ public class TurnController implements Observer {
         }
     }
 
+    /**
+     * Select column.
+     *
+     * @throws NotImplementedException the not implemented exception
+     */
     public void SelectColumn() throws NotImplementedException { //useless
         throw new NotImplementedException("Todo");
     }

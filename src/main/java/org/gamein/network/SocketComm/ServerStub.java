@@ -12,10 +12,19 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
 
+/**
+ * The type Server stub.
+ */
 //It implements the Server, but it will be used on the client-side to communicate
 public class ServerStub implements Server {
+    /**
+     * The Ip.
+     */
     String ip;
 
+    /**
+     * The Port.
+     */
     int port;
 
     private ObjectOutputStream oos;
@@ -24,6 +33,12 @@ public class ServerStub implements Server {
 
     private Socket socket;
 
+    /**
+     * Instantiates a new Server stub.
+     *
+     * @param ip   the ip
+     * @param port the port
+     */
     public ServerStub(String ip, int port)
     {
         this.ip = ip;
@@ -59,6 +74,11 @@ public class ServerStub implements Server {
         }
     }
 
+    /**
+     * Close.
+     *
+     * @throws RemoteException the remote exception
+     */
     public void close() throws RemoteException {
         try {
             socket.close();
@@ -136,6 +156,12 @@ public class ServerStub implements Server {
         }
     }
 
+    /**
+     * Receive.
+     *
+     * @param client the client
+     * @throws RemoteException the remote exception
+     */
     public void receive(Client client) throws RemoteException
     {
         int actionNumber;

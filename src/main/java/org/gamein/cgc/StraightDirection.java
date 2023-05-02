@@ -4,6 +4,9 @@ import org.gamein.model.Bookshelf;
 import org.gamein.model.CommonGoalCardStrategy;
 import org.gamein.model.Tile;
 
+/**
+ * The type Straight direction.
+ */
 // TODO: Test algorithms for performance and correctness
 public class StraightDirection extends CommonGoalCardStrategy {
     private int numToLook;
@@ -11,6 +14,14 @@ public class StraightDirection extends CommonGoalCardStrategy {
     private boolean isEqual;
     private boolean isVert;
 
+    /**
+     * Instantiates a new Straight direction.
+     *
+     * @param timesToLook the times to look
+     * @param numToLook   the num to look
+     * @param isEqual     the is equal
+     * @param isVert      the is vert
+     */
     public StraightDirection(int timesToLook, int numToLook, boolean isEqual, boolean isVert) {
         this.timesToLook = timesToLook;
         this.numToLook = numToLook;

@@ -6,17 +6,44 @@ import org.gamein.model.Tile;
 
 import java.rmi.*;
 
+/**
+ * The interface Client.
+ */
 public interface Client extends Remote
 {
-    //Send the shelf from server to client
+    /**
+     * Send shelf.
+     *
+     * @param shelf the shelf
+     * @throws RemoteException the remote exception
+     */
+//Send the shelf from server to client
     public void sendShelf(Tile[][] shelf) throws RemoteException;
 
-    //Send the Board from server to client
+    /**
+     * Send board.
+     *
+     * @param board the board
+     * @throws RemoteException the remote exception
+     */
+//Send the Board from server to client
     public void sendBoard(Board board) throws RemoteException;
 
-    //Send the Bookshelf from server to client
+    /**
+     * Send bookshelf.
+     *
+     * @param bookshelf the bookshelf
+     * @throws RemoteException the remote exception
+     */
+//Send the Bookshelf from server to client
     public void sendBookshelf(Bookshelf bookshelf) throws RemoteException;
 
-    //Test function
+    /**
+     * Test send.
+     *
+     * @param string the string
+     * @throws RemoteException the remote exception
+     */
+//Test function
     public void testSend(String string) throws RemoteException;
 }

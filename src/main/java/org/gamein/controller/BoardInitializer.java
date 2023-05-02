@@ -8,7 +8,15 @@ import org.gamein.model.TileType;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * The type Board initializer.
+ */
 public class BoardInitializer {
+    /**
+     * New empty board tile [ ] [ ].
+     *
+     * @return the tile [ ] [ ]
+     */
     public static Tile[][] newEmptyBoard() {
         Gson gson = new Gson();
         Tile[][] board = new Tile[0][0];

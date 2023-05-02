@@ -3,6 +3,9 @@ package org.gamein.cgc;
 import org.gamein.model.CommonGoalCardStrategy;
 import org.gamein.model.Tile;
 
+/**
+ * The type Diagonal direction.
+ */
 //TODO MAYBE WE COULD SEPARATE THE 11TH AND THE 12TH INTO TWO SEPARATE OBJECT USING THE .size OF
 //THE COLUMN TO CALCULATE THE 12TH CARD
 //DIAGONALDIRECTION
@@ -10,6 +13,12 @@ public class DiagonalDirection extends CommonGoalCardStrategy {
     private final int numToLook;
     private final boolean isEleven;
 
+    /**
+     * Instantiates a new Diagonal direction.
+     *
+     * @param numToLook the num to look
+     * @param isEleven  the is eleven
+     */
     public DiagonalDirection(int numToLook, boolean isEleven) {
         this.numToLook = numToLook;
         this.isEleven = isEleven;

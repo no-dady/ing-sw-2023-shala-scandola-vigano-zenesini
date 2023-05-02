@@ -7,10 +7,22 @@ import java.io.IOException;
 
 import static org.gamein.model.TileType.getTileMap;
 
+/**
+ * The type Text ui.
+ */
 public class TextUI {
+    /**
+     * The Board art.
+     */
     public String boardArt = "";
+    /**
+     * The Bookshelf art.
+     */
     public String bookshelfArt = "";
 
+    /**
+     * Open textual art.
+     */
     public void openTextualArt() {
 
         Gson gson = new Gson();
@@ -26,6 +38,12 @@ public class TextUI {
         }
     }
 
+    /**
+     * Print art.
+     *
+     * @param slots the slots
+     * @param art   the art
+     */
     public void printArt(Tile[][] slots, String art) {
         int x = 0, y = 0;
         for (int i = 0; i < art.length(); i++) {

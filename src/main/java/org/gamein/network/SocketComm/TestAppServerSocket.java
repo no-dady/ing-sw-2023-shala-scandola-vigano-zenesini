@@ -9,7 +9,16 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.RemoteException;
 
+/**
+ * The type Test app server socket.
+ */
 public class TestAppServerSocket {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws RemoteException the remote exception
+     */
     public static void main(String[] args) throws RemoteException
     {
         try (ServerSocket serverSocket = new ServerSocket(1234))

@@ -5,7 +5,16 @@ import org.gamein.network.ClientImpl;
 import java.io.IOException;
 import java.rmi.RemoteException;
 
+/**
+ * The type Test app client socket.
+ */
 public class TestAppClientSocket {
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws RemoteException the remote exception
+     */
     public static void main(String[] args) throws RemoteException
     {
         //To send the info you have to call the ServerStub's function on client-side

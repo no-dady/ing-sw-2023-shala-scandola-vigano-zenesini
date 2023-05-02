@@ -4,14 +4,31 @@ import org.gamein.model.CommonGoalCardStrategy;
 import org.gamein.model.Tile;
 
 
+/**
+ * The type Square check.
+ */
 public class SquareCheck extends CommonGoalCardStrategy {
 
+    /**
+     * The Num to look.
+     */
     int numToLook;
 
+    /**
+     * Instantiates a new Square check.
+     *
+     * @param numToLook the num to look
+     */
     public SquareCheck(int numToLook){
         this.numToLook = numToLook;
     }
 
+    /**
+     * Index equal boolean.
+     *
+     * @param toCheck the to check
+     * @return the boolean
+     */
     public boolean indexEqual(Tile[] toCheck){
         if (!toCheck[0].Empty() && !toCheck[1].Empty() && !toCheck[2].Empty() && !toCheck[3].Empty())
             return toCheck[0].getTileType() == toCheck[1].getTileType() && toCheck[1].getTileType() == toCheck[2].getTileType() && toCheck[2].getTileType() == toCheck[3].getTileType();

@@ -3,6 +3,9 @@ package org.gamein.cgc;
 import org.gamein.model.CommonGoalCardStrategy;
 import org.gamein.model.Tile;
 
+/**
+ * The type Shifted checkerboard.
+ */
 public class ShiftedCheckerboard extends CommonGoalCardStrategy {
 
     @Override

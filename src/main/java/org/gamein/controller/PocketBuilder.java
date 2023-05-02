@@ -8,7 +8,16 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * The type Pocket builder.
+ */
 public class PocketBuilder {
+    /**
+     * Create tile list pocket array list.
+     *
+     * @param numberOfTiles the number of tiles
+     * @return the array list
+     */
     public ArrayList<Tile> createTileListPocket(int numberOfTiles) {
 
         ArrayList<Tile> result = new ArrayList<>();
