@@ -13,8 +13,11 @@ public class Temp {
         for (int i = 0; i < art.length(); i++) {
             if ( 'X' == art.charAt(i)) {
                 String PRESET = "\033[";
-                String BLACK_BOLD = "\033[1;30m";
-                System.out.print( PRESET + TileType.getTileMap().get(slots[x][y].getTileType()).color + BLACK_BOLD + TileType.getTileMap().get(slots[x][y].getTileType()).sign + ConsoleColors.RESET );
+                String BLACK_BOLD = "1;30m";
+                String color = "0;100m";
+                String RESET = "0m";
+                if (slots[x][y].isPickable()) color = TileType.getTileMap().get(slots[x][y].getTileType()).color;
+                System.out.print( PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(slots[x][y].getTileType()).sign + PRESET + RESET );
                 y++;
             }
             else{
