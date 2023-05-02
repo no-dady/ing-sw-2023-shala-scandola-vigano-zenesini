@@ -3,10 +3,13 @@ package server.controller.actions;
 import server.model.Game;
 import server.model.Tile;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class TileSelectAction implements Action{
     int selectedX, selectedY;
+
+    List<Tile>  selectedTiles;
     Scanner sc = new Scanner(System.in);
     @Override
     public void performAction(Game game) {
@@ -14,15 +17,16 @@ public class TileSelectAction implements Action{
         more = sc.nextLine().equals("yes");
         while (!more) {
             if (canPerformAction(game)) {
-                Tile selectedTile = game.getBoard().getTile(selectedX, selectedY);
+                selectedTiles.add(game.getBoard().getTile(selectedX, selectedY));
                 game.getBoard().removeTile(selectedX, selectedY);
                 more= sc.nextLine().equals("yes");
             }
             else {
                 System.out.println("not a valid tile");
+                more= sc.nextLine().equals("yes");
             }
-
         }
+        game.setSelectedTiles(selectedTiles);
     }
 
     @Override

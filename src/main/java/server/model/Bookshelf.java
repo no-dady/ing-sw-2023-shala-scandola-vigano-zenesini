@@ -37,9 +37,9 @@ public class Bookshelf {
         return cols;
     }
 
-    public int getTilePerCol(int index, Bookshelf input) {
+    public int getEmptyTilesColumn(int index) {
         int count = 0;
-        for(Tile x: input.getSlots()[index]){
+        for(Tile x: this.getSlots()[index]){
             if(x.getTileId().isEmpty()){
                 count++;
             }

@@ -13,12 +13,13 @@ public class Game implements Serializable {
     private static List<Game> instance;
 
     private ArrayList<Player> players;
+    private int currPlayerId;
     private int gameID;
     private int numPlayers;
     private Board board;
     private Pocket pocket;
     private boolean gameStarted;
-
+    private List<Tile> selectedTiles;
     public Game() {
         this.players = new ArrayList<Player>();
         CommonGoalCard commonGoalStrategy = new CommonGoalCard();
@@ -65,6 +66,19 @@ public class Game implements Serializable {
     }
 
     /*
+     * @return the selected tiles during a turn
+     */
+    public List<Tile> getSelectedTiles() {
+        return selectedTiles;
+    }
+    /*
+     * @param the selected tiles during a turn
+     */
+    public void setSelectedTiles(List<Tile> selectedTiles) {
+        this.selectedTiles = selectedTiles;
+    }
+
+    /*
      * @return the board of the game
      */
     public Board getBoard() { return this.board; }
@@ -73,6 +87,7 @@ public class Game implements Serializable {
      * @return the pocket instance
      */
     public Pocket getPocket() { return this.pocket; }
+
 
     /*
      * @param player new player joined
@@ -102,7 +117,14 @@ public class Game implements Serializable {
     public void errorMessage(int idPlayer) {
     }
 
-    /*
+    public int getCurrPlayerId() {
+        return currPlayerId;
+    }
+
+    public void setCurrPlayerId(int currPlayerId) {
+        this.currPlayerId = currPlayerId;
+    }
+/*
     public void setBoard(Board board) {
         this.board = board;
     }
