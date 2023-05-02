@@ -18,7 +18,7 @@ public class GameController {
     protected static Board board;
     protected static Pocket pocket;
     protected static List<PersonalGoalCard> pgcList;
-    protected static CommonGoalCard[] cgcEnum;
+    protected static CommonGoalCardStrategy[] cgcEnum;
     protected static Tile[][] slots;
 
     public GameController() {

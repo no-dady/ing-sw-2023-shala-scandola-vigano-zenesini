@@ -1,9 +1,9 @@
 package org.gamein.cgc;
 
+import org.gamein.model.CommonGoalCardStrategy;
 import org.gamein.model.Tile;
-import org.gamein.model.TileType;
 
-public class ShiftedCheckerboard implements CommonGoalCardCondition{
+public class ShiftedCheckerboard extends CommonGoalCardStrategy {
 
     @Override
     public boolean conditionCheck(Tile[][] shelf) {

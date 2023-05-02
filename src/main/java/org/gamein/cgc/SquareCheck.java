@@ -1,9 +1,10 @@
 package org.gamein.cgc;
 
+import org.gamein.model.CommonGoalCardStrategy;
 import org.gamein.model.Tile;
 
 
-public class SquareCheck implements CommonGoalCardCondition {
+public class SquareCheck extends CommonGoalCardStrategy {
 
     int numToLook;
 

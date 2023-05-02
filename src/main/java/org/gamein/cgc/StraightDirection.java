@@ -1,11 +1,11 @@
 package org.gamein.cgc;
 
 import org.gamein.model.Bookshelf;
+import org.gamein.model.CommonGoalCardStrategy;
 import org.gamein.model.Tile;
-import org.gamein.model.TileType;
 
 // TODO: Test algorithms for performance and correctness
-public class StraightDirection implements CommonGoalCardCondition {
+public class StraightDirection extends CommonGoalCardStrategy {
     private int numToLook;
     private int timesToLook;
     private boolean isEqual;

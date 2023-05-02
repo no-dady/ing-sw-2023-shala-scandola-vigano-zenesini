@@ -6,8 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.gamein.cgc.CommonGoalCardCondition;
-import org.gamein.model.CommonGoalCard;
+import org.gamein.model.CommonGoalCardStrategy;
 import org.gamein.model.Tile;
 
 import java.io.Reader;
@@ -68,8 +67,8 @@ public class TestCgc9
      */
     public void testApp()
     {
-        CommonGoalCard test = new CommonGoalCard();
-        CommonGoalCardCondition Test = CommonGoalCard.getCgcMap().get("SHIFTED_CHECKERBOARD_EQ");
+        CommonGoalCardStrategy test = new CommonGoalCardStrategy();
+        CommonGoalCardCondition Test = CommonGoalCardStrategy.getCgcMap().get("SHIFTED_CHECKERBOARD_EQ");
 
         Tile[][] shelf1 = shelfa.get(0);
         for(int i = 5; i >= 0; i--) {

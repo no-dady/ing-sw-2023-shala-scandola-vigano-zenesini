@@ -5,7 +5,6 @@ import org.gamein.controller.BoardInitializer;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class Game implements Serializable {
 
@@ -22,8 +21,7 @@ public class Game implements Serializable {
 
     public Game() {
         this.players = new ArrayList<Player>();
-        CommonGoalCard commonGoalStrategy = new CommonGoalCard();
-        this.board = new Board(commonGoalStrategy, BoardInitializer.newEmptyBoard());
+        this.board = new Board(BoardInitializer.newEmptyBoard());
         this.pocket = new Pocket();
         this.numPlayers = 0;
         if(instance == null) {

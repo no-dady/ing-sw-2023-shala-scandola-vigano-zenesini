@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Board implements Serializable {
-    private final ArrayList<CommonGoalCard> commonGoalCards;
+    private final ArrayList<CommonGoalCardStrategy> commonGoalCardStrategies;
     private Tile[][] slots;
 
-    public Board(CommonGoalCard commonGoalStrategy, Tile[][] slots) {
-        this.commonGoalCards = new ArrayList<>(2);
-        this.commonGoalCards.add(commonGoalStrategy.getRandGoalCard());
-        this.commonGoalCards.add(commonGoalStrategy.getRandGoalCard());
+    public Board(Tile[][] slots) {
+        this.commonGoalCardStrategies = new ArrayList<>(2);
+        this.commonGoalCardStrategies.add(CommonGoalCardStrategy.getRandomCard());
+        this.commonGoalCardStrategies.add(CommonGoalCardStrategy.getRandomCard());
         this.slots = slots;
     }
 
@@ -31,8 +31,8 @@ public class Board implements Serializable {
         return slots[x][y];
     }
 
-    public ArrayList<CommonGoalCard> getCommonGoalCards() {
-        return commonGoalCards;
+    public ArrayList<CommonGoalCardStrategy> getCommonGoalCards() {
+        return commonGoalCardStrategies;
     }
 
 }

@@ -6,8 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.gamein.cgc.CommonGoalCardCondition;
-import org.gamein.model.CommonGoalCard;
+import org.gamein.model.CommonGoalCardStrategy;
 import org.gamein.model.Tile;
 
 import java.io.Reader;
@@ -62,25 +61,25 @@ public class AppTest
             }
             System.out.println();
         }
-        CommonGoalCard test = new CommonGoalCard();
+        CommonGoalCardStrategy test = new CommonGoalCardStrategy();
 //        CommonGoalCard.getCgcMap().values().forEach((x) -> x.conditionCheck(shelf));
 
         CommonGoalCardCondition myTest;
         //var x = myTest.conditionCheck(shelf);
         //assertFalse("Found two full distinct columns when not expected!", x);
-        myTest = CommonGoalCard.getCgcMap().get("FOUR_VSTRIPS_4EQUAL");
+        myTest = CommonGoalCardStrategy.getCgcMap().get("FOUR_VSTRIPS_4EQUAL");
         var x = myTest.conditionCheck(shelf);
         assertFalse("Found four strips of 4 equal vertical tiles when not expected!", x);
-        myTest = CommonGoalCard.getCgcMap().get("SIX_VSTRIPS_2EQUAL");
+        myTest = CommonGoalCardStrategy.getCgcMap().get("SIX_VSTRIPS_2EQUAL");
         x = myTest.conditionCheck(shelf);
         assertFalse("Found six pairs of distinct vertical tiles when not expected!",x);
-        myTest = CommonGoalCard.getCgcMap().get("THREE_COL_MIN3EQUAL");
+        myTest = CommonGoalCardStrategy.getCgcMap().get("THREE_COL_MIN3EQUAL");
         x = myTest.conditionCheck(shelf);
         assertTrue("Found 3 columns with at least 3 tiles of the same type when not expected",x);
-        myTest = CommonGoalCard.getCgcMap().get("TWO_DISTINCT_ROWS");
+        myTest = CommonGoalCardStrategy.getCgcMap().get("TWO_DISTINCT_ROWS");
         x = myTest.conditionCheck(shelf);
         assertFalse("Found 2 rows full of distinct tiles when not expected!",x);
-        myTest = CommonGoalCard.getCgcMap().get("FOUR_ROWS_MIN2EQUAL");
+        myTest = CommonGoalCardStrategy.getCgcMap().get("FOUR_ROWS_MIN2EQUAL");
         x = myTest.conditionCheck(shelf);
         assertFalse("Didnt find 4 rows with at least 2 tiles of the same type when expected!",x);
         System.out.println("\nTest Passsato!");

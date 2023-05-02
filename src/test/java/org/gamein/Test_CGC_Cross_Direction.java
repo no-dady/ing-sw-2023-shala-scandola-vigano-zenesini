@@ -6,8 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.gamein.cgc.CommonGoalCardCondition;
-import org.gamein.model.CommonGoalCard;
+import org.gamein.model.CommonGoalCardStrategy;
 import org.gamein.model.Tile;
 import org.gamein.view.TextUI;
 
@@ -50,7 +49,7 @@ public class Test_CGC_Cross_Direction extends TestCase {
      */
     public void testCGC10()
     {
-        CommonGoalCard test = new CommonGoalCard();
+        CommonGoalCardStrategy test = new CommonGoalCardStrategy();
         Tile[][] shelf = shelves.get(0);
         for(int i = 5; i >= 0; i--) {
             for(int j = 0; j < 5; j++) {
@@ -58,7 +57,7 @@ public class Test_CGC_Cross_Direction extends TestCase {
             }
             System.out.println();
         }
-        CommonGoalCardCondition cgc10 = CommonGoalCard.getCgcMap().get("CROSS_EQ");
+        CommonGoalCardCondition cgc10 = CommonGoalCardStrategy.getCgcMap().get("CROSS_EQ");
         TextUI textUI = new TextUI();
         textUI.openTextualArt();
         textUI.printArt(shelf, textUI.bookshelfArt);

@@ -1,10 +1,10 @@
 package org.gamein.cgc;
 
+import org.gamein.model.CommonGoalCardStrategy;
 import org.gamein.model.Tile;
-import org.gamein.model.TileType;
 
 //CROSSDIRECTION
-public class CrossDirection implements CommonGoalCardCondition {
+public class CrossDirection extends CommonGoalCardStrategy {
     private final int numToLook;
     public CrossDirection(int numToLook) {
         this.numToLook = numToLook;
