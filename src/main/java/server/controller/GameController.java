@@ -7,16 +7,43 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The type Game controller.
+ */
 public class GameController {
 
+    /**
+     * The Players.
+     */
     protected static ArrayList<Player> players = null;
+    /**
+     * The constant game.
+     */
     protected static Game game;
+    /**
+     * The constant board.
+     */
     protected static Board board;
+    /**
+     * The constant pocket.
+     */
     protected static Pocket pocket;
+    /**
+     * The Pgc list.
+     */
     protected static List<PersonalGoalCard> pgcList;
-    protected static CommonGoalCard[] cgcEnum;
+    /**
+     * The Cgc enum.
+     */
+    protected static CommonGoalCardStrategy[] cgcEnum;
+    /**
+     * The Slots.
+     */
     protected static Tile[][] slots;
 
+    /**
+     * Instantiates a new Game controller.
+     */
     public GameController() {
         players = new ArrayList<>();
 
@@ -37,6 +64,12 @@ public class GameController {
         //game = new Game(players, board, pocket);
     }
 
+    /**
+     * Create lobby.
+     *
+     * @param playerNumber the player number
+     * @throws IllegalPlayersNumberException the illegal players number exception
+     */
     void createLobby(int playerNumber) throws IllegalPlayersNumberException {
         PersonalGoalCard personalGoalCard;
         PocketBuilder builder = new PocketBuilder();
@@ -55,6 +88,12 @@ public class GameController {
 
         //gameState = new GameState(players, board, pocket);
     }
+
+    /**
+     * Start.
+     *
+     * @param usernames the usernames
+     */
     void start(List<String> usernames) {
 
     }

@@ -1,21 +1,37 @@
 package server.cgc;
 
+import server.model.CommonGoalCardStrategy;
 import server.model.Tile;
 
-import java.util.Objects;
 
+/**
+ * The type Square check.
+ */
+public class SquareCheck extends CommonGoalCardStrategy {
 
-public class SquareCheck implements CommonGoalCardCondition {
-
+    /**
+     * The Num to look.
+     */
     int numToLook;
 
+    /**
+     * Instantiates a new Square check.
+     *
+     * @param numToLook the num to look
+     */
     public SquareCheck(int numToLook){
         this.numToLook = numToLook;
     }
 
+    /**
+     * Index equal boolean.
+     *
+     * @param toCheck the to check
+     * @return the boolean
+     */
     public boolean indexEqual(Tile[] toCheck){
         if (!toCheck[0].Empty() && !toCheck[1].Empty() && !toCheck[2].Empty() && !toCheck[3].Empty())
-            return Objects.equals(toCheck[0].getTileType(), toCheck[1].getTileType()) && Objects.equals(toCheck[1].getTileType(), toCheck[2].getTileType()) && Objects.equals(toCheck[2].getTileType(), toCheck[3].getTileType());
+            return toCheck[0].getTileType() == toCheck[1].getTileType() && toCheck[1].getTileType() == toCheck[2].getTileType() && toCheck[2].getTileType() == toCheck[3].getTileType();
         return false;
     }
 

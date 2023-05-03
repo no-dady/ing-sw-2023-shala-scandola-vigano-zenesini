@@ -6,6 +6,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Game.
+ */
 public class Game implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -20,6 +23,10 @@ public class Game implements Serializable {
     private Pocket pocket;
     private boolean gameStarted;
     private List<Tile> selectedTiles;
+
+    /**
+     * Instantiates a new Game.
+     */
     public Game() {
         this.players = new ArrayList<Player>();
         CommonGoalCard commonGoalStrategy = new CommonGoalCard();
@@ -35,38 +42,60 @@ public class Game implements Serializable {
 
     }
 
+    /**
+     * New game game.
+     *
+     * @return the game
+     */
     public static Game newGame() {
         return new Game();
     }
 
-    /*
-     * Returns the istance of the game
+    /**
+     * Gets instance.
+     *
+     * @param gameId the game id
+     * @return the instance
      */
     public Game getInstance(int gameId) {
         if(gameId < 0 || gameId >= instance.size());
         return instance.get(gameID);
     }
 
+    /**
+     * Sets game started.
+     *
+     * @param gameStarted the game started
+     */
     public void setGameStarted(boolean gameStarted) {
         this.gameStarted = gameStarted;
     }
 
-    /*
-     * @return this instance UUID
+    /**
+     * Gets game id.
+     *
+     * @return the game id
      */
     public int getGameId() {
         return this.gameID;
     }
 
-    /*
-     * @return all players of the game
+    /**
+     * Gets players.
+     *
+     * @return the players
      */
     public ArrayList<Player> getPlayers() {
         return this.players;
     }
 
-    /*
-     * @return the selected tiles during a turn
+    /**
+     * Gets board.
+     *
+     * @return the board
+    **/
+    public Board getBoard() { return this.board; }
+    /* @return the selected tiles during a turn
      */
     public List<Tile> getSelectedTiles() {
         return selectedTiles;
@@ -78,34 +107,36 @@ public class Game implements Serializable {
         this.selectedTiles = selectedTiles;
     }
 
-    /*
-     * @return the board of the game
-     */
-    public Board getBoard() { return this.board; }
-
-    /*
-     * @return the pocket instance
+    /**
+     * Gets pocket.
+     *
+     * @return the pocket
      */
     public Pocket getPocket() { return this.pocket; }
 
-
-    /*
-     * @param player new player joined
+    /**
+     * Add player.
+     *
+     * @param player the player
      */
     public void addPlayer(Player player) {
         if(players.size() < numPlayers)
             this.players.add(player);
     }
 
-    /*
-     * @return True if all players have joined the game
+    /**
+     * Can start boolean.
+     *
+     * @return the boolean
      */
     public boolean canStart() {
         return players.size() == numPlayers;
     }
 
-    /*
-     * @return True if game has winner
+    /**
+     * Has winner boolean.
+     *
+     * @return the boolean
      */
     public boolean hasWinner() {
         return players.stream().anyMatch((x) -> x.isWinner());

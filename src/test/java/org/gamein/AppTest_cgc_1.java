@@ -7,6 +7,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import server.model.Tile;
+import org.gamein.model.Tile;
 
 import java.io.Reader;
 import java.nio.file.Files;

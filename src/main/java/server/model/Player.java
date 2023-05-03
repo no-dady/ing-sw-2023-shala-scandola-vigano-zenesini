@@ -2,6 +2,9 @@ package server.model;
 
 import java.io.Serializable;
 
+/**
+ * The type Player.
+ */
 public class Player implements Serializable {
     private final int userId;
     private String username;
@@ -9,6 +12,14 @@ public class Player implements Serializable {
     private final Bookshelf personalBookshelf;
     private final PersonalGoalCard personalGoalCard;
 
+    /**
+     * Instantiates a new Player.
+     *
+     * @param userId            the user id
+     * @param username          the username
+     * @param personalBookshelf the personal bookshelf
+     * @param personalGoalCard  the personal goal card
+     */
     public Player(int userId, String username, Bookshelf personalBookshelf, PersonalGoalCard personalGoalCard) {
         this.userId = userId;
         this.username = username;
@@ -16,60 +27,78 @@ public class Player implements Serializable {
         this.personalGoalCard = personalGoalCard;
     }
 
-    /*
-     * @return player's userid
+    /**
+     * Gets user id.
+     *
+     * @return the user id
      */
     public int getUserId()
     {
         return this.userId;
     }
 
-    /*
-     * @return player's username
+    /**
+     * Gets user name.
+     *
+     * @return the user name
      */
     public String getUserName()
     {
         return this.username;
     }
 
-    /*
-     * @return istance of the player's shelf
+    /**
+     * Gets bookshelf.
+     *
+     * @return the bookshelf
      */
     public Bookshelf getBookshelf()
     {
         return this.personalBookshelf;
     }
 
-    /*
-     * @return istance of the player's personalGoalCard
+    /**
+     * Gets personal goal card.
+     *
+     * @return the personal goal card
      */
     public PersonalGoalCard getPersonalGoalCard()
     {
         return this.personalGoalCard;
     }
 
-    /*
-     * @param score Sets the player score
+    /**
+     * Sets score.
+     *
+     * @param score the score
      */
     public void setScore(int score)
     {
         this.score = score;
     }
 
-    /*
-     * @return player score
+    /**
+     * Gets score.
+     *
+     * @return the score
      */
     public int getScore()
     {
         return this.score;
     }
 
-    /*
-     * @NotNull
-     * @param username not already taken
+    /**
+     * Sets user name.
+     *
+     * @param username the username
      */
     public void setUserName(String username) { this.username = username; }
 
+    /**
+     * Is winner boolean.
+     *
+     * @return the boolean
+     */
     public boolean isWinner() {
         return personalBookshelf.getNumTiles() == (Bookshelf.getRows() * Bookshelf.getCols());
     }

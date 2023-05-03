@@ -1,15 +1,27 @@
 package server.cgc;
 
 import server.model.Bookshelf;
+import server.model.CommonGoalCardStrategy;
 import server.model.Tile;
 
+/**
+ * The type Straight direction.
+ */
 // TODO: Test algorithms for performance and correctness
-public class StraightDirection implements CommonGoalCardCondition {
+public class StraightDirection extends CommonGoalCardStrategy {
     private int numToLook;
     private int timesToLook;
     private boolean isEqual;
     private boolean isVert;
 
+    /**
+     * Instantiates a new Straight direction.
+     *
+     * @param timesToLook the times to look
+     * @param numToLook   the num to look
+     * @param isEqual     the is equal
+     * @param isVert      the is vert
+     */
     public StraightDirection(int timesToLook, int numToLook, boolean isEqual, boolean isVert) {
         this.timesToLook = timesToLook;
         this.numToLook = numToLook;
@@ -24,7 +36,7 @@ public class StraightDirection implements CommonGoalCardCondition {
     }
 
     private boolean checkColumns(Tile[][] slots) {
-        int count, checked = 0;
+        int count = 0, checked = 0;
 
         for(int i = 0; i < Bookshelf.getCols() && checked < timesToLook; i++) {
             var tile = slots[0][i];
@@ -47,7 +59,7 @@ public class StraightDirection implements CommonGoalCardCondition {
     }
 
     private boolean checkRows(Tile[][] slots) {
-        int count, checked = 0;
+        int count = 0, checked = 0;
 
         for(int i = 0; i < Bookshelf.getRows() && checked < timesToLook; i++) {
             var tile = slots[i][0];

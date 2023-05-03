@@ -1,18 +1,19 @@
 package server.controller;
 
-import jdk.jshell.spi.ExecutionControl.NotImplementedException;
-import server.controller.actions.Action;
-import server.exceptions.InvalidColumnException;
-import server.exceptions.InvalidTileException;
 import server.model.Board;
 import server.model.Bookshelf;
 import server.model.Tile;
+import server.Exceptions.*;
 
-import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Scanner;
+import java.util.*;
+
+import jdk.jshell.spi.ExecutionControl.*;
+
 import static java.lang.Integer.parseInt;
 
+/**
+ * The type Turn controller.
+ */
 @Deprecated
 public class TurnController extends Controller {
 
@@ -36,20 +37,28 @@ private Tile SelectedTileControl(Board board, int x, int y) throws InvalidTileEx
         }
     }
 
-public void SelectTile(Board board, Bookshelf bookshelf) throws InvalidTileException, InvalidColumnException {
+    /**
+     * Select tile.
+     *
+     * @param board     the board
+     * @param bookshelf the bookshelf
+     * @throws InvalidTileException   the invalid tile exception
+     * @throws InvalidColumnException the invalid column exception
+     */
+    public void SelectTile(Board board, Bookshelf bookshelf) throws InvalidTileException, InvalidColumnException {
         int more = 0;
         ArrayList<Tile> selected = null;
         while(more <= 2){
             Scanner coordinates = new Scanner(System.in);
-            int x = parseInt(coordinates.nextLine());//devono essere passate in gui quindi dalla view
+            int x = parseInt(coordinates.nextLine());//to be passed by the gui
             int y = parseInt(coordinates.nextLine());//
-            more = parseInt(coordinates.nextLine());//in test se si vogliono prendere meno di 3 tiles si può cambiare il valore di more
+            more = parseInt(coordinates.nextLine());//in a test case the more parameters can be modified
             if(board.getTile(x,y).IsPickable(board,x,y)){
                 selected.add(SelectedTileControl(board,x,y));
                 more++;
             }
             else{
-                System.out.println("Tile's not pickable"); //lancia errore senza però togliere la possibilità di scegliere la tile
+                System.out.println("Tile's not pickable"); //throws an error even if you'll still be able to pick another tile
             }
         }
         Scanner col = new Scanner(System.in);
@@ -62,7 +71,12 @@ public void SelectTile(Board board, Bookshelf bookshelf) throws InvalidTileExcep
         }
     }
 
-    public void SelectColumn() throws NotImplementedException {
+    /**
+     * Select column.
+     *
+     * @throws NotImplementedException the not implemented exception
+     */
+    public void SelectColumn() throws NotImplementedException { //useless
         throw new NotImplementedException("Todo");
     }
 
