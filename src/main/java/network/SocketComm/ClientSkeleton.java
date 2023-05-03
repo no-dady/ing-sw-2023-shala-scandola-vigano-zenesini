@@ -1,10 +1,10 @@
-package org.gamein.network.SocketComm;
+package network.SocketComm;
 
-import org.gamein.model.Board;
-import org.gamein.model.Bookshelf;
-import org.gamein.model.Tile;
-import org.gamein.network.Client;
-import org.gamein.network.Server;
+import server.model.Board;
+import server.model.Bookshelf;
+import server.model.Tile;
+import network.Client;
+import network.Server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

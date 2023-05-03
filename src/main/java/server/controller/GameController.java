@@ -2,7 +2,9 @@ package server.controller;
 
 import server.exceptions.IllegalPlayersNumberException;
 import server.model.*;
+import setup.ConfigsFromJson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -46,6 +48,11 @@ public class GameController {
      */
     public GameController() {
         players = new ArrayList<>();
+        try {
+            pgcList = ConfigsFromJson.getpgcList("src/main/resources/json/personalgoalcards.json");
+        }catch (Exception e){
+            System.out.println("exception");
+        }
 
 
         System.exit(0);

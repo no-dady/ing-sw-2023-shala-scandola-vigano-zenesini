@@ -1,7 +1,7 @@
 package server.cgc;
 
-import org.gamein.model.CommonGoalCardStrategy;
-import org.gamein.model.Tile;
+import server.model.CommonGoalCardStrategy;
+import server.model.Tile;
 import server.model.Tile;
 
 /**

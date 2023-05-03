@@ -3,7 +3,15 @@ package server.controller;
 import server.model.Tile;
 import setup.ConfigsFromJson;
 
+/**
+ * The type Board initializer.
+ */
 public class BoardInitializer {
+    /**
+     * New empty board tile [ ] [ ].
+     *
+     * @return the tile [ ] [ ]
+     */
     public static Tile[][] newEmptyBoard() {
         try {
             BoardConfig boardConfig = ConfigsFromJson.getBoardConfig("src/main/resources/json/board_config.json");

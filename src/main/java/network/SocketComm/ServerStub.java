@@ -1,10 +1,11 @@
 package network.SocketComm;
 
+import network.ClientImpl;
 import server.model.Board;
 import server.model.Bookshelf;
 import server.model.Tile;
-import server.network.Client;
-import server.network.Server;
+import network.Client;
+import network.Server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -162,7 +163,7 @@ public class ServerStub implements Server {
      * @param client the client
      * @throws RemoteException the remote exception
      */
-    public void receive(Client client) throws RemoteException
+    public void receive(ClientImpl client) throws RemoteException
     {
         int actionNumber;
 

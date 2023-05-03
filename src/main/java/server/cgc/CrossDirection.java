@@ -1,8 +1,7 @@
 package server.cgc;
 
 import server.model.Tile;
-import org.gamein.model.CommonGoalCardStrategy;
-import org.gamein.model.Tile;
+import server.model.CommonGoalCardStrategy;
 
 /**
  * The type Cross direction.

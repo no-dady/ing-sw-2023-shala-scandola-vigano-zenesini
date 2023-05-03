@@ -1,8 +1,8 @@
-package org.gamein.network;
+package network;
 
-import org.gamein.model.Board;
-import org.gamein.model.Bookshelf;
-import org.gamein.model.Tile;
+import server.model.Board;
+import server.model.Bookshelf;
+import server.model.Tile;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

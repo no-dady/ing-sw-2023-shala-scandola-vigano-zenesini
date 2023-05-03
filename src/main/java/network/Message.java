@@ -2,7 +2,7 @@ package network;
 
 public interface Message {
 
-    void handleMessage(RMIClientClass rmiClient);
+    void handleMessage(Client client);
 
     String getName();
 }

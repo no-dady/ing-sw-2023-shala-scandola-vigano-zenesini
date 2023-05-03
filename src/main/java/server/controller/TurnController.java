@@ -2,8 +2,9 @@ package server.controller;
 
 import server.model.Board;
 import server.model.Bookshelf;
+import server.model.Game;
 import server.model.Tile;
-import server.Exceptions.*;
+import server.exceptions.*;
 
 import java.util.*;
 
@@ -17,7 +18,11 @@ import static java.lang.Integer.parseInt;
 @Deprecated
 public class TurnController extends Controller {
 
-private Tile SelectedTileControl(Board board, int x, int y) throws InvalidTileException {
+    public TurnController(Game game) {
+        super(game);
+    }
+
+    private Tile SelectedTileControl(Board board, int x, int y) throws InvalidTileException {
         if(board.getTile(x,y).isPickable()){
             board.removeTile(x,y); //imposta la Tile come non pickable oppure la rimuove del tutto dalla board
             return board.getTile(x,y);
@@ -28,7 +33,7 @@ private Tile SelectedTileControl(Board board, int x, int y) throws InvalidTileEx
     }
 
     private boolean SelectedColumnControl(Bookshelf bookshelf, int x, ArrayList<Tile> tileList) throws InvalidColumnException {
-        if(bookshelf.getTilePerCol(x,bookshelf)+tileList.size()<6){ //controlla che ci sia spazio
+        if(bookshelf.getEmptyTilesColumn(x) + tileList.size()<6){ //controlla che ci sia spazio
             bookshelf.setSlots(x,tileList); //aggiunge alla bookshelf
             return true;
         }
@@ -53,7 +58,7 @@ private Tile SelectedTileControl(Board board, int x, int y) throws InvalidTileEx
             int x = parseInt(coordinates.nextLine());//to be passed by the gui
             int y = parseInt(coordinates.nextLine());//
             more = parseInt(coordinates.nextLine());//in a test case the more parameters can be modified
-            if(board.getTile(x,y).IsPickable(board,x,y)){
+            if(board.getTile(x,y).isPickable()){
                 selected.add(SelectedTileControl(board,x,y));
                 more++;
             }
@@ -78,11 +83,6 @@ private Tile SelectedTileControl(Board board, int x, int y) throws InvalidTileEx
      */
     public void SelectColumn() throws NotImplementedException { //useless
         throw new NotImplementedException("Todo");
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-
     }
 }
 

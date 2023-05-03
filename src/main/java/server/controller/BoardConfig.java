@@ -1,9 +1,8 @@
-package org.gamein.controller;
+package server.controller;
 
 /**
  * The type Board config.
  */
-package server.controller;
 public class BoardConfig {
 
     /**

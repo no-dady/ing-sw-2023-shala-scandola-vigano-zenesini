@@ -1,7 +1,6 @@
-package org.gamein.model;
+package server.model;
 
-import org.gamein.cgc.*;
-
+import server.cgc.*;
 import java.util.*;
 
 /**
