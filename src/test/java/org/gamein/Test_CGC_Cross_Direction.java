@@ -6,9 +6,9 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.gamein.model.CommonGoalCardStrategy;
-import org.gamein.model.Tile;
-import org.gamein.view.TextUI;
+import server.model.CommonGoalCardStrategy;
+import server.model.Tile;
+import server.view.TextUI;
 
 import java.io.Reader;
 import java.nio.file.Files;

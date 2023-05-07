@@ -3,8 +3,8 @@ package org.gamein;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.gamein.controller.PocketBuilder;
-import org.gamein.model.Tile;
+import server.controller.PocketBuilder;
+import server.model.Tile;
 
 import java.util.ArrayList;
 import java.util.Scanner;
