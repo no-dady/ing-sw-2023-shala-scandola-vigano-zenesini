@@ -23,14 +23,15 @@ public class Game implements Serializable {
     private Pocket pocket;
     private boolean gameStarted;
     private List<Tile> selectedTiles;
+    private GameStatus status;
 
     /**
      * Instantiates a new Game.
      */
     public Game() {
         this.players = new ArrayList<Player>();
-        CommonGoalCard commonGoalStrategy = new CommonGoalCard();
-        this.board = new Board(commonGoalStrategy, BoardInitializer.newEmptyBoard());
+        CommonGoalCardStrategy commonGoalStrategy;
+        // this.board = new Board(commonGoalStrategy, BoardInitializer.newEmptyBoard());
         this.pocket = new Pocket();
         this.numPlayers = 0;
         if(instance == null) {
@@ -146,6 +147,15 @@ public class Game implements Serializable {
     }
 
     public void errorMessage(int idPlayer) {
+    }
+
+    public Player getCurrPlayer() {
+        if(status == GameStatus.Ended) return null;
+        return players.get(currPlayerId);
+    }
+
+    public Player getPlayerFromId(int id) {
+        return players.get(id);
     }
 
     public int getCurrPlayerId() {

@@ -1,5 +1,7 @@
 package network;
 
+import client.Client;
+
 public interface Message {
 
     void handleMessage(Client client);
