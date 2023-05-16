@@ -1,6 +1,6 @@
 package client;
 
-import network.Message;
+import network.Messages.Message;
 
 public class TUI implements UI {
     @Override

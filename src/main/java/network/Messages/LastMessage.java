@@ -1,4 +1,6 @@
-package network;
+package network.Messages;
+
+import network.Client;
 
 public class LastMessage implements Message {
     String className = "LastMessage";

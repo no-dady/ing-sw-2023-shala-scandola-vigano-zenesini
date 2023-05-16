@@ -29,8 +29,8 @@ public class Game implements Serializable {
      */
     public Game() {
         this.players = new ArrayList<Player>();
-        CommonGoalCard commonGoalStrategy = new CommonGoalCard();
-        this.board = new Board(commonGoalStrategy, BoardInitializer.newEmptyBoard());
+        //CommonGoalCard commonGoalStrategy = new CommonGoalCard();
+        //this.board = new Board(commonGoalStrategy, BoardInitializer.newEmptyBoard());
         this.pocket = new Pocket();
         this.numPlayers = 0;
         if(instance == null) {

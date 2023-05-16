@@ -12,6 +12,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Server stub.
@@ -22,6 +24,8 @@ public class ServerStub implements Server {
      * The Ip.
      */
     String ip;
+
+    public List<Client> clientList;
 
     /**
      * The Port.
@@ -44,11 +48,16 @@ public class ServerStub implements Server {
     {
         this.ip = ip;
         this.port = port;
+        this.clientList = new ArrayList<Client>();
     }
 
     @Override
-    public void register(Client client) throws RemoteException
+    public void register(Client client, String nickName) throws RemoteException
     {
+        System.out.println("Client Socket connected");
+        clientList.add(client);
+        System.out.println(nickName + " joined the match");
+        System.out.println("Ci sono " + clientList.size() + " client socket");
         try
         {
             this.socket = new Socket(ip, port);

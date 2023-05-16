@@ -5,6 +5,7 @@ import network.Server;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Scanner;
 
 /**
  * The type Test app client socket.
@@ -22,7 +23,11 @@ public class TestAppClientSocket {
         new Thread(() -> {
             ServerStub serverStub = new ServerStub("localhost", 1234);
             try {
-                ClientImpl client = new ClientImpl(serverStub);
+                ClientImpl client = new ClientImpl(serverStub, false);
+                System.out.println("Inserisci una username:");
+                Scanner scanner = new Scanner(System.in);
+                String nickName = scanner.next();
+                serverStub.register(client, nickName);
                 serverStub.testSend("Test Socket string from client to server");
                 while (true) {
                     try {

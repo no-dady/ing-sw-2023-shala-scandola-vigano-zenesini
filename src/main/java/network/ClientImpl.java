@@ -6,6 +6,7 @@ import server.model.Tile;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Scanner;
 
 /**
  * The type Client.
@@ -17,9 +18,17 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
      * @param server the server
      * @throws RemoteException the remote exception
      */
-    public ClientImpl(Server server) throws RemoteException {
+    public ClientImpl(Server server, boolean isRMI) throws RemoteException {
         super();
-        initialize(server);
+        Scanner scanner = new Scanner(System.in);
+
+        if (isRMI)
+        {
+            System.out.println("Inserisci una username:");
+            String nickName = scanner.next();
+
+            initialize(server, nickName);
+        }
     }
 
     /**
@@ -28,9 +37,9 @@ public class ClientImpl extends UnicastRemoteObject implements Client {
      * @param server the server
      * @throws RemoteException the remote exception
      */
-    public void initialize(Server server) throws RemoteException
+    public void initialize(Server server, String nickName) throws RemoteException
     {
-        server.register(this);
+        server.register(this, nickName);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class TestAppClientRMI {
 
             String string = "Test RMI string from client to server";
 
-            ClientImpl client = new ClientImpl(server);
+            ClientImpl client = new ClientImpl(server, true);
             server.testSend(string);
         }
         catch (Exception ea)

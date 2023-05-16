@@ -19,7 +19,7 @@ public interface Server extends Remote {
      * @throws RemoteException the remote exception
      */
 //Needed to registry (and intercept) the client when it connects to the server
-    public void register(Client client) throws RemoteException;
+    public void register(Client client, String nickName) throws RemoteException;
 
     /**
      * Send choice.
