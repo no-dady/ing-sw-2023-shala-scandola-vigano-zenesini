@@ -11,6 +11,8 @@ import util.Parser;
 import server.controller.actions.Action;
 
 public class SocketConnection implements Connection {
+    private String ip;
+    private int port;
     private boolean online = false;
     private boolean active = true;
     public DataOutputStream socketOut;
@@ -18,11 +20,16 @@ public class SocketConnection implements Connection {
     private Socket socket;
     private Thread readingThread;
 
+    public SocketConnection(String ip, int port) {
+        this.ip = ip;
+        this.port = port;
+    }
+
     @Override
     public void sendMove(Action move) {
         if(online) {
             try {
-                socketOut.writeUTF(Parser.parseFromJson(move, Action.class));
+                socketOut.writeUTF(Parser.parseAction(move));
                 socketOut.flush();
             } catch (IOException e) {
                 e.printStackTrace();
