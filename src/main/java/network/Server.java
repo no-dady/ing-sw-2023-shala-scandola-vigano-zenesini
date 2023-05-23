@@ -3,7 +3,6 @@ package network;
 import server.model.Board;
 import server.model.Bookshelf;
 import server.model.Tile;
-import network.Client;
 
 import java.rmi.*;
 
@@ -19,7 +18,7 @@ public interface Server extends Remote {
      * @throws RemoteException the remote exception
      */
 //Needed to registry (and intercept) the client when it connects to the server
-    public void register(Client client) throws RemoteException;
+    //public void register(Client client) throws RemoteException;
 
     /**
      * Send choice.
