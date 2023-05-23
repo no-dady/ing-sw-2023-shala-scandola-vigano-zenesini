@@ -13,29 +13,14 @@ import java.util.ArrayList;
 public class SocketClientConnection implements Observable<String>, ClientInterface, Runnable {
 
     private final Socket socket;
-    private DataOutputStream dout;
-    private final ServerImpl server;
+    private DataOutputStream out;
+    private final Server server;
     private String nickName;
     private Hub lobby;
     private transient final List<Observer<String>> observers = new ArrayList<>();
 
     private boolean active = true;
     private final boolean standby= false;
-
-    public SocketClientConnection(Socket socket, ServerImpl server)
-    {
-        this.socket = socket;
-        this.server = server;
-    }
-
-    public void setActive(boolean active) { this.active = active; }
-
-    public synchronized boolean isActive() { return active; }
-
-    private void endCommunication(String nickName)
-    {
-        System.out.println("Action ended by " + nickName);
-    }
 
     @Override
     public synchronized void closeConnection() {
@@ -47,29 +32,7 @@ public class SocketClientConnection implements Observable<String>, ClientInterfa
     }
 
     @Override
-    public void run() {
-        DataInputStream din;
-
-        try
-        {
-            din = new DataInputStream(socket.getInputStream());
-            dout = new DataOutputStream(socket.getOutputStream());
-            String read;
-            boolean confirm = false;
-            int numberOfPlayer = 0;
-            while (!isActive())
-            {
-                read = din.readUTF();
-                System.out.println("Received: " + read);
-                notify(read);
-            }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            setActive(false);
-            endCommunication(nickname);
-        }
-    }
+    public void run() {}
 
     @Override
     public void send(String json) {
