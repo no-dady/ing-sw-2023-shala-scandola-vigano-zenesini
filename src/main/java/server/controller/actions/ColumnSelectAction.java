@@ -1,14 +1,19 @@
 package server.controller.actions;
 
+import moves.Move;
+import moves.MoveSelectColum;
 import server.model.Game;
-import server.model.Tile;
 
-import java.util.List;
 import java.util.Scanner;
 
-public class ColumnSelectAction implements Action{
+public class ColumnSelectAction extends MoveSelectColum implements Action{
     int selectedY;
     Scanner sc = new Scanner(System.in);
+
+    public ColumnSelectAction(String nickName) {
+        super(nickName);
+    }
+
     @Override
     public void performAction(Game game) {
         while (!canPerformAction(game))
@@ -22,7 +27,12 @@ public class ColumnSelectAction implements Action{
         return game.getPlayers().get(game.getCurrPlayerId()).getBookshelf().getEmptyTilesColumn(selectedY) >= game.getSelectedTiles().size();
     }
     @Override
-    public int getIdPlayer() {
-        return 0;
+    public String getNickName() {
+        return "";
+    }
+
+    @Override
+    public boolean canPerform(Game game) {
+        return true;
     }
 }

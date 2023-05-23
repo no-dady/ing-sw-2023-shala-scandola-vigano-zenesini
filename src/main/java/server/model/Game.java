@@ -1,6 +1,6 @@
 package server.model;
 
-import server.controller.BoardInitializer;
+import server.controller.BoardConfig;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,8 +29,8 @@ public class Game implements Serializable {
      */
     public Game() {
         this.players = new ArrayList<Player>();
-        CommonGoalCard commonGoalStrategy = new CommonGoalCard();
-        this.board = new Board(commonGoalStrategy, BoardInitializer.newEmptyBoard());
+        //CommonGoalCard commonGoalStrategy = new CommonGoalCard();
+        this.board = new Board(BoardConfig.newEmptyBoard());
         this.pocket = new Pocket();
         this.numPlayers = 0;
         if(instance == null) {
@@ -112,7 +112,9 @@ public class Game implements Serializable {
      *
      * @return the pocket
      */
-    public Pocket getPocket() { return this.pocket; }
+    public Pocket getPocket() {
+        return this.pocket;
+    }
 
     /**
      * Add player.
@@ -145,7 +147,7 @@ public class Game implements Serializable {
     public void lastMessage() {
     }
 
-    public void errorMessage(int idPlayer) {
+    public void errorMessage(String nickName) {
     }
 
     public int getCurrPlayerId() {

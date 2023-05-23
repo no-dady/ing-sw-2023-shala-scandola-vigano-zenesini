@@ -3,6 +3,7 @@ package server.view;
 import network.Message;
 import server.controller.actions.Action;
 import server.model.Player;
+import setup.Setup;
 
 public class RemoteView extends View {
 
@@ -12,14 +13,13 @@ public class RemoteView extends View {
     private class MessageReceiver {
 
 
-        @Override
         public void update(String info) {
             System.out.println("Received: " + info);
             try{
                 Action move= Starter.fromJson(info, Action.class);
                 handleMove(move);
             }catch (NullPointerException e){
-                Settable setupper= Starter.fromJson(info,Settable.class);
+                Setup setupper= Starter.fromJson(info, Setup.class);
                 SocketClientConnection connection= (SocketClientConnection)clientConnection;
                 connection.handleSetupper(setupper);
             }

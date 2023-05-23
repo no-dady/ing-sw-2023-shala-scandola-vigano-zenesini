@@ -9,5 +9,5 @@ public interface Action {
 
     boolean canPerformAction(Game game);
 
-    int getIdPlayer();
+    String getNickName();
 }

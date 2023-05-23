@@ -1,16 +1,22 @@
 package server.controller.actions;
 
+import moves.MoveSelectTiles;
 import server.model.Game;
 import server.model.Tile;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class TileSelectAction implements Action{
+public class TileSelectAction extends MoveSelectTiles implements Action{
     int selectedX, selectedY;
 
     List<Tile>  selectedTiles;
     Scanner sc = new Scanner(System.in);
+
+    public TileSelectAction(String nickName) {
+        super(nickName);
+    }
+
     @Override
     public void performAction(Game game) {
         boolean more;
@@ -37,7 +43,8 @@ public class TileSelectAction implements Action{
     }
 
     @Override
-    public int getIdPlayer() {
-        return 0;
+    public String getNickName() {
+        return "";
     }
+
 }

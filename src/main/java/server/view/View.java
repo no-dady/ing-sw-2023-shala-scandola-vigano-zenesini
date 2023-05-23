@@ -20,7 +20,7 @@ public abstract class View implements Observable<Action>, Observer<Message>{
 
     public void setOffline(boolean offline) {
         this.offline = offline;
-        notify(new MoveAutoPlay(player.getID()));
+        //notify(new MoveAutoPlay(player.getUserName()));
     }
 
     protected View(Player player) {

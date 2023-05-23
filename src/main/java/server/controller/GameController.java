@@ -65,7 +65,7 @@ public class GameController {
         //cgcEnum[1] = CommonGoalCard.TWO_DISTINCT_COLUMNS;
 
         // TODO: Generate slots to pass to the board constructor
-        slots = BoardInitializer.newEmptyBoard();
+        slots = BoardConfig.newEmptyBoard();
         //board = new Board(cgcEnum, slots);
 
         //game = new Game(players, board, pocket);
@@ -80,7 +80,7 @@ public class GameController {
     void createLobby(int playerNumber) throws IllegalPlayersNumberException {
         PersonalGoalCard personalGoalCard;
         PocketBuilder builder = new PocketBuilder();
-        BoardFiller builderBoard = new BoardFiller();
+        //BoardFiller builderBoard = new BoardFiller();
         pocket = new Pocket(builder.createTileListPocket(132));
         for (int i = 0; i < playerNumber; i++) {
             //personalGoalCard.select();
