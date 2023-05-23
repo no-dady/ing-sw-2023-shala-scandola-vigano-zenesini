@@ -1,5 +1,7 @@
 package client;
 
+import client.network.RMIHandler;
+import network.ClientInterface;
 import server.model.*;
 import observer.Observer;
 import observer.Observable;
@@ -13,17 +15,17 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import client.network.Connection;
-import client.network.RMIConnection;
 import client.network.SocketConnection;
 
 
-public class Client {
+public class Client implements ClientInterface {
 
     private final String ip;
     private final int port;
@@ -47,8 +49,13 @@ public class Client {
         this.port = port;
         this.ui = ui;
         switch(connectionType) {
-            case 0: handler = new SocketConnection();
-            case 1: handler = new RMIConnection();
+            case 0: handler = new SocketConnection(ip, port);
+            case 1:
+                try {
+                    handler = new RMIHandler(this, ip, String.valueOf(port));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             default: // Exception
         }
     }
@@ -64,7 +71,6 @@ public class Client {
 
     public Thread asyncReadFromSocket(final DataInputStream socketIn) {
         Thread t = new Thread(new Runnable() {
-            @Override
             public void run() {
                 try {
                     String read;
@@ -85,8 +91,8 @@ public class Client {
      public void run() throws IOException {
         try{
             if(ui==1) {
-                cli = new CLI(this);
-                Thread t1 = new Thread(cli);
+                tui = new TUI(this);
+                Thread t1 = new Thread(tui);
                 t1.start();
             }
             else{
@@ -102,14 +108,25 @@ public class Client {
         } catch(InterruptedException | NoSuchElementException e){
             System.out.println("Connection closed from the client side");
         } finally {
-            if(online) {
-                socketIn.close();
-                socketOut.close();
-                socket.close();
-            }
+            // Close Connections
+
             //stdin.close();
             System.exit(0);
         }
     }
 
+    @Override
+    public void closeConnection() {
+
+    }
+
+    @Override
+    public void addObserver(Observer<String> observer) {
+
+    }
+
+    @Override
+    public void send(String json) {
+
+    }
 }
