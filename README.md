@@ -22,7 +22,7 @@
 - [x] DA toglier turn che non ci piace
 - [x] DA cambiare nomi cgc
 - [ ] CA RETE TUTTO !
-    - [ ] CA scheletro, client e server con setup serializzazione/deserializzazione RMI
+    - [ ] CA scheletro, clientInterface e serverInterface con setup serializzazione/deserializzazione RMI
 - [ ] TUTTI definire standard di rappresentazione su interfaccia command line
 - [ ] JJ metodi da sistemare nel controller
 - [ ] TUTTI rivedere controller e pensare se incorporare tutto

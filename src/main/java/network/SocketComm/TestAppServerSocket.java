@@ -1,8 +1,7 @@
 package network.SocketComm;
 
-import network.Client;
+import network.ServerInterface;
 import network.Server;
-import network.ServerImpl;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -28,11 +27,11 @@ public class TestAppServerSocket {
                 try (Socket socket = serverSocket.accept())
                 {
                     ClientSkeleton clientSkeleton = new ClientSkeleton(socket);
-                    Server server = new ServerImpl();
+                    ServerInterface serverInterface = new Server();
                     //To send the info you have to call the clientSkeleton's function on the server-side
                     clientSkeleton.testSend("Test Socket string from server to client");
                     while (true) {
-                        clientSkeleton.receive(server);
+                        clientSkeleton.receive(serverInterface);
                     }
                 } catch (IOException e)
                 {

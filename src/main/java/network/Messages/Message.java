@@ -1,10 +1,10 @@
 package network.Messages;
 
-import network.Client;
+import network.ClientInterface;
 
 public interface  Message {
 
-    void handleMessage(Client client);
+    void handleMessage(ClientInterface clientInterface);
 
     String getName();
 }

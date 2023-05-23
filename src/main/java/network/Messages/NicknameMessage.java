@@ -1,11 +1,11 @@
 package network.Messages;
 
-import network.Client;
+import network.ClientInterface;
 
 public class NicknameMessage implements Message {
 
     @Override
-    public void handleMessage(Client client)
+    public void handleMessage(ClientInterface clientInterface)
     {
         System.out.println("Prova");
     }

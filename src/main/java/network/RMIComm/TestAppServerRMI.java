@@ -1,7 +1,7 @@
 package network.RMIComm;
 
-import network.ServerImpl;
-import network.Client;
+import network.ClientInterface;
+import network.Server;
 
 import java.rmi.*;
 import java.rmi.registry.*;
@@ -19,18 +19,18 @@ public class TestAppServerRMI {
     {
         try
         {
-            ServerImpl obj = new ServerImpl();
+            Server obj = new Server();
 
             LocateRegistry.createRegistry(1900);
 
             Naming.rebind("rmi://localhost:1900" + "/myShelfie", obj);
-            Client client = null;
-            while (client == null)
+            ClientInterface clientInterface = null;
+            while (clientInterface == null)
             {
-                client = obj.getClient();
+                clientInterface = obj.getClient();
             }
             System.out.println("Uscito");
-            client.testSend("Test RMI string from server to client");
+            clientInterface.testSend("Test RMI string from server to client");
         }
         catch (Exception ea)
         {

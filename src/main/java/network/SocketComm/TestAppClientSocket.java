@@ -1,7 +1,6 @@
 package network.SocketComm;
 
-import network.ClientImpl;
-import network.Server;
+import network.Client;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -23,7 +22,7 @@ public class TestAppClientSocket {
         new Thread(() -> {
             ServerStub serverStub = new ServerStub("localhost", 1234);
             try {
-                ClientImpl client = new ClientImpl(serverStub, false);
+                Client client = new Client(serverStub, false);
                 System.out.println("Inserisci una username:");
                 Scanner scanner = new Scanner(System.in);
                 String nickName = scanner.next();

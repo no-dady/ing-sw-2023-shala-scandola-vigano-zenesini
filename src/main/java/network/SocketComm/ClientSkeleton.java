@@ -1,10 +1,10 @@
 package network.SocketComm;
 
+import network.ClientInterface;
+import network.ServerInterface;
 import server.model.Board;
 import server.model.Bookshelf;
 import server.model.Tile;
-import network.Client;
-import network.Server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,7 +16,7 @@ import java.rmi.RemoteException;
  * The type Client skeleton.
  */
 //It implements the client, but it will be used on the server-side to call functions
-public class ClientSkeleton implements Client {
+public class ClientSkeleton implements ClientInterface {
     private final ObjectOutputStream oos;
     private final ObjectInputStream ois;
 
@@ -141,10 +141,10 @@ public class ClientSkeleton implements Client {
     /**
      * Receive.
      *
-     * @param server the server
+     * @param serverInterface the server
      * @throws RemoteException the remote exception
      */
-    public void receive(Server server) throws RemoteException
+    public void receive(ServerInterface serverInterface) throws RemoteException
     {
         int actionNumber;
 
@@ -165,7 +165,7 @@ public class ClientSkeleton implements Client {
                 } catch (IOException e) {
                     throw new RemoteException("Cannot receive choice from client", e);
                 }
-                server.sendChoice(choice);
+                serverInterface.sendChoice(choice);
             }
             case 2 -> {
                 Tile[] tilePick;
@@ -176,7 +176,7 @@ public class ClientSkeleton implements Client {
                 } catch (ClassNotFoundException e) {
                     throw new RemoteException("Cannot deserialize tilePick from client", e);
                 }
-                server.sendPick(tilePick);
+                serverInterface.sendPick(tilePick);
             }
             case 3 -> {
                 String string;
@@ -187,7 +187,7 @@ public class ClientSkeleton implements Client {
                 } catch (ClassNotFoundException e) {
                     throw new RemoteException("Cannot deserialize String from client", e);
                 }
-                server.testSend(string);
+                serverInterface.testSend(string);
             }
         }
     }

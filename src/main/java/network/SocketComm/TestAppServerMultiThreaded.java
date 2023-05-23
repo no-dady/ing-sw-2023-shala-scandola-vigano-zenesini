@@ -1,8 +1,8 @@
 package network.SocketComm;
 
-import network.Client;
+import network.ClientInterface;
+import network.ServerInterface;
 import network.Server;
-import network.ServerImpl;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -52,19 +52,19 @@ public class TestAppServerMultiThreaded {
     {
         try
         {
-            ServerImpl obj = new ServerImpl();
+            Server obj = new Server();
 
             LocateRegistry.createRegistry(1900);
 
             Naming.rebind("rmi://localhost:1900" + "/myShelfie", obj);
-            Client client = null;
+            ClientInterface clientInterface = null;
             System.out.println("Entro");
-            while (client == null)
+            while (clientInterface == null)
             {
-                client = obj.getClient();
+                clientInterface = obj.getClient();
             }
             System.out.println("Uscito");
-            client.testSend("Test RMI string from server to client");
+            clientInterface.testSend("Test RMI string from server to client");
         }
         catch (Exception ea)
         {
@@ -81,12 +81,12 @@ public class TestAppServerMultiThreaded {
                 try (Socket socket = serverSocket.accept())
                 {
                     ClientSkeleton clientSkeleton = new ClientSkeleton(socket);
-                    Server server = new ServerImpl();
+                    ServerInterface serverInterface = new Server();
                     //To send the info you have to call the clientSkeleton's function on the server-side
                     clientSkeleton.testSend("Test Socket string from server to client");
-                    server.register(clientSkeleton, "protoro");
+                    serverInterface.register(clientSkeleton, "protoro");
                     while (true) {
-                        clientSkeleton.receive(server);
+                        clientSkeleton.receive(serverInterface);
                     }
                 } catch (IOException e)
                 {

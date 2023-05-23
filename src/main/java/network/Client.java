@@ -4,46 +4,65 @@ import server.model.Board;
 import server.model.Bookshelf;
 import server.model.Tile;
 
-import java.rmi.*;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.util.Scanner;
 
 /**
- * The interface Client.
+ * The type Client.
  */
-public interface Client extends Remote
-{
+public class Client extends UnicastRemoteObject implements ClientInterface {
     /**
-     * Send shelf.
+     * Instantiates a new Client.
      *
-     * @param shelf the shelf
+     * @param serverInterface the server
      * @throws RemoteException the remote exception
      */
-//Send the shelf from server to client
-    public void sendShelf(Tile[][] shelf) throws RemoteException;
+    public Client(ServerInterface serverInterface, boolean isRMI) throws RemoteException {
+        super();
+        Scanner scanner = new Scanner(System.in);
+
+        if (isRMI)
+        {
+            System.out.println("Inserisci una username:");
+            String nickName = scanner.next();
+
+            initialize(serverInterface, nickName);
+        }
+    }
 
     /**
-     * Send board.
+     * Initialize.
      *
-     * @param board the board
+     * @param serverInterface the server
      * @throws RemoteException the remote exception
      */
-//Send the Board from server to client
-    public void sendBoard(Board board) throws RemoteException;
+    public void initialize(ServerInterface serverInterface, String nickName) throws RemoteException
+    {
+        serverInterface.register(this, nickName);
+    }
 
-    /**
-     * Send bookshelf.
-     *
-     * @param bookshelf the bookshelf
-     * @throws RemoteException the remote exception
-     */
-//Send the Bookshelf from server to client
-    public void sendBookshelf(Bookshelf bookshelf) throws RemoteException;
+    @Override
+    public void sendShelf(Tile[][] shelf)
+    {
 
-    /**
-     * Test send.
-     *
-     * @param string the string
-     * @throws RemoteException the remote exception
-     */
-//Test function
-    public void testSend(String string) throws RemoteException;
+    }
+
+    @Override
+    public void sendBoard(Board board) throws RemoteException
+    {
+
+    }
+
+    @Override
+    public void sendBookshelf(Bookshelf bookshelf) throws RemoteException
+    {
+
+    }
+
+    @Override
+    public void testSend(String string) throws RemoteException
+    {
+        System.out.println("Ricevuto: " + string);
+    }
 }

@@ -1,11 +1,11 @@
 package network.SocketComm;
 
-import network.ClientImpl;
+import network.Client;
 import server.model.Board;
 import server.model.Bookshelf;
 import server.model.Tile;
-import network.Client;
-import network.Server;
+import network.ClientInterface;
+import network.ServerInterface;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -19,13 +19,13 @@ import java.util.List;
  * The type Server stub.
  */
 //It implements the Server, but it will be used on the client-side to communicate
-public class ServerStub implements Server {
+public class ServerStub implements ServerInterface {
     /**
      * The Ip.
      */
     String ip;
 
-    public List<Client> clientList;
+    public List<ClientInterface> clientInterfaceList;
 
     /**
      * The Port.
@@ -48,16 +48,16 @@ public class ServerStub implements Server {
     {
         this.ip = ip;
         this.port = port;
-        this.clientList = new ArrayList<Client>();
+        this.clientInterfaceList = new ArrayList<ClientInterface>();
     }
 
     @Override
-    public void register(Client client, String nickName) throws RemoteException
+    public void register(ClientInterface clientInterface, String nickName) throws RemoteException
     {
         System.out.println("Client Socket connected");
-        clientList.add(client);
+        clientInterfaceList.add(clientInterface);
         System.out.println(nickName + " joined the match");
-        System.out.println("Ci sono " + clientList.size() + " client socket");
+        System.out.println("Ci sono " + clientInterfaceList.size() + " client socket");
         try
         {
             this.socket = new Socket(ip, port);
@@ -172,7 +172,7 @@ public class ServerStub implements Server {
      * @param client the client
      * @throws RemoteException the remote exception
      */
-    public void receive(ClientImpl client) throws RemoteException
+    public void receive(Client client) throws RemoteException
     {
         int actionNumber;
 

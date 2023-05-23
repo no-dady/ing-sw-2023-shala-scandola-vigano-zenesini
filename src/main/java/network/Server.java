@@ -1,50 +1,76 @@
 package network;
 
-import server.model.Board;
-import server.model.Bookshelf;
 import server.model.Tile;
-import network.Client;
 
 import java.rmi.*;
+import java.rmi.server.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * The interface Server.
+ * The type Server.
  */
-public interface Server extends Remote {
+public class Server extends UnicastRemoteObject implements ServerInterface {
 
     /**
-     * Register.
-     *
-     * @param client the client
-     * @throws RemoteException the remote exception
+     * The Client.
      */
-//Needed to registry (and intercept) the client when it connects to the server
-    public void register(Client client, String nickName) throws RemoteException;
+//Temporary position for testing purpose
+    public Map<String, ClientInterface> clientList;
 
     /**
-     * Send choice.
+     * Gets client.
      *
-     * @param columnChoice the column choice
-     * @throws RemoteException the remote exception
+     * @return the client
      */
-//Send the chosen Column number of the client's bookshelf to server
-    public void sendChoice(int columnChoice) throws RemoteException;
+    public ClientInterface getClient() {
+        if (clientList.size() > 0)
+        {
+            return this.clientList.get(0);
+        }
+        return null;
+    }
 
     /**
-     * Send pick.
+     * Instantiates a new Server.
      *
-     * @param tilePick the tile pick
      * @throws RemoteException the remote exception
      */
-//Send the Tile picked from the board from server to server
-    public void sendPick(Tile[] tilePick) throws RemoteException;
+    public Server() throws RemoteException {
+        super();
+        this.clientList = new HashMap<String, ClientInterface>();
+    }
 
-    /**
-     * Test send.
-     *
-     * @param string the string
-     * @throws RemoteException the remote exception
-     */
-//Test function
-    public void testSend(String string) throws RemoteException;
+    @Override
+    public void register(ClientInterface clientInterface, String nickName)
+    {
+        try {
+            clientInterface.testSend("Test RMI string from server to client");
+            clientList.put(nickName, clientInterface);
+            System.out.println(nickName + " joined the match");
+            System.out.println("Client collegati: " + clientList.size());
+            for (Map.Entry<String, ClientInterface> entry : clientList.entrySet())
+            {
+                entry.getValue().testSend("Sto avvisando " + entry.getKey() + " che si é aggiunto alla partita " + nickName);
+            }
+        } catch(RemoteException e) { System.out.println(e); }
+    }
+
+    @Override
+    public void sendChoice(int columnChoice) throws RemoteException
+    {
+
+    }
+
+    @Override
+    public void sendPick(Tile[] tilePick) throws RemoteException
+    {
+
+    }
+
+    @Override
+    public void testSend(String string) throws RemoteException
+    {
+        System.out.println("Ricevuto: " + string);
+    }
 }
