@@ -21,7 +21,7 @@ public class TileType {
     public TileType() {
         tileMap = new HashMap<>();
         try {
-            ConfigsFromJson.getTileType("src/main/resources/json/tiletypes_config.json");
+            tileMap = ConfigsFromJson.getTileType("src/main/resources/json/tiletypes_config.json");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -34,7 +34,7 @@ public class TileType {
      * @param index    the index
      */
     public TileType(String tiletype, int index) {
-        TileType temp = new TileType();
+        //TileType temp = new TileType();
         this.key = tiletype;
         this.color = tileMap.get(tiletype).color;
         this.sign = tileMap.get(tiletype).sign;
