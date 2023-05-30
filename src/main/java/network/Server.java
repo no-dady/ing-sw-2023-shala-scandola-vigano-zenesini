@@ -60,24 +60,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
                 }
             } catch(RemoteException e) { System.out.println(e); }
         }
-        else
-        {
-            Runnable runnable = () -> {
-                ClientSkeleton clientSkeleton = (ClientSkeleton) clientInterface;
-                while (true)
-                {
-                    try
-                    {
-                        clientSkeleton.receive(this);
-                    } catch(RemoteException e)
-                    {
-                        System.out.println("Listen Error");
-                    }
-                }
-            };
-            Thread listen = new Thread(runnable);
-            listen.start();
-        }
     }
 
     @Override

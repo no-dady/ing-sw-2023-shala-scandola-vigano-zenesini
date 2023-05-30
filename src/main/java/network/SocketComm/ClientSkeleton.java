@@ -17,8 +17,9 @@ import java.rmi.RemoteException;
  */
 //It implements the client, but it will be used on the server-side to call functions
 public class ClientSkeleton implements ClientInterface, Runnable {
-    private final ObjectOutputStream oos;
-    private final ObjectInputStream ois;
+    private ObjectOutputStream oos;
+
+    private final Socket socket;
 
     private ServerInterface serverInterface;
 
@@ -28,44 +29,58 @@ public class ClientSkeleton implements ClientInterface, Runnable {
      * @param socket the socket
      * @throws RemoteException the remote exception
      */
-    public ClientSkeleton(Socket socket) throws RemoteException
+    public ClientSkeleton(Socket socket, ServerInterface serverInterface) throws RemoteException
     {
-        try
-        {
-            this.oos = new ObjectOutputStream(socket.getOutputStream());
-        }
-        catch (IOException e) {
-            throw new RemoteException("Cannot create output stream", e);
-        }
-
-        try
-        {
-            this.ois = new ObjectInputStream(socket.getInputStream());
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot create input stream", e);
-        }
-    }
-
-    public void setServerInterface(ServerInterface serverInterface)
-    {
+        this.socket = socket;
         this.serverInterface = serverInterface;
     }
 
     @Override
     public void run()
     {
-        while(true)
+        System.out.println("Start thread");
+        try
         {
-            try
+            ObjectInputStream ois;
+            System.out.println("Creating streams");
+            this.oos = new ObjectOutputStream(socket.getOutputStream());
+            System.out.println("Created Output");
+            ois = new ObjectInputStream(socket.getInputStream());
+            System.out.println("Created input");
+
+            String input;
+            while (true)
             {
-                receive(this.serverInterface);
+                input = (String) ois.readObject();
+                System.out.println("Received " + input);
+                if (input.equalsIgnoreCase("quit"))
+                {
+                    break;
+                }
             }
-            catch(RemoteException e)
-            {
-                System.out.println("Error receiving");
-            }
+
+            ois.close();
+            oos.close();
+            socket.close();
+            System.out.println("Disconnected");
+        }
+        catch(IOException e)
+        {
+            System.out.println(e.getMessage());
+        } catch(ClassNotFoundException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void notifyNewConn(String nickname)
+    {
+        try
+        {
+            oos.writeObject(nickname + " connected");
+        } catch (IOException e)
+        {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -164,65 +179,73 @@ public class ClientSkeleton implements ClientInterface, Runnable {
     /**
      * Receive.
      *
-     * @param serverInterface the server
      * @throws RemoteException the remote exception
      */
-    public void receive(ServerInterface serverInterface) throws RemoteException
+    public void receive(ObjectInputStream ois) throws RemoteException
     {
-        int actionNumber;
-
         try
         {
-            actionNumber = ois.readInt();
+            String read = ois.readUTF();
+            System.out.println("Received " + read);
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot receive actionNumber from client", e);
+            throw new RemoteException("Cannot receive from client", e);
         }
-
-        switch (actionNumber) {
-            case 1 -> {
-                int choice;
-                try {
-                    choice = ois.readInt();
-                } catch (IOException e) {
-                    throw new RemoteException("Cannot receive choice from client", e);
-                }
-                serverInterface.sendChoice(choice);
-            }
-            case 2 -> {
-                Tile[] tilePick;
-                try {
-                    tilePick = (Tile[]) ois.readObject();
-                } catch (IOException e) {
-                    throw new RemoteException("Cannot receive tilePick from client", e);
-                } catch (ClassNotFoundException e) {
-                    throw new RemoteException("Cannot deserialize tilePick from client", e);
-                }
-                serverInterface.sendPick(tilePick);
-            }
-            case 3 -> {
-                String string;
-                try {
-                    string = (String) ois.readObject();
-                } catch (IOException e) {
-                    throw new RemoteException("Cannot receive String from client", e);
-                } catch (ClassNotFoundException e) {
-                    throw new RemoteException("Cannot deserialize String from client", e);
-                }
-                serverInterface.testSend(string);
-            }
-            case 4 -> {
-                String nickname;
-                try {
-                    nickname = (String) ois.readObject();
-                } catch (IOException e) {
-                    throw new RemoteException("Cannot receive nickname from client", e);
-                } catch (ClassNotFoundException e) {
-                    throw new RemoteException("Cannot deserialize nickname from client", e);
-                }
-                serverInterface.register(this, nickname);
-            }
-        }
+        //int actionNumber;
+//
+        //try
+        //{
+        //    actionNumber = ois.readInt();
+        //}
+        //catch (IOException e)
+        //{
+        //    throw new RemoteException("Cannot receive actionNumber from client", e);
+        //}
+//
+        //switch (actionNumber) {
+        //    case 1 -> {
+        //        int choice;
+        //        try {
+        //            choice = ois.readInt();
+        //        } catch (IOException e) {
+        //            throw new RemoteException("Cannot receive choice from client", e);
+        //        }
+        //        serverInterface.sendChoice(choice);
+        //    }
+        //    case 2 -> {
+        //        Tile[] tilePick;
+        //        try {
+        //            tilePick = (Tile[]) ois.readObject();
+        //        } catch (IOException e) {
+        //            throw new RemoteException("Cannot receive tilePick from client", e);
+        //        } catch (ClassNotFoundException e) {
+        //            throw new RemoteException("Cannot deserialize tilePick from client", e);
+        //        }
+        //        serverInterface.sendPick(tilePick);
+        //    }
+        //    case 3 -> {
+        //        String string;
+        //        try {
+        //            string = (String) ois.readObject();
+        //        } catch (IOException e) {
+        //            throw new RemoteException("Cannot receive String from client", e);
+        //        } catch (ClassNotFoundException e) {
+        //            throw new RemoteException("Cannot deserialize String from client", e);
+        //        }
+        //        serverInterface.testSend(string);
+        //    }
+        //    case 4 -> {
+        //        String nickname;
+        //        try {
+        //            nickname = (String) ois.readObject();
+        //        } catch (IOException e) {
+        //            throw new RemoteException("Cannot receive nickname from client", e);
+        //        } catch (ClassNotFoundException e) {
+        //            throw new RemoteException("Cannot deserialize nickname from client", e);
+        //        }
+        //        serverInterface.register(this, nickname);
+        //    }
+        //}
     }
 }

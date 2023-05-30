@@ -61,12 +61,10 @@ public class TestAppServerMultiThreaded {
 
             Naming.rebind("rmi://localhost:1900" + "/myShelfie", obj);
             ClientInterface clientInterface = null;
-            System.out.println("Entro");
             while (clientInterface == null)
             {
                 clientInterface = obj.getClient();
             }
-            System.out.println("Uscito");
             clientInterface.testSend("Test RMI string from server to client");
         }
         catch (Exception ea)
@@ -77,23 +75,27 @@ public class TestAppServerMultiThreaded {
 
     private static void startSocket() throws RemoteException
     {
+        ArrayList<Thread> memory = new ArrayList<Thread>();
+        ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
         ServerInterface serverInterface = new Server(false);
-        try (ServerSocket serverSocket = new ServerSocket(1234))
-        {
-            System.out.println("Prima while");
-            while (true)
-            {
-                System.out.println("Aspetto");
-                try (Socket socket = serverSocket.accept())
+        System.out.println("Server Started");
+        try {
+            ServerSocket serverSocket = new ServerSocket(1234);
+            while (true) {
+                System.out.println("Waiting connections...");
+                Socket socket = serverSocket.accept();
+                System.out.println("New connection found");
+                for (ClientSkeleton clientSkeleton : clientsList)
                 {
-                    ClientSkeleton clientSkeleton = new ClientSkeleton(socket);
-                    //To send the info you have to call the clientSkeleton's function on the server-side
-                    clientSkeleton.setServerInterface(serverInterface);
-                    clientSkeleton.run();
-                } catch (IOException e)
-                {
-                    System.out.println("Socket failed: " + e.getMessage() + ". Closing connection and wating for new one");
+                    clientSkeleton.notifyNewConn("New connection ");
                 }
+                ClientSkeleton clientSkeleton = new ClientSkeleton(socket, serverInterface);
+                //To send the info you have to call the clientSkeleton's function on the server-side
+                clientsList.add(clientSkeleton);
+                Thread clientSkeletonThread = new Thread(clientSkeleton);
+                memory.add(clientSkeletonThread);
+                clientSkeletonThread.start();
+                System.out.println("Thread launched from main");
             }
         } catch (IOException e)
         {

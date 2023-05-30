@@ -7,9 +7,7 @@ import server.model.Tile;
 import network.ClientInterface;
 import network.ServerInterface;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -19,7 +17,7 @@ import java.util.List;
  * The type Server stub.
  */
 //It implements the Server, but it will be used on the client-side to communicate
-public class ServerStub implements ServerInterface {
+public class ServerStub implements ServerInterface, Runnable {
     /**
      * The Ip.
      */
@@ -32,10 +30,9 @@ public class ServerStub implements ServerInterface {
 
     private ObjectOutputStream oos;
 
-    private ObjectInputStream ois;
-
     private Socket socket;
 
+    private ClientInterface clientinterface;
     /**
      * Instantiates a new Server stub.
      *
@@ -48,51 +45,61 @@ public class ServerStub implements ServerInterface {
         this.port = port;
     }
 
+    public void setClientinterface(ClientInterface clientInterface)
+    {
+        this.clientinterface = clientInterface;
+    }
+
+    @Override
+    public void run()
+    {
+        try
+        {
+            socket = new Socket("localhost", 1234);
+            oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+            System.out.println("Created streams");
+            String rec;
+            while (true)
+            {
+                rec = (String) ois.readObject();
+                clientinterface.testSend(rec);
+            }
+        } catch(IOException e)
+        {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void testContinousSend()
+    {
+        try
+        {
+            String input;
+            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
+            while(true)
+            {
+                input = userInput.readLine();
+                System.out.println("Sending " + input);
+                oos.writeObject(input);
+                if (input.equalsIgnoreCase("quit"))
+                {
+                    break;
+                }
+            }
+        } catch(IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
     @Override
     public void register(ClientInterface clientInterface,String nickName) throws RemoteException
     {
-        System.out.println("Client Socket connected");
-        try
-        {
-            this.socket = new Socket(ip, port);
-            try
-            {
-                this.oos = new ObjectOutputStream(socket.getOutputStream());
-            }
-            catch (IOException e)
-            {
-                throw new RemoteException("Cannot create output stream", e);
-            }
-            try
-            {
-                this.ois = new ObjectInputStream(socket.getInputStream());
-            }
-            catch (IOException e)
-            {
-                throw new RemoteException("Cannot create input stream", e);
-            }
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot connect to the server", e);
-        }
-        try
-        {
-            oos.writeInt(4);
-        }
-        catch(IOException e)
-        {
-            throw new RemoteException("Cannot send action number register",e);
-        }
 
-        try
-        {
-            oos.writeObject(nickName);
-        }
-        catch(IOException e)
-        {
-            throw new RemoteException("Cannot send nickname",e);
-        }
     }
 
     /**
@@ -185,62 +192,62 @@ public class ServerStub implements ServerInterface {
      */
     public void receive(Client client) throws RemoteException
     {
-        int actionNumber;
+        //int actionNumber;
 
-        try
-        {
-            actionNumber = ois.readInt();
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot receive actionNumber from client", e);
-        }
-
-        switch (actionNumber) {
-            case 1 -> {
-                Tile[][] shelf;
-                try {
-                    shelf = (Tile[][]) ois.readObject();
-                } catch (IOException e) {
-                    throw new RemoteException("Cannot receive Shelf from client", e);
-                } catch (ClassNotFoundException e) {
-                    throw new RemoteException("Cannot deserialize Shelf from client", e);
-                }
-                client.sendShelf(shelf);
-            }
-            case 2 -> {
-                Board board;
-                try {
-                    board = (Board) ois.readObject();
-                } catch (IOException e) {
-                    throw new RemoteException("Cannot receive Board from client", e);
-                } catch (ClassNotFoundException e) {
-                    throw new RemoteException("Cannot deserialize Board from client", e);
-                }
-                client.sendBoard(board);
-            }
-            case 3 -> {
-                Bookshelf bookshelf;
-                try {
-                    bookshelf = (Bookshelf) ois.readObject();
-                } catch (IOException e) {
-                    throw new RemoteException("Cannot receive Bookshelf from client", e);
-                } catch (ClassNotFoundException e) {
-                    throw new RemoteException("Cannot deserialize Bookshelf from client", e);
-                }
-                client.sendBookshelf(bookshelf);
-            }
-            case 4 -> {
-                String string;
-                try {
-                    string = (String) ois.readObject();
-                } catch (IOException e) {
-                    throw new RemoteException("Cannot receive String from client", e);
-                } catch (ClassNotFoundException e) {
-                    throw new RemoteException("Cannot deserialize String from client", e);
-                }
-                client.testSend(string);
-            }
-        }
+        //try
+        //{
+        //    actionNumber = ois.readInt();
+        //}
+        //catch (IOException e)
+        //{
+        //    throw new RemoteException("Cannot receive actionNumber from client", e);
+        //}
+//
+        //switch (actionNumber) {
+        //    case 1 -> {
+        //        Tile[][] shelf;
+        //        try {
+        //            shelf = (Tile[][]) ois.readObject();
+        //        } catch (IOException e) {
+        //            throw new RemoteException("Cannot receive Shelf from client", e);
+        //        } catch (ClassNotFoundException e) {
+        //            throw new RemoteException("Cannot deserialize Shelf from client", e);
+        //        }
+        //        client.sendShelf(shelf);
+        //    }
+        //    case 2 -> {
+        //        Board board;
+        //        try {
+        //            board = (Board) ois.readObject();
+        //        } catch (IOException e) {
+        //            throw new RemoteException("Cannot receive Board from client", e);
+        //        } catch (ClassNotFoundException e) {
+        //            throw new RemoteException("Cannot deserialize Board from client", e);
+        //        }
+        //        client.sendBoard(board);
+        //    }
+        //    case 3 -> {
+        //        Bookshelf bookshelf;
+        //        try {
+        //            bookshelf = (Bookshelf) ois.readObject();
+        //        } catch (IOException e) {
+        //            throw new RemoteException("Cannot receive Bookshelf from client", e);
+        //        } catch (ClassNotFoundException e) {
+        //            throw new RemoteException("Cannot deserialize Bookshelf from client", e);
+        //        }
+        //        client.sendBookshelf(bookshelf);
+        //    }
+        //    case 4 -> {
+        //        String string;
+        //        try {
+        //            string = (String) ois.readObject();
+        //        } catch (IOException e) {
+        //            throw new RemoteException("Cannot receive String from client", e);
+        //        } catch (ClassNotFoundException e) {
+        //            throw new RemoteException("Cannot deserialize String from client", e);
+        //        }
+        //        client.testSend(string);
+        //    }
+        //}
     }
 }
