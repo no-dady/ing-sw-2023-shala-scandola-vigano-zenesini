@@ -25,8 +25,6 @@ public class ServerStub implements ServerInterface {
      */
     String ip;
 
-    public List<ClientInterface> clientInterfaceList;
-
     /**
      * The Port.
      */
@@ -48,16 +46,12 @@ public class ServerStub implements ServerInterface {
     {
         this.ip = ip;
         this.port = port;
-        this.clientInterfaceList = new ArrayList<ClientInterface>();
     }
 
     @Override
-    public void register(ClientInterface clientInterface, String nickName) throws RemoteException
+    public void register(ClientInterface clientInterface,String nickName) throws RemoteException
     {
         System.out.println("Client Socket connected");
-        clientInterfaceList.add(clientInterface);
-        System.out.println(nickName + " joined the match");
-        System.out.println("Ci sono " + clientInterfaceList.size() + " client socket");
         try
         {
             this.socket = new Socket(ip, port);
@@ -81,6 +75,23 @@ public class ServerStub implements ServerInterface {
         catch (IOException e)
         {
             throw new RemoteException("Cannot connect to the server", e);
+        }
+        try
+        {
+            oos.writeInt(4);
+        }
+        catch(IOException e)
+        {
+            throw new RemoteException("Cannot send action number register",e);
+        }
+
+        try
+        {
+            oos.writeObject(nickName);
+        }
+        catch(IOException e)
+        {
+            throw new RemoteException("Cannot send nickname",e);
         }
     }
 

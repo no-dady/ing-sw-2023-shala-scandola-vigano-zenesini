@@ -1,5 +1,6 @@
 package network;
 
+import network.SocketComm.ClientSkeleton;
 import server.model.Tile;
 
 import java.rmi.*;
@@ -10,13 +11,15 @@ import java.util.Map;
 /**
  * The type Server.
  */
-public class Server extends UnicastRemoteObject implements ServerInterface {
+public class Server extends UnicastRemoteObject implements ServerInterface, Runnable {
 
     /**
      * The Client.
      */
 //Temporary position for testing purpose
     public Map<String, ClientInterface> clientList;
+
+    public boolean isRMI;
 
     /**
      * Gets client.
@@ -36,24 +39,51 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
      *
      * @throws RemoteException the remote exception
      */
-    public Server() throws RemoteException {
+    public Server(boolean isRMI) throws RemoteException {
         super();
+        this.isRMI = isRMI;
         this.clientList = new HashMap<String, ClientInterface>();
     }
 
     @Override
     public void register(ClientInterface clientInterface, String nickName)
     {
-        try {
-            clientInterface.testSend("Test RMI string from server to client");
-            clientList.put(nickName, clientInterface);
-            System.out.println(nickName + " joined the match");
-            System.out.println("Client collegati: " + clientList.size());
-            for (Map.Entry<String, ClientInterface> entry : clientList.entrySet())
-            {
-                entry.getValue().testSend("Sto avvisando " + entry.getKey() + " che si é aggiunto alla partita " + nickName);
-            }
-        } catch(RemoteException e) { System.out.println(e); }
+        clientList.put(nickName, clientInterface);
+        System.out.println(nickName + " joined the match");
+        System.out.println("Client collegati: " + clientList.size());
+        if (isRMI)
+        {
+            try {
+                for (Map.Entry<String, ClientInterface> entry : clientList.entrySet())
+                {
+                    entry.getValue().testSend("Sto avvisando " + entry.getKey() + " che si é aggiunto alla partita " + nickName);
+                }
+            } catch(RemoteException e) { System.out.println(e); }
+        }
+        else
+        {
+            Runnable runnable = () -> {
+                ClientSkeleton clientSkeleton = (ClientSkeleton) clientInterface;
+                while (true)
+                {
+                    try
+                    {
+                        clientSkeleton.receive(this);
+                    } catch(RemoteException e)
+                    {
+                        System.out.println("Listen Error");
+                    }
+                }
+            };
+            Thread listen = new Thread(runnable);
+            listen.start();
+        }
+    }
+
+    @Override
+    public void run()
+    {
+
     }
 
     @Override

@@ -27,7 +27,7 @@ public class TestAppServerSocket {
                 try (Socket socket = serverSocket.accept())
                 {
                     ClientSkeleton clientSkeleton = new ClientSkeleton(socket);
-                    ServerInterface serverInterface = new Server();
+                    ServerInterface serverInterface = new Server(false);
                     //To send the info you have to call the clientSkeleton's function on the server-side
                     clientSkeleton.testSend("Test Socket string from server to client");
                     while (true) {

@@ -16,9 +16,11 @@ import java.rmi.RemoteException;
  * The type Client skeleton.
  */
 //It implements the client, but it will be used on the server-side to call functions
-public class ClientSkeleton implements ClientInterface {
+public class ClientSkeleton implements ClientInterface, Runnable {
     private final ObjectOutputStream oos;
     private final ObjectInputStream ois;
+
+    private ServerInterface serverInterface;
 
     /**
      * Instantiates a new Client skeleton.
@@ -43,6 +45,27 @@ public class ClientSkeleton implements ClientInterface {
         catch (IOException e)
         {
             throw new RemoteException("Cannot create input stream", e);
+        }
+    }
+
+    public void setServerInterface(ServerInterface serverInterface)
+    {
+        this.serverInterface = serverInterface;
+    }
+
+    @Override
+    public void run()
+    {
+        while(true)
+        {
+            try
+            {
+                receive(this.serverInterface);
+            }
+            catch(RemoteException e)
+            {
+                System.out.println("Error receiving");
+            }
         }
     }
 
@@ -188,6 +211,17 @@ public class ClientSkeleton implements ClientInterface {
                     throw new RemoteException("Cannot deserialize String from client", e);
                 }
                 serverInterface.testSend(string);
+            }
+            case 4 -> {
+                String nickname;
+                try {
+                    nickname = (String) ois.readObject();
+                } catch (IOException e) {
+                    throw new RemoteException("Cannot receive nickname from client", e);
+                } catch (ClassNotFoundException e) {
+                    throw new RemoteException("Cannot deserialize nickname from client", e);
+                }
+                serverInterface.register(this, nickname);
             }
         }
     }

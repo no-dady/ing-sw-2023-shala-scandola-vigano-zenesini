@@ -19,7 +19,7 @@ public class TestAppServerRMI {
     {
         try
         {
-            Server obj = new Server();
+            Server obj = new Server(true);
 
             LocateRegistry.createRegistry(1900);
 

@@ -10,6 +10,9 @@ import java.net.Socket;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class TestAppServerMultiThreaded {
 
@@ -52,7 +55,7 @@ public class TestAppServerMultiThreaded {
     {
         try
         {
-            Server obj = new Server();
+            Server obj = new Server(true);
 
             LocateRegistry.createRegistry(1900);
 
@@ -74,20 +77,19 @@ public class TestAppServerMultiThreaded {
 
     private static void startSocket() throws RemoteException
     {
+        ServerInterface serverInterface = new Server(false);
         try (ServerSocket serverSocket = new ServerSocket(1234))
         {
+            System.out.println("Prima while");
             while (true)
             {
+                System.out.println("Aspetto");
                 try (Socket socket = serverSocket.accept())
                 {
                     ClientSkeleton clientSkeleton = new ClientSkeleton(socket);
-                    ServerInterface serverInterface = new Server();
                     //To send the info you have to call the clientSkeleton's function on the server-side
-                    clientSkeleton.testSend("Test Socket string from server to client");
-                    serverInterface.register(clientSkeleton, "protoro");
-                    while (true) {
-                        clientSkeleton.receive(serverInterface);
-                    }
+                    clientSkeleton.setServerInterface(serverInterface);
+                    clientSkeleton.run();
                 } catch (IOException e)
                 {
                     System.out.println("Socket failed: " + e.getMessage() + ". Closing connection and wating for new one");
