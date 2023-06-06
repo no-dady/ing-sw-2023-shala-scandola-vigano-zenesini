@@ -1,17 +1,11 @@
-package network.SocketComm;
+package client.network;
 
-import network.Client;
-import server.model.Board;
-import server.model.Bookshelf;
 import server.model.Tile;
-import network.ClientInterface;
-import network.ServerInterface;
+import server.network.ServerInterface;
 
 import java.io.*;
 import java.net.Socket;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The type Server stub.

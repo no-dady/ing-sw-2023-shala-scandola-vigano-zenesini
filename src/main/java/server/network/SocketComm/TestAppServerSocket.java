@@ -1,12 +1,9 @@
-package network.SocketComm;
+package server.network.SocketComm;
 
-import network.Client;
-import network.ClientInterface;
-import network.ServerInterface;
-import network.Server;
+import server.network.Server;
+import server.network.ServerInterface;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.RemoteException;

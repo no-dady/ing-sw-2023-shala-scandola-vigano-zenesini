@@ -1,8 +1,8 @@
 package client.gui;
 
 import client.UI;
-import network.ClientInterface;
-import network.Messages.Message;
+import client.network.ClientInterface;
+import util.Messages.Message;
 
 public class GUI implements UI {
     @Override

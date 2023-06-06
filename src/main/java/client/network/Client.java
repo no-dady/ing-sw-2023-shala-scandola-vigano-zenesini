@@ -1,5 +1,6 @@
-package network;
+package client.network;
 
+import server.network.ServerInterface;
 import server.model.Board;
 import server.model.Bookshelf;
 import server.model.Tile;

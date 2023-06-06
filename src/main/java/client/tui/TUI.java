@@ -4,9 +4,8 @@ import client.UI;
 import client.tui.tuiMoves.TUISelectColumn;
 import client.tui.tuiMoves.TUISelectTiles;
 import client.Client;
-import network.ClientInterface;
-import network.Messages.Message;
-import client.network.RmiClientConnection;
+import client.network.ClientInterface;
+import util.Messages.Message;
 import server.model.*;
 import setup.ConfigsFromJson;
 import setup.SetupAll;
@@ -15,7 +14,6 @@ import setup.SetupFirst;
 import java.io.IOException;
 import java.net.Socket;
 
-import java.rmi.RemoteException;
 import java.util.Scanner;
 
 public class TUI implements UI, Runnable {

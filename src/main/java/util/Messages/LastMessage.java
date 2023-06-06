@@ -1,4 +1,4 @@
-package network.Messages;
+package util.Messages;
 
 import client.Client;
 

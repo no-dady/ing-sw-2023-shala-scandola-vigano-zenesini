@@ -1,10 +1,8 @@
 package server.view;
 
-import client.network.SocketClientConnection;
-import com.google.gson.Gson;
-import network.ClientInterface;
-import network.Messages.LastMessage;
-import network.Messages.Message;
+import client.network.ClientInterface;
+import util.Messages.LastMessage;
+import util.Messages.Message;
 import server.controller.actions.Action;
 import server.controller.actions.TileSelectAction;
 import server.model.Player;

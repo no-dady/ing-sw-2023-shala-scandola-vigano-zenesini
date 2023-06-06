@@ -1,7 +1,7 @@
-package network.RMIComm;
+package client;
 
-import network.Client;
-import network.ServerInterface;
+import client.network.Client;
+import server.network.ServerInterface;
 
 import java.rmi.*;
 

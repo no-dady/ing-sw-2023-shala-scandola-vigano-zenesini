@@ -1,8 +1,8 @@
-package network.SocketComm;
+package server.network.SocketComm;
 
-import network.ClientInterface;
-import network.ServerInterface;
-import network.Server;
+import client.network.ClientInterface;
+import server.network.Server;
+import server.network.ServerInterface;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,8 +11,6 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class TestAppServerMultiThreaded {
 
@@ -87,7 +85,7 @@ public class TestAppServerMultiThreaded {
                 System.out.println("New connection found");
                 for (ClientSkeleton clientSkeleton : clientsList)
                 {
-                    clientSkeleton.notifyNewConn("New connection ");
+                    clientSkeleton.notifyNewConn("Hey " + clientSkeleton.getNickname() + " a new player connected to the lobby");
                 }
                 ClientSkeleton clientSkeleton = new ClientSkeleton(socket, serverInterface);
                 //To send the info you have to call the clientSkeleton's function on the server-side

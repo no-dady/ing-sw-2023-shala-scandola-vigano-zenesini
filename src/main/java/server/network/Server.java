@@ -1,6 +1,6 @@
-package network;
+package server.network;
 
-import network.SocketComm.ClientSkeleton;
+import client.network.ClientInterface;
 import server.model.Tile;
 
 import java.rmi.*;

@@ -1,5 +1,6 @@
-package network;
+package server.network;
 
+import client.network.ClientInterface;
 import server.model.Tile;
 
 import java.rmi.*;

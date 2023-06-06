@@ -1,11 +1,9 @@
-package network.SocketComm;
+package client;
 
-import network.Client;
+import client.network.Client;
+import client.network.ServerStub;
 
-import java.io.*;
-import java.net.Socket;
 import java.rmi.RemoteException;
-import java.util.Scanner;
 
 /**
  * The type Test app client socket.

@@ -1,7 +1,7 @@
-package network.SocketComm;
+package server.network.SocketComm;
 
-import network.ClientInterface;
-import network.ServerInterface;
+import client.network.ClientInterface;
+import server.network.ServerInterface;
 import server.model.Board;
 import server.model.Bookshelf;
 import server.model.Tile;
@@ -23,6 +23,8 @@ public class ClientSkeleton implements ClientInterface, Runnable {
 
     private ServerInterface serverInterface;
 
+    private String nickName;
+
     /**
      * Instantiates a new Client skeleton.
      *
@@ -33,6 +35,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
     {
         this.socket = socket;
         this.serverInterface = serverInterface;
+        this.nickName = "";
     }
 
     @Override
@@ -48,16 +51,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
             ois = new ObjectInputStream(socket.getInputStream());
             System.out.println("Created input");
 
-            String input;
-            while (true)
-            {
-                input = (String) ois.readObject();
-                System.out.println("Received " + input);
-                if (input.equalsIgnoreCase("quit"))
-                {
-                    break;
-                }
-            }
+            receive(ois);
 
             ois.close();
             oos.close();
@@ -65,9 +59,6 @@ public class ClientSkeleton implements ClientInterface, Runnable {
             System.out.println("Disconnected");
         }
         catch(IOException e)
-        {
-            System.out.println(e.getMessage());
-        } catch(ClassNotFoundException e)
         {
             System.out.println(e.getMessage());
         }
@@ -176,6 +167,11 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         }
     }
 
+    public String getNickname()
+    {
+        return this.nickName;
+    }
+
     /**
      * Receive.
      *
@@ -183,14 +179,31 @@ public class ClientSkeleton implements ClientInterface, Runnable {
      */
     public void receive(ObjectInputStream ois) throws RemoteException
     {
-        try
+        while (true)
         {
-            String read = ois.readUTF();
-            System.out.println("Received " + read);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot receive from client", e);
+            try
+            {
+                String read = (String) ois.readObject();
+                if (this.nickName.length() == 0)
+                {
+                    this.nickName = read;
+                }
+                else if (read.equals("quit"))
+                {
+                    break;
+                }
+                else
+                {
+                    System.out.println("Received " + read);
+                }
+            }
+            catch (IOException e)
+            {
+                throw new RemoteException("Cannot receive from client", e);
+            } catch (ClassNotFoundException e)
+            {
+                throw new RemoteException("Cannot parse the String received", e);
+            }
         }
         //int actionNumber;
 //

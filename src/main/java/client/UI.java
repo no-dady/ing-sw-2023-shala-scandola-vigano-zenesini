@@ -1,7 +1,7 @@
 package client;
 
-import network.ClientInterface;
-import network.Messages.Message;
+import client.network.ClientInterface;
+import util.Messages.Message;
 
 
 public interface UI {

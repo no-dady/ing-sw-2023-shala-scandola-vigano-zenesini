@@ -1,13 +1,51 @@
 package client.network;
 
-import moves.Move;
+import server.model.Board;
+import server.model.Bookshelf;
+import server.model.Tile;
 
-import java.io.IOException;
+import java.rmi.*;
 
-public interface ClientInterface {
+/**
+ * The interface Client.
+ */
+public interface ClientInterface extends Remote
+{
+    /**
+     * Send shelf.
+     *
+     * @param shelf the shelf
+     * @throws RemoteException the remote exception
+     */
+//Send the shelf from server to client
+    void sendShelf(Tile[][] shelf) throws RemoteException;
 
-    void init();
-    void sendMove(Move move);
-    void sendSetupper();
-    void close() throws IOException;
+    /**
+     * Send board.
+     *
+     * @param board the board
+     * @throws RemoteException the remote exception
+     */
+//Send the Board from server to client
+    void sendBoard(Board board) throws RemoteException;
+
+    /**
+     * Send bookshelf.
+     *
+     * @param bookshelf the bookshelf
+     * @throws RemoteException the remote exception
+     */
+//Send the Bookshelf from server to client
+    void sendBookshelf(Bookshelf bookshelf) throws RemoteException;
+
+    /**
+     * Test send.
+     *
+     * @param string the string
+     * @throws RemoteException the remote exception
+     */
+//Test function
+    void testSend(String string) throws RemoteException;
+
+    //void close();
 }
