@@ -19,7 +19,7 @@ public class Controller implements Observer<Action> {
         }else{
             System.out.println("Move invalid");
             //x.getPlayer().setErrorMessage();
-            game.errorMessage(x.getIdPlayer());
+            game.errorMessage(x.getNickName());
         }
     }
 }

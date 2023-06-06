@@ -19,4 +19,8 @@ public class Parser {
         Reader reader = Files.newBufferedReader(Paths.get(filePath));
         return new Gson().fromJson(reader, typeToken.getType());
     }
+
+    public static <T> String toJson(Object o, Class<T> cls) {
+        return new Gson().toJson(o, cls);
+    }
 }

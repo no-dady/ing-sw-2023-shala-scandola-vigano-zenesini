@@ -1,63 +1,77 @@
 package server.view;
 
-//public class RemoteView extends View {
-//
-//    /**
-//     * Private internal class that manages the new message received from the client.
-//     */
-//    private class MessageReceiver {
-//
-//
-//        @Override
-//        public void update(String info) {
-//            System.out.println("Received: " + info);
-//            try{
-//                Action move= Starter.fromJson(info, Action.class);
-//                handleMove(move);
-//            }catch (NullPointerException e){
-//                Settable setupper= Starter.fromJson(info,Settable.class);
-//                SocketClientConnection connection= (SocketClientConnection)clientConnection;
-//                connection.handleSetupper(setupper);
-//            }
-//        }
-//
-//    }
-//
-//    private ClientConnection clientConnection;
-//
-//    /**
-//     * Default constructor. It makes the ClientConnection observable for the internal private class.
-//     * @param player
-//     * @param c
-//     */
-//    public RemoteView(Player player, ClientConnection c) {
-//        super(player);
-//        this.clientConnection = c;
-//        c.addObserver(new MessageReceiver());
-//    }
-//
-//    /**
-//     * Sets a new clientConnection. It makes the ClientConnection observable for the internal private class.
-//     * @param clientConnection
-//     */
-//    public void setClientConnection(ClientConnection clientConnection) {
-//        this.clientConnection = clientConnection;
-//        clientConnection.addObserver(new MessageReceiver());
-//    }
-//
-//    /**
-//     * Sends a class Message to the client to updates its model. When the game is offline notifies a MoveAutoPlay
-//     * @param message
-//     */
-//    @Override
-//    public void update(Message message){
-//        if(!this.isOffline()){
-//            clientConnection.send(Starter.toJson(message, Message.class));
-//        }else{
-//            if(message instanceof LastMessage){
-//                notify(new MoveAutoPlay(getPlayer().getID()));
-//            }
-//        }
-//    }
-//
-//}
+import client.network.SocketClientConnection;
+import com.google.gson.Gson;
+import network.ClientInterface;
+import network.Messages.LastMessage;
+import network.Messages.Message;
+import server.controller.actions.Action;
+import server.controller.actions.TileSelectAction;
+import server.model.Player;
+import setup.Setup;
+import util.Parser;
+
+import java.io.IOException;
+
+public class RemoteView extends View {
+
+    /**
+     * Private internal class that manages the new message received from the client.
+     */
+    private class MessageReceiver {
+
+
+        public void update(String info) {
+            System.out.println("Received: " + info);
+            try{
+                Action move= Parser.parseFromJson(info, Action.class);
+                handleMove(move);
+            }catch (NullPointerException e){
+                Setup setupper= Starter.fromJson(info, Setup.class);
+                SocketClientConnection connection= (SocketClientConnection)clientConnection;
+                connection.handleSetupper(setupper);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+    private ClientInterface clientConnection;
+
+    /**
+     * Default constructor. It makes the ClientConnection observable for the internal private class.
+     * @param player
+     * @param c
+     */
+    public RemoteView(Player player, ClientInterface c) {
+        super(player);
+        this.clientConnection = c;
+        c.addObserver(new MessageReceiver());
+    }
+
+    /**
+     * Sets a new clientConnection. It makes the ClientConnection observable for the internal private class.
+     * @param clientConnection
+     */
+    public void setClientConnection(ClientConnection clientConnection) {
+        this.clientConnection = clientConnection;
+        clientConnection.addObserver(new MessageReceiver());
+    }
+
+    /**
+     * Sends a class Message to the client to updates its model. When the game is offline notifies a MoveAutoPlay
+     * @param message
+     */
+    @Override
+    public void update(Message message){
+        if(!this.isOffline()){
+            clientConnection.send(Parser.toJson(message, Message.class));
+        }else{
+            if(message instanceof LastMessage){
+                notify(new TileSelectAction("sos"));
+            }
+        }
+    }
+
+}
