@@ -1,6 +1,8 @@
 package client;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.NoSuchElementException;
 import client.tui.TUI;
@@ -36,10 +38,10 @@ public class Client {
         if(!active) notifyAll();
     }
 
-    public void setOnline() throws RemoteException, RuntimeException {
+    public void setOnline() throws RemoteException, RuntimeException, MalformedURLException, NotBoundException {
         switch (connectionType) {
-            case "RMI" -> clientConnection = new RmiClientConnection(ip, port);
-            case "SOCKET" -> clientConnection = new SocketClientConnection(this, ip, port);
+            case "RMI" -> clientConnection = new ClientHandler(ip, port);
+            case "SOCKET" -> clientConnection = new ClientHandler(this, ip, port);
             default -> throw new RuntimeException("Could not initiate connection");
         }
 
@@ -64,6 +66,7 @@ public class Client {
         } catch (InterruptedException | NoSuchElementException ex) {
             System.out.println("Connection closed from client side");
         } finally {
+            online = false;
             clientConnection.close();
 
             System.exit(0);

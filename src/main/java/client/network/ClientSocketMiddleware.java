@@ -1,17 +1,20 @@
 package client.network;
 
+import client.Client;
 import server.model.Tile;
 import server.network.ServerInterface;
 
 import java.io.*;
 import java.net.Socket;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 /**
  * The type Server stub.
  */
 //It implements the Server, but it will be used on the client-side to communicate
-public class ServerStub implements ServerInterface, Runnable {
+public class ClientSocketMiddleware implements ServerInterface, Runnable {
+    Client client;
     /**
      * The Ip.
      */
@@ -33,32 +36,30 @@ public class ServerStub implements ServerInterface, Runnable {
      * @param ip   the ip
      * @param port the port
      */
-    public ServerStub(String ip, int port)
+    public ClientSocketMiddleware(Client client, String ip, int port, ClientInterface clientInterface)
     {
+        this.client = client;
         this.ip = ip;
         this.port = port;
-    }
-
-    public void setClientinterface(ClientInterface clientInterface)
-    {
         this.clientinterface = clientInterface;
     }
 
     @Override
     public void run()
     {
+
         try
         {
-            socket = new Socket("localhost", 1234);
+            socket = new Socket(ip, port);
             oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
             System.out.println("Created streams");
             String rec;
-            while (true)
+            while (client.isOnline())
             {
                 rec = (String) ois.readObject();
-                clientinterface.testSend(rec);
+                clientinterface.send(rec);
             }
         } catch(IOException e)
         {
@@ -67,6 +68,7 @@ public class ServerStub implements ServerInterface, Runnable {
         {
             e.printStackTrace();
         }
+
     }
 
     public void testContinousSend()
@@ -181,10 +183,10 @@ public class ServerStub implements ServerInterface, Runnable {
     /**
      * Receive.
      *
-     * @param client the client
+     * @param clientHandler the client
      * @throws RemoteException the remote exception
      */
-    public void receive(Client client) throws RemoteException
+    public void receive(ClientHandler clientHandler) throws RemoteException
     {
         //int actionNumber;
 

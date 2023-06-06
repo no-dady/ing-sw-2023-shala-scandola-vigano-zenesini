@@ -11,32 +11,6 @@ import java.rmi.*;
  */
 public interface ClientInterface extends Remote
 {
-    /**
-     * Send shelf.
-     *
-     * @param shelf the shelf
-     * @throws RemoteException the remote exception
-     */
-//Send the shelf from server to client
-    void sendShelf(Tile[][] shelf) throws RemoteException;
-
-    /**
-     * Send board.
-     *
-     * @param board the board
-     * @throws RemoteException the remote exception
-     */
-//Send the Board from server to client
-    void sendBoard(Board board) throws RemoteException;
-
-    /**
-     * Send bookshelf.
-     *
-     * @param bookshelf the bookshelf
-     * @throws RemoteException the remote exception
-     */
-//Send the Bookshelf from server to client
-    void sendBookshelf(Bookshelf bookshelf) throws RemoteException;
 
     /**
      * Test send.
@@ -45,7 +19,7 @@ public interface ClientInterface extends Remote
      * @throws RemoteException the remote exception
      */
 //Test function
-    void testSend(String string) throws RemoteException;
+    void send(String string) throws RemoteException;
 
     //void close();
 }
