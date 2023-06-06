@@ -3,9 +3,10 @@ package client.tui;
 import client.UI;
 import client.tui.tuiMoves.TUISelectColumn;
 import client.tui.tuiMoves.TUISelectTiles;
-import network.Client;
-import network.Message;
-import network.ConnectionType;
+import client.Client;
+import network.ClientInterface;
+import network.Messages.Message;
+import client.network.RmiClientConnection;
 import server.model.*;
 import setup.ConfigsFromJson;
 import setup.SetupAll;
@@ -14,10 +15,8 @@ import setup.SetupFirst;
 import java.io.IOException;
 import java.net.Socket;
 
-import java.util.Arrays;
+import java.rmi.RemoteException;
 import java.util.Scanner;
-
-import static server.controller.GameController.game;
 
 public class TUI implements UI, Runnable {
     final String bookshelfArt = ConfigsFromJson.getBookshelfArt("src/main/resources/json/bookshelf_art.json");
@@ -41,8 +40,7 @@ public class TUI implements UI, Runnable {
             int port = in.nextInt();
             System.out.println("[type RMI or SOCKET in order to choose your preferred connection method then press ENTER]");
             connectionType = in.nextLine();
-            if(Arrays.stream(ConnectionType.values()).map(ConnectionType::name).toList().contains(connectionType)){
-                valid = true;}
+            client.setConnection(connectionType);
         }while (!valid);
 
 
@@ -92,10 +90,13 @@ public class TUI implements UI, Runnable {
     public void setActive() {}
 
     @Override
-    public void printConnectionMessage(Message message) {}
+    public void printConnectionMessage(Message message) {
+        System.out.println("SOS");
+        return;
+    }
 
     @Override
-    public void setConnectionType(ConnectionType type) {
+    public void setConnectionType(ClientInterface type) {
 
     }
 

@@ -1,8 +1,8 @@
 package client.gui;
 
 import client.UI;
-import network.ConnectionType;
-import network.Message;
+import network.ClientInterface;
+import network.Messages.Message;
 
 public class GUI implements UI {
     @Override
@@ -15,7 +15,7 @@ public class GUI implements UI {
     public void printConnectionMessage(Message message) {}
 
     @Override
-    public void setConnectionType(ConnectionType type) {
+    public void setConnectionType(ClientInterface type) {
 
     }
 

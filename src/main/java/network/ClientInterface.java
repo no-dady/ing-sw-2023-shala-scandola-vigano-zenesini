@@ -18,7 +18,7 @@ public interface ClientInterface extends Remote
      * @throws RemoteException the remote exception
      */
 //Send the shelf from server to client
-    public void sendShelf(Tile[][] shelf) throws RemoteException;
+    void sendShelf(Tile[][] shelf) throws RemoteException;
 
     /**
      * Send board.
@@ -27,7 +27,7 @@ public interface ClientInterface extends Remote
      * @throws RemoteException the remote exception
      */
 //Send the Board from server to client
-    public void sendBoard(Board board) throws RemoteException;
+    void sendBoard(Board board) throws RemoteException;
 
     /**
      * Send bookshelf.
@@ -36,7 +36,7 @@ public interface ClientInterface extends Remote
      * @throws RemoteException the remote exception
      */
 //Send the Bookshelf from server to client
-    public void sendBookshelf(Bookshelf bookshelf) throws RemoteException;
+    void sendBookshelf(Bookshelf bookshelf) throws RemoteException;
 
     /**
      * Test send.
@@ -45,5 +45,7 @@ public interface ClientInterface extends Remote
      * @throws RemoteException the remote exception
      */
 //Test function
-    public void testSend(String string) throws RemoteException;
+    void testSend(String string) throws RemoteException;
+
+    void close();
 }
