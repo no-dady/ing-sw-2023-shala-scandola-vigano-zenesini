@@ -7,8 +7,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import server.cgc.*;
+import server.model.Bookshelf;
 import server.model.Tile;
-import server.model.CommonGoalCardStrategy;
 
 import java.io.Reader;
 import java.nio.file.Files;
@@ -62,25 +62,25 @@ public class AppTest
             }
             System.out.println();
         }
-        CommonGoalCardStrategy test = new CommonGoalCardStrategy();
+
 //        CommonGoalCard.getCgcMap().values().forEach((x) -> x.conditionCheck(shelf));
 
-        CommonGoalCardCondition myTest;
+        StraightDirection myTest;
         //var x = myTest.conditionCheck(shelf);
         //assertFalse("Found two full distinct columns when not expected!", x);
-        myTest = CommonGoalCardStrategy.getCgcMap().get("FOUR_VSTRIPS_4EQUAL");
+        myTest = new StraightDirection(4,4,true,true);
         var x = myTest.conditionCheck(shelf);
         assertFalse("Found four strips of 4 equal vertical tiles when not expected!", x);
-        myTest = CommonGoalCardStrategy.getCgcMap().get("SIX_VSTRIPS_2EQUAL");
+        myTest = new StraightDirection(6,2,true,true);
         x = myTest.conditionCheck(shelf);
         assertFalse("Found six pairs of distinct vertical tiles when not expected!",x);
-        myTest = CommonGoalCardStrategy.getCgcMap().get("THREE_COL_MIN3EQUAL");
+        myTest = new StraightDirection(2, Bookshelf.getCols(),false,true);
         x = myTest.conditionCheck(shelf);
-        assertTrue("Found 3 columns with at least 3 tiles of the same type when not expected",x);
-        myTest = CommonGoalCardStrategy.getCgcMap().get("TWO_DISTINCT_ROWS");
+        assertFalse("Found 3 columns with at least 3 tiles of the same type when not expected",x);
+        myTest = new StraightDirection(2,Bookshelf.getRows(),false,false);
         x = myTest.conditionCheck(shelf);
         assertFalse("Found 2 rows full of distinct tiles when not expected!",x);
-        myTest = CommonGoalCardStrategy.getCgcMap().get("FOUR_ROWS_MIN2EQUAL");
+        myTest = new StraightDirection(4,2,true,false);
         x = myTest.conditionCheck(shelf);
         assertFalse("Didnt find 4 rows with at least 2 tiles of the same type when expected!",x);
         System.out.println("\nTest Passsato!");

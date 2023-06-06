@@ -14,7 +14,8 @@ public class ShowBookshelf implements Action{
     }
 
     @Override
-    public int getIdPlayer() {
-        return 0;
+    public String getNickName() {
+        return null;
     }
+
 }

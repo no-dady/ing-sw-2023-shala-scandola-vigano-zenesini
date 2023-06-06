@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import server.model.Tile;
+import server.cgc.SquareCheck;
 import server.model.Tile;
 
 import java.io.Reader;
@@ -27,7 +27,7 @@ public class AppTest_cgc_1 extends TestCase {
         super( testName );
 
         try {
-            Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/test_cgc_1_false.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/test_cgc_1_true.json"));
             Gson gson = new GsonBuilder().serializeNulls().create();
             shelves = gson.fromJson(reader, new TypeToken<List<Tile[][]>>() {}.getType());
         } catch (Exception e) {
@@ -56,6 +56,7 @@ public class AppTest_cgc_1 extends TestCase {
             }
             System.out.println();
         }
-        //assertTrue("Found two full distinct squares!", myTest.getCondition().conditionCheck(shelf));
+        SquareCheck myTest = new SquareCheck(2);
+        assertTrue("Found two full distinct squares!", myTest.conditionCheck(shelf));
     }
 }

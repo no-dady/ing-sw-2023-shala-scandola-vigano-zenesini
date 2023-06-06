@@ -6,8 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import server.model.CommonGoalCardStrategy;
-import server.model.CommonGoalCard;
+import server.cgc.DiagonalDirection;
 import server.model.Tile;
 
 import java.io.Reader;
@@ -49,7 +48,6 @@ public class Test_CGC_Diagonal_Direction extends TestCase {
      */
     public void testCGC11()
     {
-        CommonGoalCardStrategy test = new CommonGoalCardStrategy();
         Tile[][] shelf = shelves.get(0);
         for(int i = 5; i >= 0; i--) {
             for(int j = 0; j < 5; j++) {
@@ -57,16 +55,20 @@ public class Test_CGC_Diagonal_Direction extends TestCase {
             }
             System.out.println();
         }
-        CommonGoalCardCondition cgc11 = CommonGoalCardStrategy.getCgcMap().get("SEC_DIAGONAL_EQ");
-
+        DiagonalDirection cgc11 = new DiagonalDirection(5,true);
         assertTrue("CGC11 Not Passed", cgc11.conditionCheck(shelf));
     }
 
     public void testCGC12()
     {
         Tile[][] shelf = shelves.get(0);
-
-        CommonGoalCardCondition cgc12 = CommonGoalCardStrategy.getCgcMap().get("LOW_TRI_MATRIX");
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
+        DiagonalDirection cgc12 = new DiagonalDirection(5,false);
 
         assertTrue("CGC12 Not Passed", cgc12.conditionCheck(shelf));
     }

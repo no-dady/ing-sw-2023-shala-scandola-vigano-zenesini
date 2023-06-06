@@ -1,7 +1,6 @@
 package moves;
 
 import server.model.Game;
-import server.model.Tile;
 
 public class MoveSelectTiles extends Move {
     String selectedTiles;

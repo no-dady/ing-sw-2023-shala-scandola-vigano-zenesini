@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import server.model.CommonGoalCardStrategy;
+import server.cgc.ShiftedCheckerboard;
 import server.model.Tile;
 
 import java.io.Reader;
@@ -67,8 +67,7 @@ public class TestCgc9
      */
     public void testApp()
     {
-        CommonGoalCardStrategy test = new CommonGoalCardStrategy();
-        CommonGoalCardCondition Test = CommonGoalCardStrategy.getCgcMap().get("SHIFTED_CHECKERBOARD_EQ");
+        ShiftedCheckerboard cgc9 = new ShiftedCheckerboard();
 
         Tile[][] shelf1 = shelfa.get(0);
         for(int i = 5; i >= 0; i--) {
@@ -78,7 +77,7 @@ public class TestCgc9
             System.out.println();
         }
 
-        assertTrue("Algorithm doesn't work!", Test.conditionCheck(shelf1));
+        assertTrue("Algorithm doesn't work!", cgc9.conditionCheck(shelf1));
 
         Tile[][] shelf2 = shelfb.get(0);
         for(int i = 5; i >= 0; i--) {
@@ -87,6 +86,6 @@ public class TestCgc9
             }
             System.out.println();
         }
-        assertFalse("Algorithm doesn't work!", Test.conditionCheck(shelf2));
+        assertFalse("Algorithm doesn't work!", cgc9.conditionCheck(shelf2));
     }
 }

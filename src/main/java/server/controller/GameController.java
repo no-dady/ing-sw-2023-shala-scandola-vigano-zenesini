@@ -4,7 +4,6 @@ import server.exceptions.IllegalPlayersNumberException;
 import server.model.*;
 import setup.ConfigsFromJson;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -89,7 +88,7 @@ public class GameController {
             players.add(new Player(i, "player" + i, new Bookshelf(), personalGoalCard));
         }
         switch (playerNumber) {
-            //case 2, 3, 4 -> board = new Board(cgcEnum, builderBoard.fillBoard(board.getSlots(), pocket, playerNumber));
+            case 2, 3, 4 -> board = new Board(BoardConfig.fillBoard(board.getSlots(), pocket, playerNumber));
             default -> throw new IllegalPlayersNumberException("wait, you are doing something wrong");
         }
 

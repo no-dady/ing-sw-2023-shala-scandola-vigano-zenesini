@@ -1,6 +1,5 @@
 package server.controller.actions;
 
-import moves.Move;
 import moves.MoveSelectColum;
 import server.model.Game;
 
@@ -8,7 +7,7 @@ import java.util.Scanner;
 
 public class ColumnSelectAction extends MoveSelectColum implements Action{
     int selectedY;
-    Scanner sc = new Scanner(System.in);
+    final Scanner sc = new Scanner(System.in);
 
     public ColumnSelectAction(String nickName) {
         super(nickName);

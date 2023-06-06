@@ -10,14 +10,9 @@ import server.model.*;
 import setup.ConfigsFromJson;
 import setup.SetupAll;
 import setup.SetupFirst;
-
 import java.io.IOException;
-import java.net.Socket;
-
 import java.util.Arrays;
 import java.util.Scanner;
-
-import static server.controller.GameController.game;
 
 public class TUI implements UI, Runnable {
     final String bookshelfArt = ConfigsFromJson.getBookshelfArt("src/main/resources/json/bookshelf_art.json");
@@ -32,16 +27,26 @@ public class TUI implements UI, Runnable {
     public void run() {
         String nickname;
         String connectionType;
-        Socket socket;
         Scanner in = new Scanner(System.in);
         boolean valid = false;
+        System.out.println("        \n" +
+                "███╗   ███╗██╗   ██╗    ███████╗██╗  ██╗███████╗██╗     ███████╗██╗███████╗\n" +
+                "████╗ ████║╚██╗ ██╔╝    ██╔════╝██║  ██║██╔════╝██║     ██╔════╝██║██╔════╝\n" +
+                "██╔████╔██║ ╚████╔╝     ███████╗███████║█████╗  ██║     █████╗  ██║█████╗  \n" +
+                "██║╚██╔╝██║  ╚██╔╝      ╚════██║██╔══██║██╔══╝  ██║     ██╔══╝  ██║██╔══╝  \n" +
+                "██║ ╚═╝ ██║   ██║       ███████║██║  ██║███████╗███████╗██║     ██║███████╗\n" +
+                "╚═╝     ╚═╝   ╚═╝       ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝     ╚═╝╚══════╝\n");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+
         do {
             System.out.println("[type hostname, press ENTER then type port and press ENTER]");
             String host = in.nextLine();
             int port = in.nextInt();
             System.out.println("[type RMI or SOCKET in order to choose your preferred connection method then press ENTER]");
             connectionType = in.nextLine();
-            if(Arrays.stream(ConnectionType.values()).map(ConnectionType::name).toList().contains(connectionType)){
+            if(Arrays.stream(ConnectionType.values()).toList().toString().contains(connectionType)){
                 valid = true;}
         }while (!valid);
 

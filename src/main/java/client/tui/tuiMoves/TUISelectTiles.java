@@ -1,14 +1,13 @@
 package client.tui.tuiMoves;
 
 import moves.Move;
-import moves.MoveSelectColum;
 import moves.MoveSelectTiles;
 import server.model.Game;
 
 import java.util.Scanner;
 
 public class TUISelectTiles implements TUIInterface{
-    public MoveSelectTiles move;
+    public final MoveSelectTiles move;
     public TUISelectTiles(String nickName){
         this.move = new MoveSelectTiles(nickName);
     }
@@ -31,8 +30,4 @@ public class TUISelectTiles implements TUIInterface{
         return false;
     }
 
-    @Override
-    public String getName() {
-        return null;
-    }
 }

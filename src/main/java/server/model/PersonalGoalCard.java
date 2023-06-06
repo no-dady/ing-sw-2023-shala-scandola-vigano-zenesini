@@ -36,7 +36,6 @@ public class PersonalGoalCard {
     public boolean completed(Tile[][] slots) {
         for(String key : goals.keySet()) {
             var coord = goals.get(key);
-
             if(!slots[coord.x()][coord.y()].getTileType().equals(key)){
                 return false;
             }

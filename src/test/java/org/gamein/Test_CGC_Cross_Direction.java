@@ -6,14 +6,14 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import server.model.CommonGoalCardStrategy;
+import server.cgc.CrossDirection;
 import server.model.Tile;
-import server.view.TextUI;
 
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+
 
 public class Test_CGC_Cross_Direction extends TestCase {
     public List<Tile[][]> shelves;
@@ -49,18 +49,15 @@ public class Test_CGC_Cross_Direction extends TestCase {
      */
     public void testCGC10()
     {
-        CommonGoalCardStrategy test = new CommonGoalCardStrategy();
         Tile[][] shelf = shelves.get(0);
         for(int i = 5; i >= 0; i--) {
             for(int j = 0; j < 5; j++) {
                 System.out.print(shelf[i][j].getTileType() + "\t|\t");
+                //System.out.print(shelf[i][j].getTileId() + "\t|\t");
             }
             System.out.println();
         }
-        CommonGoalCardCondition cgc10 = CommonGoalCardStrategy.getCgcMap().get("CROSS_EQ");
-        TextUI textUI = new TextUI();
-        textUI.openTextualArt();
-        textUI.printArt(shelf, textUI.bookshelfArt);
+        CrossDirection cgc10 = new CrossDirection(3);
 
         assertTrue("CGC10 Not Passed", cgc10.conditionCheck(shelf));
     }

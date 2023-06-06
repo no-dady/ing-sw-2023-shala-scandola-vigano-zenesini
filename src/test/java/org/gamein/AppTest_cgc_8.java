@@ -6,12 +6,8 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import server.cgc.CommonGoalCardCondition;
-import server.model.CommonGoalCard;
+import server.cgc.SquareCheck;
 import server.model.Tile;
-import server.model.CommonGoalCardStrategy;
-import server.model.Tile;
-
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -30,7 +26,7 @@ public class AppTest_cgc_8 extends TestCase {
             super( testName );
 
             try {
-                Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/test_cgc_8_false.json"));
+                Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/test_cgc_8_true.json"));
                 Gson gson = new GsonBuilder().serializeNulls().create();
                 shelves = gson.fromJson(reader, new TypeToken<List<Tile[][]>>() {}.getType());
             } catch (Exception e) {
@@ -52,7 +48,6 @@ public class AppTest_cgc_8 extends TestCase {
          */
         public void testApp_cgc_8()
         {
-            CommonGoalCardStrategy test = new CommonGoalCardStrategy();
             Tile[][] shelf = shelves.get(0);
             for(int i = 5; i >= 0; i--) {
                 for(int j = 0; j < 5; j++) {
@@ -60,7 +55,7 @@ public class AppTest_cgc_8 extends TestCase {
                 }
                 System.out.println();
             }
-            CommonGoalCardCondition myTest = CommonGoalCardStrategy.getCgcMap().get("SHELF_CORNERS_EQ");
+            SquareCheck myTest = new SquareCheck(1);
             assertTrue("All corners look the same!", myTest.conditionCheck(shelf));
         }
 }

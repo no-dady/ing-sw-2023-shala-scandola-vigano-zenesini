@@ -28,7 +28,6 @@ public abstract class CommonGoalCardStrategy {
     public static CommonGoalCardStrategy getRandomCard() {
         if(listCommonGoalList == null) {
             listCommonGoalList = new ArrayList<CommonGoalCardStrategy>();
-            listCommonGoalList.add(new SquareCheck(2));
             // 2 squares of 4 tiles of the same type
             listCommonGoalList.add(new SquareCheck(2));
             // 2 columns made of all distinct tiles

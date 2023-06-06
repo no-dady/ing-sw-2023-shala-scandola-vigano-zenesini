@@ -2,12 +2,14 @@ package server.controller.actions;
 
 import server.model.Game;
 
-import java.util.Scanner;
 
 public class ShowMenu implements Action{
 
 
+    @Override
+    public void performAction(Game game) {
 
+    }
 
     @Override
     public boolean canPerformAction(Game game) {
@@ -15,7 +17,8 @@ public class ShowMenu implements Action{
     }
 
     @Override
-    public int getIdPlayer() {
-        return 0;
+    public String getNickName() {
+        return null;
     }
+
 }

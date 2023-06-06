@@ -2,7 +2,6 @@ package server.cgc;
 
 import server.model.CommonGoalCardStrategy;
 import server.model.Tile;
-import server.model.Tile;
 
 /**
  * The type Diagonal direction.

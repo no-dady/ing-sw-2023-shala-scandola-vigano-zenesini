@@ -7,7 +7,7 @@ import server.model.Game;
 import java.util.Scanner;
 
 public class TUISelectColumn implements TUIInterface{
-    public MoveSelectColum move;
+    public final MoveSelectColum move;
 
     public TUISelectColumn(String nickName){
         this.move = new MoveSelectColum(nickName);
@@ -31,8 +31,4 @@ public class TUISelectColumn implements TUIInterface{
         return false;
     }
 
-    @Override
-    public String getName() {
-        return null;
-    }
 }

@@ -65,13 +65,18 @@ public class Test_PersonalGoalCard extends TestCase {
             System.out.println();
         }
         PersonalGoalCard card = pgcList.get(0);
-
         assertTrue("PGC1 Not Passed", card.completed(shelf));
     }
 
     public void testPersonalGoalCard2()
     {
         Tile[][] shelf = shelves.get(0);
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
         PersonalGoalCard card = pgcList.get(1);
 
         assertTrue("PGC2 Not Passed", card.completed(shelf));
@@ -80,6 +85,12 @@ public class Test_PersonalGoalCard extends TestCase {
     public void testPersonalGoalCard3()
     {
         Tile[][] shelf = shelves.get(0);
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
         PersonalGoalCard card = pgcList.get(2);
 
         assertTrue("PGC3 Not Passed", card.completed(shelf));
@@ -88,6 +99,12 @@ public class Test_PersonalGoalCard extends TestCase {
     public void testPersonalGoalCard4()
     {
         Tile[][] shelf = shelves.get(0);
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
         PersonalGoalCard card = pgcList.get(3);
 
         assertTrue("PGC4 Not Passed", card.completed(shelf));
@@ -96,6 +113,12 @@ public class Test_PersonalGoalCard extends TestCase {
     public void testPersonalGoalCard5()
     {
         Tile[][] shelf = shelves.get(0);
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
         PersonalGoalCard card = pgcList.get(4);
 
         assertTrue("PGC5 Not Passed", card.completed(shelf));
@@ -104,6 +127,12 @@ public class Test_PersonalGoalCard extends TestCase {
     public void testPersonalGoalCard6()
     {
         Tile[][] shelf = shelves.get(0);
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
         PersonalGoalCard card = pgcList.get(5);
 
         assertTrue("PGC6 Not Passed", card.completed(shelf));
@@ -112,6 +141,12 @@ public class Test_PersonalGoalCard extends TestCase {
     public void testPersonalGoalCard7()
     {
         Tile[][] shelf = shelves.get(0);
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
         PersonalGoalCard card = pgcList.get(6);
 
         assertTrue("PGC7 Not Passed", card.completed(shelf));
@@ -120,6 +155,12 @@ public class Test_PersonalGoalCard extends TestCase {
     public void testPersonalGoalCard8()
     {
         Tile[][] shelf = shelves.get(0);
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
         PersonalGoalCard card = pgcList.get(7);
 
         assertTrue("PGC8 Not Passed", card.completed(shelf));
@@ -128,6 +169,12 @@ public class Test_PersonalGoalCard extends TestCase {
     public void testPersonalGoalCard9()
     {
         Tile[][] shelf = shelves.get(0);
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
         PersonalGoalCard card = pgcList.get(8);
 
         assertTrue("PGC9 Not Passed", card.completed(shelf));
@@ -136,6 +183,12 @@ public class Test_PersonalGoalCard extends TestCase {
     public void testPersonalGoalCard10()
     {
         Tile[][] shelf = shelves.get(0);
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
         PersonalGoalCard card = pgcList.get(9);
 
         assertTrue("PGC10 Not Passed", card.completed(shelf));
@@ -144,6 +197,12 @@ public class Test_PersonalGoalCard extends TestCase {
     public void testPersonalGoalCard11()
     {
         Tile[][] shelf = shelves.get(0);
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
         PersonalGoalCard card = pgcList.get(10);
 
         assertTrue("PGC11 Not Passed", card.completed(shelf));
@@ -152,6 +211,12 @@ public class Test_PersonalGoalCard extends TestCase {
     public void testPersonalGoalCard12()
     {
         Tile[][] shelf = shelves.get(0);
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
         PersonalGoalCard card = pgcList.get(11);
 
         assertTrue("PGC12 Not Passed", card.completed(shelf));
@@ -160,6 +225,12 @@ public class Test_PersonalGoalCard extends TestCase {
     public void testPersonalGoalCard13()
     {
         Tile[][] shelf = shelves.get(0);
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print(shelf[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
         PersonalGoalCard card = pgcList.get(12);
 
         assertTrue("PGC13 Not Passed", card.completed(shelf));
