@@ -27,7 +27,7 @@ public class Test_PersonalGoalCard extends TestCase {
         super( testName );
 
         try {
-            Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/shelf_PersonalGoalCard_1.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/shelf_PersonalGoalCard.json"));
             Gson gson = new GsonBuilder().serializeNulls().create();
             shelves = gson.fromJson(reader, new TypeToken<List<Tile[][]>>(){}.getType());
         } catch (Exception e) {
