@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Unit test for simple App.
  */
-public class AppTest 
+public class StraightDirectionCGCTest
     extends TestCase
 {
     public List<Tile[][]> prova;
@@ -27,7 +27,7 @@ public class AppTest
      *
      * @param testName name of the test case
      */
-    public AppTest( String testName )
+    public StraightDirectionCGCTest(String testName )
     {
         super( testName );
 
@@ -47,7 +47,7 @@ public class AppTest
      */
     public static Test suite()
     {
-        return new TestSuite( AppTest.class );
+        return new TestSuite( StraightDirectionCGCTest.class );
     }
 
     /**
@@ -65,22 +65,22 @@ public class AppTest
 
 //        CommonGoalCard.getCgcMap().values().forEach((x) -> x.conditionCheck(shelf));
 
-        StraightDirection myTest;
-        //var x = myTest.conditionCheck(shelf);
-        //assertFalse("Found two full distinct columns when not expected!", x);
-        myTest = new StraightDirection(4,4,true,true);
+        StraightDirection myTest = new StraightDirection(2, Bookshelf.getCols(),false,true,"");
         var x = myTest.conditionCheck(shelf);
+        assertFalse("Found two full distinct columns when not expected!", x);
+        myTest = new StraightDirection(4,4,true,true,"");
+        x = myTest.conditionCheck(shelf);
         assertFalse("Found four strips of 4 equal vertical tiles when not expected!", x);
-        myTest = new StraightDirection(6,2,true,true);
+        myTest = new StraightDirection(6,2,true,true,"");
         x = myTest.conditionCheck(shelf);
         assertFalse("Found six pairs of distinct vertical tiles when not expected!",x);
-        myTest = new StraightDirection(2, Bookshelf.getCols(),false,true);
+        myTest = new StraightDirection(3, 3,true,true,"");
         x = myTest.conditionCheck(shelf);
         assertFalse("Found 3 columns with at least 3 tiles of the same type when not expected",x);
-        myTest = new StraightDirection(2,Bookshelf.getRows(),false,false);
+        myTest = new StraightDirection(2,Bookshelf.getRows(),false,false,"");
         x = myTest.conditionCheck(shelf);
         assertFalse("Found 2 rows full of distinct tiles when not expected!",x);
-        myTest = new StraightDirection(4,2,true,false);
+        myTest = new StraightDirection(4,2,true,false,"");
         x = myTest.conditionCheck(shelf);
         assertFalse("Didnt find 4 rows with at least 2 tiles of the same type when expected!",x);
         System.out.println("\nTest Passsato!");

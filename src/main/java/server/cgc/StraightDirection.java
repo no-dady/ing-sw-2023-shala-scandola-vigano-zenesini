@@ -13,6 +13,7 @@ public class StraightDirection extends CommonGoalCardStrategy {
     private int timesToLook;
     private boolean isEqual;
     private boolean isVert;
+    private final String name;
 
     /**
      * Instantiates a new Straight direction.
@@ -22,11 +23,15 @@ public class StraightDirection extends CommonGoalCardStrategy {
      * @param isEqual     the is equal
      * @param isVert      the is vert
      */
-    public StraightDirection(int timesToLook, int numToLook, boolean isEqual, boolean isVert) {
+    public StraightDirection(int timesToLook, int numToLook, boolean isEqual, boolean isVert, String name) {
         this.timesToLook = timesToLook;
         this.numToLook = numToLook;
         this.isEqual = isEqual;
         this.isVert = isVert;
+        this.name = name;
+    }
+    public String getName() {
+        return name;
     }
 
     // 4 vertical strips of 4 tiles of the same type

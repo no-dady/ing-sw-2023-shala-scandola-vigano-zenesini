@@ -9,6 +9,7 @@ import junit.framework.TestSuite;
 import server.cgc.ShiftedCheckerboard;
 import server.model.Tile;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * Unit test for Cgc 9 algorithm.
  */
-public class TestCgc9
+public class ShiftedCheckerboardCGCTest
         extends TestCase
 {
         public List<Tile[][]> shelfa;
@@ -30,7 +31,7 @@ public class TestCgc9
      * @param testName name of the test case
      */
 
-    public TestCgc9(String testName )
+    public ShiftedCheckerboardCGCTest(String testName )
     {
         super( testName );
 
@@ -59,15 +60,15 @@ public class TestCgc9
      */
     public static Test suite()
     {
-        return new TestSuite( TestCgc9.class );
+        return new TestSuite( ShiftedCheckerboardCGCTest.class );
     }
 
     /**
      * Rigourous Test
      */
-    public void testApp()
-    {
-        ShiftedCheckerboard cgc9 = new ShiftedCheckerboard();
+
+    public void testApp() throws IOException {
+        ShiftedCheckerboard cgc9 = new ShiftedCheckerboard("ShiftedCheckerboard");
 
         Tile[][] shelf1 = shelfa.get(0);
         for(int i = 5; i >= 0; i--) {

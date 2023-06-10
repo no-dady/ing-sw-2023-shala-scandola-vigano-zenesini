@@ -9,15 +9,22 @@ import server.model.CommonGoalCardStrategy;
 //CROSSDIRECTION
 public class CrossDirection extends CommonGoalCardStrategy {
     private final int numToLook;
+    private final String name;
 
     /**
      * Instantiates a new Cross direction.
      *
      * @param numToLook the num to look
      */
-    public CrossDirection(int numToLook) {
+    public CrossDirection(int numToLook, String name) {
         this.numToLook = numToLook;
+        this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean conditionCheck(Tile[][] shelf) {
         int rowMax = shelf.length - numToLook + 1;

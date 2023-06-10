@@ -11,6 +11,7 @@ import java.util.Objects;
  * The type Square check.
  */
 public class SquareCheck extends CommonGoalCardStrategy {
+    private final String name;
 
     /**
      * The Num to look.
@@ -22,10 +23,14 @@ public class SquareCheck extends CommonGoalCardStrategy {
      *
      * @param numToLook the num to look
      */
-    public SquareCheck(int numToLook){
+    public SquareCheck(int numToLook, String name){
         this.numToLook = numToLook;
+        this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
     /**
      * Index equal boolean.
      *

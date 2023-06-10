@@ -9,20 +9,21 @@ import junit.framework.TestSuite;
 import server.cgc.CrossDirection;
 import server.model.Tile;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
 
-public class Test_CGC_Cross_Direction extends TestCase {
+public class CrossDirectionCGCTest extends TestCase {
     public List<Tile[][]> shelves;
     /**
      * Create the test case
      *
      * @param testName name of the test case
      */
-    public Test_CGC_Cross_Direction(String testName )
+    public CrossDirectionCGCTest(String testName )
     {
         super( testName );
 
@@ -41,14 +42,13 @@ public class Test_CGC_Cross_Direction extends TestCase {
      */
     public static Test suite()
     {
-        return new TestSuite( Test_CGC_Cross_Direction.class );
+        return new TestSuite( CrossDirectionCGCTest.class );
     }
 
     /**
      * Rigourous Test :-)
      */
-    public void testCGC10()
-    {
+    public void testCGC10() throws IOException {
         Tile[][] shelf = shelves.get(0);
         for(int i = 5; i >= 0; i--) {
             for(int j = 0; j < 5; j++) {
@@ -57,7 +57,8 @@ public class Test_CGC_Cross_Direction extends TestCase {
             }
             System.out.println();
         }
-        CrossDirection cgc10 = new CrossDirection(3);
+        CrossDirection cgc10 = new CrossDirection(3, "Cross");
+        cgc10.Print();
 
         assertTrue("CGC10 Not Passed", cgc10.conditionCheck(shelf));
     }

@@ -13,7 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class AppTest_cgc_8 extends TestCase {
+public class SquareCheckCGCAllBookshelfTest extends TestCase {
 
         public List<Tile[][]> shelves;
         /**
@@ -21,7 +21,7 @@ public class AppTest_cgc_8 extends TestCase {
          *
          * @param testName name of the test case
          */
-    public AppTest_cgc_8( String testName )
+    public SquareCheckCGCAllBookshelfTest(String testName )
         {
             super( testName );
 
@@ -40,7 +40,7 @@ public class AppTest_cgc_8 extends TestCase {
          */
         public static Test suite()
         {
-            return new TestSuite( AppTest_cgc_8.class );
+            return new TestSuite( SquareCheckCGCAllBookshelfTest.class );
         }
 
         /**
@@ -55,7 +55,7 @@ public class AppTest_cgc_8 extends TestCase {
                 }
                 System.out.println();
             }
-            SquareCheck myTest = new SquareCheck(1);
+            SquareCheck myTest = new SquareCheck(1,"4EqualCorners");
             assertTrue("All corners look the same!", myTest.conditionCheck(shelf));
         }
 }

@@ -40,7 +40,9 @@ public class PocketBuilderTest extends TestCase {
         {
             System.out.print(pocket.get(i).getTileType() + "\t|\t");
         }
+        boolean ass = true;
+        assertFalse("wow it works", ass);
+
     }
-    boolean ass = true;
 
 }

@@ -1,5 +1,7 @@
 package org.gamein;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -7,16 +9,19 @@ import network.ConnectionType;
 import server.controller.BoardConfig;
 import server.controller.PocketBuilder;
 
-import server.model.Bookshelf;
-import server.model.Pocket;
-import server.model.Tile;
-import server.model.TileType;
+import server.model.*;
+import setup.ConfigsFromJson;
 
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
-public class AppTestBoard extends TestCase {
+public class TestBoardCreationAndFill extends TestCase {
 
 
     public Tile[][] board;
@@ -25,19 +30,19 @@ public class AppTestBoard extends TestCase {
      *
      * @param testName name of the test case
      */
-    public AppTestBoard( String testName) { super( testName );
+    public TestBoardCreationAndFill(String testName) { super( testName );
     }
 
     /**
      * @return the suite of tests being tested
      */
-    public static Test suite() {return new TestSuite( AppTestBoard.class );}
+    public static Test suite() {return new TestSuite( TestBoardCreationAndFill.class );}
 
     /**
      * Rigourous Test :-)
      */
     public void test_Board() throws IOException {
-        System.out.println(Arrays.toString(ConnectionType.values()));
+
         TileType test = new TileType();
         Bookshelf bookshelf = new Bookshelf();
         Tile[][] tiles = bookshelf.getSlots();
@@ -78,7 +83,6 @@ public class AppTestBoard extends TestCase {
         System.out.println();
         System.out.println();
         System.out.println();
-
         board = BoardConfig.newEmptyBoard();
         board = BoardConfig.fillBoard(board, new Pocket(pocketBuilder.createTileListPocket(132)), 3);
         for(int i = 0; i < 9; i++) {
@@ -87,12 +91,9 @@ public class AppTestBoard extends TestCase {
             }
             System.out.println();
         }
+
         System.out.println();
-        System.out.println("╔════════╗\n" +
-                "║ [=|=]  ║\n" +
-                "║ [=|=]  ║\n" +
-                "║   x2   ║\n" +
-                "╚════════╝\n");
+        System.out.println();
         System.out.println();
 
         board = BoardConfig.newEmptyBoard();

@@ -9,7 +9,14 @@ import java.util.Objects;
  * The type Shifted checkerboard.
  */
 public class ShiftedCheckerboard extends CommonGoalCardStrategy {
+    private final String name;
+    public ShiftedCheckerboard(String name){
+        this.name = name;
+    }
 
+    public String getName() {
+        return name;
+    }
     @Override
     public boolean conditionCheck(Tile[][] shelf) {
 

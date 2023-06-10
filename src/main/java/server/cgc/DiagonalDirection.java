@@ -12,6 +12,7 @@ import server.model.Tile;
 public class DiagonalDirection extends CommonGoalCardStrategy {
     private final int numToLook;
     private final boolean isEleven;
+    private final String name;
 
     /**
      * Instantiates a new Diagonal direction.
@@ -19,9 +20,13 @@ public class DiagonalDirection extends CommonGoalCardStrategy {
      * @param numToLook the num to look
      * @param isEleven  the is eleven
      */
-    public DiagonalDirection(int numToLook, boolean isEleven) {
+    public DiagonalDirection(int numToLook, boolean isEleven, String name) {
         this.numToLook = numToLook;
         this.isEleven = isEleven;
+        this.name = name;
+    }
+    public String getName() {
+        return name;
     }
 
     @Override
