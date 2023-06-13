@@ -1,273 +1,517 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.ColorAdjust?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.Glow?>
-<?import javafx.scene.effect.Light.Distant?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Shadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:id="mainContainer"
+           xmlns="http://javafx.com/javafx"
+           fx:controller="client.gui.controller.BoardController"
+           stylesheets="@css/BoardPage.css">
 
-<?import javafx.scene.effect.Light?>
-<AnchorPane fx:id="livingroom" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.gui.controller.BoardController">
-   <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" preserveRatio="true">
-         <image>
-            <Image url="@images/sfondo.png" />
-         </image>
-         <effect>
-            <ColorAdjust brightness="0.09" saturation="0.25" />
-         </effect>
-      </ImageView>
-      <ImageView fx:id="board" fitHeight="900.0" fitWidth="900.0" layoutX="45.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/livingroom.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="menu_button" layoutX="1838.0" layoutY="62.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" style="-fx-background-color: orange;">
-         <font>
-            <Font size="26.0" />
-         </font>
-      </Button>
-      <ImageView fx:id="menu_icon" fitHeight="50.0" fitWidth="100.0" layoutX="1840.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/option-icon-13.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="bookshelf" fitHeight="550.0" fitWidth="550.0" layoutX="1100.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/bookshelf_orth.png" />
-         </image>
-         <effect>
-            <DropShadow spread="0.5" />
-         </effect>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ab92461f" height="900.0" layoutX="45.0" layoutY="90.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" strokeWidth="10.0" width="900.0">
-         <effect>
-            <DropShadow />
-         </effect></Rectangle>
-      <Button fx:id="end_turn" layoutX="1680.0" layoutY="945.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: white;" text="End turn">
-         <font>
-            <Font name="Garamond Bold" size="26.0" />
-         </font>
-      </Button>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebedf000" height="54.0" layoutX="1680.0" layoutY="945.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="200.0">
-         <effect>
-            <DropShadow />
-         </effect></Rectangle>
-      <Label layoutX="1100.0" layoutY="62.0" prefHeight="40.0" prefWidth="400.0" text="Your Bookshelf:" textFill="#101010" textOverrun="WORD_ELLIPSIS" wrapText="true">
-         <font>
-            <Font name="Garamond Bold" size="42.0" />
-         </font>
-         <effect>
-            <Lighting>
-               <bumpInput>
-                  <Shadow />
-               </bumpInput>
-               <light>
-                  <Light.Distant />
-               </light>
-            </Lighting>
-         </effect>
-      </Label>
-      <Label layoutX="1035.0" layoutY="743.0" text="Common Goal Cards:">
-         <font>
-            <Font name="Garamond Bold" size="28.0" />
-         </font>
-         <effect>
-            <Glow />
-         </effect>
-      </Label>
-      <ImageView fx:id="cgc_1" fitHeight="180.0" fitWidth="273.0" layoutX="1035.0" layoutY="812.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/common goal cards/1.jpg" />
-         </image></ImageView>
-      <ImageView fx:id="cgc_2" fitHeight="180.0" fitWidth="273.0" layoutX="1350.0" layoutY="812.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/common goal cards/2.jpg" />
-         </image></ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="180.0" layoutX="1035.0" layoutY="812.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="273.0">
-         <effect>
-            <DropShadow />
-         </effect></Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="180.0" layoutX="1350.0" layoutY="812.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="273.0">
-         <effect>
-            <DropShadow />
-         </effect></Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ebedf000" height="54.0" layoutX="1678.0" layoutY="869.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="204.0">
-         <effect>
-            <DropShadow />
-         </effect></Rectangle>
-      <Button layoutX="1680.0" layoutY="870.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: orange;" text="Confirm">
-         <font>
-            <Font name="Garamond Bold" size="26.0" />
-         </font>
-         <effect>
-            <DropShadow />
-         </effect>
-      </Button>
-      <ImageView fitHeight="211.0" fitWidth="227.0" layoutX="-3.0" layoutY="852.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/Sacchetto Chiuso.png" />
-         </image>
-         <effect>
-            <DropShadow />
-         </effect>
-      </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="57.0" layoutX="1838.0" layoutY="62.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" width="55.0">
-         <effect>
-            <DropShadow />
-         </effect></Rectangle>
-      <GridPane layoutX="78.0" layoutY="126.0" prefHeight="826.0" prefWidth="827.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
+    <fx:define>
+        <Double fx:id="twoPercent" fx:value="2"/>
+        <Double fx:id="threePercent" fx:value="3"/>
+        <Double fx:id="threePointFivePercent" fx:value="3.5"/>
+        <Double fx:id="fourPercent" fx:value="4"/>
+        <Double fx:id="fivePercent" fx:value="5"/>
+        <Double fx:id="sixPercent" fx:value="6"/>
+        <Double fx:id="sevenPercent" fx:value="7"/>
+        <Double fx:id="sevenPointFivePercent" fx:value="7.5"/>
+        <Double fx:id="tenPercent" fx:value="10"/>
+        <Double fx:id="twelvePercent" fx:value="12"/>
+        <Double fx:id="fourteenPercent" fx:value="14"/>
+        <Double fx:id="fourteenPointFourPercent" fx:value="14.4"/>
+        <Double fx:id="fifteenPercent" fx:value="15"/>
+        <Double fx:id="twentyPercent" fx:value="20"/>
+        <Double fx:id="twentyTwoPointFivePercent" fx:value="22.5"/>
+        <Double fx:id="twentyFivePercent" fx:value="25"/>
+        <Double fx:id="thirtyPercent" fx:value="30"/>
+        <Double fx:id="thirtyOnePercent" fx:value="31"/>
+        <Double fx:id="thirtyFivePercent" fx:value="35"/>
+        <Double fx:id="fortyPercent" fx:value="40"/>
+        <Double fx:id="fortySixPercent" fx:value="46"/>
+        <Double fx:id="fiftyPercent" fx:value="50"/>
+        <Double fx:id="sixtyPercent" fx:value="60"/>
+        <Double fx:id="sixtyFivePercent" fx:value="65"/>
+        <Double fx:id="seventyPercent" fx:value="70"/>
+        <Double fx:id="eightyPercent" fx:value="80"/>
+        <Double fx:id="eightyEightPercent" fx:value="88"/>
+        <Double fx:id="oneHundredPercent" fx:value="100"/>
+    </fx:define>
+
+    <GridPane fx:id="mainGrid" StackPane.alignment="CENTER">
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints percentHeight="$sixPercent"/>
+            <RowConstraints percentHeight="$eightyEightPercent"/>
+            <RowConstraints percentHeight="$sixPercent"/>
         </rowConstraints>
-         <children>
-            <Button fx:id="tile_1_2" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button layoutX="102.0" layoutY="192.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button fx:id="tile_2_1" layoutX="194.0" layoutY="192.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button fx:id="tile_2_0" layoutX="194.0" layoutY="101.0" mnemonicParsing="false" opacity="0.0" prefHeight="164.0" prefWidth="92.0" text="Button" GridPane.columnIndex="2" />
-            <Button fx:id="tile_3_0" layoutX="194.0" layoutY="10.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="3" />
-            <Button fx:id="tile_3_1" layoutX="286.0" layoutY="10.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button fx:id="tile_4_1" layoutX="286.0" layoutY="101.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <Button fx:id="tile_2_2" layoutX="102.0" layoutY="192.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Button fx:id="tile_3_2" layoutX="194.0" layoutY="192.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Button fx:id="tile_4_2" layoutX="286.0" layoutY="192.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <Button fx:id="tile_5_2" layoutX="378.0" layoutY="192.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-            <Button fx:id="tile_6_2" layoutX="470.0" layoutY="192.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-            <Button fx:id="tile_0_3" layoutX="562.0" layoutY="192.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.rowIndex="5" />
-            <Button fx:id="tile_1_3" layoutX="10.0" layoutY="284.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Button fx:id="tile_2_3" layoutX="102.0" layoutY="284.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Button fx:id="tile_3_3" layoutX="194.0" layoutY="284.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <Button fx:id="tile_4_3" layoutX="286.0" layoutY="284.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-            <Button fx:id="tile_5_3" layoutX="378.0" layoutY="284.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="5" />
-            <Button fx:id="tile_6_3" layoutX="470.0" layoutY="284.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-            <Button fx:id="tile_0_4" layoutX="562.0" layoutY="284.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.rowIndex="6" />
-            <Button fx:id="tile_1_4" layoutX="10.0" layoutY="376.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Button fx:id="tile_2_4" layoutX="102.0" layoutY="376.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Button fx:id="tile_3_4" layoutX="194.0" layoutY="376.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <Button fx:id="tile_4_4" layoutX="286.0" layoutY="376.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-            <Button fx:id="tile_5_4" layoutX="378.0" layoutY="376.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-            <Button fx:id="tile_2_5" layoutX="470.0" layoutY="376.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <Button fx:id="tile_3_5" layoutX="194.0" layoutY="467.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="7" />
-            <Button fx:id="tile_4_5" layoutX="286.0" layoutY="467.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="7" />
-            <Button fx:id="tile_3_6" layoutX="378.0" layoutY="467.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <Button fx:id="tile_4_6" layoutX="286.0" layoutY="558.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="8" />
-            <Button fx:id="tile_3_01" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" />
-            <Button fx:id="tile_3_02" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="8" />
-            <Button fx:id="tile_3_03" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="1" />
-            <Button fx:id="tile_3_04" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="4" />
-            <Button fx:id="tile_3_05" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="5" />
-            <Button fx:id="tile_3_06" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="6" />
-            <Button fx:id="tile_3_061" layoutX="562.0" layoutY="10.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="7" />
-            <Button fx:id="tile_3_0611" layoutX="654.0" layoutY="10.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-            <Button fx:id="tile_2_11" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.rowIndex="1" />
-            <Button fx:id="tile_2_111" layoutX="10.0" layoutY="103.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button fx:id="tile_2_1111" layoutX="102.0" layoutY="103.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button fx:id="tile_2_11111" layoutX="20.0" layoutY="113.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.rowIndex="2" />
-            <Button fx:id="tile_2_111111" layoutX="112.0" layoutY="113.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="1" />
-            <Button fx:id="tile_2_1111111" layoutX="30.0" layoutY="123.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-            <Button fx:id="tile_2_11111111" layoutX="122.0" layoutY="123.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="1" />
-            <Button fx:id="tile_2_111111117" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-            <Button fx:id="tile_3_011" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="3" >
-            <graphic>
-               <ImageView>
-                  <Image url="@images/item tiles/Trofei1.1.png"/>
-               </ImageView>
-            </graphic>
-               </Button>
-            <Button fx:id="tile_3_0111" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button fx:id="tile_3_01111" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.rowIndex="3" />
-            <Button fx:id="tile_3_011111" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Button fx:id="tile_2_1111111161" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.rowIndex="4" />
-            <Button fx:id="tile_6_21" layoutX="562.0" layoutY="195.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="2" />
-            <Button fx:id="tile_6_211" layoutX="654.0" layoutY="195.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="2" />
-            <Button fx:id="tile_6_31" layoutX="562.0" layoutY="472.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Button fx:id="tile_6_311" layoutX="378.0" layoutY="288.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-            <Button fx:id="tile_6_3111" layoutX="470.0" layoutY="288.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-            <Button fx:id="tile_6_31111" layoutX="562.0" layoutY="288.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="3" />
-            <Button fx:id="tile_6_311111" layoutX="654.0" layoutY="288.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" />
-            <Button fx:id="tile_2_111111116" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="3" />
-            <Button fx:id="tile_2_11111111611" layoutX="10.0" layoutY="380.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Button fx:id="tile_2_111111116111" layoutX="102.0" layoutY="380.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <Button fx:id="tile_2_1111111161111" layoutX="194.0" layoutY="380.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <Button fx:id="tile_2_11111111611111" layoutX="286.0" layoutY="380.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-            <Button fx:id="tile_2_111111116111111" layoutX="378.0" layoutY="380.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-            <Button fx:id="tile_2_1111111161111111" layoutX="470.0" layoutY="380.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-            <Button fx:id="tile_2_11111111611111111" layoutX="562.0" layoutY="380.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="4" />
-            <Button fx:id="tile_2_111111116111111111" layoutX="654.0" layoutY="380.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="4" />
-            <Button fx:id="tile_6_32" layoutX="562.0" layoutY="472.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-            <Button fx:id="tile_6_321" layoutX="562.0" layoutY="564.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="5" />
-            <Button fx:id="tile_6_3211" layoutX="654.0" layoutY="472.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="5" />
-            <Button fx:id="tile_6_32111" layoutX="746.0" layoutY="472.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="6" />
-            <Button fx:id="tile_6_321111" layoutX="654.0" layoutY="564.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="6" />
-            <Button fx:id="tile_3_51" layoutX="286.0" layoutY="657.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-            <Button fx:id="tile_3_511" layoutX="194.0" layoutY="657.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" />
-            <Button fx:id="tile_2_111111115" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Button fx:id="tile_2_1111111151" layoutX="102.0" layoutY="657.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.rowIndex="7" />
-            <Button fx:id="tile_2_11111111511" layoutX="10.0" layoutY="657.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="3" GridPane.rowIndex="8" />
-            <Button fx:id="tile_2_111111115111" layoutX="286.0" layoutY="749.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" />
-            <Button fx:id="tile_2_111111114" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-            <Button fx:id="tile_2_1111111141" layoutX="194.0" layoutY="749.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Button fx:id="tile_2_11111111411" layoutX="102.0" layoutY="749.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.rowIndex="8" />
-            <Button fx:id="tile_4_51" layoutX="378.0" layoutY="657.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="4" GridPane.rowIndex="8" />
-            <Button fx:id="tile_4_511" layoutX="378.0" layoutY="749.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="8" />
-            <Button fx:id="tile_4_5111" layoutX="470.0" layoutY="749.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" />
-            <Button fx:id="tile_2_111111113" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="5" GridPane.rowIndex="7" />
-            <Button fx:id="tile_2_1111111131" layoutX="470.0" layoutY="657.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="7" />
-            <Button fx:id="tile_2_11111111311" layoutX="562.0" layoutY="657.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="6" GridPane.rowIndex="8" />
-            <Button fx:id="tile_2_111111113111" layoutX="562.0" layoutY="749.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="7" />
-            <Button fx:id="tile_2_1111111131111" layoutX="654.0" layoutY="657.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="7" GridPane.rowIndex="8" />
-            <Button fx:id="tile_2_11111111311111" layoutX="654.0" layoutY="749.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="7" />
-            <Button fx:id="tile_2_111111113111111" layoutX="746.0" layoutY="657.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" GridPane.columnIndex="8" GridPane.rowIndex="8" />
-         </children>
-         <effect>
-            <Glow />
-         </effect>
-      </GridPane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="57.0" layoutX="1838.0" layoutY="145.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="3.0" width="55.0">
-         <effect>
-            <DropShadow />
-         </effect></Rectangle>
-      <Button fx:id="show_ply_button" layoutX="1838.0" layoutY="145.0" mnemonicParsing="false" opacity="0.0" prefHeight="56.0" prefWidth="54.0" text="Button">
-         <effect>
-            <DropShadow blurType="TWO_PASS_BOX" />
-         </effect>
-      </Button>
-      <ImageView fitHeight="50.0" fitWidth="44.0" layoutX="1844.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-         <image>
-            <Image url="@images/players_icon.png" />
-         </image>
-      </ImageView>
-      <Button fx:id="tile_2_111111111" layoutX="132.0" layoutY="133.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" />
-      <Button fx:id="tile_2_111111112" layoutX="132.0" layoutY="133.0" mnemonicParsing="false" opacity="0.0" prefHeight="92.0" prefWidth="105.0" text="Button" />
-   </children>
-</AnchorPane>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="$twoPercent"/>
+            <ColumnConstraints percentWidth="$fortySixPercent"/>
+            <ColumnConstraints percentWidth="$twoPercent"/>
+            <ColumnConstraints percentWidth="$twoPercent"/>
+            <ColumnConstraints percentWidth="$fortySixPercent"/>
+            <ColumnConstraints percentWidth="$twoPercent"/>
+        </columnConstraints>
+
+        <GridPane fx:id="isPlayerXTurn" GridPane.columnIndex="4" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                  GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <rowConstraints>
+                <RowConstraints percentHeight="$twentyPercent"/>
+                <RowConstraints percentHeight="$sixtyPercent"/>
+                <RowConstraints percentHeight="$twentyPercent"/>
+            </rowConstraints>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="$fiftyPercent"/>
+                <ColumnConstraints percentWidth="$fiftyPercent"/>
+            </columnConstraints>
+
+            <Pane fx:id="playerTurn" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Label text="xxx_giovanniGiorgio_xxx is playing... " fx:id="L2"
+                       textAlignment="CENTER" textFill="White" wrapText="true"
+                       alignment="BOTTOM_CENTER"/>
+            </Pane>
+
+        </GridPane>
+
+        <Pane fx:id="Board" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
+              GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <GridPane fx:id="board_grid" prefHeight="${Board.height}" prefWidth="${Board.width}">
+                <rowConstraints>
+                    <RowConstraints percentHeight="$fivePercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$fivePercent"/>
+
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="4"/>
+                    <ColumnConstraints percentWidth="10.22"/>
+                    <ColumnConstraints percentWidth="10.22"/>
+                    <ColumnConstraints percentWidth="10.22"/>
+                    <ColumnConstraints percentWidth="10.1"/>
+                    <ColumnConstraints percentWidth="10.1"/>
+                    <ColumnConstraints percentWidth="10.1"/>
+                    <ColumnConstraints percentWidth="10.1"/>
+                    <ColumnConstraints percentWidth="10.1"/>
+                    <ColumnConstraints percentWidth="10.1"/>
+                    <ColumnConstraints percentWidth="4.72"/>
+                </columnConstraints>
+
+                <Pane fx:id="1_4" GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="1_5" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="2_4" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="2_5" GridPane.columnIndex="5" GridPane.rowIndex="2" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="2_6" GridPane.columnIndex="6" GridPane.rowIndex="2" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="3_3" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="3_4" GridPane.columnIndex="4" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="3_5" GridPane.columnIndex="5" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="3_6" GridPane.columnIndex="6" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="3_7" GridPane.columnIndex="7" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="4_2" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="4_3" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="4_4" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="4_5" GridPane.columnIndex="5" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="4_6" GridPane.columnIndex="6" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="4_7" GridPane.columnIndex="7" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="4_8" GridPane.columnIndex="8" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="4_9" GridPane.columnIndex="9" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="5_1" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="5_2" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="5_3" GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="5_4" GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="5_5" GridPane.columnIndex="5" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="5_6" GridPane.columnIndex="6" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="5_7" GridPane.columnIndex="7" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="5_8" GridPane.columnIndex="8" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="5_9" GridPane.columnIndex="9" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="6_1" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="6_2" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="6_3" GridPane.columnIndex="3" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="6_4" GridPane.columnIndex="4" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="6_5" GridPane.columnIndex="5" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="6_6" GridPane.columnIndex="6" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="6_7" GridPane.columnIndex="7" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="6_8" GridPane.columnIndex="8" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="7_3" GridPane.columnIndex="3" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="7_4" GridPane.columnIndex="4" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="7_5" GridPane.columnIndex="5" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="7_6" GridPane.columnIndex="6" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="7_7" GridPane.columnIndex="7" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="8_4" GridPane.columnIndex="4" GridPane.rowIndex="8" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="8_5" GridPane.columnIndex="5" GridPane.rowIndex="8" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="8_6" GridPane.columnIndex="6" GridPane.rowIndex="8" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="9_5" GridPane.columnIndex="5" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="9_6" GridPane.columnIndex="6" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+            </GridPane>
+        </Pane>
+
+        <GridPane fx:id="interface" GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.columnSpan="1">
+            <rowConstraints>
+                <RowConstraints percentHeight="$sevenPointFivePercent"/>
+                <RowConstraints percentHeight="$sixtyFivePercent"/>
+                <RowConstraints percentHeight="$fivePercent"/>
+                <RowConstraints percentHeight="$twentyTwoPointFivePercent"/>
+            </rowConstraints>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="$oneHundredPercent"/>
+            </columnConstraints>
+
+            <GridPane fx:id="cgcAndButtons" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="1">
+                <rowConstraints>
+                    <RowConstraints percentHeight="$oneHundredPercent"/>
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="$thirtyOnePercent"/>
+                    <ColumnConstraints percentWidth="$threePointFivePercent"/>
+                    <ColumnConstraints percentWidth="$thirtyOnePercent"/>
+                    <ColumnConstraints percentWidth="$threePointFivePercent"/>
+                    <ColumnConstraints percentWidth="$thirtyOnePercent"/>
+                </columnConstraints>
+
+                <Pane fx:id="cgc_1" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+                <Pane fx:id="cgc_2" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+                <GridPane fx:id="buttons" GridPane.columnIndex="4" GridPane.rowIndex="0" GridPane.columnSpan="1">
+                    <rowConstraints>
+                        <RowConstraints percentHeight="$tenPercent"/>
+                        <RowConstraints percentHeight="$thirtyFivePercent"/>
+                        <RowConstraints percentHeight="$tenPercent"/>
+                        <RowConstraints percentHeight="$thirtyFivePercent"/>
+                        <RowConstraints percentHeight="$tenPercent"/>
+                    </rowConstraints>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="$tenPercent"/>
+                        <ColumnConstraints percentWidth="$eightyPercent"/>
+                        <ColumnConstraints percentWidth="$tenPercent"/>
+                    </columnConstraints>
+
+                    <Pane fx:id="container3" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="end_turn" text="End turn" prefHeight="${container3.height}" prefWidth="${container3.width}"
+                                onAction="#onEndTurnButtonPress"/>
+                    </Pane>
+
+                    <Pane fx:id="container4" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="confirm" text="Confirm" prefHeight="${container4.height}" prefWidth="${container4.width}"
+                                onAction="#onConfirmButtonPress"/>
+                    </Pane>
+
+                </GridPane>
+            </GridPane>
+
+            <GridPane fx:id="bookshelf" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1">
+                <rowConstraints>
+                    <RowConstraints percentHeight="$oneHundredPercent"/>
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="$sixtyPercent"/>
+                    <ColumnConstraints percentWidth="$tenPercent"/>
+                    <ColumnConstraints percentWidth="$thirtyPercent"/>
+                </columnConstraints>
+
+                <Pane fx:id="bookshelf_image" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <GridPane fx:id="bookshelf_grid" prefHeight="${bookshelf_image.height}" prefWidth="${bookshelf_image.width}">
+                        <rowConstraints>
+                            <RowConstraints percentHeight="5.1"/>
+                            <RowConstraints percentHeight="13.6"/>
+                            <RowConstraints percentHeight="2.7"/>
+                            <RowConstraints percentHeight="13.55"/>
+                            <RowConstraints percentHeight="2.8"/>
+                            <RowConstraints percentHeight="13.4"/>
+                            <RowConstraints percentHeight="2.9"/>
+                            <RowConstraints percentHeight="13.4"/>
+                            <RowConstraints percentHeight="2.9"/>
+                            <RowConstraints percentHeight="13.4"/>
+                            <RowConstraints percentHeight="2.9"/>
+                            <RowConstraints percentHeight="13.4"/>
+                            <RowConstraints percentHeight="5"/>
+                        </rowConstraints>
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="4"/>
+                            <ColumnConstraints percentWidth="15.1"/>
+                            <ColumnConstraints percentWidth="4.1"/>
+                            <ColumnConstraints percentWidth="15.2"/>
+                            <ColumnConstraints percentWidth="4"/>
+                            <ColumnConstraints percentWidth="15.2"/>
+                            <ColumnConstraints percentWidth="4"/>
+                            <ColumnConstraints percentWidth="15.2"/>
+                            <ColumnConstraints percentWidth="4"/>
+                            <ColumnConstraints percentWidth="15.2"/>
+                            <ColumnConstraints percentWidth="4"/>
+                        </columnConstraints>
+
+                        <Pane fx:id="b_1_1" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_1_2" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_1_3" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_1_4" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_1_5" GridPane.columnIndex="1" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_1_6" GridPane.columnIndex="1" GridPane.rowIndex="11" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+                        <Pane fx:id="b_2_1" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_2_2" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_2_3" GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_2_4" GridPane.columnIndex="3" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_2_5" GridPane.columnIndex="3" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_2_6" GridPane.columnIndex="3" GridPane.rowIndex="11" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+                        <Pane fx:id="b_3_1" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_3_2" GridPane.columnIndex="5" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_3_3" GridPane.columnIndex="5" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_3_4" GridPane.columnIndex="5" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_3_5" GridPane.columnIndex="5" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_3_6" GridPane.columnIndex="5" GridPane.rowIndex="11" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+                        <Pane fx:id="b_4_1" GridPane.columnIndex="7" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_4_2" GridPane.columnIndex="7" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_4_3" GridPane.columnIndex="7" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_4_4" GridPane.columnIndex="7" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_4_5" GridPane.columnIndex="7" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_4_6" GridPane.columnIndex="7" GridPane.rowIndex="11" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+                        <Pane fx:id="b_5_1" GridPane.columnIndex="9" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_5_2" GridPane.columnIndex="9" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_5_3" GridPane.columnIndex="9" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_5_4" GridPane.columnIndex="9" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_5_5" GridPane.columnIndex="9" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_5_6" GridPane.columnIndex="9" GridPane.rowIndex="11" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+                    </GridPane>
+                </Pane>
+
+                <GridPane fx:id="objective" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1">
+                    <rowConstraints>
+                        <RowConstraints percentHeight="$fivePercent"/>
+                        <RowConstraints percentHeight="$twentyPercent"/>
+                        <RowConstraints percentHeight="$fivePercent"/>
+                        <RowConstraints percentHeight="$fivePercent"/>
+                        <RowConstraints percentHeight="$fivePercent"/>
+                        <RowConstraints percentHeight="$fivePercent"/>
+                        <RowConstraints percentHeight="$fivePercent"/>
+                        <RowConstraints percentHeight="$fiftyPercent"/>
+                    </rowConstraints>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="$oneHundredPercent"/>
+                    </columnConstraints>
+
+                        <GridPane fx:id="selected" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                                  GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+
+                            <rowConstraints>
+                                <RowConstraints percentHeight="$twentyFivePercent"/>
+                                <RowConstraints percentHeight="$fiftyPercent"/>
+                                <RowConstraints percentHeight="$twentyFivePercent"/>
+                            </rowConstraints>
+                            <columnConstraints>
+                                <ColumnConstraints percentWidth="$twelvePercent"/>
+                                <ColumnConstraints percentWidth="$twentyFivePercent"/>
+                                <ColumnConstraints percentWidth="$threePercent"/>
+                                <ColumnConstraints percentWidth="$twentyFivePercent"/>
+                                <ColumnConstraints percentWidth="$threePercent"/>
+                                <ColumnConstraints percentWidth="$twentyFivePercent"/>
+                                <ColumnConstraints percentWidth="$fivePercent"/>
+                            </columnConstraints>
+
+                            <Pane fx:id="first_tile" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                                  GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+                            <Pane fx:id="second_tile" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                                  GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+                            <Pane fx:id="third_tile" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                                  GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+                        </GridPane>
+
+                    <Pane fx:id="label" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                          <Label text="Your Goal: " fx:id="L1"
+                            textAlignment="CENTER" textFill="White" wrapText="true"
+                            alignment="BOTTOM_CENTER"/>
+                    </Pane>
+
+                    <Pane fx:id="goal_card" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+                    </GridPane>
+            </GridPane>
+
+            <GridPane fx:id="topButtons" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1">
+                <rowConstraints>
+                    <RowConstraints percentHeight="$fifteenPercent"/>
+                    <RowConstraints percentHeight="$seventyPercent"/>
+                    <RowConstraints percentHeight="$fifteenPercent"/>
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="$sixtyPercent"/>
+                    <ColumnConstraints percentWidth="$fortyPercent"/>
+                </columnConstraints>
+
+                <GridPane fx:id="bookshelfButtons" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1">
+                    <rowConstraints>
+                        <RowConstraints percentHeight="$thirtyPercent"/>
+                        <RowConstraints percentHeight="$seventyPercent"/>
+                    </rowConstraints>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="$fourPercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPointFourPercent"/>
+                        <ColumnConstraints percentWidth="$fivePercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPointFourPercent"/>
+                        <ColumnConstraints percentWidth="$fivePercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPointFourPercent"/>
+                        <ColumnConstraints percentWidth="$fivePercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPointFourPercent"/>
+                        <ColumnConstraints percentWidth="$fivePercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPointFourPercent"/>
+                        <ColumnConstraints percentWidth="$fourPercent"/>
+                    </columnConstraints>
+
+                    <Pane fx:id="container5" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="arrow1" prefHeight="${container5.height}" prefWidth="${container5.width}"
+                                onAction="#onArrowOnePress"/>
+                    </Pane>
+
+                    <Pane fx:id="container6" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="arrow2" prefHeight="${container6.height}" prefWidth="${container6.width}"
+                                onAction="#onArrowTwoPress"/>
+                    </Pane>
+
+                    <Pane fx:id="container7" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="arrow3" prefHeight="${container7.height}" prefWidth="${container7.width}"
+                                onAction="#onArrowThreePress"/>
+                    </Pane>
+
+                    <Pane fx:id="container8" GridPane.columnIndex="7" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="arrow4" prefHeight="${container8.height}" prefWidth="${container8.width}"
+                                onAction="#onArrowFourPress"/>
+                    </Pane>
+
+                    <Pane fx:id="container9" GridPane.columnIndex="9" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="arrow5" prefHeight="${container9.height}" prefWidth="${container9.width}"
+                                onAction="#onArrowFivePress"/>
+                    </Pane>
+
+                </GridPane>
+                <GridPane fx:id="menuPlayerButtons" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1">
+                    <rowConstraints>
+                        <RowConstraints percentHeight="$oneHundredPercent"/>
+                    </rowConstraints>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="$sixtyFivePercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPercent"/>
+                        <ColumnConstraints percentWidth="$sevenPercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPercent"/>
+                    </columnConstraints>
+
+                    <Pane fx:id="container1" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="menu_button" prefHeight="${container1.height}" prefWidth="${container1.width}"
+                                onAction="#onMenuButtonPress"/>
+                    </Pane>
+
+                    <Pane fx:id="container2" GridPane.columnIndex="3" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="show_ply_button" prefHeight="${container2.height}" prefWidth="${container2.width}"
+                                onAction="#onPlayerButtonPress"/>
+                    </Pane>
+
+                </GridPane>
+            </GridPane>
+        </GridPane>
+    </GridPane>
+</StackPane>
