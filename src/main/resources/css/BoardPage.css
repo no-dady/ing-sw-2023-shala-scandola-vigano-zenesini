@@ -1,0 +1,919 @@
+@font-face {
+    font-family: 'Garamond';
+    src: url("../font/GaramondBold.ttf");
+}
+/*
+#interface {
+    -fx-grid-lines-visible: true;
+}
+#cgcAndButtons {
+    -fx-grid-lines-visible: true;
+}
+#buttons {
+    -fx-grid-lines-visible: true;
+}
+#bookshelf {
+    -fx-grid-lines-visible: true;
+}
+#objective {
+    -fx-grid-lines-visible: true;
+}
+#mainGrid {
+    -fx-grid-lines-visible: true;
+}
+#topButtons {
+    -fx-grid-lines-visible: true;
+}
+#menuPlayerButtons {
+    -fx-grid-lines-visible: true;
+}
+#bookshelfButtons {
+    -fx-grid-lines-visible: true;
+}
+#isPlayerXTurn {
+    -fx-grid-lines-visible: true;
+}
+#board_grid {
+    -fx-grid-lines-visible: true;
+}
+#bookshelf_grid {
+    -fx-grid-lines-visible: true;
+}
+*/
+#container1{
+    -fx-background-size: cover;
+}
+#container2{
+    -fx-background-size: cover;
+}
+#container3{
+    -fx-background-size: cover;
+}
+#container4{
+    -fx-background-size: cover;
+}
+#container5{
+    -fx-background-size: cover;
+}
+#container6{
+    -fx-background-size: cover;
+}
+#container7{
+    -fx-background-size: cover;
+}
+#container8{
+    -fx-background-size: cover;
+}
+#container9{
+    -fx-background-size: cover;
+}
+
+#arrow1 {
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/arrow.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+}
+#arrow2 {
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/arrow.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+}
+#arrow3 {
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/arrow.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+}
+#arrow4 {
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/arrow.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+}
+#arrow5 {
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/arrow.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+}
+.button:hover {
+    -fx-effect: dropshadow(gaussian, white, 30, 0.5, 0.9, 0.3);
+}
+#1_4:hover {
+    -fx-effect: dropshadow(gaussian, white, 30, 0.5, 0.9, 0.3);
+}
+
+#menu_button {
+    -fx-background-color: orange;
+    -fx-background-image: url("../images/option-icon-13.jpg");
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+}
+#show_ply_button {
+    -fx-background-color: white;
+    -fx-background-image: url("../images/players_icon.png");
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+}
+#end_turn {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-position: center center;
+    -fx-background-size: contain;
+
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+    -fx-cursor: hand;
+}
+#confirm {
+    -fx-background-color: orange;
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-position: center center;
+    -fx-background-size: contain;
+
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+    -fx-cursor: hand;
+}
+
+#L1 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-alignment: center;
+}
+#L2 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-alignment: center;
+}
+
+#selected {
+    /*-fx-grid-lines-visible: true;*/
+    -fx-background-image: url("../images/selected_tiles.png");
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+}
+#first_tile {
+    -fx-background-image: url("../images/itemTiles/Piante1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+}
+#second_tile {
+    -fx-background-image: url("../images/itemTiles/Piante1.2.png");
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+}
+#third_tile {
+    -fx-background-image: url("../images/itemTiles/Piante1.3.png");
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+}
+
+#mainContainer{
+    -fx-background-image: url("../images/sfondo.png");
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em;
+    -fx-brightness: 0.09em;
+    -fx-saturation: 0.25em;
+}
+#Board{
+    -fx-background-image: url("../images/livingroom.png");
+    -fx-effect: dropshadow(gaussian, black, 20, 0.5, 0.9, 0.3);
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-border-color: black;
+    -fx-border-width: 8px;
+    -fx-border-style: solid;
+    -fx-border-radius: 2px;
+}
+
+#bookshelf_image {
+    -fx-background-image: url("../images/bookshelf.png");
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#goal_card {
+    -fx-background-image: url("../images/personal_goal_card/Personal_Goals3.png");
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+}
+
+#cgc_1{
+    -fx-background-image: url("../images/common_goal_cards/1.jpg");
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+}
+#cgc_2{
+    -fx-background-image: url("../images/common_goal_cards/2.jpg");
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+}
+
+#1_4 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#1_5 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#2_4 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#2_5 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#2_6 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#3_3 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#3_4 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#3_5 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+
+}
+#3_6 {
+     -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+     -fx-background-position: center;
+     -fx-background-size: contain;
+     -fx-background-repeat: no-repeat;
+     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+ }
+#3_7 {
+      -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+      -fx-background-position: center;
+      -fx-background-size: contain;
+      -fx-background-repeat: no-repeat;
+      -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#4_2 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+   -fx-background-position: center;
+   -fx-background-size: contain;
+   -fx-background-repeat: no-repeat;
+   -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#4_3 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#4_4 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#4_5 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#4_6 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#4_7 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#4_8 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#4_9 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#5_1 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#5_2 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#5_3 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#5_4 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#5_5 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#5_6 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#5_7 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#5_8 {
+     -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+     -fx-background-position: center;
+     -fx-background-size: contain;
+     -fx-background-repeat: no-repeat;
+     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+ }
+#5_9 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#6_1 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#6_2 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#6_3 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#6_4 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#6_5 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#6_6 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#6_7 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#6_8 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#7_3 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#7_4 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#7_5 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#7_6 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#7_7 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#8_4 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#8_5 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#8_6 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#9_5 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#9_6 {
+    -fx-background-image: url("../images/itemTiles/Gatti1.2.png");
+    -fx-border-color: black;
+    -fx-border-width: 0.2em;
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+
+#b_1_1 {
+    -fx-background-image: url("../images/itemTiles/Giochi1.2.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_1_2 {
+    -fx-background-image: url("../images/itemTiles/Giochi1.2.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_1_3 {
+    -fx-background-image: url("../images/itemTiles/Giochi1.2.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_1_4 {
+    -fx-background-image: url("../images/itemTiles/Giochi1.2.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_1_5 {
+    -fx-background-image: url("../images/itemTiles/Giochi1.2.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_1_6 {
+    -fx-background-image: url("../images/itemTiles/Giochi1.2.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+
+#b_2_1 {
+    /*-fx-background-image: url("images/itemTiles/Trofei1.1.png");*/
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_2_2 {
+    -fx-background-image: url("../images/itemTiles/Trofei1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_2_3 {
+    -fx-background-image: url("../images/itemTiles/Trofei1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_2_4 {
+    -fx-background-image: url("../images/itemTiles/Trofei1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_2_5 {
+    -fx-background-image: url("../images/itemTiles/Trofei1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_2_6 {
+    -fx-background-image: url("../images/itemTiles/Trofei1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+
+#b_3_1 {
+    /*-fx-background-image: url("images/itemTiles/Trofei1.1.png");*/
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_3_2 {
+    /*-fx-background-image: url("images/itemTiles/Trofei1.1.png");*/
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_3_3 {
+    -fx-background-image: url("../images/itemTiles/Giochi1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_3_4 {
+    -fx-background-image: url("../images/itemTiles/Giochi1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_3_5 {
+    -fx-background-image: url("../images/itemTiles/Giochi1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_3_6 {
+    -fx-background-image: url("../images/itemTiles/Giochi1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+
+#b_4_1 {
+    /*-fx-background-image: url("images/itemTiles/Giochi1.1.png");*/
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_4_2 {
+    /*-fx-background-image: url("images/itemTiles/Giochi1.1.png");*/
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_4_3 {
+    /*-fx-background-image: url("images/itemTiles/Giochi1.1.png");*/
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_4_4 {
+    -fx-background-image: url("../images/itemTiles/Libri1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_4_5 {
+    -fx-background-image: url("../images/itemTiles/Libri1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_4_6 {
+    -fx-background-image: url("../images/itemTiles/Libri1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+
+#b_5_1 {
+    /*-fx-background-image: url("images/itemTiles/Giochi1.1.png");*/
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_5_2 {
+    /*-fx-background-image: url("images/itemTiles/Giochi1.1.png");*/
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_5_3 {
+    /*-fx-background-image: url("images/itemTiles/Giochi1.1.png");*/
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_5_4 {
+    /*-fx-background-image: url("images/itemTiles/Libri1.1.png");*/
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_5_5 {
+    -fx-background-image: url("../images/itemTiles/Cornici1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+#b_5_6 {
+    -fx-background-image: url("../images/itemTiles/Cornici1.1.png");
+    -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
+    -fx-background-position: center;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

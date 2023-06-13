@@ -1,0 +1,73 @@
+@font-face {
+    font-family: 'Garamond';
+    src: url("../font/GaramondBold.ttf");
+}
+
+#mainContainer{
+    -fx-background-color: transparent;
+    -fx-background-position: center center;
+    -fx-background-size: contain;
+    -fx-padding: 0.3em;
+}
+
+#mainGrid {
+    -fx-grid-lines-visible: true;
+
+}
+
+#menuImage {
+    -fx-background-image: url("../images/sfondo_grigio.jpg");
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: cover;
+    -fx-padding: 0.3em 0.3em 0.3em 0.3em;
+}
+
+#menuGrid {
+
+    -fx-grid-lines-visible: true;
+}
+
+mainContainer:hover {
+    opacity: 0.5;
+}
+
+#L3 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 5em;
+    -fx-alignment: center;
+}
+
+#B1 {
+    -fx-background-color: gray;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+}
+
+#B2 {
+    -fx-background-color: gray;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-cursor: hand;
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+}
+
+P1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+P2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+

@@ -1,0 +1,127 @@
+@font-face {
+    font-family: 'Garamond';
+    src: url("../font/GaramondBold.ttf");
+}
+
+
+#firstGrid {
+    /*-fx-grid-lines-visible: true;*/
+    -fx-background-image: url("../images/sfondo_fine.jpg");
+    -fx-background-position: center center;
+    -fx-background-size: cover;
+    -fx-padding: 0.3em;
+}
+
+#secondGrid {
+    /*-fx-grid-lines-visible: true;*/
+    -fx-background-position: center center;
+    -fx-background-size: cover;
+}
+
+#thirdGrid {
+    /*-fx-grid-lines-visible: true;*/
+    -fx-background-position: center center;
+    -fx-background-size: cover;
+}
+
+#L9 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 5em;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+}
+
+#L10 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-alignment: center;
+}
+
+#L11 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-alignment: center;
+}
+
+#L12 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 1.5em;
+    -fx-alignment: bottom-left;
+}
+
+#L13 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 1.5em;
+    -fx-alignment: bottom-left;
+}
+
+#L14 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 1.5em;
+    -fx-alignment: bottom-left;
+}
+
+#L15 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 1.5em;
+    -fx-alignment: bottom-left;
+}
+
+#L16 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 1.5em;
+    -fx-alignment: bottom-left;
+}
+
+#L17 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 1.5em;
+    -fx-alignment: bottom-left;
+}
+
+#L18 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 1.5em;
+    -fx-alignment: bottom-left;
+}
+
+#L19 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 1.5em;
+    -fx-alignment: bottom-left;
+}
+
+
+#P1 {
+    -fx-background-image: url("../images/gold-trophy.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+}
+
+#P2 {
+    -fx-background-image: url("../images/silver-trophy.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: contain;
+    -fx-background-position: center;
+}
+
+#P3 {
+    -fx-background-color: black;
+    -fx-background-position: center;
+}
+
+#P4 {
+    -fx-background-color: orange;
+    -fx-background-position: center;
+}
+
+#return_to_menu {
+    -fx-background-size: cover;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+    -fx-background-color: orange;
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 3em;
+}

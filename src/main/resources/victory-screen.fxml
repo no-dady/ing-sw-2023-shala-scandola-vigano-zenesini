@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="mainContainer"
+            fx:controller="client.gui.controller.VictoryScreenController"
+            stylesheets="@css/VictoryPage.css"
+            prefWidth="750"
+            prefHeight="900">
+
+    <fx:define>
+        <Double fx:id="threePercent" fx:value="3"/>
+        <Double fx:id="fivePercent" fx:value="5"/>
+        <Double fx:id="eightPercent" fx:value="8"/>
+        <Double fx:id="tenPercent" fx:value="10"/>
+        <Double fx:id="twelvePercent" fx:value="12"/>
+        <Double fx:id="fifthTeenPercent" fx:value="15"/>
+        <Double fx:id="eighthTeenPercent" fx:value="18"/>
+        <Double fx:id="twentyPercent" fx:value="20"/>
+        <Double fx:id="twentyEightPercent" fx:value="28"/>
+        <Double fx:id="thirtyPercent" fx:value="30"/>
+        <Double fx:id="fortyPercent" fx:value="40"/>
+        <Double fx:id="seventyPercent" fx:value="70"/>
+        <Double fx:id="ninetyPercent" fx:value="90"/>
+        <Double fx:id="oneHundredPercent" fx:value="100"/>
+    </fx:define>
+
+    <GridPane fx:id="firstGrid" StackPane.alignment="CENTER">
+        <rowConstraints>
+            <RowConstraints percentHeight="$fivePercent"/>
+            <RowConstraints percentHeight="$tenPercent"/>
+            <RowConstraints percentHeight="$fivePercent"/>
+            <RowConstraints percentHeight="$fivePercent"/>
+            <RowConstraints percentHeight="$fivePercent"/>
+            <RowConstraints percentHeight="$seventyPercent"/>
+        </rowConstraints>
+
+        <columnConstraints>
+            <ColumnConstraints percentWidth="$oneHundredPercent"/>
+        </columnConstraints>
+
+        <Pane fx:id="P3" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="1"
+              GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+        <GridPane fx:id="secondGrid" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                  GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <rowConstraints>
+                <RowConstraints percentHeight="$oneHundredPercent"/>
+            </rowConstraints>
+
+            <columnConstraints>
+                <ColumnConstraints percentWidth="$thirtyPercent"/>
+                <ColumnConstraints percentWidth="$fortyPercent"/>
+                <ColumnConstraints percentWidth="$thirtyPercent"/>
+            </columnConstraints>
+
+            <Label fx:id="L9" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                   text="You won!" textAlignment="CENTER" textFill="White" wrapText="true"
+                   alignment="BOTTOM_CENTER"/>
+        </GridPane>
+
+        <GridPane fx:id="thirdGrid" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                  GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <rowConstraints>
+                <RowConstraints percentHeight="$tenPercent"/>
+                <RowConstraints percentHeight="$threePercent"/>
+                <RowConstraints percentHeight="$eightPercent"/>
+                <RowConstraints percentHeight="$threePercent"/>
+                <RowConstraints percentHeight="$eightPercent"/>
+                <RowConstraints percentHeight="$threePercent"/>
+                <RowConstraints percentHeight="$eightPercent"/>
+                <RowConstraints percentHeight="$threePercent"/>
+                <RowConstraints percentHeight="$eightPercent"/>
+                <RowConstraints percentHeight="$threePercent"/>
+                <RowConstraints percentHeight="$eighthTeenPercent"/>
+                <RowConstraints percentHeight="$fifthTeenPercent"/>
+                <RowConstraints percentHeight="$tenPercent"/>
+            </rowConstraints>
+
+            <columnConstraints>
+                <ColumnConstraints percentWidth="$twentyPercent"/>
+                <ColumnConstraints percentWidth="$twelvePercent"/>
+                <ColumnConstraints percentWidth="$twentyEightPercent"/>
+                <ColumnConstraints percentWidth="$twentyPercent"/>
+                <ColumnConstraints percentWidth="$twentyPercent"/>
+            </columnConstraints>
+
+            <Label fx:id="L10" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                   text="Rankings " textAlignment="CENTER" textFill="White" wrapText="true"
+                   alignment="BOTTOM_CENTER"/>
+
+            <Label fx:id="L11" GridPane.columnIndex="3" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                   text="Points " textFill="White" wrapText="true"
+                   alignment="BOTTOM_CENTER"/>
+
+            <Label fx:id="L12" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                   text="Player1 " textFill="White" wrapText="true"
+                   alignment="BOTTOM_LEFT"/>
+
+            <Label fx:id="L13" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                   text="Player2 " textFill="White" wrapText="true"
+                   alignment="BOTTOM_LEFT"/>
+
+            <Label fx:id="L14" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                   text="Player3 " textFill="White" wrapText="true"
+                   alignment="BOTTOM_LEFT"/>
+
+            <Label fx:id="L15" GridPane.columnIndex="2" GridPane.rowIndex="8" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                   text="Player4 " textFill="White" wrapText="true"
+                   alignment="BOTTOM_LEFT"/>
+
+            <Pane fx:id="P1" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="1"
+                  GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+            <Pane fx:id="P2" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                  GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+            <Pane fx:id="P4" GridPane.columnIndex="2" GridPane.rowIndex="11" GridPane.columnSpan="2"
+                  GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Button fx:id="return_to_menu" prefHeight="${P4.height}" prefWidth="${P4.width}" text="Quit"
+                        textFill="White" onAction="#onQuitPress"/>
+            </Pane>
+
+            <Label fx:id="L16" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                   text="1000 " textFill="White" wrapText="true"
+                   alignment="BOTTOM_LEFT"/>
+            <Label fx:id="L17" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                   text="850 " textFill="White" wrapText="true"
+                   alignment="BOTTOM_LEFT"/>
+            <Label fx:id="L18" GridPane.columnIndex="3" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                   text="730 " textFill="White" wrapText="true"
+                   alignment="BOTTOM_LEFT"/>
+            <Label fx:id="L19" GridPane.columnIndex="3" GridPane.rowIndex="8" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                   text="680 " textFill="White" wrapText="true"
+                   alignment="BOTTOM_LEFT"/>
+
+        </GridPane>
+
+    </GridPane>
+
+</StackPane>

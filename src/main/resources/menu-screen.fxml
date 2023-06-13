@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="mainContainer"
+            fx:controller="client.gui.controller.MenuScreenController"
+            stylesheets="@css/MenuPage.css"
+            prefWidth="500"
+            prefHeight="600">
+
+            <fx:define>
+                <Double fx:id="fivePercent" fx:value="5"/>
+                <Double fx:id="tenPercent" fx:value="10"/>
+                <Double fx:id="fifthTeenPercent" fx:value="15"/>
+                <Double fx:id="twentyPercent" fx:value="20"/>
+                <Double fx:id="twentyFivePercent" fx:value="25"/>
+                <Double fx:id="thirtyPercent" fx:value="30"/>
+                <Double fx:id="thirtyFivePercent" fx:value="35"/>
+                <Double fx:id="sixtyPercent" fx:value="60"/>
+                <Double fx:id="oneHundredPercent" fx:value="100"/>
+            </fx:define>
+
+            <GridPane fx:id="mainGrid" StackPane.alignment="CENTER">
+
+                <rowConstraints>
+                    <RowConstraints percentHeight="$oneHundredPercent"/>
+
+
+                </rowConstraints>
+
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="$oneHundredPercent"/>
+
+
+                </columnConstraints>
+
+                <Pane fx:id="menuImage" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <GridPane fx:id="menuGrid" prefHeight="${menuImage.height}" prefWidth="${menuImage.width}">
+
+                              <rowConstraints>
+                                  <RowConstraints percentHeight="$fivePercent"/>
+                                  <RowConstraints percentHeight="$twentyPercent"/>
+                                  <RowConstraints percentHeight="$twentyPercent"/>
+                                  <RowConstraints percentHeight="$fifthTeenPercent"/>
+                                  <RowConstraints percentHeight="$fivePercent"/>
+                                  <RowConstraints percentHeight="$fifthTeenPercent"/>
+                                  <RowConstraints percentHeight="$twentyPercent"/>
+                              </rowConstraints>
+
+                              <columnConstraints>
+                                  <ColumnConstraints percentWidth="$twentyPercent"/>
+                                  <ColumnConstraints percentWidth="$sixtyPercent"/>
+                                  <ColumnConstraints percentWidth="$twentyPercent"/>
+                              </columnConstraints>
+
+                        <Label fx:id="L3" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                               GridPane.halignment="CENTER" GridPane.valignment="CENTER"
+                               text="Menu" textAlignment="CENTER" textFill="White" wrapText="true"
+                               alignment="BOTTOM_CENTER"/>
+
+                        <Pane fx:id="P1" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <Button fx:id="B1"
+                                    text="Quit game" textAlignment="CENTER" textFill="White" wrapText="true"
+                                    prefHeight="${P1.height}" prefWidth="${P1.width}"
+                                    onAction="#onQuitButtonPress"/>
+                        </Pane>
+
+                        <Pane fx:id="P2" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                            <Button fx:id="B2"
+                                    text="Return to game" textAlignment="CENTER" textFill="White" wrapText="true"
+                                    prefHeight="${P2.height}" prefWidth="${P2.width}"
+                                    onAction="#onBackButtonPress"/>
+                        </Pane>
+
+
+                    </GridPane>
+                </Pane>
+            </GridPane>
+</StackPane>

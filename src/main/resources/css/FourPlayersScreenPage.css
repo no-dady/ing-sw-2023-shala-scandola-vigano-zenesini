@@ -1,0 +1,2210 @@
+@font-face {
+    font-family: 'Garamond';
+    src: url("../font/GaramondBold.ttf");
+}
+/*
+#mainGridPlayers {
+    -fx-grid-lines-visible: true;
+}
+
+#secondGrid {
+    -fx-grid-lines-visible: true;
+}
+
+#secondPlayer {
+    -fx-grid-lines-visible: true;
+}
+
+#thirdPlayer {
+    -fx-grid-lines-visible: true;
+}
+
+#fourthPlayer {
+    -fx-grid-lines-visible: true;
+}
+*/
+
+.button:pressed {
+    -fx-effect: dropshadow(gaussian, white, 30, 0.5, 0.9, 0.3);
+}
+
+#mainContainerPlayer {
+    -fx-background-image: url("../images/sfondo_grigio.jpg");
+    -fx-background-position: center center;
+    -fx-background-size: cover;
+    -fx-padding: 0.3em;
+}
+
+#B3 {
+    -fx-background-color: orange;
+    -fx-background-image: url("../images/back_icon.png");
+    -fx-background-size: contain;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+}
+
+#P3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+#P4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+#P5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+#P6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+#P7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+#P8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-color: gray;
+    -fx-border-width: 0.5em;
+    -fx-border-color: black;
+}
+
+#L3 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-alignment: center;
+}
+
+#L4 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-alignment: center;
+}
+
+#L5 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-alignment: center;
+}
+
+#L6 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+}
+
+
+#secondPlayerPane {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+}
+
+#2_0_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_1_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_2_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_3_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_4_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_5_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_6_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_7_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_8_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_9_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_10_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_11_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_12_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#2_0_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_1_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_2_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_3_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_4_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_5_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_6_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_7_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_8_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_9_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_10_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_11_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_12_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#2_0_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_1_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_2_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_3_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_4_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_5_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_6_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_7_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_8_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_9_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_10_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_11_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_12_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#2_0_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_1_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_2_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_3_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_4_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_5_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_6_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_7_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_8_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_9_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_10_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_11_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_12_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#2_0_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_1_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_2_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_3_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_4_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_5_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_6_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_7_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_8_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_9_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_10_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_11_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_12_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#2_0_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_1_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_2_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_3_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_4_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_5_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_6_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_7_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_8_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_9_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_10_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_11_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_12_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#2_0_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_1_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_2_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_3_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_4_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_5_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_6_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_7_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_8_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_9_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_10_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_11_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_12_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#2_0_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_1_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_2_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_3_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_4_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_5_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_6_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_7_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_8_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_9_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_10_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_11_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_12_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#2_0_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_1_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_2_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_3_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_4_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_5_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_6_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_7_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_8_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_9_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_10_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_11_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_12_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#2_0_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_1_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_2_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_3_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_4_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_5_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_6_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_7_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_8_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_9_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_10_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_11_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#2_12_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#2_0_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_1_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_2_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_3_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_4_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_5_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_6_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_7_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_8_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_9_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_10_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_11_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#2_12_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#thirdPlayerPane {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+}
+
+#3_0_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_1_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_2_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_3_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_4_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_5_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_6_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_7_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_8_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_9_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_10_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_11_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_12_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#3_0_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_1_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_2_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_3_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_4_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_5_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_6_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_7_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_8_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_9_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_10_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_11_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_12_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#3_0_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_1_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_2_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_3_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_4_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_5_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_6_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_7_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_8_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_9_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_10_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_11_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_12_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#3_0_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_1_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_2_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_3_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_4_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_5_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_6_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_7_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_8_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_9_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_10_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_11_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_12_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#3_0_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_1_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_2_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_3_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_4_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_5_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_6_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_7_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_8_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_9_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_10_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_11_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_12_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#3_0_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_1_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_2_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_3_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_4_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_5_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_6_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_7_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_8_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_9_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_10_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_11_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_12_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#3_0_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_1_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_2_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_3_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_4_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_5_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_6_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_7_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_8_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_9_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_10_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_11_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_12_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#3_0_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_1_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_2_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_3_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_4_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_5_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_6_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_7_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_8_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_9_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_10_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_11_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_12_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#3_0_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_1_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_2_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_3_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_4_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_5_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_6_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_7_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_8_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_9_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_10_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_11_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_12_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#3_0_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_1_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_2_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_3_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_4_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_5_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_6_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_7_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_8_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_9_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_10_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_11_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#3_12_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#3_0_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_1_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_2_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_3_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_4_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_5_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_6_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_7_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_8_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_9_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_10_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_11_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#3_12_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#fourthPlayerPane {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-effect: dropshadow(gaussian, black, 15, 0.5, 0.9, 0.3);
+}
+
+#4_0_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_1_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_2_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_3_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_4_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_5_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_6_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_7_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_8_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_9_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_10_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_11_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_12_0 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#4_0_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_1_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_2_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_3_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_4_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_5_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_6_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_7_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_8_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_9_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_10_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_11_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_12_1 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#4_0_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_1_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_2_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_3_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_4_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_5_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_6_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_7_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_8_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_9_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_10_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_11_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_12_2 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#4_0_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_1_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_2_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_3_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_4_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_5_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_6_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_7_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_8_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_9_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_10_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_11_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_12_3 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#4_0_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_1_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_2_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_3_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_4_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_5_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_6_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_7_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_8_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_9_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_10_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_11_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_12_4 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#4_0_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_1_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_2_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_3_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_4_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_5_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_6_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_7_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_8_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_9_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_10_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_11_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_12_5 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#4_0_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_1_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_2_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_3_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_4_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_5_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_6_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_7_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_8_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_9_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_10_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_11_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_12_6 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#4_0_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_1_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_2_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_3_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_4_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_5_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_6_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_7_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_8_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_9_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_10_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_11_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_12_7 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#4_0_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_1_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_2_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_3_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_4_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_5_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_6_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_7_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_8_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_9_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_10_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_11_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_12_8 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#4_0_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_1_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_2_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_3_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_4_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_5_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_6_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_7_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_8_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_9_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_10_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_11_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+#4_12_9 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+
+#4_0_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_1_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_2_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_3_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_4_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_5_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_6_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_7_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_8_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_9_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_10_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_11_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
+#4_12_10 {
+    -fx-background-size: cover;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/pannelli.png");
+}
