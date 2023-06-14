@@ -1,7 +1,7 @@
 package client.gui;
 
 import client.UI;
-import network.ConnectionType;
+//import network.ConnectionType;
 import network.Message;
 
 public class GUI implements UI {
@@ -14,10 +14,10 @@ public class GUI implements UI {
     @Override
     public void printConnectionMessage(Message message) {}
 
-    @Override
+    /*@Override
     public void setConnectionType(ConnectionType type) {
 
-    }
+    }*/
 
     @Override
     public void setNickname(String nickname) {

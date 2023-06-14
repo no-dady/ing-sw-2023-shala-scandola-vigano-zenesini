@@ -7,15 +7,19 @@ import java.util.Map;
  */
 public class PersonalGoalCard {
     private Map<String, Coordinates> goals;
+    public String fileName;
 
     /**
      * Instantiates a new Personal goal card.
      *
-     * @param goals the goals
+     * @param goals     the goals
      */
-    public PersonalGoalCard(Map<String, Coordinates> goals) {
+
+    public PersonalGoalCard(Map<String, Coordinates> goals, String fileName) {
         this.goals = goals;
+        this.fileName = fileName;
     }
+
 
     /**
      * Gets coordinates.

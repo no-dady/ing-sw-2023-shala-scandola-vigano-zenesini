@@ -93,6 +93,7 @@ public class PersonalGoalCardsTest extends TestCase {
                     }
                 }
         System.out.println(art);
+        System.out.println(pgc.fileName);
         }
 
 
