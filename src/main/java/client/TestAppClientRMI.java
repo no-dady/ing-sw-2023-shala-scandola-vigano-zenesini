@@ -1,6 +1,6 @@
 package client;
 
-import client.network.Client;
+import client.network.ClientHandler;
 import server.network.ServerInterface;
 
 import java.rmi.*;
@@ -21,10 +21,10 @@ public class TestAppClientRMI {
         {
             ServerInterface serverInterface = (ServerInterface)Naming.lookup("rmi://localhost:1900" + "/myShelfie");
 
-            String string = "Test RMI string from client to server";
+            //String string = "Test RMI string from client to server";
 
-            Client client = new Client(serverInterface, true);
-            serverInterface.testSend(string);
+            ClientHandler client = new ClientHandler("rmi://localhost", 1900);
+            //serverInterface.send(string);
         }
         catch (Exception ea)
         {

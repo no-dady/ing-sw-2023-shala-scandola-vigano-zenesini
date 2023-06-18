@@ -1,7 +1,7 @@
 package client;
 
-import client.network.Client;
-import client.network.ServerStub;
+import client.network.ClientHandler;
+import client.network.ClientSocketMiddleware;
 
 import java.rmi.RemoteException;
 
@@ -18,10 +18,10 @@ public class TestAppClientSocket {
     public static void main(String[] args) throws RemoteException
     {
         //To send the info you have to call the ServerStub's function on client-side
-        ServerStub serverStub = new ServerStub("localhost", 1234);
-        Client client = new Client(serverStub, false);
-        serverStub.setClientinterface(client);
-        new Thread(serverStub).start();
-        serverStub.testContinousSend();
+        Client client = new Client(false);
+        ClientHandler clientHandler = new ClientHandler(client, "localhost", 1234);
+        ClientSocketMiddleware clientSocketMiddleware = (ClientSocketMiddleware) clientHandler.getServerInterface();
+        System.out.println("Starting thread");
+        new Thread(clientSocketMiddleware).start();
     }
 }

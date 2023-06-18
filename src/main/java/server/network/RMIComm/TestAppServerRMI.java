@@ -30,7 +30,7 @@ public class TestAppServerRMI {
                 clientInterface = obj.getClient();
             }
             System.out.println("Uscito");
-            clientInterface.testSend("Test RMI string from server to client");
+            clientInterface.send("Test RMI string from server to client");
         }
         catch (Exception ea)
         {

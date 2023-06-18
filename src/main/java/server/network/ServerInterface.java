@@ -17,7 +17,7 @@ public interface ServerInterface extends Remote {
      * @throws RemoteException the remote exception
      */
 //Needed to registry (and intercept) the client when it connects to the server
-    public void register(ClientInterface clientInterface, String nickName) throws RemoteException;
+    public void register(ClientInterface clientInterface) throws RemoteException;
 
     /**
      * Send choice.
@@ -44,5 +44,5 @@ public interface ServerInterface extends Remote {
      * @throws RemoteException the remote exception
      */
 //Test function
-    public void testSend(String string) throws RemoteException;
+    public void send(String string) throws RemoteException;
 }

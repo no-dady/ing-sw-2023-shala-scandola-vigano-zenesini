@@ -51,12 +51,15 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         try
         {
             socket = new Socket(ip, port);
+            System.out.println("Created socket");
             oos = new ObjectOutputStream(socket.getOutputStream());
+            System.out.println("Created oos");
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            System.out.println("Created ois");
 
             System.out.println("Created streams");
             String rec;
-            while (client.isOnline())
+            while (true)
             {
                 rec = (String) ois.readObject();
                 clientinterface.send(rec);
@@ -93,7 +96,7 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         }
     }
     @Override
-    public void register(ClientInterface clientInterface,String nickName) throws RemoteException
+    public void register(ClientInterface clientInterface) throws RemoteException
     {
 
     }
@@ -159,17 +162,8 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
 
     //Action n 3
     @Override
-    public void testSend(String string) throws RemoteException
+    public void send(String string) throws RemoteException
     {
-        try
-        {
-            oos.writeInt(3);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send action number sendTest", e);
-        }
-
         try
         {
             oos.writeObject(string);

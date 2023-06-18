@@ -1,8 +1,11 @@
 package server.network.SocketComm;
 
 import client.network.ClientInterface;
+import server.model.Lobby;
 import server.network.Server;
 import server.network.ServerInterface;
+import util.Messages.AskMoveMessage;
+import util.Parser;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -11,15 +14,17 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TestAppServerMultiThreaded {
 
     public static void main(String[] args)
     {
+        List<Lobby> lobbyList = new ArrayList<Lobby>();
         Thread rmiThread = new Thread() {
             @Override
             public void run() {
-                startRMI();
+                startRMI(lobbyList);
             }
         };
 
@@ -30,7 +35,7 @@ public class TestAppServerMultiThreaded {
             public void run() {
                 try
                 {
-                    startSocket();
+                    startSocket(lobbyList);
                 } catch(RemoteException e)
                 {
                     System.out.println("Remote exception");
@@ -49,11 +54,11 @@ public class TestAppServerMultiThreaded {
         }
     }
 
-    private static void startRMI()
+    private static void startRMI(List<Lobby> lobbyList)
     {
         try
         {
-            Server obj = new Server(true);
+            Server obj = new Server(true, lobbyList);
 
             LocateRegistry.createRegistry(1900);
 
@@ -63,7 +68,7 @@ public class TestAppServerMultiThreaded {
             {
                 clientInterface = obj.getClient();
             }
-            clientInterface.testSend("Test RMI string from server to client");
+            clientInterface.send("Test RMI string from server to client");
         }
         catch (Exception ea)
         {
@@ -71,11 +76,11 @@ public class TestAppServerMultiThreaded {
         }
     }
 
-    private static void startSocket() throws RemoteException
+    private static void startSocket(List<Lobby> lobbyList) throws RemoteException
     {
         ArrayList<Thread> memory = new ArrayList<Thread>();
         ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
-        ServerInterface serverInterface = new Server(false);
+        Server serverInterface = new Server(false, lobbyList);
         System.out.println("Server Started");
         try {
             ServerSocket serverSocket = new ServerSocket(1234);
@@ -83,13 +88,9 @@ public class TestAppServerMultiThreaded {
                 System.out.println("Waiting connections...");
                 Socket socket = serverSocket.accept();
                 System.out.println("New connection found");
-                for (ClientSkeleton clientSkeleton : clientsList)
-                {
-                    clientSkeleton.notifyNewConn("Hey " + clientSkeleton.getNickname() + " a new player connected to the lobby");
-                }
                 ClientSkeleton clientSkeleton = new ClientSkeleton(socket, serverInterface);
                 //To send the info you have to call the clientSkeleton's function on the server-side
-                clientsList.add(clientSkeleton);
+                //clientsList.add(clientSkeleton);
                 Thread clientSkeletonThread = new Thread(clientSkeleton);
                 memory.add(clientSkeletonThread);
                 clientSkeletonThread.start();

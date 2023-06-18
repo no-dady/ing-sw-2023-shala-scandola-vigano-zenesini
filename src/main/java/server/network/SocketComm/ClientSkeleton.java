@@ -50,6 +50,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
             System.out.println("Created Output");
             ois = new ObjectInputStream(socket.getInputStream());
             System.out.println("Created input");
+            serverInterface.register(this);
 
             receive(ois);
 
@@ -75,88 +76,10 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         }
     }
 
-    //Action n 1
-    @Override
-    public void sendShelf(Tile[][] shelf) throws RemoteException
-    {
-        try
-        {
-            oos.writeInt(1);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send action number sendShelf", e);
-        }
-
-        try
-        {
-            oos.writeObject(shelf);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send shelf", e);
-        }
-    }
-
-    //Action n 2
-    @Override
-    public void sendBoard(Board board) throws RemoteException
-    {
-        try
-        {
-            oos.writeInt(2);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send action number sendBoard", e);
-        }
-
-        try
-        {
-            oos.writeObject(board);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send board", e);
-        }
-    }
-
-    //Action n 3
-    @Override
-    public void sendBookshelf(Bookshelf bookshelf) throws RemoteException
-    {
-        try
-        {
-            oos.writeInt(3);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send action number sendBookshelf", e);
-        }
-
-        try
-        {
-            oos.writeObject(bookshelf);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send the bookshelf", e);
-        }
-    }
-
     //Action n 4
     @Override
-    public void testSend(String string) throws RemoteException
+    public void send(String string) throws RemoteException
     {
-        try
-        {
-            oos.writeInt(4);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send action number testSend", e);
-        }
-
         try
         {
             oos.writeObject(string);
@@ -179,30 +102,19 @@ public class ClientSkeleton implements ClientInterface, Runnable {
      */
     public void receive(ObjectInputStream ois) throws RemoteException
     {
+        String rec;
         while (true)
         {
             try
             {
-                String read = (String) ois.readObject();
-                if (this.nickName.length() == 0)
-                {
-                    this.nickName = read;
-                }
-                else if (read.equals("quit"))
-                {
-                    break;
-                }
-                else
-                {
-                    System.out.println("Received " + read);
-                }
-            }
-            catch (IOException e)
+                rec = (String) ois.readObject();
+                serverInterface.send(rec);
+            } catch (IOException e)
             {
-                throw new RemoteException("Cannot receive from client", e);
+                System.out.println(e.getMessage());
             } catch (ClassNotFoundException e)
             {
-                throw new RemoteException("Cannot parse the String received", e);
+                System.out.println(e.getMessage());
             }
         }
         //int actionNumber;

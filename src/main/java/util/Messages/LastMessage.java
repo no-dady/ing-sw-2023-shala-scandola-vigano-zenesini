@@ -1,12 +1,13 @@
 package util.Messages;
 
 import client.Client;
+import client.network.ClientInterface;
 
 public class LastMessage implements Message {
     String className = "LastMessage";
 
     @Override
-    public void handleMessage(Client client) {
+    public void handleMessage(ClientInterface clientInterface) {
         //client.getUI().update();
     }
 

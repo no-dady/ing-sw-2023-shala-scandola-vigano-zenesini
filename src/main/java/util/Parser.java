@@ -20,6 +20,13 @@ public class Parser {
         return new Gson().fromJson(reader, typeToken.getType());
     }
 
+    public static <T> T parseFromJsonString(String jsonString, Class<T> cls) {
+        return new Gson().fromJson(jsonString, cls);
+    }
+    public static <T> T parseFromJsonString(String jsonString, TypeToken<T> typeToken) {
+        return new Gson().fromJson(jsonString, typeToken.getType());
+    }
+
     public static <T> String toJson(Object o, Class<T> cls) {
         return new Gson().toJson(o, cls);
     }
