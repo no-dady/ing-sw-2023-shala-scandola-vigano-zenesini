@@ -105,102 +105,91 @@ public class PersonalGoalCardsTest extends TestCase {
         assertTrue("PGC1 Not Passed", card.completed(shelf));
     }
 
-    public void testPersonalGoalCard2()
-    {
+    public void testPersonalGoalCard2() throws IOException {
         Tile[][] shelf = shelves.get(1);
         System.out.println();
         PersonalGoalCard card = pgcList.get(1);
-
+        Print(card);
         assertTrue("PGC2 Not Passed", card.completed(shelf));
     }
 
-    public void testPersonalGoalCard3()
-    {
+    public void testPersonalGoalCard3() throws IOException {
         Tile[][] shelf = shelves.get(2);
         System.out.println();
         PersonalGoalCard card = pgcList.get(2);
-
+        Print(card);
         assertTrue("PGC3 Not Passed", card.completed(shelf));
     }
 
-    public void testPersonalGoalCard4()
-    {
+    public void testPersonalGoalCard4() throws IOException {
         Tile[][] shelf = shelves.get(3);
         System.out.println();
         PersonalGoalCard card = pgcList.get(3);
-
+        Print(card);
         assertTrue("PGC4 Not Passed", card.completed(shelf));
     }
 
-    public void testPersonalGoalCard5()
-    {
+    public void testPersonalGoalCard5() throws IOException {
         Tile[][] shelf = shelves.get(4);
         System.out.println();
         PersonalGoalCard card = pgcList.get(4);
-
+        Print(card);
         assertTrue("PGC5 Not Passed", card.completed(shelf));
     }
 
-    public void testPersonalGoalCard6()
-    {
+    public void testPersonalGoalCard6() throws IOException {
         Tile[][] shelf = shelves.get(5);
         System.out.println();
         PersonalGoalCard card = pgcList.get(5);
-
+        Print(card);
         assertTrue("PGC6 Not Passed", card.completed(shelf));
     }
 
-    public void testPersonalGoalCard7()
-    {
+    public void testPersonalGoalCard7() throws IOException {
         Tile[][] shelf = shelves.get(6);
         System.out.println();
         PersonalGoalCard card = pgcList.get(6);
-
+        Print(card);
         assertTrue("PGC7 Not Passed", card.completed(shelf));
     }
 
-    public void testPersonalGoalCard8()
-    {
+    public void testPersonalGoalCard8() throws IOException {
         Tile[][] shelf = shelves.get(7);
         System.out.println();
         PersonalGoalCard card = pgcList.get(7);
-
+        Print(card);
         assertTrue("PGC8 Not Passed", card.completed(shelf));
     }
 
-    public void testPersonalGoalCard9()
-    {
+    public void testPersonalGoalCard9() throws IOException {
         Tile[][] shelf = shelves.get(8);
         System.out.println();
         PersonalGoalCard card = pgcList.get(8);
-
+        Print(card);
         assertTrue("PGC9 Not Passed", card.completed(shelf));
     }
 
-    public void testPersonalGoalCard10()
-    {
+    public void testPersonalGoalCard10() throws IOException {
         Tile[][] shelf = shelves.get(9);
         System.out.println();
         PersonalGoalCard card = pgcList.get(9);
-
+        Print(card);
         assertTrue("PGC10 Not Passed", card.completed(shelf));
     }
 
-    public void testPersonalGoalCard11()
-    {
+    public void testPersonalGoalCard11() throws IOException {
         Tile[][] shelf = shelves.get(10);
         System.out.println();
         PersonalGoalCard card = pgcList.get(10);
-
+        Print(card);
         assertTrue("PGC11 Not Passed", card.completed(shelf));
     }
 
-    public void testPersonalGoalCard12()
-    {
+    public void testPersonalGoalCard12() throws IOException {
         Tile[][] shelf = shelves.get(11);
         System.out.println();
         PersonalGoalCard card = pgcList.get(11);
-
+        Print(card);
         assertTrue("PGC12 Not Passed", card.completed(shelf));
     }
 

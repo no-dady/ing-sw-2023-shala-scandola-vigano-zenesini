@@ -49,6 +49,7 @@ public class Tile implements Serializable {
     {
         return this.tileType.getKey();
     }
+    public String getImage(){return this.tileType.getImage();}
 
     /**
      * Gets tile id.

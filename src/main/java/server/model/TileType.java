@@ -40,7 +40,7 @@ public class TileType implements Serializable {
         this.key = tileType;
         this.color = tileMap.get(tileType).color;
         this.sign = tileMap.get(tileType).sign;
-        this.image = tileMap.get(tileType).images.get(index);
+        this.image = tileType.charAt(0) + tileType.substring(1).toLowerCase() + tileMap.get(tileType).images.get(index) + ".png";
     }
 
     /**

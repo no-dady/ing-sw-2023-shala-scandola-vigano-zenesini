@@ -6,7 +6,7 @@
 
 #firstGrid {
     /*-fx-grid-lines-visible: true;*/
-    -fx-background-image: url("../images/sfondo_fine.jpg");
+    -fx-background-image: url("../images/EndBackground.jpg");
     -fx-background-position: center center;
     -fx-background-size: cover;
     -fx-padding: 0.3em;

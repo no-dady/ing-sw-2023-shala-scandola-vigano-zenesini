@@ -16,7 +16,7 @@
             }
         ],
         [
-            {"tileType" : { "key":"TROPHY","image":"","sign":"","color":""},"tileID":0,"pickable":false},
+            {"tileType" : { "key":"TROPHIES","image":"","sign":"","color":""},"tileID":0,"pickable":false},
             {"tileType" : { "key":"TOYS","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
             {"tileType" : { "key":"TOYS","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
             {
