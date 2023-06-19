@@ -10,7 +10,7 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:id="mainContainerThreePlayer"
             fx:controller="client.gui.controller.ThreePlayersScreenController"
-            stylesheets="@css/ThreePlayersScreenPage.css">
+            stylesheets="@../css/ThreePlayersScreenPage.css">
 
     <fx:define>
         <Double fx:id="twoPercent" fx:value="2"/>

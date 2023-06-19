@@ -21,19 +21,15 @@ public class GUI extends Application implements UI {
     @Override
     public void printConnectionMessage(Message message) {}
 
-    @Override
-    public void setConnectionType(ConnectionType type) {
-
+    public static void main(String[] args)
+    {
+        launch(args);
     }
 
-    /*@Override
-    public void setConnectionType(ConnectionType type) {
-
-    }*/
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GuiTest.class.getResource("/resources/menu-screen.fxml")); //init-screen.fxml
+        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("/fxml/board.fxml")); //init-screen.fxml
         Scene scene = new Scene(fxmlLoader.load()); //1386,400 - 1000,800
-        primaryStage.getIcons().add(new Image(this.getClass().getResource("/resources/images/icon.png").toString()));
+        primaryStage.getIcons().add(new Image(this.getClass().getResource("/images/icon.png").toString()));
         primaryStage.setTitle("My Shelfie");
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);
@@ -41,7 +37,7 @@ public class GUI extends Application implements UI {
         primaryStage.show();
 
         primaryStage.setFullScreen(true);
-        launch();
+
     }
 
     @Override

@@ -13,7 +13,7 @@
    <children>
       <ImageView fitHeight="400.0" fitWidth="1386.0">
          <image>
-            <Image url="@images/init_error.png" />
+            <Image url="@../images/init_error.png" />
          </image>
       </ImageView>
       <TextField fx:id="text_field" layoutX="830.0" layoutY="317.0" prefHeight="42.0" prefWidth="240.0" />

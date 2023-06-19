@@ -8,38 +8,29 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TileSelectAction extends MoveSelectTiles implements Action{
-    int selectedX, selectedY;
-
-    List<Tile>  selectedTiles;
-    Scanner sc = new Scanner(System.in);
-
+    List<Tile> selectedTiles;
     public TileSelectAction(String nickName) {
         super(nickName);
     }
 
     @Override
     public void performAction(Game game) {
-        boolean more;
-        more = sc.nextLine().equals("yes");
-        while (!more) {
-            if (canPerformAction(game)) {
-                selectedTiles.add(game.getBoard().getTile(selectedX, selectedY));
-                game.getBoard().removeTile(selectedX, selectedY);
-                more= sc.nextLine().equals("yes");
-            }
-            else {
-                System.out.println("not a valid tile");
-                more= sc.nextLine().equals("yes");
-            }
+        if (canPerformAction(game)) {
+            game.setSelectedTiles(selectedTiles);
         }
-        game.setSelectedTiles(selectedTiles);
     }
 
     @Override
     public boolean canPerformAction(Game game) {
-        selectedX = sc.nextInt();
-        selectedY = sc.nextInt();
-        return game.getBoard().getTile(selectedX, selectedY).isPickable();
+        String[] selected = super.getSelectedTiles().split(" ");
+        for (String s : selected) {
+            if (!game.getBoard().getTile(s.charAt(1) - 'a', s.charAt(1) - '1').isPickable()) {
+                return false;
+            } else {
+                selectedTiles.add(game.getBoard().getTile(s.charAt(1) - 'a', s.charAt(1) - '1'));
+            }
+        }
+        return true;
     }
 
     @Override

@@ -5,7 +5,6 @@ import client.tui.tuiMoves.TUISelectColumn;
 import client.tui.tuiMoves.TUISelectTiles;
 import network.Client;
 import network.Message;
-import network.ConnectionType;
 import server.model.*;
 import setup.ConfigsFromJson;
 import setup.SetupAll;
@@ -53,7 +52,7 @@ public class TUI implements UI, Runnable {
         }while (!valid);
 
 
-        if (client.getOnline()){
+        if (messagereceived.getName.equals){
             System.out.println("[Insert your nickname and press ENTER]");
             nickname = in.nextLine();
 
@@ -100,10 +99,7 @@ public class TUI implements UI, Runnable {
     public void setActive() {}
 
     @Override
-    public void printConnectionMessage(Message message) {}
-
-    @Override
-    public void setConnectionType(ConnectionType type) {
+    public void printConnectionMessage(Message message) {
 
     }
 

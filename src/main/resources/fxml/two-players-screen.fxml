@@ -10,7 +10,7 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:id="mainContainerTwoPlayer"
             fx:controller="client.gui.controller.TwoPlayersScreenController"
-            stylesheets="@css/TwoPlayersScreenPage.css">
+            stylesheets="@../css/TwoPlayersScreenPage.css">
 
     <fx:define>
         <Double fx:id="twoPercent" fx:value="2"/>

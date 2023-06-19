@@ -8,7 +8,7 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:id="mainContainer"
             fx:controller="client.gui.controller.VictoryScreenController"
-            stylesheets="@css/VictoryPage.css"
+            stylesheets="@../css/VictoryPage.css"
             prefWidth="750"
             prefHeight="900">
 

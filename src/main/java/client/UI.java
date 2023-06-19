@@ -1,9 +1,6 @@
 package client;
 
-import network.ConnectionType;
 import network.Message;
-
-import java.util.List;
 
 public interface UI {
 
@@ -12,7 +9,6 @@ public interface UI {
     void setActive();
 
     void printConnectionMessage(Message message);
-    void setConnectionType (ConnectionType type);
     void setNickname (String nickname);
     void setPlayerNumber (int playerNumber);
     void setSelectedTiles (String selectedTiles);
