@@ -4,7 +4,7 @@ import server.model.Game;
 
 public class MoveSelectTiles extends Move {
     private String selectedTiles;
-    private final String name = "SelectTiles";
+    private final String classname = "MoveSelectTiles";
 
     public MoveSelectTiles(String nickName) {
         super(nickName);
@@ -12,7 +12,7 @@ public class MoveSelectTiles extends Move {
 
     @Override
     public String getName() {
-        return name;
+        return classname;
     }
 
     @Override

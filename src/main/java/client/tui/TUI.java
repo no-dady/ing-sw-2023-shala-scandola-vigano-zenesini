@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TUI implements UI, Runnable {
+    boolean moveHandled;
     final String bookshelfArt = ConfigsFromJson.getBookshelfArt("src/main/resources/json/bookshelf_art.json");
     final String boardAndBookshelfArt  = ConfigsFromJson.getBoardAndBookshelfArt("src/main/resources/json/board_&_bookshelf_art.json");
     final Client client;
@@ -26,6 +27,8 @@ public class TUI implements UI, Runnable {
     public void run() {
         String nickname;
         String connectionType;
+        String host;
+        int port;
         Scanner in = new Scanner(System.in);
         boolean valid = false;
         System.out.println("""
@@ -41,54 +44,86 @@ public class TUI implements UI, Runnable {
         System.out.println();
         System.out.println();
 
-        do {
-            System.out.println("[type hostname, press ENTER then type port and press ENTER]");
-            String host = in.nextLine();
-            int port = in.nextInt();
+        try {
+            System.out.println("[type hostname, press ENTER]");
+            host = in.nextLine();
+            if (!host.matches("\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b")){
+                throw (new Exception()) ;
+            }
+        }catch( Exception e){
+            System.out.println("no");
+            return;
+        }
+
+        try {
+            System.out.println("[type port and press ENTER]");
+            port = Integer.valueOf(in.nextLine());
+        }catch( Exception e){
+            System.out.println("no");
+            return;
+        }
+
+        try {
             System.out.println("[type RMI or SOCKET in order to choose your preferred connection method then press ENTER]");
             connectionType = in.nextLine();
-            if(Arrays.stream(ConnectionType.values()).toList().toString().contains(connectionType)){
-                valid = true;}
-        }while (!valid);
+            if (!(connectionType.equals("RMI") || connectionType.equals("SOCKET"))){
+                throw (new Exception()) ;
+            }
+        }catch( Exception e){
+            System.out.println("no");
+            return;
+        }
+        client.setConnection(host, port, connectionType);
+        try {
+            client.setOnline();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-
-        if (messagereceived.getName.equals){
+        if (client.isOnline()){
             System.out.println("[Insert your nickname and press ENTER]");
             nickname = in.nextLine();
 
             if (client.getIsFirst()) {
-                int playerNumber;
+                String playerNumber;
                 do {
                     System.out.println("[Welcome, you are the first one to enter the hub, select the number of players in your game (2-3-4) and press ENTER]");
-                    playerNumber = in.nextInt();
-                } while (playerNumber < 2 || playerNumber > 4);
-                //setPlayerNumber(playerNumber);
-                client.send(new SetupFirst(nickname,playerNumber));
+                    playerNumber = in.nextLine();
+                } while (Integer.valueOf(playerNumber) < 2 || Integer.valueOf(playerNumber) > 4);
+                client.send(new SetupFirst(playerNumber));
             }
             else {
                 System.out.println("[Welcome to the hub, you'll be waiting for the other players to join]");
                 client.send(new SetupAll(nickname));
             }
-
         } else{
             System.out.println("[we were unable to connect to the server, check your internet connection and try later]");
             return;
         }
 
-        while(client.isActive() && !this.client.getGame.hasWinner()){
+        while(client.isActive() && !this.client.getGame().hasWinner()){
+            Object locker = new Object();
             synchronized (locker){
                 while(!isMoveHandled()) {
                     System.out.println("[it's now your turn]");
                     printState();
-                    client.send(new TUISelectTiles(nickname).updateCLI(client.getGameModel,in));
-                    printState();
-                    client.send(new TUISelectColumn(nickname).updateCLI(client.getGameModel,in));
+                   // client.send(new TUISelectTiles(nickname).updateCLI(client.getGame(),in));
+                   // client.send(new TUISelectColumn(nickname).updateCLI(client.getGame(),in));
+                    this.setMoveHandled(true);
                 }
             }
             this.setMoveHandled(false);
             locker.notifyAll();
         }
 
+    }
+
+    private boolean isMoveHandled() {
+        return this.moveHandled;
+    }
+
+    private void setMoveHandled(boolean b) {
+        this.moveHandled = b;
     }
 
 

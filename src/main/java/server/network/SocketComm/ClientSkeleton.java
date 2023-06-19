@@ -1,6 +1,8 @@
 package server.network.SocketComm;
 
+import client.UI;
 import client.network.ClientInterface;
+import server.model.Game;
 import server.network.ServerInterface;
 import server.model.Board;
 import server.model.Bookshelf;
@@ -88,6 +90,21 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         {
             throw new RemoteException("Cannot send the String", e);
         }
+    }
+
+    @Override
+    public UI getUI() {
+        return null;
+    }
+
+    @Override
+    public Game getGame() {
+        return null;
+    }
+
+    @Override
+    public void setGame(Game model) {
+
     }
 
     public String getNickname()

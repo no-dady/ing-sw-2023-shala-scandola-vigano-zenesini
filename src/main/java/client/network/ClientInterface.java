@@ -23,10 +23,11 @@ public interface ClientInterface extends Remote
 //Test function
     void send(String string) throws RemoteException;
 
-    UI getUI();
+    UI getUI() throws RemoteException;
 
-    Game getGame();
+    Game getGame() throws RemoteException;
 
-    void setGame(Game model);
+    void setGame(Game model) throws RemoteException;
+
     //void close();
 }

@@ -1,20 +1,19 @@
 package setup;
 
 public abstract class Setup {
-    private final String playerName;
-    private final int numOfPlayers;
+    private final String parameter;
+    private final String classname = "";
 
-    public Setup(String playerName, int numOfPlayers) {
-        this.playerName=playerName;
-        this.numOfPlayers=numOfPlayers;
+    public Setup(String parameter) {
+        this.parameter=parameter;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    public String getParameter() {
+        return parameter;
     }
 
-    public int getNumOfPlayers(){
-        return numOfPlayers;
+    public String getName() {
+        return classname;
     }
 
 }

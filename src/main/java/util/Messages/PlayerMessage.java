@@ -5,6 +5,8 @@ import server.model.Bookshelf;
 import server.model.Game;
 import server.model.Player;
 
+import java.rmi.RemoteException;
+
 public class PlayerMessage implements Message {
     public static final String className = "PlayerMessage";
     private final int idPlayer;
@@ -17,7 +19,7 @@ public class PlayerMessage implements Message {
         this.error = error;
     }
     @Override
-    public void handleMessage(ClientInterface client) {
+    public void handleMessage(ClientInterface client) throws RemoteException {
         Game game = client.getGame();
         Player owner = game.getPlayers().get(idPlayer);
         owner.setPersonalBookshelf(bookshelf);

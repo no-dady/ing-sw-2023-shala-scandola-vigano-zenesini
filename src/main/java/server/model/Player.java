@@ -90,12 +90,6 @@ public class Player implements Serializable {
         return this.score;
     }
 
-    /**
-     * Sets user name.
-     *
-     * @param username the username
-     */
-    public void setUserName(String username) { this.username = username; }
 
     /**
      * Is winner boolean.

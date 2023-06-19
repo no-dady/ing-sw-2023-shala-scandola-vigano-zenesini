@@ -2,6 +2,7 @@ package util.Messages;
 
 import client.network.ClientInterface;
 
+import java.rmi.RemoteException;
 import java.util.Set;
 
 public class DisconnectMessage extends ConnectionMessage implements Message {
@@ -10,7 +11,7 @@ public class DisconnectMessage extends ConnectionMessage implements Message {
         super(playersName, playerName);
     }
     @Override
-    public void handleMessage(ClientInterface client) {
+    public void handleMessage(ClientInterface client) throws RemoteException {
         client.getUI().printConnectionMessage(this);
     }
 

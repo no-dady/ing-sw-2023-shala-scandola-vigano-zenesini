@@ -133,4 +133,19 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
             System.out.println(trueMessageReceived.getMessage());
         }
     }
+
+    @Override
+    public UI getUI() {
+        return null;
+    }
+
+    @Override
+    public Game getGame() {
+        return null;
+    }
+
+    @Override
+    public void setGame(Game model) {
+
+    }
 }

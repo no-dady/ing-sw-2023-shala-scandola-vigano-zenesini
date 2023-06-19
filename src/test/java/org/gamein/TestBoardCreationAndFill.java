@@ -1,24 +1,14 @@
 package org.gamein;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import network.ConnectionType;
 import server.controller.BoardConfig;
 import server.controller.PocketBuilder;
 
 import server.model.*;
-import setup.ConfigsFromJson;
 
 import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class TestBoardCreationAndFill extends TestCase {

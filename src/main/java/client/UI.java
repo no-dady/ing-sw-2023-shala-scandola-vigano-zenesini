@@ -13,6 +13,4 @@ public interface UI {
     void setSelectedTiles (String selectedTiles);
     void setSelectedColum (int selectedColum);
     void getInfoAboutOtherPlayers (String playerNickname);
-
-
 }

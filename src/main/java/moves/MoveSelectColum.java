@@ -4,7 +4,7 @@ import server.model.Game;
 
 public class MoveSelectColum extends Move {
     int selectedColumn;
-    private final String name= "SelectColumn";
+    private final String classname= "MoveSelectColumn";
 
     public MoveSelectColum(String nickName) {
         super(nickName);
@@ -12,7 +12,7 @@ public class MoveSelectColum extends Move {
 
     @Override
     public String getName() {
-        return name;
+        return classname;
     }
 
     @Override

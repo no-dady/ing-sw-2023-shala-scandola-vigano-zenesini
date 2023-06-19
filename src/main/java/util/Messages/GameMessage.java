@@ -3,6 +3,8 @@ package util.Messages;
 import client.network.ClientInterface;
 import server.model.Game;
 
+import java.rmi.RemoteException;
+
 public class GameMessage implements Message {
     public static final String className = "GameMessage";
     private final int id;
@@ -13,7 +15,7 @@ public class GameMessage implements Message {
 
 
     @Override
-    public void handleMessage(ClientInterface client) {
+    public void handleMessage(ClientInterface client) throws RemoteException {
         Game game = client.getGame();
         game.setCurrPlayerId(id);
     }
