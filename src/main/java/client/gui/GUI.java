@@ -7,7 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import network.Message;
+import util.Messages.Message;
+
 
 import java.io.IOException;
 
@@ -44,6 +45,7 @@ public class GUI extends Application implements UI {
     public void setNickname(String nickname) {
 
     }
+
 
     @Override
     public void setPlayerNumber(int playerNumber) {
