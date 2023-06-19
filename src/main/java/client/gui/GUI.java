@@ -2,9 +2,16 @@ package client.gui;
 
 import client.UI;
 //import network.ConnectionType;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import network.Message;
 
-public class GUI implements UI {
+import java.io.IOException;
+
+public class GUI extends Application implements UI {
     @Override
     public void update() {}
 
@@ -14,10 +21,28 @@ public class GUI implements UI {
     @Override
     public void printConnectionMessage(Message message) {}
 
+    @Override
+    public void setConnectionType(ConnectionType type) {
+
+    }
+
     /*@Override
     public void setConnectionType(ConnectionType type) {
 
     }*/
+    public void start(Stage primaryStage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(GuiTest.class.getResource("/resources/menu-screen.fxml")); //init-screen.fxml
+        Scene scene = new Scene(fxmlLoader.load()); //1386,400 - 1000,800
+        primaryStage.getIcons().add(new Image(this.getClass().getResource("/resources/images/icon.png").toString()));
+        primaryStage.setTitle("My Shelfie");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(true);
+        //primaryStage.setMaximized(true);
+        primaryStage.show();
+
+        primaryStage.setFullScreen(true);
+        launch();
+    }
 
     @Override
     public void setNickname(String nickname) {
