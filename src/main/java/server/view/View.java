@@ -1,6 +1,6 @@
 package server.view;
 
-import network.Message;
+import util.Messages.Message;
 import observer.Observable;
 import observer.Observer;
 import server.controller.actions.Action;

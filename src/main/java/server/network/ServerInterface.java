@@ -1,25 +1,23 @@
-package network;
+package server.network;
 
-import server.model.Board;
-import server.model.Bookshelf;
+import client.network.ClientInterface;
 import server.model.Tile;
-import network.Client;
 
 import java.rmi.*;
 
 /**
  * The interface Server.
  */
-public interface Server extends Remote {
+public interface ServerInterface extends Remote {
 
     /**
      * Register.
      *
-     * @param client the client
+     * @param clientInterface the client
      * @throws RemoteException the remote exception
      */
 //Needed to registry (and intercept) the client when it connects to the server
-    public void register(Client client) throws RemoteException;
+    public void register(ClientInterface clientInterface) throws RemoteException;
 
     /**
      * Send choice.
@@ -46,5 +44,5 @@ public interface Server extends Remote {
      * @throws RemoteException the remote exception
      */
 //Test function
-    public void testSend(String string) throws RemoteException;
+    public void send(String string) throws RemoteException;
 }

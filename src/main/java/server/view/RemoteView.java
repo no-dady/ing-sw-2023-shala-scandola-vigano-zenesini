@@ -1,9 +1,15 @@
 package server.view;
 
-import network.Message;
+import client.network.ClientInterface;
+import util.Messages.LastMessage;
+import util.Messages.Message;
 import server.controller.actions.Action;
+import server.controller.actions.TileSelectAction;
 import server.model.Player;
 import setup.Setup;
+import util.Parser;
+
+import java.io.IOException;
 
 public class RemoteView extends View {
 
@@ -16,25 +22,27 @@ public class RemoteView extends View {
         public void update(String info) {
             System.out.println("Received: " + info);
             try{
-                Action move= Starter.fromJson(info, Action.class);
+                Action move= Parser.parseFromJson(info, Action.class);
                 handleMove(move);
             }catch (NullPointerException e){
                 Setup setupper= Starter.fromJson(info, Setup.class);
                 SocketClientConnection connection= (SocketClientConnection)clientConnection;
                 connection.handleSetupper(setupper);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
 
     }
 
-    private ClientConnection clientConnection;
+    private ClientInterface clientConnection;
 
     /**
      * Default constructor. It makes the ClientConnection observable for the internal private class.
      * @param player
      * @param c
      */
-    public RemoteView(Player player, ClientConnection c) {
+    public RemoteView(Player player, ClientInterface c) {
         super(player);
         this.clientConnection = c;
         c.addObserver(new MessageReceiver());
@@ -56,10 +64,10 @@ public class RemoteView extends View {
     @Override
     public void update(Message message){
         if(!this.isOffline()){
-            clientConnection.send(Starter.toJson(message, Message.class));
+            clientConnection.send(Parser.toJson(message, Message.class));
         }else{
             if(message instanceof LastMessage){
-                notify(new MoveAutoPlay(getPlayer().getID()));
+                notify(new TileSelectAction("sos"));
             }
         }
     }
