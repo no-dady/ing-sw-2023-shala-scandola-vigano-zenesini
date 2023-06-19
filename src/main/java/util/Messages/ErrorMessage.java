@@ -4,6 +4,7 @@ import client.network.ClientInterface;
 
 public class ErrorMessage implements Message {
 
+    public static final String className = "ErrorMessage";
     private String errorMessage;
     public ErrorMessage(String message)
     {
@@ -19,7 +20,7 @@ public class ErrorMessage implements Message {
     @Override
     public String getName()
     {
-        return "boh";
+        return className;
     }
     public String getErrorMessage()
     {

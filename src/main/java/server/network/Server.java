@@ -103,7 +103,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         //if(messageReceived instanceof NicknameMessage trueMessageReceived)]#
         if(!string.contains("numberOfPlayer"))
         {
-            NicknameMessage trueMessageReceived = Parser.parseFromJsonString(string, NicknameMessage.class);
+            NicknameMessage trueMessageReceived = Parser.fromJson(string, NicknameMessage.class);
             System.out.println("Nickname received");
             Lobby lobbyFound = null;
             String nickName = trueMessageReceived.getNickName();
@@ -138,7 +138,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
             }
         } else //if(messageReceived instanceof CreateLobbyMessage trueMessageReceived)
         {
-            CreateLobbyMessage trueMessageReceived = Parser.parseFromJsonString(string, CreateLobbyMessage.class);
+            CreateLobbyMessage trueMessageReceived = Parser.fromJson(string, CreateLobbyMessage.class);
             Lobby newLobby = new Lobby(trueMessageReceived.getNumberOfPlayer(), tempClient, trueMessageReceived.getNickName());
             lobbyList.add(newLobby);
             ConfirmMessage messageToSend = new ConfirmMessage("Joined Lobby as Admin");

@@ -8,6 +8,7 @@ import java.util.NoSuchElementException;
 import client.tui.TUI;
 import client.gui.GUI;
 import client.network.*;
+import server.model.Game;
 
 public class Client {
     private final UI ui;
@@ -17,6 +18,7 @@ public class Client {
     private boolean online = false;
     private String ip;
     private int port;
+    private Game game;
 
     public Client(boolean gui) throws IOException {
         this.active = true;
@@ -73,7 +75,18 @@ public class Client {
         }
     }
 
+    public UI getUI() {
+        return ui;
+    }
+
     public boolean isOnline() {
         return online;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

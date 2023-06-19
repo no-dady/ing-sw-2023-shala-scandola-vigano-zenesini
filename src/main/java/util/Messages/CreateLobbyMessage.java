@@ -3,6 +3,7 @@ package util.Messages;
 import client.network.ClientInterface;
 
 public class CreateLobbyMessage implements Message {
+    public static final String className = "CreateLobbyMessage";
         //private final ClientInterface clientInterface;
         private final String nickName;
         private final int numberOfPlayer;

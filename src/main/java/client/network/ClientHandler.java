@@ -1,11 +1,7 @@
 package client.network;
 
 import client.Client;
-import server.network.Server;
 import server.network.ServerInterface;
-import server.model.Board;
-import server.model.Bookshelf;
-import server.model.Tile;
 import util.Messages.*;
 import util.Parser;
 
@@ -18,7 +14,6 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.Scanner;
 
 /**
  * The type Client.
@@ -69,7 +64,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         //if(messageReceived instanceof AskMoveMessage trueMessageReceived)
         if (string.contains("moveTypeNumber"))
         {
-            AskMoveMessage trueMessageReceived = Parser.parseFromJsonString(string, AskMoveMessage.class);
+            AskMoveMessage trueMessageReceived = Parser.fromJson(string, AskMoveMessage.class);
             switch(trueMessageReceived.getMoveTypeNumber())
             {
                 case 0:
@@ -111,7 +106,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
             }
         } else if(string.contains("errorMessage"))//if (messageReceived instanceof ConfirmMessage trueMessageReceived)
         {
-            ErrorMessage trueMessageReceived = Parser.parseFromJsonString(string, ErrorMessage.class);
+            ErrorMessage trueMessageReceived = Parser.fromJson(string, ErrorMessage.class);
             System.out.println(trueMessageReceived.getErrorMessage());
             if (trueMessageReceived.getErrorMessage().contains("Nickname"))
             {
@@ -134,7 +129,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
             }
         } else
         {
-            ConfirmMessage trueMessageReceived = Parser.parseFromJsonString(string, ConfirmMessage.class);
+            ConfirmMessage trueMessageReceived = Parser.fromJson(string, ConfirmMessage.class);
             System.out.println(trueMessageReceived.getMessage());
         }
     }

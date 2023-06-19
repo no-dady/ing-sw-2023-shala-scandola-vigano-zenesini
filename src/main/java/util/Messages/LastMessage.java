@@ -4,7 +4,7 @@ import client.Client;
 import client.network.ClientInterface;
 
 public class LastMessage implements Message {
-    String className = "LastMessage";
+    public static final String className = "LastMessage";
 
     @Override
     public void handleMessage(ClientInterface clientInterface) {

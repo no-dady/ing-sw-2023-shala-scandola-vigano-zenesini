@@ -7,9 +7,9 @@ import java.io.Serializable;
  */
 public class Player implements Serializable {
     private final int userId;
-    private String username;
+    private final String username;
     private int score;
-    private final Bookshelf personalBookshelf;
+    private Bookshelf personalBookshelf;
     private final PersonalGoalCard personalGoalCard;
 
     /**
@@ -55,6 +55,9 @@ public class Player implements Serializable {
     public Bookshelf getBookshelf()
     {
         return this.personalBookshelf;
+    }
+    public void setPersonalBookshelf(Bookshelf personalBookshelf) {
+        this.personalBookshelf = personalBookshelf;
     }
 
     /**
