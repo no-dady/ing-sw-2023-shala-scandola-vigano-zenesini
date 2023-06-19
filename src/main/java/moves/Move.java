@@ -6,6 +6,7 @@ import server.model.Game;
 public abstract class Move {
 
     private final String nickName;
+    private final String name = "";
 
     public Move(String nickName) {
         this.nickName = nickName;
@@ -14,6 +15,8 @@ public abstract class Move {
         return nickName;
     }
     public abstract boolean canPerform(Game game);
+
+    public String getName(){return this.name;}
 
 
 }

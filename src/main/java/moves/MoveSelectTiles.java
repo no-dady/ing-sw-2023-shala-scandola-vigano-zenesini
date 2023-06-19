@@ -3,10 +3,16 @@ package moves;
 import server.model.Game;
 
 public class MoveSelectTiles extends Move {
-    String selectedTiles;
+    private String selectedTiles;
+    private final String name = "SelectTiles";
 
     public MoveSelectTiles(String nickName) {
         super(nickName);
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override

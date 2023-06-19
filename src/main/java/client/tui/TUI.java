@@ -29,16 +29,18 @@ public class TUI implements UI, Runnable {
         String connectionType;
         Scanner in = new Scanner(System.in);
         boolean valid = false;
-        System.out.println("        \n" +
-                "███╗   ███╗██╗   ██╗    ███████╗██╗  ██╗███████╗██╗     ███████╗██╗███████╗\n" +
-                "████╗ ████║╚██╗ ██╔╝    ██╔════╝██║  ██║██╔════╝██║     ██╔════╝██║██╔════╝\n" +
-                "██╔████╔██║ ╚████╔╝     ███████╗███████║█████╗  ██║     █████╗  ██║█████╗  \n" +
-                "██║╚██╔╝██║  ╚██╔╝      ╚════██║██╔══██║██╔══╝  ██║     ██╔══╝  ██║██╔══╝  \n" +
-                "██║ ╚═╝ ██║   ██║       ███████║██║  ██║███████╗███████╗██║     ██║███████╗\n" +
-                "╚═╝     ╚═╝   ╚═╝       ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝     ╚═╝╚══════╝\n");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
+        System.out.println("""
+                       \s
+                ███╗   ███╗██╗   ██╗    ███████╗██╗  ██╗███████╗██╗     ███████╗██╗███████╗
+                ████╗ ████║╚██╗ ██╔╝    ██╔════╝██║  ██║██╔════╝██║     ██╔════╝██║██╔════╝
+                ██╔████╔██║ ╚████╔╝     ███████╗███████║█████╗  ██║     █████╗  ██║█████╗ \s
+                ██║╚██╔╝██║  ╚██╔╝      ╚════██║██╔══██║██╔══╝  ██║     ██╔══╝  ██║██╔══╝ \s
+                ██║ ╚═╝ ██║   ██║       ███████║██║  ██║███████╗███████╗██║     ██║███████╗
+                ╚═╝     ╚═╝   ╚═╝       ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝     ╚═╝╚══════╝
+                """);
+        System.out.println();
+        System.out.println();
+        System.out.println();
 
         do {
             System.out.println("[type hostname, press ENTER then type port and press ENTER]");
@@ -74,7 +76,7 @@ public class TUI implements UI, Runnable {
             return;
         }
 
-        while(client.isActive()){
+        while(client.isActive() && !this.client.getGame.hasWinner()){
             synchronized (locker){
                 while(!isMoveHandled()) {
                     System.out.println("[it's now your turn]");
@@ -87,6 +89,7 @@ public class TUI implements UI, Runnable {
             this.setMoveHandled(false);
             locker.notifyAll();
         }
+
     }
 
 

@@ -3,7 +3,6 @@ package client.tui.tuiMoves;
 import moves.Move;
 import moves.MoveSelectTiles;
 import server.model.Game;
-
 import java.util.Scanner;
 
 public class TUISelectTiles implements TUIInterface{
@@ -16,9 +15,9 @@ public class TUISelectTiles implements TUIInterface{
         String selectedTiles;
         String confirmed;
             do {
-                System.out.println("it's your turn, choose the tiles you want to select by typing their coordinates separated by spaces and then press ENTER, you'll know the ones you can grab thanks to their color not being grey!");
+                System.out.println("[it's your turn, choose the tiles you want to select by typing their coordinates separated by spaces and then press ENTER, you'll know the ones you can grab thanks to their color not being grey!]");
                 selectedTiles = stdin.nextLine();
-                System.out.println("are you okey with this selection?" + selectedTiles + "Y/N then Enter");
+                System.out.println("[are you okey with this selection?" + selectedTiles + "Y/N then Enter]");
                 confirmed = stdin.nextLine();
             }while (!confirmed.equals("Y"));
     move.setSelectedTiles(selectedTiles);

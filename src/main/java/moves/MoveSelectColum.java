@@ -4,9 +4,15 @@ import server.model.Game;
 
 public class MoveSelectColum extends Move {
     int selectedColumn;
+    private final String name= "SelectColumn";
 
     public MoveSelectColum(String nickName) {
         super(nickName);
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 
     @Override
