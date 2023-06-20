@@ -3,6 +3,7 @@ package client.tui;
 import client.UI;
 import client.tui.tuiMoves.TUISelectColumn;
 import client.tui.tuiMoves.TUISelectTiles;
+import client.network.State;
 import client.Client;
 import util.Messages.Message;
 import server.model.*;
@@ -51,7 +52,7 @@ public class TUI implements UI, Runnable {
                 throw (new Exception()) ;
             }
         }catch( Exception e){
-            System.out.println("no");
+            System.out.println("this is not a valid hostname");
             return;
         }
 
@@ -59,7 +60,7 @@ public class TUI implements UI, Runnable {
             System.out.println("[type port and press ENTER]");
             port = Integer.valueOf(in.nextLine());
         }catch( Exception e){
-            System.out.println("no");
+            System.out.println("this is not a valid port number");
             return;
         }
 
@@ -70,7 +71,7 @@ public class TUI implements UI, Runnable {
                 throw (new Exception()) ;
             }
         }catch( Exception e){
-            System.out.println("no");
+            System.out.println("this is not a valid connection method");
             return;
         }
         client.setConnection(host, port, connectionType);
@@ -81,27 +82,36 @@ public class TUI implements UI, Runnable {
         }
 
         if (client.isOnline()){
-            System.out.println("[Insert your nickname and press ENTER]");
-            nickname = in.nextLine();
-
-            if (client.getIsFirst()) {
+            try {
+                while (!client.getState().equals(State.setNick)){System.out.println("non ancora");};
+                System.out.println("[Insert your nickname and press ENTER]");
+                nickname = in.nextLine();
+                //client.send(new SetupAll(nickname));
+            }catch (Exception e){
+                System.out.println("BAD");//client.receivedMessage);
+            }
+            while (!client.getState().equals(State.SetPlayersNum) || !client.getState().equals(State.WaitingStart)){System.out.println("non ancora");};
+            if (client.getState().equals(State.SetPlayersNum)) {
                 String playerNumber;
                 do {
-                    System.out.println("[Welcome, you are the first one to enter the hub, select the number of players in your game (2-3-4) and press ENTER]");
+                    System.out.println("[Welcome, you are the first one to enter the lobby, select the number of players in your game (2-3-4) and press ENTER]");
                     playerNumber = in.nextLine();
-                } while (Integer.valueOf(playerNumber) < 2 || Integer.valueOf(playerNumber) > 4);
+                } while (Integer.parseInt(playerNumber) < 2 || Integer.parseInt(playerNumber) > 4);
                 //client.send(new SetupFirst(playerNumber));
             }
             else {
-                System.out.println("[Welcome to the hub, you'll be waiting for the other players to join]");
-                //client.send(new SetupAll(nickname));
+                System.out.println("[Welcome to the lobby, you'll be waiting for the other players to join]");
+
             }
         } else{
             System.out.println("[we were unable to connect to the server, check your internet connection and try later]");
             return;
         }
-
-        while(client.isActive() && !this.client.getGame().hasWinner()){
+        while (client.isActive() && client.isOnline() && !this.client.getGame().hasWinner());
+        while (client.getState().equals(State.NotMyTurn)){
+            //whatever you want to do whn you are not actively playing
+        }
+        if (client.getState().equals(State.MyTurn)){
             Object locker = new Object();
             synchronized (locker){
                 while(!isMoveHandled()) {

@@ -1,11 +1,12 @@
 package server.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * The type Bookshelf.
  */
-public class Bookshelf {
+public class Bookshelf implements Serializable {
     private final Tile[][] slots;
     private static final int rows = 6;
     private static final int cols = 5;

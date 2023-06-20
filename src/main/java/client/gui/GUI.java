@@ -1,8 +1,6 @@
 package client.gui;
 
 import client.UI;
-//import network.ConnectionType;
-import client.gui.controller.BoardController;
 import client.gui.controller.GenericInterface;
 import client.gui.controller.InitController;
 import javafx.application.Application;
@@ -11,11 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import server.model.Board;
 import util.Messages.Message;
-
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,7 +19,7 @@ public class GUI extends Application implements UI {
     private GenericInterface current;
     @Override
     public void update() {
-
+        //Platform.runLater(this::intUpdate);
     }
 
     @Override

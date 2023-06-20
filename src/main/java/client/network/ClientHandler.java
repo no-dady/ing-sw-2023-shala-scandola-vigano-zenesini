@@ -1,6 +1,8 @@
 package client.network;
 
 import client.Client;
+import client.UI;
+import server.model.Game;
 import server.network.ServerInterface;
 import util.Messages.*;
 import util.Parser;
@@ -20,8 +22,10 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ClientHandler extends UnicastRemoteObject implements ClientInterface, Serializable {
     private ServerInterface serverInterface;
+    private State currState = State.WaitingForResponse;
     private Thread socketThread;
     private String nickName;
+
     public ClientHandler(String ip, int port) throws RemoteException, MalformedURLException, NotBoundException {
         super();
         serverInterface = (ServerInterface) Naming.lookup("rmi://localhost:1900" + "/myShelfie");
@@ -70,6 +74,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                 case 0:
                     System.out.println("Your nickname: ");
                     String nickName = "";
+                    currState = State.WaitingForResponse;
                     try{
                         BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
                         nickName = bufferRead.readLine();
@@ -83,11 +88,13 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                     System.out.println("Sending nickname");
                     String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
                     System.out.println("Sending parsed message");
-                    serverInterface.send(Parser.toJson(nickMessage, NicknameMessage.class));
+                    currState = State.setNick;
+                    //serverInterface.send(Parser.toJson(nickMessage, NicknameMessage.class));
                     break;
 
                 case 1:
                     System.out.println("You are the admin of the Lobby!\nPlayer number for the new Lobby: ");
+                    currState = State.SetPlayersNum;
                     int playerNumber = 1;
                     try{
                         BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
@@ -135,17 +142,21 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     }
 
     @Override
-    public UI getUI() {
+    public UI getUI() throws RemoteException {
         return null;
     }
 
     @Override
-    public Game getGame() {
+    public Game getGame() throws RemoteException{
         return null;
     }
 
     @Override
-    public void setGame(Game model) {
+    public void setGame(Game model) throws RemoteException{
 
+    }
+
+    public State getCurrState() {
+        return currState;
     }
 }

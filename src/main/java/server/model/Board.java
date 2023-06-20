@@ -70,21 +70,26 @@ public class Board implements Serializable {
     public ArrayList<CommonGoalCardStrategy> getCommonGoalCards() {
         return commonGoalCardStrategies;
     }
-    public void IsPickable(int x, int y) {
+    public void updatePickable() {
         int count = 0;
-        if((this.getTile(x-1,y).Empty())){
-            count=count+1;
+        for (int x = 0; x< this.getSlots().length; x++){
+            for (int y = 0; y< this.getSlots()[0].length; y++){
+                if((x != 0 && slots[x-1][y].Empty())){
+                    count=count+1;
+                }
+                if((x != this.getSlots().length && slots[x+1][y].Empty())){
+                    count=count+1;
+                }
+                if((y!=0 && slots[x][y-1].Empty())){
+                    count=count+1;
+                }
+                if((y != this.getSlots()[0].length && slots[x][y+1].Empty())){
+                    count=count+1;
+                }
+                this.getSlots()[x][y].setPickable(count >= 2);
+            }
         }
-        if((this.getTile(x+1,y).Empty())){
-            count=count+1;
-        }
-        if((this.getTile(x,y-1).Empty())){
-            count=count+1;
-        }
-        if((this.getTile(x,y+1).Empty())){
-            count=count+1;
-        }
-        getTile(x, y).setPickable(count >= 2);
+
     }
 
 }

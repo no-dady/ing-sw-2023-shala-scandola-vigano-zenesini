@@ -1,6 +1,8 @@
 package server.model;
 
 import client.network.ClientInterface;
+import server.controller.GameController;
+import server.exceptions.IllegalPlayersNumberException;
 import util.Messages.ConfirmMessage;
 import util.Parser;
 
@@ -15,6 +17,8 @@ public class Lobby {
     private LobbyStatus lobbyStatus;
 
     private Map<String, ClientInterface> playerMap;
+
+    private GameController controller;
 
     private String lobbyName;
 
@@ -59,12 +63,15 @@ public class Lobby {
         }
         if (this.playerMap.size() == playerNumber)
         {
-            startGame();
+            try {
+                startGame();
+            } catch (IllegalPlayersNumberException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
-    public void startGame()
-    {
+    public void startGame() throws IllegalPlayersNumberException {
         for (var entry : playerMap.entrySet()) {
             ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", all " + playerNumber + " players have joined, now the game will start");
             try
@@ -76,5 +83,7 @@ public class Lobby {
             }
         }
         lobbyStatus = LobbyStatus.Playing;
+        controller = new GameController();
+        controller.createLobby(playerNumber, playerMap.keySet().stream().toList());
     }
 }

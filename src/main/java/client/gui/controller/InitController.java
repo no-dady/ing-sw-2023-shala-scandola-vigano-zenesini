@@ -84,6 +84,16 @@ public class InitController implements GenericInterface, Initializable {
 
 
     @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         connection_box.getItems().addAll("RMI","Socket");
     }

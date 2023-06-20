@@ -13,7 +13,7 @@ import server.model.Game;
 public class Client {
     private final UI ui;
     private String connectionType;
-    private ClientInterface clientConnection;
+    private ClientHandler clientConnection;
     private boolean active = true;
     private boolean online = false;
     private String ip;
@@ -69,7 +69,7 @@ public class Client {
             System.out.println("Connection closed from client side");
         } finally {
             online = false;
-            clientConnection.close();
+          //  clientConnection.close();
 
             System.exit(0);
         }
@@ -88,5 +88,9 @@ public class Client {
     }
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public State getState(){
+        return clientConnection.getCurrState();
     }
 }

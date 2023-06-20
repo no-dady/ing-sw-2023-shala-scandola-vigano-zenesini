@@ -1,7 +1,7 @@
 package server.model;
 
+import observer.Observer;
 import server.controller.BoardConfig;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +9,12 @@ import java.util.List;
 /**
  * The type Game.
  */
-public class Game implements Serializable {
+public class Game implements Serializable, Observer {
 
     private static final long serialVersionUID = 1L;
 
     private static List<Game> instance;
-
-    private ArrayList<Player> players;
+    private List<Player> players;
     private int currPlayerId;
     private int gameID;
     private int numPlayers;
@@ -23,13 +22,14 @@ public class Game implements Serializable {
     private Pocket pocket;
     private boolean gameStarted;
     private List<Tile> selectedTiles;
+    private List<CommonGoalCardStrategy> cgcs;
 
     /**
      * Instantiates a new Game.
      */
     public Game() {
-        this.players = new ArrayList<Player>();
-        //CommonGoalCard commonGoalStrategy = new CommonGoalCard();
+        this.players = new ArrayList<>();
+        this.cgcs = null;
         this.board = new Board(BoardConfig.newEmptyBoard());
         this.pocket = new Pocket();
         this.numPlayers = 0;
@@ -40,6 +40,13 @@ public class Game implements Serializable {
         this.gameID = instance.size()-1;
         instance.add(this);
 
+    }
+    public Game(List<Player> players, List<CommonGoalCardStrategy> cgcs, Board board, Pocket pocket, int numPlayers) {
+        this.players = players;
+        this.cgcs = cgcs;
+        this.board = board;
+        this.pocket = pocket;
+        this.numPlayers = numPlayers;
     }
 
     /**
@@ -85,7 +92,7 @@ public class Game implements Serializable {
      *
      * @return the players
      */
-    public ArrayList<Player> getPlayers() {
+    public List<Player> getPlayers() {
         return this.players;
     }
 
@@ -156,6 +163,11 @@ public class Game implements Serializable {
 
     public void setCurrPlayerId(int currPlayerId) {
         this.currPlayerId = currPlayerId;
+    }
+
+    @Override
+    public void update(Object message) {
+
     }
 /*
     public void setBoard(Board board) {

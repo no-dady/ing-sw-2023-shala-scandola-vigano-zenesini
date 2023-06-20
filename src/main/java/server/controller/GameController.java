@@ -1,5 +1,7 @@
 package server.controller;
 
+import observer.Observable;
+import observer.Observer;
 import server.exceptions.IllegalPlayersNumberException;
 import server.model.*;
 import setup.ConfigsFromJson;
@@ -11,7 +13,7 @@ import java.util.List;
 /**
  * The type Game controller.
  */
-public class GameController {
+public class GameController implements Observable {
 
     /**
      * The Players.
@@ -22,10 +24,6 @@ public class GameController {
      */
     protected static Game game;
     /**
-     * The constant board.
-     */
-    protected static Board board;
-    /**
      * The constant pocket.
      */
     protected static Pocket pocket;
@@ -34,13 +32,17 @@ public class GameController {
      */
     protected static List<PersonalGoalCard> pgcList;
     /**
-     * The Cgc enum.
+     * The Cgc List.
      */
-    protected static CommonGoalCardStrategy[] cgcEnum;
+    protected static List<CommonGoalCardStrategy> cgcList;
     /**
      * The Slots.
      */
-    protected static Tile[][] slots;
+    protected static Tile[][] slots = BoardConfig.newEmptyBoard();;
+    /**
+     * The constant board.
+     */
+    protected static Board board = new Board(slots);
 
     /**
      * Instantiates a new Game controller.
@@ -52,22 +54,7 @@ public class GameController {
         }catch (Exception e){
             System.out.println("exception");
         }
-
-
-        System.exit(0);
-        // TODO: Player needed object generation
-        players.add(new Player(0, "Test1", new Bookshelf(), pgcList.get(1)));
-
-        // TODO: Make call to method for generating random CommonGoalCard
-        //cgcEnum = new CommonGoalCard[2];
-        //cgcEnum[0] = CommonGoalCard.TWO_4EQ_TILES_SQUARE;
-        //cgcEnum[1] = CommonGoalCard.TWO_DISTINCT_COLUMNS;
-
-        // TODO: Generate slots to pass to the board constructor
         slots = BoardConfig.newEmptyBoard();
-        //board = new Board(cgcEnum, slots);
-
-        //game = new Game(players, board, pocket);
     }
 
     /**
@@ -76,23 +63,17 @@ public class GameController {
      * @param playerNumber the player number
      * @throws IllegalPlayersNumberException the illegal players number exception
      */
-    void createLobby(int playerNumber) throws IllegalPlayersNumberException {
-        PersonalGoalCard personalGoalCard;
-        PocketBuilder builder = new PocketBuilder();
-        //BoardFiller builderBoard = new BoardFiller();
-        pocket = new Pocket(builder.createTileListPocket(132));
+    public void createLobby(int playerNumber, List<String> playerNicknames) throws IllegalPlayersNumberException {
+        pocket = new Pocket(new PocketBuilder().createTileListPocket(132));
         for (int i = 0; i < playerNumber; i++) {
-            //personalGoalCard.select();
             Collections.shuffle(pgcList);
-            personalGoalCard = pgcList.remove(0);
-            players.add(new Player(i, "player" + i, new Bookshelf(), personalGoalCard));
+            players.add(new Player(i, playerNicknames.get(i), new Bookshelf(), pgcList.remove(0)));
         }
         switch (playerNumber) {
             case 2, 3, 4 -> board = new Board(BoardConfig.fillBoard(board.getSlots(), pocket, playerNumber));
             default -> throw new IllegalPlayersNumberException("wait, you are doing something wrong");
         }
-
-        //gameState = new GameState(players, board, pocket);
+        game = new Game();
     }
 
     /**
@@ -101,6 +82,16 @@ public class GameController {
      * @param usernames the usernames
      */
     void start(List<String> usernames) {
+
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+
+    }
+
+    @Override
+    public void notify(Object message) {
 
     }
 }

@@ -15,6 +15,7 @@ import static java.lang.Thread.sleep;
 
 public class InitErrorController implements GenericInterface, Initializable {
     public String temp;
+    public static final String name ="init-nickname";
     @FXML
     public TextField text_field;
     @FXML
