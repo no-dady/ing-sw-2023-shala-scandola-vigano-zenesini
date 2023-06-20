@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TwoPlayersScreenController implements GenericInterface, Initializable {
+    public static final String name ="two-players-screen";
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -14,5 +15,14 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
 
 
     public void onBackPress(ActionEvent event) {
+    }
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public void update() {
+
     }
 }

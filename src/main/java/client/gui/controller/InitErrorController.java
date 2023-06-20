@@ -40,5 +40,14 @@ public class InitErrorController implements GenericInterface, Initializable {
             alert.showAndWait();
         }
     }
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public void update() {
+
+    }
 
 }

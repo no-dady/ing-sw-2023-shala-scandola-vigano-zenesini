@@ -19,6 +19,7 @@ public class LobbyWaitController implements GenericInterface, Initializable {
     public Label player_2;
     public Label player_3;
     public Label player_4;
+    public static final String name ="lobby-wait";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -33,4 +34,13 @@ public class LobbyWaitController implements GenericInterface, Initializable {
         spinning.play();
     }
 
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public void update() {
+
+    }
 }

@@ -23,7 +23,7 @@ public class TestAppServerSocket {
     {
         ArrayList<Thread> memory = new ArrayList<Thread>();
         ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
-        ServerInterface serverInterface = new Server(false);
+        ServerInterface serverInterface = new Server(false, null);
         System.out.println("Server Started");
         try {
             ServerSocket serverSocket = new ServerSocket(1234);

@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class VictoryScreenController implements GenericInterface, Initializable {
+    public static final String name ="victory-screen";
     public StackPane mainController;
 
     @Override
@@ -16,5 +17,14 @@ public class VictoryScreenController implements GenericInterface, Initializable 
     }
 
     public void onQuitPress(ActionEvent event) {
+    }
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public void update() {
+
     }
 }

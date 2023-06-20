@@ -36,6 +36,8 @@ public class InitController implements GenericInterface, Initializable {
     @FXML
     public TextField port_field;
 
+    public static final String name = "init-screen";
+
     @FXML
     public void onBoxChoiceClick(ActionEvent event) {
         option = (String) connection_box.getValue();

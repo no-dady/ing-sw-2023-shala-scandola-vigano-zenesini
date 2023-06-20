@@ -2,19 +2,31 @@ package client.gui;
 
 import client.UI;
 //import network.ConnectionType;
+import client.gui.controller.BoardController;
+import client.gui.controller.GenericInterface;
+import client.gui.controller.InitController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import server.model.Board;
 import util.Messages.Message;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GUI extends Application implements UI {
+    HashMap<String, FXMLLoader> loaderMap = new HashMap<>();;
+    private Scene main;
+    private GenericInterface current;
     @Override
-    public void update() {}
+    public void update() {
+
+    }
 
     @Override
     public void setActive() {}
@@ -27,18 +39,35 @@ public class GUI extends Application implements UI {
         launch(args);
     }
 
-    public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GUI.class.getResource("/fxml/board.fxml")); //init-screen.fxml
-        Scene scene = new Scene(fxmlLoader.load()); //1386,400 - 1000,800
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.getIcons().add(new Image(this.getClass().getResource("/images/icon.png").toString()));
         primaryStage.setTitle("My Shelfie");
-        primaryStage.setScene(scene);
+        Pane root = new Pane();
+        this.main = new Scene(root, 1280, 692);
+        primaryStage.setScene(this.main);
+
+        ArrayList<FXMLLoader> loaders = new ArrayList<>();
+        loaders.add(new FXMLLoader(getClass().getResource("/fxml/board.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("/fxml/four-players-screen.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("/fxml/init-error.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("/fxml/init-nickname.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("/fxml/init-screen.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("/fxml/lobby-set.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("/fxml/lobby-waiting.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("/fxml/menu-screen.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("/fxml/three-players-screen.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("/fxml/two-players-screen.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("/fxml/victory-screen.fxml")));
+
+        for (FXMLLoader loader : loaders) {
+            Pane pane = loader.load();
+            GenericInterface controller = loader.getController();
+            this.loaderMap.put(controller.getName(), loader);
+        }
+        this.activate(InitController.name);
         primaryStage.setResizable(true);
-        //primaryStage.setMaximized(true);
         primaryStage.show();
-
-        primaryStage.setFullScreen(true);
-
+        primaryStage.setFullScreen(false);
     }
 
     @Override
@@ -65,5 +94,11 @@ public class GUI extends Application implements UI {
     @Override
     public void getInfoAboutOtherPlayers(String playerNickname) {
 
+    }
+    public void activate(String name) {
+        FXMLLoader loader = this.loaderMap.get(name);
+        this.current = loader.getController();
+        current.update();
+        main.setRoot(loader.getRoot());
     }
 }

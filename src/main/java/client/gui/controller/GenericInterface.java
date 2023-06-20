@@ -14,4 +14,8 @@ public interface GenericInterface {
         return alert;
     }
 
+    public String getName();
+
+
+    void update();
 }

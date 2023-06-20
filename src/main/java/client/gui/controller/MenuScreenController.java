@@ -17,6 +17,7 @@ public class MenuScreenController implements GenericInterface, Initializable {
     public StackPane mainContainer;
     public GridPane mainGrid;
     public Pane menuImage;
+    public static final String name ="menu-screen";
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -27,5 +28,14 @@ public class MenuScreenController implements GenericInterface, Initializable {
     }
 
     public void onBackButtonPress(ActionEvent event) {
+    }
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public void update() {
+
     }
 }

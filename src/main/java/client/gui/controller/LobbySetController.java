@@ -18,6 +18,7 @@ import static java.lang.Thread.sleep;
 public class LobbySetController implements GenericInterface, Initializable {
 
     Integer selected_number = null;
+    public static final String name ="lobby-set";
     @FXML
     public ChoiceBox<Integer> players_number_box;
     @FXML
@@ -52,5 +53,14 @@ public class LobbySetController implements GenericInterface, Initializable {
             alert.setContentText("Select number of player");
             alert.showAndWait();
         }
+    }
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public void update() {
+
     }
 }

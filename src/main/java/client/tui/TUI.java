@@ -3,8 +3,8 @@ package client.tui;
 import client.UI;
 import client.tui.tuiMoves.TUISelectColumn;
 import client.tui.tuiMoves.TUISelectTiles;
-import network.Client;
-import network.Message;
+import client.Client;
+import util.Messages.Message;
 import server.model.*;
 import setup.ConfigsFromJson;
 import setup.SetupAll;
@@ -90,11 +90,11 @@ public class TUI implements UI, Runnable {
                     System.out.println("[Welcome, you are the first one to enter the hub, select the number of players in your game (2-3-4) and press ENTER]");
                     playerNumber = in.nextLine();
                 } while (Integer.valueOf(playerNumber) < 2 || Integer.valueOf(playerNumber) > 4);
-                client.send(new SetupFirst(playerNumber));
+                //client.send(new SetupFirst(playerNumber));
             }
             else {
                 System.out.println("[Welcome to the hub, you'll be waiting for the other players to join]");
-                client.send(new SetupAll(nickname));
+                //client.send(new SetupAll(nickname));
             }
         } else{
             System.out.println("[we were unable to connect to the server, check your internet connection and try later]");

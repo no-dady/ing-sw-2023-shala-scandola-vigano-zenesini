@@ -3,6 +3,7 @@ package client.gui.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -12,6 +13,7 @@ import java.util.ResourceBundle;
 
 public class BoardController implements GenericInterface, Initializable {
 
+    public static final String name ="board";
     public Button menu_button;
     public StackPane mainContainer;
     public GridPane mainGrid;
@@ -50,10 +52,17 @@ public class BoardController implements GenericInterface, Initializable {
     public GridPane bookshelf_grid;
     public GridPane board_grid;
 
+    public  Label L2;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    public void setL2(String str)
+    {
+        L2.setText(str);
     }
 
     public void onPlayerButtonPress(ActionEvent event) {
@@ -81,5 +90,15 @@ public class BoardController implements GenericInterface, Initializable {
     }
 
     public void onArrowFivePress(ActionEvent event) {
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public void update() {
+
     }
 }
