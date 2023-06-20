@@ -3,35 +3,27 @@ package server.controller.actions;
 import moves.MoveSelectColum;
 import server.model.Game;
 
-import java.util.Scanner;
+public class ColumnSelectAction implements Action{
+    String nickName;
+    MoveSelectColum move;
 
-public class ColumnSelectAction extends MoveSelectColum implements Action{
-    int selectedY;
-    final Scanner sc = new Scanner(System.in);
-
-    public ColumnSelectAction(String nickName) {
-        super(nickName);
+    public ColumnSelectAction(MoveSelectColum move) {
+        this.nickName = move.getNickName();
+        this.move = move;
     }
 
-    @Override
     public void performAction(Game game) {
         while (!canPerformAction(game))
-            game.getPlayers().get(game.getCurrPlayerId()).getBookshelf().setSlots(selectedY, game.getSelectedTiles());
+            game.getPlayers().get(game.getCurrPlayerId()).getBookshelf().setSlots(move.getSelectedColumn(), game.getSelectedTiles());
         game.setSelectedTiles(null);
     }
 
-    @Override
     public boolean canPerformAction(Game game) {
-        selectedY = sc.nextInt();
+        int selectedY = move.getSelectedColumn();
         return game.getPlayers().get(game.getCurrPlayerId()).getBookshelf().getEmptyTilesColumn(selectedY) >= game.getSelectedTiles().size();
     }
-    @Override
     public String getNickName() {
-        return "";
+        return nickName;
     }
 
-    @Override
-    public boolean canPerform(Game game) {
-        return true;
-    }
 }
