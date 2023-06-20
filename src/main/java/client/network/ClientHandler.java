@@ -35,7 +35,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     public ClientHandler(Client client, String ip, int port) throws RemoteException {
         super();
-        this.serverInterface = new ClientSocketMiddleware(client, ip, port, this);
+        ClientSocketMiddleware clientSocketMiddleware = new ClientSocketMiddleware(client, ip, port, this);
+        this.serverInterface = clientSocketMiddleware;
+        new Thread(clientSocketMiddleware).start();
     }
 
     /**
@@ -59,6 +61,11 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         return this.serverInterface;
     }
 
+    public void sendToServer(String string) throws RemoteException
+    {
+        currState = State.WaitingForResponse;
+        serverInterface.send(string);
+    }
 
     @Override
     public void send(String string) throws RemoteException
@@ -72,43 +79,45 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
             switch(trueMessageReceived.getMoveTypeNumber())
             {
                 case 0:
-                    System.out.println("Your nickname: ");
-                    String nickName = "";
-                    currState = State.WaitingForResponse;
-                    try{
-                        BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-                        nickName = bufferRead.readLine();
-                    }
-                    catch(IOException e)
-                    {
-                        e.printStackTrace();
-                    }
-                    this.nickName = nickName;
-                    NicknameMessage nickMessage = new NicknameMessage(nickName);
-                    System.out.println("Sending nickname");
-                    String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
-                    System.out.println("Sending parsed message");
-                    currState = State.setNick;
+                    //System.out.println("Your nickname: ");
+                    //String nickName = "";
+                    //currState = State.WaitingForResponse;
+                    //try{
+                    //    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+                    //    nickName = bufferRead.readLine();
+                    //}
+                    //catch(IOException e)
+                    //{
+                    //    e.printStackTrace();
+                    //}
+                    //this.nickName = nickName;
+                    //NicknameMessage nickMessage = new NicknameMessage(nickName);
+                    //System.out.println("Sending nickname");
+                    //String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
+                    //System.out.println("Sending parsed message");
+                    setState(State.setNick);
                     //serverInterface.send(Parser.toJson(nickMessage, NicknameMessage.class));
                     break;
 
                 case 1:
-                    System.out.println("You are the admin of the Lobby!\nPlayer number for the new Lobby: ");
-                    currState = State.SetPlayersNum;
-                    int playerNumber = 1;
-                    try{
-                        BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-                        String playerNumberString = bufferRead.readLine();
-                        playerNumber = Integer.parseInt(playerNumberString);
-                    }
-                    catch(IOException e)
-                    {
-                        e.printStackTrace();
-                    } catch (NumberFormatException ex){
-                        ex.printStackTrace();
-                    }
-                    CreateLobbyMessage createLobbyMessage = new CreateLobbyMessage(this.nickName, playerNumber);
-                    serverInterface.send(Parser.toJson(createLobbyMessage, CreateLobbyMessage.class));
+                    setState(State.SetPlayersNum);
+                    System.out.println("Setted playernUm");
+                    //System.out.println("You are the admin of the Lobby!\nPlayer number for the new Lobby: ");
+                    //currState = State.SetPlayersNum;
+                    //int playerNumber = 1;
+                    //try{
+                    //    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+                    //    String playerNumberString = bufferRead.readLine();
+                    //    playerNumber = Integer.parseInt(playerNumberString);
+                    //}
+                    //catch(IOException e)
+                    //{
+                    //    e.printStackTrace();
+                    //} catch (NumberFormatException ex){
+                    //    ex.printStackTrace();
+                    //}
+                    //CreateLobbyMessage createLobbyMessage = new CreateLobbyMessage(this.nickName, playerNumber);
+                    //serverInterface.send(Parser.toJson(createLobbyMessage, CreateLobbyMessage.class));
                     break;
             }
         } else if(string.contains("errorMessage"))//if (messageReceived instanceof ConfirmMessage trueMessageReceived)
@@ -117,27 +126,29 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
             System.out.println(trueMessageReceived.getErrorMessage());
             if (trueMessageReceived.getErrorMessage().contains("Nickname"))
             {
-                System.out.println("Re-write your nickname: ");
-                String nickName = "";
-                try{
-                    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
-                    nickName = bufferRead.readLine();
-                }
-                catch(IOException e)
-                {
-                    e.printStackTrace();
-                }
-                this.nickName = nickName;
-                NicknameMessage nickMessage = new NicknameMessage(nickName);
-                System.out.println("Sending nickname");
-                String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
-                System.out.println("Sending parsed message");
-                serverInterface.send(Parser.toJson(nickMessage, NicknameMessage.class));
+                //System.out.println("Re-write your nickname: ");
+                //String nickName = "";
+                //try{
+                //    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+                //    nickName = bufferRead.readLine();
+                //}
+                //catch(IOException e)
+                //{
+                //    e.printStackTrace();
+                //}
+                //this.nickName = nickName;
+                //NicknameMessage nickMessage = new NicknameMessage(nickName);
+                //System.out.println("Sending nickname");
+                //String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
+                //System.out.println("Sending parsed message");
+                //serverInterface.send(Parser.toJson(nickMessage, NicknameMessage.class));
+                setState(State.setNick);
             }
         } else
         {
             ConfirmMessage trueMessageReceived = Parser.fromJson(string, ConfirmMessage.class);
             System.out.println(trueMessageReceived.getMessage());
+            setState(State.WaitingStart);
         }
     }
 
@@ -156,7 +167,12 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     }
 
-    public State getCurrState() {
+    public synchronized void setState(State state)
+    {
+        this.currState = state;
+    }
+
+    public synchronized State getCurrState() {
         return currState;
     }
 }
