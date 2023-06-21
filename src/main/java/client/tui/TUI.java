@@ -5,12 +5,18 @@ import client.tui.tuiMoves.TUISelectColumn;
 import client.tui.tuiMoves.TUISelectTiles;
 import client.network.State;
 import client.Client;
+import util.Messages.CreateLobbyMessage;
 import util.Messages.Message;
 import server.model.*;
 import setup.ConfigsFromJson;
 import setup.SetupAll;
 import setup.SetupFirst;
+import util.Messages.NicknameMessage;
+import util.Parser;
+
 import java.io.IOException;
+import java.rmi.RemoteException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -26,7 +32,7 @@ public class TUI implements UI, Runnable {
 
     @Override
     public void run() {
-        String nickname;
+        String nickname = "";
         String connectionType;
         String host;
         int port;
@@ -83,31 +89,53 @@ public class TUI implements UI, Runnable {
 
         if (client.isOnline()){
             try {
-                while (!client.getState().equals(State.setNick)){System.out.println("non ancora");};
+                while (!client.getState().equals(State.setNick)){System.out.println("not yet");};
                 System.out.println("[Insert your nickname and press ENTER]");
-                nickname = in.nextLine();
-                //client.send(new SetupAll(nickname));
+                while (true)
+                {
+                    nickname = in.nextLine();
+                    NicknameMessage nickMessage = new NicknameMessage(nickname);
+                    String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
+                    client.sendToServer(messageParsed);
+                    while (client.getState().equals(State.WaitingForResponse)){}
+                    if (client.getState().equals(State.WaitingStart) || client.getState().equals(State.SetPlayersNum))
+                    {
+                        break;
+                    }
+                    else if (client.getState().equals(State.setNick))
+                    {
+                        System.out.println("[" + nickname + " was already taken, please insert another nickname and press ENTER]");
+                    }
+                }
             }catch (Exception e){
                 System.out.println("BAD");//client.receivedMessage);
             }
-            while (!client.getState().equals(State.SetPlayersNum) || !client.getState().equals(State.WaitingStart)){System.out.println("non ancora");};
+            while (client.getState().equals(State.WaitingForResponse)){ System.out.println(client.getState().toString());};
             if (client.getState().equals(State.SetPlayersNum)) {
-                String playerNumber;
+                String playerNumberString;
+                int playerNumber = 2;
                 do {
                     System.out.println("[Welcome, you are the first one to enter the lobby, select the number of players in your game (2-3-4) and press ENTER]");
-                    playerNumber = in.nextLine();
-                } while (Integer.parseInt(playerNumber) < 2 || Integer.parseInt(playerNumber) > 4);
-                //client.send(new SetupFirst(playerNumber));
+                    playerNumberString = in.nextLine();
+                    playerNumber = Integer.parseInt(playerNumberString);
+                } while (playerNumber < 2 || playerNumber > 4);
+                CreateLobbyMessage createLobbyMessage = new CreateLobbyMessage(nickname, playerNumber);
+                String messageParsed = Parser.toJson(createLobbyMessage, CreateLobbyMessage.class);
+                try
+                {
+                    client.sendToServer(messageParsed);
+                } catch (RemoteException e) { System.out.println("Cannot send createLobby Message"); }
             }
             else {
                 System.out.println("[Welcome to the lobby, you'll be waiting for the other players to join]");
-
             }
         } else{
             System.out.println("[we were unable to connect to the server, check your internet connection and try later]");
             return;
         }
-        while (client.isActive() && client.isOnline() && !this.client.getGame().hasWinner());
+        while (client.isActive() && client.isOnline());
+        //COMMENTED THIS LINE vvv ONLY BECAUSE RIGHT NOW WE DONT HAVE A REAL GAME INSIDE THE CLIENT SO getGame LEAD TO A NULLPOINTEREXC
+        //while (client.isActive() && client.isOnline() && !this.client.getGame().hasWinner());
         while (client.getState().equals(State.NotMyTurn)){
             //whatever you want to do whn you are not actively playing
         }
