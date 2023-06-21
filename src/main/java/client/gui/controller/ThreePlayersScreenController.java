@@ -1,5 +1,6 @@
 package client.gui.controller;
 
+import client.gui.GUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 
@@ -8,6 +9,11 @@ import java.util.ResourceBundle;
 
 public class ThreePlayersScreenController implements GenericInterface, Initializable {
     public static final String name ="three-players-screen";
+    private GUI gui;
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui = gui;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

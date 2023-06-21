@@ -1,5 +1,6 @@
 package client.gui.controller;
 
+import client.gui.GUI;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +15,7 @@ import java.util.ResourceBundle;
 public class LobbyWaitController implements GenericInterface, Initializable {
     @FXML
     public ImageView spinning_cat;
+    private GUI gui;
     public Label dialog_label;
     public Label player_1;
     public Label player_2;
@@ -37,6 +39,11 @@ public class LobbyWaitController implements GenericInterface, Initializable {
     @Override
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui = gui;
     }
 
     @Override
