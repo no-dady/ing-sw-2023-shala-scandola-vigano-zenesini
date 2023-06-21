@@ -6,10 +6,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import observer.Observable;
+import util.Messages.Message;
+
 /**
  * The type Game.
  */
-public class Game implements Serializable, Observer {
+public class Game implements Serializable, Observable<Message> {
 
     private static final long serialVersionUID = 1L;
 
@@ -166,10 +169,7 @@ public class Game implements Serializable, Observer {
         this.currPlayerId = currPlayerId;
     }
 
-    @Override
-    public void update(Object message) {
-
-    }
+        private transient final List<Observer<Message>> observers = new ArrayList<>();
 
     public int getNumPlayers() {
         return numPlayers;
@@ -181,6 +181,26 @@ public class Game implements Serializable, Observer {
 
     public List<CommonGoalCardStrategy> getCgcs() {
         return cgcs;
+    }
+
+	public int getPlayerIndex(Player player) {
+		return 0;
+	}
+    
+    @Override
+    public void addObserver(Observer<Message> observer){
+        synchronized (observers) {
+            observers.add(observer);
+        }
+    }
+
+    @Override
+    public void notify(Message message) {
+        synchronized (observers) {
+            for(Observer<Message> observer : observers){
+                observer.update(message);
+            }
+        }
     }
 
 }
