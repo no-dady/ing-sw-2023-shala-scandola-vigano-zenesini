@@ -12,8 +12,7 @@ import server.model.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class View implements Observable<Action>, Observer<Message>{
-    private transient final List<Observer<Action>> observers = new ArrayList<>();
+public abstract class View implements Observable<Action>, Observer<Message> {
     private final Player player;
     private boolean offline = false;
 
@@ -37,6 +36,9 @@ public abstract class View implements Observable<Action>, Observer<Message>{
     void handleMove(Action a) {
         notify(a);
     }
+    
+
+    private transient final List<Observer<Action>> observers = new ArrayList<>();
 
     @Override
     public void addObserver(Observer<Action> observer){

@@ -1,15 +1,21 @@
 package server.network;
 
 import client.network.ClientInterface;
+import server.controller.GameController;
+import server.model.Game;
 import server.model.Lobby;
 import server.model.LobbyStatus;
+import server.model.Player;
 import server.model.Tile;
+import server.view.View;
+import server.view.RemoteView;
 import util.Messages.*;
 
 import util.Parser;
 
 import java.rmi.*;
 import java.rmi.server.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -161,6 +167,30 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 
     public void removeLobby(Lobby lobby) {
         lobbyList.removeIf(l -> l.getLobbyName().equals(lobby.getLobbyName()));
+    }
+
+    public static void instanceView(View view, Game game, GameController controller) {
+        game.getBoard().addObserver(view);
+        for(var cgc : game.getCgcs()) {
+            cgc.addObserver(view);
+        }
+        game.addObserver(view);
+        
+        for(Player p : game.getPlayers()) {
+            p.getBookshelf().addObserver(view);
+            p.getPersonalGoalCard().addObserver(view);
+            p.addObserver(view);
+        }
+
+        view.addObserver(controller);
+    }
+
+    private HashMap<String,View> instanceViews(Map<String, ClientInterface> waitingConnection, ArrayList<Player> players) {
+        HashMap <String, View> playersView = new HashMap<>();
+        for(Player player: players){
+            playersView.put(player.getUserName(), new RemoteView(player, waitingConnection.get(player.getUserName())));
+        }
+        return playersView;
     }
 
 }

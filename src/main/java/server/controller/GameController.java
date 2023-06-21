@@ -5,15 +5,18 @@ import observer.Observer;
 import server.exceptions.IllegalPlayersNumberException;
 import server.model.*;
 import setup.ConfigsFromJson;
+import util.Messages.Message;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import server.controller.actions.Action;
+
 /**
  * The type Game controller.
  */
-public class GameController implements Observable {
+public class GameController implements Observer<Action> {
 
     /**
      * The Players.
@@ -87,17 +90,14 @@ public class GameController implements Observable {
 
     }
 
-    @Override
-    public void addObserver(Observer observer) {
-
-    }
-
-    @Override
-    public void notify(Object message) {
-
-    }
     public Game getGame(){
         return game;
+    }
+
+    @Override
+    public void update(Action action) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 }
 

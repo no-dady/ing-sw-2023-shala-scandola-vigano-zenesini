@@ -1,15 +1,19 @@
 package server.model;
 import server.cgc.*;
 import setup.ConfigsFromJson;
+import util.Messages.Message;
 
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
+import observer.Observable;
+import observer.Observer;
+
 /**
  * The type Common goal card strategy.
  */
-public abstract class CommonGoalCardStrategy implements Serializable {
+public abstract class CommonGoalCardStrategy implements Serializable, Observable<Message> {
     /**
      * The List common goal list.
      */
@@ -130,5 +134,23 @@ public abstract class CommonGoalCardStrategy implements Serializable {
      */
     public Integer getPlayers(Player player){
         return completedMap.remove(player.getUserName());
+    }
+
+    private transient final List<Observer<Message>> observers = new ArrayList<>();
+
+    @Override
+    public void addObserver(Observer<Message> observer){
+        synchronized (observers) {
+            observers.add(observer);
+        }
+    }
+
+    @Override
+    public void notify(Message move) {
+        synchronized (observers) {
+            for(Observer<Message> observer : observers){
+                observer.update(move);
+            }
+        }
     }
 }
