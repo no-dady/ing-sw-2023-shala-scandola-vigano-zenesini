@@ -1,5 +1,6 @@
 package client.gui.controller;
 
+import client.gui.GUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuScreenController implements GenericInterface, Initializable {
+    private GUI gui;
 
     public Button B1;
     public Button B2;
@@ -37,5 +39,10 @@ public class MenuScreenController implements GenericInterface, Initializable {
     @Override
     public void update() {
 
+    }
+
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui = gui;
     }
 }

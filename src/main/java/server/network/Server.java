@@ -147,4 +147,20 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         }
 
     }
+
+
+    public synchronized boolean findLobby(String name) {
+        for(var l : lobbyList) {
+            if(l.getLobbyName().equals(name)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void removeLobby(Lobby lobby) {
+        lobbyList.removeIf(l -> l.getLobbyName().equals(lobby.getLobbyName()));
+    }
+
 }

@@ -2,8 +2,11 @@ package server.network.SocketComm;
 
 import client.UI;
 import client.network.ClientInterface;
+import observer.Observer;
+import client.network.State;
 import server.model.Game;
-import server.network.ServerInterface;
+import server.model.Lobby;
+import server.network.Server;
 import server.model.Board;
 import server.model.Bookshelf;
 import server.model.Tile;
@@ -13,19 +16,22 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
-/**
- * The type Client skeleton.
- */
-//It implements the client, but it will be used on the server-side to call functions
+
+
 public class ClientSkeleton implements ClientInterface, Runnable {
     private ObjectOutputStream oos;
+    private State currState = State.WaitingForResponse;
 
     private final Socket socket;
 
-    private ServerInterface serverInterface;
+    private final Server server;
 
     private String nickName;
+
+    private Lobby lobby;
 
     /**
      * Instantiates a new Client skeleton.
@@ -33,11 +39,10 @@ public class ClientSkeleton implements ClientInterface, Runnable {
      * @param socket the socket
      * @throws RemoteException the remote exception
      */
-    public ClientSkeleton(Socket socket, ServerInterface serverInterface) throws RemoteException
+    public ClientSkeleton(Socket socket, Server server) throws RemoteException
     {
         this.socket = socket;
-        this.serverInterface = serverInterface;
-        this.nickName = "";
+        this.server = server;
     }
 
     @Override
@@ -52,7 +57,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
             System.out.println("Created Output");
             ois = new ObjectInputStream(socket.getInputStream());
             System.out.println("Created input");
-            serverInterface.register(this);
+            server.register(this);
 
             receive(ois);
 
@@ -76,6 +81,10 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void setLobby(Lobby lobby) {
+        this.lobby = lobby;
     }
 
     //Action n 4
@@ -107,6 +116,16 @@ public class ClientSkeleton implements ClientInterface, Runnable {
 
     }
 
+    @Override
+    public void setState(State state) {
+        this.currState = state;
+    }
+
+    @Override
+    public State getState() throws RemoteException {
+        return null;
+    }
+
     public String getNickname()
     {
         return this.nickName;
@@ -125,7 +144,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
             try
             {
                 rec = (String) ois.readObject();
-                serverInterface.send(rec);
+                server.send(rec);
             } catch (IOException e)
             {
                 System.out.println(e.getMessage());
@@ -189,5 +208,36 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         //        serverInterface.register(this, nickname);
         //    }
         //}
+    }
+
+
+    private void close(String playerName, Lobby lobby) throws RemoteException {
+        System.out.println("Deregistering Client");
+        if(lobby != null && server.findLobby(lobby.getLobbyName())) {
+            if(lobby.disconnectPlayer(playerName)) {
+                server.removeLobby(lobby);
+            }
+        }
+
+        System.out.println("Done!");
+    }
+
+
+    private transient final List<Observer<String>> observers = new ArrayList<>();
+
+    @Override
+    public void addObserver(Observer<String> observer) {
+        synchronized (observers) {
+            observers.add(observer);
+        }
+    }
+
+    @Override
+    public void notify(String message) {
+        synchronized (observers) {
+            for(Observer<String> observer : observers){
+                observer.update(message);
+            }
+        }
     }
 }

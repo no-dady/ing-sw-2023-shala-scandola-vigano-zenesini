@@ -91,7 +91,7 @@ public class Client {
     }
 
     public State getState(){
-        return clientConnection.getCurrState();
+        return clientConnection.getState();
     }
 
     public void sendToServer(String parsedString) throws RemoteException

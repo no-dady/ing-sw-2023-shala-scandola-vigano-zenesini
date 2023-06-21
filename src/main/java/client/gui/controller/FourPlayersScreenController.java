@@ -1,5 +1,6 @@
 package client.gui.controller;
 
+import client.gui.GUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.GridPane;
@@ -10,6 +11,7 @@ import java.util.ResourceBundle;
 
 public class FourPlayersScreenController implements GenericInterface, Initializable {
     public static final String name = "four-players-screen";
+    private GUI gui;
 
     public GridPane secondPlayer;
     public GridPane thirdPlayer;
@@ -30,6 +32,11 @@ public class FourPlayersScreenController implements GenericInterface, Initializa
 
     @Override
     public void update() {
+
+    }
+
+    @Override
+    public void setGUI(GUI gui) {
 
     }
 }

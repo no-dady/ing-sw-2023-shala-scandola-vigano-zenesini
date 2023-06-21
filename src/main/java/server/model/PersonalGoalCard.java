@@ -1,13 +1,14 @@
 package server.model;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
  * The type Personal goal card.
  */
-public class PersonalGoalCard {
+public class PersonalGoalCard implements Serializable {
     private final Map<String, Coordinates> goals;
-    public String fileName;
+    private String fileName;
 
     /**
      * Instantiates a new Personal goal card.
@@ -20,6 +21,9 @@ public class PersonalGoalCard {
         this.fileName = fileName;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
 
     /**
      * Gets coordinates.

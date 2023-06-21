@@ -1,12 +1,17 @@
 package server.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import observer.Observable;
+import observer.Observer;
+import util.Messages.Message;
 
 /**
  * The type Bookshelf.
  */
-public class Bookshelf implements Serializable {
+public class Bookshelf implements Serializable, Observable<Message> {
     private final Tile[][] slots;
     private static final int rows = 6;
     private static final int cols = 5;
@@ -89,5 +94,31 @@ public class Bookshelf implements Serializable {
      */
     public int getNumTiles() {
         return tileCount;
+    }
+     //Observable implementation
+    private transient final List<Observer<Message>> observers = new ArrayList<>();
+
+    /**
+     *
+     * @param observer of type Observer<Message>: the observer to add
+     */
+    @Override
+    public void addObserver(Observer<Message> observer){
+        synchronized (observers) {
+            observers.add(observer);
+        }
+    }
+
+    /**
+     *
+     * @param message of type Message: the notifying message
+     */
+    @Override
+    public void notify(Message message) {
+        synchronized (observers) {
+            for(Observer<Message> observer : observers){
+                observer.update(message);
+            }
+        }
     }
 }

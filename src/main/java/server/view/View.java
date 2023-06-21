@@ -1,9 +1,12 @@
 package server.view;
 
+import util.Messages.InitialMessage;
+import util.Messages.LastMessage;
 import util.Messages.Message;
 import observer.Observable;
 import observer.Observer;
 import server.controller.actions.Action;
+import server.model.Game;
 import server.model.Player;
 
 import java.util.ArrayList;
@@ -26,6 +29,15 @@ public abstract class View implements Observable<Action>, Observer<Message>{
     protected View(Player player) {
         this.player = player;
     }
+
+    protected Player getPlayer() {
+        return player;
+    }
+
+    void handleMove(Action a) {
+        notify(a);
+    }
+
     @Override
     public void addObserver(Observer<Action> observer){
         synchronized (observers) {
@@ -39,6 +51,15 @@ public abstract class View implements Observable<Action>, Observer<Message>{
                 observer.update(action);
             }
         }
+    }
+
+    public void sendInitialMessage(Game game, String lobbyName) {
+        if(game.getPlayerIndex(this.player) == -1) return;
+
+        int id = this.player.getUserId();
+        // TODO: initial message needs to send board and lobbyname to clients
+        this.update(new InitialMessage(game, id, player.getBookshelf(), player.getPersonalGoalCard()));
+        this.update(new LastMessage());
     }
 
 }

@@ -1,5 +1,6 @@
 package client.gui.controller;
 
+import client.gui.GUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,6 +19,7 @@ import static java.lang.Thread.sleep;
 public class LobbySetController implements GenericInterface, Initializable {
 
     Integer selected_number = null;
+    private GUI gui;
     public static final String name ="lobby-set";
     @FXML
     public ChoiceBox<Integer> players_number_box;
@@ -62,5 +64,10 @@ public class LobbySetController implements GenericInterface, Initializable {
     @Override
     public void update() {
 
+    }
+
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui = gui;
     }
 }

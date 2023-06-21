@@ -73,7 +73,9 @@ public class GameController implements Observable {
             case 2, 3, 4 -> board = new Board(BoardConfig.fillBoard(board.getSlots(), pocket, playerNumber));
             default -> throw new IllegalPlayersNumberException("wait, you are doing something wrong");
         }
-        game = new Game();
+        game = new Game(players, cgcList, board, pocket, playerNumber);
+        System.out.println("created game for" + playerNicknames);
+        return;
     }
 
     /**
@@ -93,6 +95,9 @@ public class GameController implements Observable {
     @Override
     public void notify(Object message) {
 
+    }
+    public Game getGame(){
+        return game;
     }
 }
 

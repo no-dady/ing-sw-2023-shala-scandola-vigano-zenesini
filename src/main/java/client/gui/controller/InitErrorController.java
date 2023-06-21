@@ -1,5 +1,6 @@
 package client.gui.controller;
 
+import client.gui.GUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +15,7 @@ import java.util.ResourceBundle;
 import static java.lang.Thread.sleep;
 
 public class InitErrorController implements GenericInterface, Initializable {
+    private GUI gui;
     public String temp;
     public static final String name ="init-nickname";
     @FXML
@@ -49,6 +51,11 @@ public class InitErrorController implements GenericInterface, Initializable {
     @Override
     public void update() {
 
+    }
+
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui = gui;
     }
 
 }

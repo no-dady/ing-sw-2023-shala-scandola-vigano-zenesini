@@ -2,6 +2,7 @@ package client.network;
 
 import client.Client;
 import client.UI;
+import observer.Observer;
 import server.model.Game;
 import server.network.ServerInterface;
 import util.Messages.*;
@@ -22,7 +23,7 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ClientHandler extends UnicastRemoteObject implements ClientInterface, Serializable {
     private ServerInterface serverInterface;
-    private State currState = State.WaitingForResponse;
+    private State currState = State.WaitingStart;
     private Thread socketThread;
     private String nickName;
 
@@ -172,7 +173,19 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         this.currState = state;
     }
 
-    public synchronized State getCurrState() {
+    public synchronized State getState() {
         return currState;
+    }
+
+    @Override
+    public void addObserver(Observer<String> observer) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addObserver'");
+    }
+
+    @Override
+    public void notify(String message) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'notify'");
     }
 }

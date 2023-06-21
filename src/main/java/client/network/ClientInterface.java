@@ -1,10 +1,8 @@
 package client.network;
 
 import client.UI;
-import server.model.Board;
-import server.model.Bookshelf;
+import observer.Observer;
 import server.model.Game;
-import server.model.Tile;
 
 import java.rmi.*;
 
@@ -14,13 +12,10 @@ import java.rmi.*;
 public interface ClientInterface extends Remote
 {
 
-    /**
-     * Test send.
-     *
-     * @param string the string
-     * @throws RemoteException the remote exception
-     */
-//Test function
+    void addObserver(Observer<String> observer);
+
+    void notify(String message);
+
     void send(String string) throws RemoteException;
 
     UI getUI() throws RemoteException;
@@ -28,6 +23,9 @@ public interface ClientInterface extends Remote
     Game getGame() throws RemoteException;
 
     void setGame(Game model) throws RemoteException;
+
+    void setState(State state) throws RemoteException;
+    State getState() throws RemoteException;
 
     //void close();
 }
