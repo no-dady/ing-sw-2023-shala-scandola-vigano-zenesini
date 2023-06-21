@@ -1,6 +1,7 @@
 package server.view;
 
 import client.network.ClientInterface;
+import moves.MoveSelectTiles;
 import util.Messages.LastMessage;
 import util.Messages.Message;
 import server.controller.actions.Action;
@@ -52,7 +53,7 @@ public class RemoteView extends View {
      * Sets a new clientConnection. It makes the ClientConnection observable for the internal private class.
      * @param clientConnection
      */
-    public void setClientConnection(ClientConnection clientConnection) {
+    public void setClientConnection(ClientInterface clientConnection) {
         this.clientConnection = clientConnection;
         clientConnection.addObserver(new MessageReceiver());
     }
@@ -67,7 +68,7 @@ public class RemoteView extends View {
             clientConnection.send(Parser.toJson(message, Message.class));
         }else{
             if(message instanceof LastMessage){
-                notify(new TileSelectAction("sos"));
+                notify(new TileSelectAction(new MoveSelectTiles("sos")));
             }
         }
     }

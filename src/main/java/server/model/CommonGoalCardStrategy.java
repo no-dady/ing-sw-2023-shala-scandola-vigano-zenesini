@@ -1,5 +1,4 @@
 package server.model;
-
 import server.cgc.*;
 import setup.ConfigsFromJson;
 
@@ -14,7 +13,10 @@ public abstract class CommonGoalCardStrategy {
      * The List common goal list.
      */
     protected static List<CommonGoalCardStrategy> listCommonGoalList = null;
+    private List<Integer> points = new ArrayList<>(0);
     private String name = "";
+
+    private int numPlayers;
 
     /**
      * Condition check boolean.
@@ -27,6 +29,7 @@ public abstract class CommonGoalCardStrategy {
     public String getName() {
         return name;
     }
+    private HashMap<String, Integer> completedMap = new HashMap<>();
     public void Print() throws IOException {
         System.out.println(ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" + this.getName() + ".json"));
     }
@@ -89,7 +92,26 @@ public abstract class CommonGoalCardStrategy {
         return listCommonGoalList.remove(random.nextInt(listCommonGoalList.size()));
     }
 
-    private List<Player> players;
+    public void setNumPlayers(int numPlayers) {
+        this.numPlayers = numPlayers;
+        switch (this.numPlayers) {
+            case 2 -> {
+                points.add(4);
+                points.add(8);
+            }
+            case 3 -> {
+                points.add(4);
+                points.add(6);
+                points.add(8);
+            }
+            case 4 -> {
+                points.add(2);
+                points.add(4);
+                points.add(6);
+                points.add(8);
+            }
+        }
+    }
 
     /**
      * Add player.
@@ -97,7 +119,7 @@ public abstract class CommonGoalCardStrategy {
      * @param player the player
      */
     public void addPlayer(Player player){
-        this.players.add(player);
+        completedMap.put(player.getUserName(), points.remove(0));
     }
 
     /**
@@ -105,7 +127,7 @@ public abstract class CommonGoalCardStrategy {
      *
      * @return the list
      */
-    public List<Player> getPlayers(){
-        return this.players;
+    public Integer getPlayers(Player player){
+        return completedMap.remove(player.getUserName());
     }
 }

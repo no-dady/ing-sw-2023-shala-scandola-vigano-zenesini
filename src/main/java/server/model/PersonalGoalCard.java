@@ -6,7 +6,7 @@ import java.util.Map;
  * The type Personal goal card.
  */
 public class PersonalGoalCard {
-    private Map<String, Coordinates> goals;
+    private final Map<String, Coordinates> goals;
     public String fileName;
 
     /**
@@ -37,14 +37,15 @@ public class PersonalGoalCard {
      * @param slots the slots
      * @return the boolean
      */
-    public boolean completed(Tile[][] slots) {
+    public int completed(Tile[][] slots) {
+        int count= 0;
         for(String key : goals.keySet()) {
             var coord = goals.get(key);
-            if(!slots[coord.x()][coord.y()].getTileType().equals(key)){
-                return false;
+            if(slots[coord.x()][coord.y()].getTileType().equals(key)){
+                count ++;
             }
         }
 
-        return true;
+        return count;
     }
 }
