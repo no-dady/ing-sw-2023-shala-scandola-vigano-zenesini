@@ -19,6 +19,7 @@ public class Game implements Serializable, Observer {
     private int gameID;
     private int numPlayers;
     private Board board;
+
     private Pocket pocket;
     private boolean gameStarted;
     private List<Tile> selectedTiles;
@@ -169,14 +170,17 @@ public class Game implements Serializable, Observer {
     public void update(Object message) {
 
     }
-/*
-    public void setBoard(Board board) {
-        this.board = board;
+
+    public int getNumPlayers() {
+        return numPlayers;
     }
 
-    public void setPocket(Pocket pocket) {
-        this.pocket = pocket;
+    public boolean isGameStarted() {
+        return gameStarted;
     }
-    */
+
+    public List<CommonGoalCardStrategy> getCgcs() {
+        return cgcs;
+    }
 
 }

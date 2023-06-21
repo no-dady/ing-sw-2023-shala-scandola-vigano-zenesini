@@ -1,5 +1,6 @@
 package client.gui;
 
+import client.Client;
 import client.UI;
 import client.gui.controller.GenericInterface;
 import client.gui.controller.InitController;
@@ -17,6 +18,22 @@ public class GUI extends Application implements UI {
     HashMap<String, FXMLLoader> loaderMap = new HashMap<>();;
     private Scene main;
     private GenericInterface current;
+    private String nickname = "";
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    private Client client;
+
+    public GUI(Client client) {
+        this.client = client;
+    }
+
     @Override
     public void update() {
         //Platform.runLater(this::intUpdate);
@@ -56,6 +73,7 @@ public class GUI extends Application implements UI {
         for (FXMLLoader loader : loaders) {
             Pane pane = loader.load();
             GenericInterface controller = loader.getController();
+            controller.setGUI(this);
             this.loaderMap.put(controller.getName(), loader);
         }
         this.activate(InitController.name);

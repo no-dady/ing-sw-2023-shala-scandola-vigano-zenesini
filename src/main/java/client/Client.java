@@ -22,7 +22,7 @@ public class Client {
 
     public Client(boolean gui) throws IOException {
         this.active = true;
-        this.ui = gui ? new GUI() : new TUI(this);
+        this.ui = gui ? new GUI(this) : new TUI(this);
     }
 
     public synchronized boolean isActive() {
