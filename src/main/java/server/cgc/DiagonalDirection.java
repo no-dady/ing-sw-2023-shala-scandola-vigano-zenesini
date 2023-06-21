@@ -3,13 +3,15 @@ package server.cgc;
 import server.model.CommonGoalCardStrategy;
 import server.model.Tile;
 
+import java.io.Serializable;
+
 /**
  * The type Diagonal direction.
  */
 //TODO MAYBE WE COULD SEPARATE THE 11TH AND THE 12TH INTO TWO SEPARATE OBJECT USING THE .size OF
 //THE COLUMN TO CALCULATE THE 12TH CARD
 //DIAGONALDIRECTION
-public class DiagonalDirection extends CommonGoalCardStrategy {
+public class DiagonalDirection extends CommonGoalCardStrategy implements Serializable  {
     private final int numToLook;
     private final boolean isEleven;
     private final String name;

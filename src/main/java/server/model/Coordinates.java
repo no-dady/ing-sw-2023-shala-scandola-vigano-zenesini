@@ -1,6 +1,8 @@
 package server.model;
 
+import java.io.Serializable;
+
 /**
  * The type Coordinates.
  */
-public record Coordinates(int x, int y){}
+public record Coordinates(int x, int y) implements Serializable {}

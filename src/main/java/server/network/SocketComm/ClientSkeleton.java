@@ -3,6 +3,7 @@ package server.network.SocketComm;
 import client.UI;
 import client.network.ClientInterface;
 import observer.Observer;
+import client.network.State;
 import server.model.Game;
 import server.model.Lobby;
 import server.network.Server;
@@ -22,13 +23,14 @@ import java.util.List;
 
 public class ClientSkeleton implements ClientInterface, Runnable {
     private ObjectOutputStream oos;
+    private State currState = State.WaitingForResponse;
 
     private final Socket socket;
 
     private final Server server;
 
     private String nickName;
-    
+
     private Lobby lobby;
 
     /**
@@ -112,6 +114,16 @@ public class ClientSkeleton implements ClientInterface, Runnable {
     @Override
     public void setGame(Game model) {
 
+    }
+
+    @Override
+    public void setState(State state) {
+        this.currState = state;
+    }
+
+    @Override
+    public State getState() throws RemoteException {
+        return null;
     }
 
     public String getNickname()

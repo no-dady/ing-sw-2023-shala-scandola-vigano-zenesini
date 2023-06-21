@@ -4,13 +4,14 @@ import server.model.Bookshelf;
 import server.model.CommonGoalCardStrategy;
 import server.model.Tile;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 
 /**
  * The type Square check.
  */
-public class SquareCheck extends CommonGoalCardStrategy {
+public class SquareCheck extends CommonGoalCardStrategy implements Serializable {
     private final String name;
 
     /**

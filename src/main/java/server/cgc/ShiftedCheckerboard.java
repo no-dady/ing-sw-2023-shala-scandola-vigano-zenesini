@@ -3,12 +3,13 @@ package server.cgc;
 import server.model.CommonGoalCardStrategy;
 import server.model.Tile;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * The type Shifted checkerboard.
  */
-public class ShiftedCheckerboard extends CommonGoalCardStrategy {
+public class ShiftedCheckerboard extends CommonGoalCardStrategy implements Serializable {
     private final String name;
     public ShiftedCheckerboard(String name){
         this.name = name;

@@ -3,12 +3,13 @@ import server.cgc.*;
 import setup.ConfigsFromJson;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * The type Common goal card strategy.
  */
-public abstract class CommonGoalCardStrategy {
+public abstract class CommonGoalCardStrategy implements Serializable {
     /**
      * The List common goal list.
      */

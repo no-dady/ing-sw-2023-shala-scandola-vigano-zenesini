@@ -23,7 +23,7 @@ import java.util.Scanner;
 public class TUI implements UI, Runnable {
     boolean moveHandled;
     final String bookshelfArt = ConfigsFromJson.getBookshelfArt("src/main/resources/json/bookshelf_art.json");
-    final String boardAndBookshelfArt  = ConfigsFromJson.getBoardAndBookshelfArt("src/main/resources/json/board_&_bookshelf_art.json");
+    final String boardAndBookshelfArt = ConfigsFromJson.getBoardAndBookshelfArt("src/main/resources/json/board_&_bookshelf_art.json");
     final Client client;
 
     public TUI(Client client) throws IOException {
@@ -54,10 +54,10 @@ public class TUI implements UI, Runnable {
         try {
             System.out.println("[type hostname, press ENTER]");
             host = in.nextLine();
-            if (!host.matches("\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b")){
-                throw (new Exception()) ;
+            if (!host.matches("\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b")) {
+                throw (new Exception());
             }
-        }catch( Exception e){
+        } catch (Exception e) {
             System.out.println("this is not a valid hostname");
             return;
         }
@@ -65,7 +65,7 @@ public class TUI implements UI, Runnable {
         try {
             System.out.println("[type port and press ENTER]");
             port = Integer.valueOf(in.nextLine());
-        }catch( Exception e){
+        } catch (Exception e) {
             System.out.println("this is not a valid port number");
             return;
         }
@@ -73,10 +73,10 @@ public class TUI implements UI, Runnable {
         try {
             System.out.println("[type RMI or SOCKET in order to choose your preferred connection method then press ENTER]");
             connectionType = in.nextLine();
-            if (!(connectionType.equals("RMI") || connectionType.equals("SOCKET"))){
-                throw (new Exception()) ;
+            if (!(connectionType.equals("RMI") || connectionType.equals("SOCKET"))) {
+                throw (new Exception());
             }
-        }catch( Exception e){
+        } catch (Exception e) {
             System.out.println("this is not a valid connection method");
             return;
         }
@@ -87,30 +87,31 @@ public class TUI implements UI, Runnable {
             throw new RuntimeException(e);
         }
 
-        if (client.isOnline()){
+        if (client.isOnline()) {
             try {
-                while (!client.getState().equals(State.setNick)){System.out.println("not yet");};
+                while (!client.getState().equals(State.setNick)) {
+                    System.out.println("not yet");
+                }
+                ;
                 System.out.println("[Insert your nickname and press ENTER]");
-                while (true)
-                {
+                do {
                     nickname = in.nextLine();
                     NicknameMessage nickMessage = new NicknameMessage(nickname);
                     String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
                     client.sendToServer(messageParsed);
-                    while (client.getState().equals(State.WaitingForResponse)){}
-                    if (client.getState().equals(State.WaitingStart) || client.getState().equals(State.SetPlayersNum))
-                    {
-                        break;
+                    while (client.getState().equals(State.WaitingForResponse)) {
                     }
-                    else if (client.getState().equals(State.setNick))
-                    {
+                    if (client.getState().equals(State.setNick)) {
                         System.out.println("[" + nickname + " was already taken, please insert another nickname and press ENTER]");
                     }
-                }
-            }catch (Exception e){
-                System.out.println("BAD");//client.receivedMessage);
+                } while (!client.getState().equals(State.WaitingStart) && !client.getState().equals(State.SetPlayersNum));
+            } catch (Exception e) {
+                System.out.println(client.getState());//client.receivedMessage);
             }
-            while (client.getState().equals(State.WaitingForResponse)){ System.out.println(client.getState().toString());};
+            while (client.getState().equals(State.WaitingForResponse)) {
+                System.out.println(client.getState().toString());
+            }
+            ;
             if (client.getState().equals(State.SetPlayersNum)) {
                 String playerNumberString;
                 int playerNumber = 2;
@@ -124,25 +125,31 @@ public class TUI implements UI, Runnable {
                 try
                 {
                     client.sendToServer(messageParsed);
-                } catch (RemoteException e) { System.out.println("Cannot send createLobby Message"); }
-            }
-            else {
+                } catch (RemoteException e) {
+                    System.out.println("Cannot send createLobby Message");
+                }
+            } else {
                 System.out.println("[Welcome to the lobby, you'll be waiting for the other players to join]");
             }
-        } else{
+        } else {
             System.out.println("[we were unable to connect to the server, check your internet connection and try later]");
             return;
         }
-        while (client.isActive() && client.isOnline());
+        System.out.println("0");
+        while (client.isActive() && client.isOnline()){
+                try {
+                    printState();
+                }
+                catch (NullPointerException e){}
         //COMMENTED THIS LINE vvv ONLY BECAUSE RIGHT NOW WE DONT HAVE A REAL GAME INSIDE THE CLIENT SO getGame LEAD TO A NULLPOINTEREXC
         //while (client.isActive() && client.isOnline() && !this.client.getGame().hasWinner());
-        while (client.getState().equals(State.NotMyTurn)){
+        while (client.getState().equals(State.NotMyTurn)) {
             //whatever you want to do whn you are not actively playing
         }
-        if (client.getState().equals(State.MyTurn)){
+        if (client.getState().equals(State.MyTurn)) {
             Object locker = new Object();
-            synchronized (locker){
-                while(!isMoveHandled()) {
+            synchronized (locker) {
+                while (!isMoveHandled()) {
                     System.out.println("[it's now your turn]");
                     printState();
                    // client.send(new TUISelectTiles(nickname).updateCLI(client.getGame(),in));
@@ -155,6 +162,8 @@ public class TUI implements UI, Runnable {
         }
 
     }
+
+}
 
     private boolean isMoveHandled() {
         return this.moveHandled;

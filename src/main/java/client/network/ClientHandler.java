@@ -23,7 +23,7 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ClientHandler extends UnicastRemoteObject implements ClientInterface, Serializable {
     private ServerInterface serverInterface;
-    private State currState = State.WaitingForResponse;
+    private State currState = State.WaitingStart;
     private Thread socketThread;
     private String nickName;
 
@@ -173,7 +173,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         this.currState = state;
     }
 
-    public synchronized State getCurrState() {
+    public synchronized State getState() {
         return currState;
     }
 

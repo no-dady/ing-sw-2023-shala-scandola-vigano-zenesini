@@ -1,6 +1,7 @@
  package server.model;
 
 import client.network.ClientInterface;
+import client.network.State;
 import server.controller.GameController;
 import server.exceptions.IllegalPlayersNumberException;
 import server.view.RemoteView;
@@ -25,7 +26,7 @@ public class Lobby {
     private Game game;
 
     private Map<String, ClientInterface> playerMap;
-    
+
     private HashMap<String, View> playersview= new HashMap<>();
 
     private GameController controller;
@@ -52,7 +53,7 @@ public class Lobby {
     {
         return playerMap.size() == playerNumber;
     }
-    
+
     public boolean isActive(){
         return active;
     }
@@ -64,7 +65,7 @@ public class Lobby {
     public void setGame(Game game) {
         this.game = game;
     }
-    
+
     public boolean checkNicknameAvailable(String nickName)
     {
         return playerMap.containsKey(nickName);
@@ -90,7 +91,7 @@ public class Lobby {
         {
             try {
                 startGame();
-            } catch (IllegalPlayersNumberException e) {
+            } catch (IllegalPlayersNumberException | RemoteException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -103,7 +104,7 @@ public class Lobby {
     public boolean disconnectPlayer(String nickname) throws RemoteException {
         if(playerMap.remove(nickname) != null) {
             if(isActive()) {
-                disconnectedPlayers.add(nickname); 
+                disconnectedPlayers.add(nickname);
             }
 
             if(playerMap.size() == 0) {
@@ -114,13 +115,13 @@ public class Lobby {
             for(String name: playerMap.keySet()) {
                 playerMap.get(name).send(Parser.toJson(new DisconnectMessage(playerMap.keySet(), nickname), Message.class));
             }
-        
+
             try {
                 playersview.get(nickname).setOffline(true);
             } catch (NullPointerException dc) {
             }
         } else throw new IllegalArgumentException();
-        
+
         return false;
     }
 
@@ -138,9 +139,10 @@ public class Lobby {
         } else throw new IllegalArgumentException();
     }
 
-    public void startGame() throws IllegalPlayersNumberException {
+    public void startGame() throws IllegalPlayersNumberException, RemoteException {
         for (var entry : playerMap.entrySet()) {
-            ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", all " + playerNumber + " players have joined, now the game will start");
+
+            ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", all " + playerNumber + " players have joined, now the game will start" + entry.getValue().getState());
             try
             {
                 entry.getValue().send(Parser.toJson(messageToSend, ConfirmMessage.class));
@@ -151,7 +153,31 @@ public class Lobby {
         }
         lobbyStatus = LobbyStatus.Playing;
         controller = new GameController();
+        System.out.println("eccoci qui");
         controller.createLobby(playerNumber, playerMap.keySet().stream().toList());
+        game = controller.getGame();
+        if (game!= null){
+            System.out.println(game);
+        }
+        else {
+            System.out.println("qualcosa non va, game è null");
+            return;
+        }
+        System.out.println("eccoci qui invece ora");
+        for (var entry : playerMap.entrySet()) {
+            entry.getValue().setGame(game);
+            entry.getValue().setState(State.MyTurn);
+            System.out.println(entry.getValue().getState());
+            ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model" + entry.getValue().getState());
+            try
+            {
+                entry.getValue().send(Parser.toJson(messageToSend, ConfirmMessage.class));
+            } catch(RemoteException e)
+            {
+                System.out.println("Cannot send ConfirmMessage from server lobby to client");
+            }
+        }
+
         setActive();
     }
 

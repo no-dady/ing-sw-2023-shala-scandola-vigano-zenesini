@@ -3,11 +3,13 @@ package server.cgc;
 import server.model.Tile;
 import server.model.CommonGoalCardStrategy;
 
+import java.io.Serializable;
+
 /**
  * The type Cross direction.
  */
 //CROSSDIRECTION
-public class CrossDirection extends CommonGoalCardStrategy {
+public class CrossDirection extends CommonGoalCardStrategy implements Serializable {
     private final int numToLook;
     private final String name;
 

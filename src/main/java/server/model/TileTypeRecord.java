@@ -1,12 +1,13 @@
 package server.model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 /**
  * The type Tile type record.
  */
-public class TileTypeRecord {
+public class TileTypeRecord implements Serializable {
     /**
      * The Color.
      */

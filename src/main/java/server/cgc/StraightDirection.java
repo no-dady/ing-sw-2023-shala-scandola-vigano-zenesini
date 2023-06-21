@@ -4,11 +4,13 @@ import server.model.Bookshelf;
 import server.model.CommonGoalCardStrategy;
 import server.model.Tile;
 
+import java.io.Serializable;
+
 /**
  * The type Straight direction.
  */
 // TODO: Test algorithms for performance and correctness
-public class StraightDirection extends CommonGoalCardStrategy {
+public class StraightDirection extends CommonGoalCardStrategy implements Serializable {
     private int numToLook;
     private int timesToLook;
     private boolean isEqual;
