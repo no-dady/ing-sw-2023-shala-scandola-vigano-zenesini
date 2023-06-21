@@ -1,13 +1,19 @@
-package server.model;
+ package server.model;
 
 import client.network.ClientInterface;
 import server.controller.GameController;
 import server.exceptions.IllegalPlayersNumberException;
+import server.view.RemoteView;
+import server.view.View;
 import util.Messages.ConfirmMessage;
+import util.Messages.DisconnectMessage;
+import util.Messages.Message;
+import util.Messages.ReconnectMessage;
 import util.Parser;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +22,16 @@ public class Lobby {
 
     private LobbyStatus lobbyStatus;
 
+    private Game game;
+
     private Map<String, ClientInterface> playerMap;
+    
+    private HashMap<String, View> playersview= new HashMap<>();
 
     private GameController controller;
+
+    private final ArrayList<String> disconnectedPlayers = new ArrayList<>();
+    private boolean active = false;
 
     private String lobbyName;
 
@@ -39,7 +52,19 @@ public class Lobby {
     {
         return playerMap.size() == playerNumber;
     }
+    
+    public boolean isActive(){
+        return active;
+    }
 
+    public void setActive(){
+        active=true;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+    
     public boolean checkNicknameAvailable(String nickName)
     {
         return playerMap.containsKey(nickName);
@@ -71,6 +96,48 @@ public class Lobby {
         }
     }
 
+    public String getLobbyName() {
+        return lobbyName;
+    }
+
+    public boolean disconnectPlayer(String nickname) throws RemoteException {
+        if(playerMap.remove(nickname) != null) {
+            if(isActive()) {
+                disconnectedPlayers.add(nickname); 
+            }
+
+            if(playerMap.size() == 0) {
+                clear();
+                return true;
+            }
+
+            for(String name: playerMap.keySet()) {
+                playerMap.get(name).send(Parser.toJson(new DisconnectMessage(playerMap.keySet(), nickname), Message.class));
+            }
+        
+            try {
+                playersview.get(nickname).setOffline(true);
+            } catch (NullPointerException dc) {
+            }
+        } else throw new IllegalArgumentException();
+        
+        return false;
+    }
+
+    public void reconnectPlayer(String nickname, ClientInterface conn) throws RemoteException {
+        if(disconnectedPlayers.contains(nickname)) {
+            playerMap.put(nickname, conn);
+            playersview.get(nickname).setOffline(false);
+            ((RemoteView) playersview.get(nickname)).setClientConnection(conn);
+            playersview.get(nickname).sendInitialMessage(game, getLobbyName());
+            for(String name: playerMap.keySet()) {
+                playerMap.get(name).send(Parser.toJson(new ReconnectMessage(playerMap.keySet(), nickname), Message.class));
+            }
+
+            disconnectedPlayers.remove(nickname);
+        } else throw new IllegalArgumentException();
+    }
+
     public void startGame() throws IllegalPlayersNumberException {
         for (var entry : playerMap.entrySet()) {
             ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", all " + playerNumber + " players have joined, now the game will start");
@@ -85,5 +152,26 @@ public class Lobby {
         lobbyStatus = LobbyStatus.Playing;
         controller = new GameController();
         controller.createLobby(playerNumber, playerMap.keySet().stream().toList());
+        setActive();
+    }
+
+    public boolean findDisconnectedPlayers(String nickname) {
+        return disconnectedPlayers.contains(nickname);
+    }
+
+    public Map<String, ClientInterface> getConnections() {
+        return playerMap;
+    }
+
+    public void clear() {
+        if(game!=null){
+            //game.close();
+            game=null;
+            controller=null;
+        }
+        playerMap.clear();
+        playersview.clear();
+        disconnectedPlayers.clear();
+        active=false;
     }
 }

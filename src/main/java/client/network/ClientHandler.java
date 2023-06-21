@@ -2,6 +2,7 @@ package client.network;
 
 import client.Client;
 import client.UI;
+import observer.Observer;
 import server.model.Game;
 import server.network.ServerInterface;
 import util.Messages.*;
@@ -174,5 +175,17 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     public synchronized State getCurrState() {
         return currState;
+    }
+
+    @Override
+    public void addObserver(Observer<String> observer) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addObserver'");
+    }
+
+    @Override
+    public void notify(String message) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'notify'");
     }
 }
