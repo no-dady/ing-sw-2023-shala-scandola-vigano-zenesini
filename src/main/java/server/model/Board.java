@@ -2,11 +2,16 @@ package server.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
+import observer.Observable;
+import observer.Observer;
+import util.Messages.Message;
 
 /**
  * The type Board.
  */
-public class Board implements Serializable {
+public class Board implements Serializable, Observable<Message> {
     private final ArrayList<CommonGoalCardStrategy> commonGoalCardStrategies;
     private Tile[][] slots;
 
@@ -92,4 +97,23 @@ public class Board implements Serializable {
 
     }
 
+    private transient final List<Observer<Message>> observers = new ArrayList<>();
+
+    
+    @Override
+    public void addObserver(Observer<Message> observer){
+        synchronized (observers) {
+            observers.add(observer);
+        }
+    }
+
+    
+    @Override
+    public void notify(Message message) {
+        synchronized (observers) {
+            for(Observer<Message> observer : observers){
+                observer.update(message);
+            }
+        }
+    }
 }
