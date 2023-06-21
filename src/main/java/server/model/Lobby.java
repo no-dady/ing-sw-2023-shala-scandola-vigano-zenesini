@@ -168,6 +168,7 @@ public class Lobby {
             entry.getValue().setGame(game);
             entry.getValue().setState(State.MyTurn);
             System.out.println(entry.getValue().getState());
+            System.out.println(entry.getValue().getGame());
             ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model" + entry.getValue().getState());
             try
             {

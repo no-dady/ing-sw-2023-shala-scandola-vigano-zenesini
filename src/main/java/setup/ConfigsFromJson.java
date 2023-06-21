@@ -37,7 +37,7 @@ public class ConfigsFromJson {
         return new Gson().fromJson(reader, String.class);
     }
     public static String getBoardAndBookshelfArt(String jsonPath) throws RuntimeException, IOException {
-        FileReader reader = new FileReader(jsonPath);//"src/main/resources/json/board_&_bookshelf_art.json"
+        FileReader reader = new FileReader(jsonPath);//"src/main/resources/json/board_bookshelf_pgc_art.json"
         return new Gson().fromJson(reader, String.class);
     }
 

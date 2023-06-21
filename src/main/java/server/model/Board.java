@@ -76,22 +76,25 @@ public class Board implements Serializable, Observable<Message> {
         return commonGoalCardStrategies;
     }
     public void updatePickable() {
-        int count = 0;
-        for (int x = 0; x< this.getSlots().length; x++){
-            for (int y = 0; y< this.getSlots()[0].length; y++){
-                if((x != 0 && slots[x-1][y].Empty())){
-                    count=count+1;
+        int count;
+        for (int x = 0; x< slots.length; x++){
+            for (int y = 0; y< slots[0].length; y++){
+                if (!slots[x][y].Empty()) {
+                    count = 0;
+                    if ((x != 0 && slots[x - 1][y].Empty())) {
+                        count += 1;
+                    }
+                    if ((x != slots.length - 1 && slots[x + 1][y].Empty())) {
+                        count += 1;
+                    }
+                    if ((y != 0 && slots[x][y - 1].Empty())) {
+                        count += 1;
+                    }
+                    if ((y != slots[0].length - 1 && slots[x][y + 1].Empty())) {
+                        count += 1;
+                    }
+                    slots[x][y].setPickable(count >= 2);
                 }
-                if((x != this.getSlots().length && slots[x+1][y].Empty())){
-                    count=count+1;
-                }
-                if((y!=0 && slots[x][y-1].Empty())){
-                    count=count+1;
-                }
-                if((y != this.getSlots()[0].length && slots[x][y+1].Empty())){
-                    count=count+1;
-                }
-                this.getSlots()[x][y].setPickable(count >= 2);
             }
         }
 

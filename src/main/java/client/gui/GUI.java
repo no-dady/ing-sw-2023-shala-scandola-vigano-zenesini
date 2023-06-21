@@ -82,29 +82,7 @@ public class GUI extends Application implements UI {
         primaryStage.setFullScreen(false);
     }
 
-    @Override
     public void setNickname(String nickname) {
-
-    }
-
-
-    @Override
-    public void setPlayerNumber(int playerNumber) {
-
-    }
-
-    @Override
-    public void setSelectedTiles(String selectedTiles) {
-
-    }
-
-    @Override
-    public void setSelectedColum(int selectedColum) {
-
-    }
-
-    @Override
-    public void getInfoAboutOtherPlayers(String playerNickname) {
 
     }
     public void activate(String name) {

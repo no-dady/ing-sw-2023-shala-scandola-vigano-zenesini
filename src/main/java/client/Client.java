@@ -18,7 +18,7 @@ public class Client {
     private boolean online = false;
     private String ip;
     private int port;
-    private Game game;
+
 
     public Client(boolean gui) throws IOException {
         this.active = true;
@@ -84,14 +84,22 @@ public class Client {
     }
 
     public Game getGame() {
-        return game;
+        try {
+            return clientConnection.getGame();
+        }catch (RemoteException e){}
+        return null;
     }
-    public void setGame(Game game) {
-        this.game = game;
+    public void setGame(Game game)  {
+        try {
+            clientConnection.setGame(game);
+        }catch (RemoteException e){}
     }
 
-    public State getState(){
-        return clientConnection.getState();
+    public State getState() {
+        try {
+            return clientConnection.getState();
+        }catch (RemoteException e){}
+        return null;
     }
 
     public void sendToServer(String parsedString) throws RemoteException

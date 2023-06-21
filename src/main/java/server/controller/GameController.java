@@ -41,11 +41,11 @@ public class GameController implements Observer<Action> {
     /**
      * The Slots.
      */
-    protected static Tile[][] slots = BoardConfig.newEmptyBoard();;
+    protected static Tile[][] slots;
     /**
      * The constant board.
      */
-    protected static Board board = new Board(slots);
+    protected static Board board;
 
     /**
      * Instantiates a new Game controller.
@@ -53,11 +53,13 @@ public class GameController implements Observer<Action> {
     public GameController() {
         players = new ArrayList<>();
         try {
+            new TileType();
             pgcList = ConfigsFromJson.getpgcList("src/main/resources/json/personalgoalcards.json");
         }catch (Exception e){
             System.out.println("exception");
         }
         slots = BoardConfig.newEmptyBoard();
+        board = new Board(slots);
     }
 
     /**
@@ -76,6 +78,7 @@ public class GameController implements Observer<Action> {
             case 2, 3, 4 -> board = new Board(BoardConfig.fillBoard(board.getSlots(), pocket, playerNumber));
             default -> throw new IllegalPlayersNumberException("wait, you are doing something wrong");
         }
+        board.updatePickable();
         game = new Game(players, cgcList, board, pocket, playerNumber);
         System.out.println("created game for" + playerNicknames);
         return;

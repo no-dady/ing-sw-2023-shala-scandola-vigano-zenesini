@@ -39,13 +39,13 @@ public class RemoteView extends View {
 
     private ClientInterface clientConnection;
 
-    public RemoteView(Player player, ClientInterface c) {
+    public RemoteView(Player player, ClientInterface c) throws RemoteException {
         super(player);
         this.clientConnection = c;
         c.addObserver(new MessageReceiver());
     }
 
-    public void setClientConnection(ClientInterface clientConnection) {
+    public void setClientConnection(ClientInterface clientConnection) throws RemoteException {
         this.clientConnection = clientConnection;
         clientConnection.addObserver(new MessageReceiver());
     }

@@ -23,6 +23,7 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ClientHandler extends UnicastRemoteObject implements ClientInterface, Serializable {
     private ServerInterface serverInterface;
+    private Game game;
     private State currState = State.WaitingStart;
     private Thread socketThread;
     private String nickName;
@@ -160,20 +161,21 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     @Override
     public Game getGame() throws RemoteException{
-        return null;
+        return this.game;
+
     }
 
     @Override
     public void setGame(Game model) throws RemoteException{
-
+        this.game = model;
     }
 
-    public synchronized void setState(State state)
+    public synchronized void setState(State state) throws RemoteException
     {
         this.currState = state;
     }
 
-    public synchronized State getState() {
+    public synchronized State getState()throws RemoteException {
         return currState;
     }
 

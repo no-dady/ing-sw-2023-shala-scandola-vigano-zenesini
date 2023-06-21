@@ -22,17 +22,21 @@ import java.util.Scanner;
 
 public class TUI implements UI, Runnable {
     boolean moveHandled;
-    final String bookshelfArt = ConfigsFromJson.getBookshelfArt("src/main/resources/json/bookshelf_art.json");
-    final String boardAndBookshelfArt = ConfigsFromJson.getBoardAndBookshelfArt("src/main/resources/json/board_&_bookshelf_art.json");
+    String boardAndBookshelfArt;
     final Client client;
 
     public TUI(Client client) throws IOException {
         this.client = client;
     }
+    private String nickname;
 
     @Override
     public void run() {
-        String nickname = "";
+        try {
+            boardAndBookshelfArt = ConfigsFromJson.getBoardAndBookshelfArt("src/main/resources/json/board_bookshelf_pgc_art.json");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String connectionType;
         String host;
         int port;
@@ -136,32 +140,43 @@ public class TUI implements UI, Runnable {
             return;
         }
         System.out.println("0");
-        while (client.isActive() && client.isOnline()){
+        while(client.getState()!=State.MyTurn);
+        if (client.isActive() && client.isOnline()){
+            if (client.getGame()!=null) {
                 try {
+                    boardAndBookshelfArt = setPGCart(boardAndBookshelfArt);
                     printState();
-                }
-                catch (NullPointerException e){}
-        //COMMENTED THIS LINE vvv ONLY BECAUSE RIGHT NOW WE DONT HAVE A REAL GAME INSIDE THE CLIENT SO getGame LEAD TO A NULLPOINTEREXC
-        //while (client.isActive() && client.isOnline() && !this.client.getGame().hasWinner());
-        while (client.getState().equals(State.NotMyTurn)) {
-            //whatever you want to do whn you are not actively playing
-        }
-        if (client.getState().equals(State.MyTurn)) {
-            Object locker = new Object();
-            synchronized (locker) {
-                while (!isMoveHandled()) {
-                    System.out.println("[it's now your turn]");
-                    printState();
-                   // client.send(new TUISelectTiles(nickname).updateCLI(client.getGame(),in));
-                   // client.send(new TUISelectColumn(nickname).updateCLI(client.getGame(),in));
-                    this.setMoveHandled(true);
+                } catch (NullPointerException ignored) {
+                } catch (RemoteException e) {
+                    System.out.println("zzoca");
                 }
             }
-            this.setMoveHandled(false);
-            locker.notifyAll();
+            //COMMENTED THIS LINE vvv ONLY BECAUSE RIGHT NOW WE DONT HAVE A REAL GAME INSIDE THE CLIENT SO getGame LEAD TO A NULLPOINTEREXC
+        //while (client.isActive() && client.isOnline() && !this.client.getGame().hasWinner());
+        while (true) {
+            if (!client.getState().equals(State.NotMyTurn)) break;
+            //whatever you want to do whn you are not actively playing
         }
+            try {
+                if (client.getState().equals(State.MyTurn)) {
+                    Object locker = new Object();
+                    synchronized (locker) {
+                        while (!isMoveHandled()) {
+                            System.out.println("[it's now your turn]");
+                            printState();
+                           // client.send(new TUISelectTiles(nickname).updateCLI(client.getGame(),in));
+                           // client.send(new TUISelectColumn(nickname).updateCLI(client.getGame(),in));
+                            this.setMoveHandled(true);
+                        }
+                    }
+                    this.setMoveHandled(false);
+                    locker.notifyAll();
+                }
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
 
-    }
+        }
 
 }
 
@@ -185,36 +200,65 @@ public class TUI implements UI, Runnable {
 
     }
 
-    @Override
-    public void setNickname(String nickname) {
-
+    private void setNickname(String nickname){
+        this.nickname = nickname;
     }
 
-    @Override
-    public void setPlayerNumber(int playerNumber) {
-
-    }
-
-    @Override
-    public void setSelectedTiles(String selectedTiles) {
-
-    }
-
-    @Override
-    public void setSelectedColum(int selectedColum) {
-
-    }
-
-    @Override
-    public void getInfoAboutOtherPlayers(String playerNickname) {
-
-    }
-
-    public void printState(){
+    private String setPGCart(String boardAndBookshelfArt){
+        TileType tiletemp = new TileType();
+        PersonalGoalCard pgc = null;
+        String art = boardAndBookshelfArt;
+        int x = Bookshelf.getRows()+10, y = 0;
         Game game = this.client.getGame();
+        for (Player player: game.getPlayers()
+             ) {System.out.println(nickname + " " + player.getUserName());
+            if (player.getUserName().equals(nickname)){
+                 pgc = player.getPersonalGoalCard();
+        }
+
+        }
+        String preset = "\033[";
+        String reset = "0m";
+        for (int i = 0; i< art.length(); i++) {
+            if (art.charAt(i) == 'x') {
+                int found = 0;
+                for (int j = 0; j<TileType.getTileMap().values().size()-1; j++) {
+                    assert pgc != null;
+                    if (pgc.getCoordinates(TileType.getTileMap().keySet().stream().toList().get(j)).y()==y & pgc.getCoordinates(TileType.getTileMap().keySet().stream().toList().get(j)).x()==x){
+                        String firstHalf = art.substring(0,i);
+                        String secondHalf = art.substring(i+1);
+                        art = firstHalf + preset + TileType.getTileMap().get(TileType.getTileMap().keySet().stream().toList().get(j)).color + "  " + preset + reset + secondHalf;
+                        found = 1;
+                    }
+
+                }
+                if (found == 0){
+                    String firstHalf = art.substring(0,i);
+                    String secondHalf = art.substring(i+1);
+                    art = firstHalf + "  " + secondHalf;
+                }
+                y++;
+            } else if (art.charAt(i) == '\n') {
+                x--;
+                y = 0;
+
+            }
+        }
+        return art;
+    }
+
+    public void printState() throws RemoteException {
+        Game game = this.client.getGame();
+        TileType tiletemp = new TileType();
         int x = 0, y = 0;
         Tile[][] slots = game.getBoard().getSlots();
-        Tile[][] places = game.getPlayers().get(game.getCurrPlayerId()).getBookshelf().getSlots();
+        Tile[][] places = null;
+        for (Player player: game.getPlayers()
+        ) {
+            if (player.getUserName().equals(nickname)) {
+                places = player.getBookshelf().getSlots();
+            }
+        }
         for (int i = 0; i < boardAndBookshelfArt.length(); i++) {
             if ('X' == boardAndBookshelfArt.charAt(i)) {
                 String PRESET = "\033[";
@@ -223,11 +267,16 @@ public class TUI implements UI, Runnable {
                 String RESET = "0m";
                 if (y < slots[0].length) {
                     if (slots[x][y].isPickable()) color = TileType.getTileMap().get(slots[x][y].getTileType()).color;
+                    if (slots[x][y].Empty()) color = RESET;
                     System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(slots[x][y].getTileType()).sign + PRESET + RESET);
-                } else{
-                    System.out.print(slots.length + " " +  places.length + " " +places[0].length +" " +x+ " " + y);
-                    color = TileType.getTileMap().get(places[x - (slots.length - places.length) ][y - slots[0].length].getTileType()).color;
-                    System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(places[x - (slots.length - places.length) ][y - slots[0].length].getTileType()).sign + PRESET + RESET);
+                } else {
+                    if (places[x - (slots.length - 1 - places.length - 1) - 2 ][y - slots[0].length] != null) {
+                        color = TileType.getTileMap().get(places[x - (slots.length - 1 - places.length - 1) -2][y - slots[0].length].getTileType()).color;
+                        System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(places[x - (slots.length - 1 - places.length - 1) -2][y - slots[0].length].getTileType()).sign + PRESET + RESET);
+                    }
+                    else {
+                        System.out.print(PRESET + RESET + PRESET + BLACK_BOLD + "   " + PRESET + RESET);
+                    }
                 }
                 y++;
             } else {
