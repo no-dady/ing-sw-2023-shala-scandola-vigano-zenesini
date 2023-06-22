@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TUI implements UI, Runnable {
+    private String cgcs;
     boolean moveHandled;
     String boardAndBookshelfArt;
     final Client client;
@@ -145,10 +146,13 @@ public class TUI implements UI, Runnable {
             if (client.getGame() != null) {
                 try {
                     boardAndBookshelfArt = setPGCart(boardAndBookshelfArt);
+                    cgcs = concatCGCarts(ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" + client.getGame().getBoard().getCommonGoalCards().get(0).getName() + ".json"), ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" +client.getGame().getBoard().getCommonGoalCards().get(1).getName() + ".json"));
                     printState();
                 } catch (NullPointerException ignored) {
                 } catch (RemoteException e) {
                     System.out.println("Something went wrong with the creation of the model");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             }
             //COMMENTED THIS LINE vvv ONLY BECAUSE RIGHT NOW WE DONT HAVE A REAL GAME INSIDE THE CLIENT SO getGame LEAD TO A NULLPOINTEREXC
@@ -203,6 +207,17 @@ public class TUI implements UI, Runnable {
 
     private void setNickname(String nickname){
         this.nickname = nickname;
+    }
+    private String concatCGCarts(String cgc1, String cgc2){
+        String cgc1And2 = "";
+
+        String[] cgc1Array = cgc1.split("\n");
+        String[] cgc2Array = cgc2.split("\n");
+        for (int i = 0; i< cgc1Array.length; i++) {
+            cgc1And2  += ("\t\t\t\t" + cgc1Array[i] + "\t\t\t\t" + cgc2Array[i] + "\n");
+
+        }
+        return cgc1And2;
     }
 
     private String setPGCart(String boardAndBookshelfArt){
@@ -288,5 +303,6 @@ public class TUI implements UI, Runnable {
                 y = 0;
             }
         }
+        System.out.println("\n" + cgcs);
     }
 }
