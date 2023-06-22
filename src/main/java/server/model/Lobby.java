@@ -77,23 +77,23 @@ public class Lobby {
         {
             for (var entry : playerMap.entrySet())
             {
-                ConfirmMessage messageToSendForOther = new ConfirmMessage(nickName + " joined the lobby");
+                ConfirmMessage messageToSendForOther = new ConfirmMessage(nickName + " joined the lobby", 2);
                 entry.getValue().send(Parser.toJson(messageToSendForOther, ConfirmMessage.class));
             }
             this.playerMap.put(nickName, clientInterface);
-            ConfirmMessage messageToSend = new ConfirmMessage("Joined " + lobbyName);
-            clientInterface.send(Parser.toJson(messageToSend, ConfirmMessage.class));
-        } catch (IOException e)
+            ConfirmMessage messageToSend;
+            if (this.playerMap.size() == playerNumber)
+            {
+                messageToSend = new ConfirmMessage("Joined " + lobbyName, 3);
+                clientInterface.send(Parser.toJson(messageToSend, ConfirmMessage.class));
+                startGame();
+            } else {
+                messageToSend = new ConfirmMessage("Joined " + lobbyName, 1);
+                clientInterface.send(Parser.toJson(messageToSend, ConfirmMessage.class));
+            }
+        } catch (IOException | IllegalPlayersNumberException e)
         {
             System.out.println("Lobby cannot send confirm to client");
-        }
-        if (this.playerMap.size() == playerNumber)
-        {
-            try {
-                startGame();
-            } catch (IllegalPlayersNumberException | RemoteException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 
@@ -142,7 +142,7 @@ public class Lobby {
     public void startGame() throws IllegalPlayersNumberException, RemoteException {
         for (var entry : playerMap.entrySet()) {
 
-            ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", all " + playerNumber + " players have joined, now the game will start" + entry.getValue().getState());
+            ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", all " + playerNumber + " players have joined, now the game will start" + entry.getValue().getState(), 4);
             try
             {
                 entry.getValue().send(Parser.toJson(messageToSend, ConfirmMessage.class));
@@ -152,6 +152,7 @@ public class Lobby {
             }
         }
         lobbyStatus = LobbyStatus.Playing;
+        System.out.println("Creating Game");
         controller = new GameController();
         System.out.println("eccoci qui");
         controller.createLobby(playerNumber, playerMap.keySet().stream().toList());
@@ -169,7 +170,7 @@ public class Lobby {
             entry.getValue().setState(State.MYTURN);
             System.out.println(entry.getValue().getState());
             System.out.println(entry.getValue().getGame());
-            ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model" + entry.getValue().getState());
+            ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model" + entry.getValue().getState(), 5);
             try
             {
                 entry.getValue().send(Parser.toJson(messageToSend, ConfirmMessage.class));

@@ -30,7 +30,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     public ClientHandler(String ip, int port) throws RemoteException, MalformedURLException, NotBoundException {
         super();
-        serverInterface = (ServerInterface) Naming.lookup("rmi://localhost:1900" + "/myShelfie");
+        serverInterface = (ServerInterface) Naming.lookup("rmi://" + ip + ":" + port + "/myShelfie");
 
         initialize(serverInterface);
     }
@@ -121,10 +121,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                     //CreateLobbyMessage createLobbyMessage = new CreateLobbyMessage(this.nickName, playerNumber);
                     //serverInterface.send(Parser.toJson(createLobbyMessage, CreateLobbyMessage.class));
                     break;
-                case 2:
-                    setState(State.WAITINGINLOBBY);
-                    System.out.println("Waiting in lobby");
-                    break;
             }
         } else if(string.contains("errorMessage"))//if (messageReceived instanceof ConfirmMessage trueMessageReceived)
         {
@@ -153,8 +149,22 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         } else
         {
             ConfirmMessage trueMessageReceived = Parser.fromJson(string, ConfirmMessage.class);
-            System.out.println(trueMessageReceived.getMessage());
-            setState(State.WAITINGFORGAMESTART);
+            switch(trueMessageReceived.getConfirmNumber())
+            {
+                case 0:
+                case 1:
+                    setState(State.WAITINGINLOBBY);
+                    System.out.println("Waiting in lobby");
+                    break;
+
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    System.out.println(trueMessageReceived.getMessage());
+                    break;
+
+            }
         }
     }
 

@@ -6,6 +6,7 @@ import java.util.List;
 
 import observer.Observable;
 import observer.Observer;
+import org.javatuples.Pair;
 import util.Messages.Message;
 
 /**
@@ -21,9 +22,15 @@ public class Board implements Serializable, Observable<Message> {
      * @param slots the slots
      */
     public Board(Tile[][] slots) {
+        System.out.println("Creating array");
         this.commonGoalCardStrategies = new ArrayList<>(2);
-        this.commonGoalCardStrategies.add(CommonGoalCardStrategy.getRandomCard());
-        this.commonGoalCardStrategies.add(CommonGoalCardStrategy.getRandomCard());
+        System.out.println("Choosing first cgc");
+        Pair<CommonGoalCardStrategy, CommonGoalCardStrategy> cGcs = CommonGoalCardStrategy.getRandomCards();
+        System.out.println("Adding First cgc");
+        this.commonGoalCardStrategies.add(cGcs.getValue0());
+        System.out.println("Adding second cgc");
+        this.commonGoalCardStrategies.add(cGcs.getValue1());
+        System.out.println("Saving slots");
         this.slots = slots;
     }
 

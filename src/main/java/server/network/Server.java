@@ -140,17 +140,14 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
                     System.out.println(nickName + " was already taken");
                     ErrorMessage message = new ErrorMessage("Nickname already taken");
                     clientInterface.send(Parser.toJson(message, ErrorMessage.class));
-                    }
-                AskMoveMessage messageToSend = new AskMoveMessage(2);
-                clientInterface.send(Parser.toJson(messageToSend, AskMoveMessage.class));
-
+                }
             }
         } else //if(messageReceived instanceof CreateLobbyMessage trueMessageReceived)
         {
             CreateLobbyMessage trueMessageReceived = Parser.fromJson(string, CreateLobbyMessage.class);
             Lobby newLobby = new Lobby(trueMessageReceived.getNumberOfPlayer(), tempClient, trueMessageReceived.getNickName());
             lobbyList.add(newLobby);
-            ConfirmMessage messageToSend = new ConfirmMessage("Joined Lobby as Admin");
+            ConfirmMessage messageToSend = new ConfirmMessage("Joined Lobby as Admin", 0);
             tempClient.send(Parser.toJson(messageToSend, ConfirmMessage.class));
             tempClient = null;
         }

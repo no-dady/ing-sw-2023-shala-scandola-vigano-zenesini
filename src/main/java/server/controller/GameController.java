@@ -51,14 +51,19 @@ public class GameController implements Observer<Action> {
      * Instantiates a new Game controller.
      */
     public GameController() {
+        System.out.println("Creating Playerlist");
         players = new ArrayList<>();
+        System.out.println("Creating TileType");
         try {
             new TileType();
+            System.out.println("Parsing pgcList");
             pgcList = ConfigsFromJson.getpgcList("src/main/resources/json/personalgoalcards.json");
         }catch (Exception e){
             System.out.println("exception");
         }
+        System.out.println("Getting empty Board");
         slots = BoardConfig.newEmptyBoard();
+        System.out.println("Creating slots Board");
         board = new Board(slots);
     }
 
