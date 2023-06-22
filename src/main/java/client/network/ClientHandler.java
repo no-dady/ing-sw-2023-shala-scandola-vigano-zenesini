@@ -24,7 +24,7 @@ import java.rmi.server.UnicastRemoteObject;
 public class ClientHandler extends UnicastRemoteObject implements ClientInterface, Serializable {
     private ServerInterface serverInterface;
     private Game game;
-    private State currState = State.WaitingStart;
+    private State currState = State.WAITINGFORGAMESTART;
     private Thread socketThread;
     private String nickName;
 
@@ -65,7 +65,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     public void sendToServer(String string) throws RemoteException
     {
-        currState = State.WaitingForResponse;
+        currState = State.WAITINGFORRESPONSE;
         serverInterface.send(string);
     }
 
@@ -97,12 +97,12 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                     //System.out.println("Sending nickname");
                     //String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
                     //System.out.println("Sending parsed message");
-                    setState(State.setNick);
+                    setState(State.SETTINGNICKNAME);
                     //serverInterface.send(Parser.toJson(nickMessage, NicknameMessage.class));
                     break;
 
                 case 1:
-                    setState(State.SetPlayersNum);
+                    setState(State.SETTINGPLAYERSNUMBER);
                     System.out.println("Setted playernUm");
                     //System.out.println("You are the admin of the Lobby!\nPlayer number for the new Lobby: ");
                     //currState = State.SetPlayersNum;
@@ -120,6 +120,10 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                     //}
                     //CreateLobbyMessage createLobbyMessage = new CreateLobbyMessage(this.nickName, playerNumber);
                     //serverInterface.send(Parser.toJson(createLobbyMessage, CreateLobbyMessage.class));
+                    break;
+                case 2:
+                    setState(State.WAITINGINLOBBY);
+                    System.out.println("Waiting in lobby");
                     break;
             }
         } else if(string.contains("errorMessage"))//if (messageReceived instanceof ConfirmMessage trueMessageReceived)
@@ -144,13 +148,13 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                 //String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
                 //System.out.println("Sending parsed message");
                 //serverInterface.send(Parser.toJson(nickMessage, NicknameMessage.class));
-                setState(State.setNick);
+                setState(State.SETTINGNICKNAME);
             }
         } else
         {
             ConfirmMessage trueMessageReceived = Parser.fromJson(string, ConfirmMessage.class);
             System.out.println(trueMessageReceived.getMessage());
-            setState(State.WaitingStart);
+            setState(State.WAITINGFORGAMESTART);
         }
     }
 

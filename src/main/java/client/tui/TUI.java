@@ -93,7 +93,7 @@ public class TUI implements UI, Runnable {
 
         if (client.isOnline()) {
             try {
-                while (!client.getState().equals(State.setNick)) {
+                while (!client.getState().equals(State.SETTINGNICKNAME)) {
                     System.out.println("not yet");
                 }
                 ;
@@ -103,20 +103,20 @@ public class TUI implements UI, Runnable {
                     NicknameMessage nickMessage = new NicknameMessage(nickname);
                     String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
                     client.sendToServer(messageParsed);
-                    while (client.getState().equals(State.WaitingForResponse)) {
+                    while (client.getState().equals(State.WAITINGFORRESPONSE)) {
                     }
-                    if (client.getState().equals(State.setNick)) {
+                    if (client.getState().equals(State.SETTINGNICKNAME)) {
                         System.out.println("[" + nickname + " was already taken, please insert another nickname and press ENTER]");
                     }
-                } while (!client.getState().equals(State.WaitingStart) && !client.getState().equals(State.SetPlayersNum));
+                } while (client.getState().equals(State.SETTINGNICKNAME));
             } catch (Exception e) {
                 System.out.println(client.getState());//client.receivedMessage);
             }
-            while (client.getState().equals(State.WaitingForResponse)) {
+            while (client.getState().equals(State.WAITINGFORRESPONSE)) {
                 System.out.println(client.getState().toString());
             }
             ;
-            if (client.getState().equals(State.SetPlayersNum)) {
+            if (client.getState().equals(State.SETTINGPLAYERSNUMBER)) {
                 String playerNumberString;
                 int playerNumber = 2;
                 do {
@@ -126,59 +126,60 @@ public class TUI implements UI, Runnable {
                 } while (playerNumber < 2 || playerNumber > 4);
                 CreateLobbyMessage createLobbyMessage = new CreateLobbyMessage(nickname, playerNumber);
                 String messageParsed = Parser.toJson(createLobbyMessage, CreateLobbyMessage.class);
-                try
-                {
+                try {
                     client.sendToServer(messageParsed);
                 } catch (RemoteException e) {
                     System.out.println("Cannot send createLobby Message");
                 }
-            } else {
-                System.out.println("[Welcome to the lobby, you'll be waiting for the other players to join]");
             }
+            System.out.println("[Welcome to the lobby, you'll be waiting for the other players to join]");
+
         } else {
             System.out.println("[we were unable to connect to the server, check your internet connection and try later]");
             return;
         }
-        System.out.println("0");
-        while(client.getState()!=State.MyTurn);
-        if (client.isActive() && client.isOnline()){
-            if (client.getGame()!=null) {
+
+        while (!client.getState().equals(State.MYTURN)) ;
+
+        if (client.isActive() && client.isOnline()) {
+            if (client.getGame() != null) {
                 try {
                     boardAndBookshelfArt = setPGCart(boardAndBookshelfArt);
                     printState();
                 } catch (NullPointerException ignored) {
                 } catch (RemoteException e) {
-                    System.out.println("zzoca");
+                    System.out.println("Something went wrong with the creation of the model");
                 }
             }
             //COMMENTED THIS LINE vvv ONLY BECAUSE RIGHT NOW WE DONT HAVE A REAL GAME INSIDE THE CLIENT SO getGame LEAD TO A NULLPOINTEREXC
-        //while (client.isActive() && client.isOnline() && !this.client.getGame().hasWinner());
-        while (true) {
-            if (!client.getState().equals(State.NotMyTurn)) break;
-            //whatever you want to do whn you are not actively playing
-        }
-            try {
-                if (client.getState().equals(State.MyTurn)) {
-                    Object locker = new Object();
-                    synchronized (locker) {
-                        while (!isMoveHandled()) {
-                            System.out.println("[it's now your turn]");
-                            printState();
-                           // client.send(new TUISelectTiles(nickname).updateCLI(client.getGame(),in));
-                           // client.send(new TUISelectColumn(nickname).updateCLI(client.getGame(),in));
-                            this.setMoveHandled(true);
-                        }
-                    }
-                    this.setMoveHandled(false);
-                    locker.notifyAll();
+            while (client.isActive() && client.isOnline() && !this.client.getGame().hasWinner()) {
+                while (!client.getState().equals(State.WAITINGFORMYTURN)) {
+                    //whatever you want to do whn you are not actively playing
+                    // maybe show bookshelves of the other players
                 }
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
+                if (client.getState().equals(State.MYTURN)) {
+                    try {
+                        Object locker = new Object();
+                        synchronized (locker) {
+                            while (!isMoveHandled()) {
+                                System.out.println("[it's now your turn]");
+                                printState();
+                                // client.send(new TUISelectTiles(nickname).updateCLI(client.getGame(),in));
+                                // client.send(new TUISelectColumn(nickname).updateCLI(client.getGame(),in));
+                                this.setMoveHandled(true);
+                            }
+                        }
+                        this.setMoveHandled(false);
+                        locker.notifyAll();
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
             }
 
         }
-
-}
+    }
 
     private boolean isMoveHandled() {
         return this.moveHandled;

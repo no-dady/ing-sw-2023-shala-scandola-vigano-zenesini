@@ -140,7 +140,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
                     System.out.println(nickName + " was already taken");
                     ErrorMessage message = new ErrorMessage("Nickname already taken");
                     clientInterface.send(Parser.toJson(message, ErrorMessage.class));
-                }
+                    }
+                AskMoveMessage messageToSend = new AskMoveMessage(2);
+                clientInterface.send(Parser.toJson(messageToSend, AskMoveMessage.class));
+
             }
         } else //if(messageReceived instanceof CreateLobbyMessage trueMessageReceived)
         {
@@ -185,7 +188,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         view.addObserver(controller);
     }
 
-    private HashMap<String,View> instanceViews(Map<String, ClientInterface> waitingConnection, ArrayList<Player> players) {
+    private HashMap<String,View> instanceViews(Map<String, ClientInterface> waitingConnection, ArrayList<Player> players) throws RemoteException {
         HashMap <String, View> playersView = new HashMap<>();
         for(Player player: players){
             playersView.put(player.getUserName(), new RemoteView(player, waitingConnection.get(player.getUserName())));
