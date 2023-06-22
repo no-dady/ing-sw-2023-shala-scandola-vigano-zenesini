@@ -23,13 +23,14 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ClientHandler extends UnicastRemoteObject implements ClientInterface, Serializable {
     private ServerInterface serverInterface;
-    private State currState = State.WaitingStart;
+    private Game game;
+    private State currState = State.WAITINGFORGAMESTART;
     private Thread socketThread;
     private String nickName;
 
     public ClientHandler(String ip, int port) throws RemoteException, MalformedURLException, NotBoundException {
         super();
-        serverInterface = (ServerInterface) Naming.lookup("rmi://localhost:1900" + "/myShelfie");
+        serverInterface = (ServerInterface) Naming.lookup("rmi://" + ip + ":" + port + "/myShelfie");
 
         initialize(serverInterface);
     }
@@ -64,7 +65,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     public void sendToServer(String string) throws RemoteException
     {
-        currState = State.WaitingForResponse;
+        currState = State.WAITINGFORRESPONSE;
         serverInterface.send(string);
     }
 
@@ -96,12 +97,12 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                     //System.out.println("Sending nickname");
                     //String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
                     //System.out.println("Sending parsed message");
-                    setState(State.setNick);
+                    setState(State.SETTINGNICKNAME);
                     //serverInterface.send(Parser.toJson(nickMessage, NicknameMessage.class));
                     break;
 
                 case 1:
-                    setState(State.SetPlayersNum);
+                    setState(State.SETTINGPLAYERSNUMBER);
                     System.out.println("Setted playernUm");
                     //System.out.println("You are the admin of the Lobby!\nPlayer number for the new Lobby: ");
                     //currState = State.SetPlayersNum;
@@ -143,13 +144,27 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                 //String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
                 //System.out.println("Sending parsed message");
                 //serverInterface.send(Parser.toJson(nickMessage, NicknameMessage.class));
-                setState(State.setNick);
+                setState(State.SETTINGNICKNAME);
             }
         } else
         {
             ConfirmMessage trueMessageReceived = Parser.fromJson(string, ConfirmMessage.class);
-            System.out.println(trueMessageReceived.getMessage());
-            setState(State.WaitingStart);
+            switch(trueMessageReceived.getConfirmNumber())
+            {
+                case 0:
+                case 1:
+                    setState(State.WAITINGINLOBBY);
+                    System.out.println("Waiting in lobby");
+                    break;
+
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    System.out.println(trueMessageReceived.getMessage());
+                    break;
+
+            }
         }
     }
 
@@ -160,20 +175,21 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     @Override
     public Game getGame() throws RemoteException{
-        return null;
+        return this.game;
+
     }
 
     @Override
     public void setGame(Game model) throws RemoteException{
-
+        this.game = model;
     }
 
-    public synchronized void setState(State state)
+    public synchronized void setState(State state) throws RemoteException
     {
         this.currState = state;
     }
 
-    public synchronized State getState() {
+    public synchronized State getState()throws RemoteException {
         return currState;
     }
 

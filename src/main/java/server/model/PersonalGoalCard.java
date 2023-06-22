@@ -1,12 +1,18 @@
 package server.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+
+import observer.Observable;
+import observer.Observer;
+import util.Messages.Message;
 
 /**
  * The type Personal goal card.
  */
-public class PersonalGoalCard implements Serializable {
+public class PersonalGoalCard implements Serializable, Observable<Message> {
     private final Map<String, Coordinates> goals;
     private String fileName;
 
@@ -51,5 +57,23 @@ public class PersonalGoalCard implements Serializable {
         }
 
         return count;
+    }
+
+    private transient final List<Observer<Message>> observers = new ArrayList<>();
+
+    @Override
+    public void addObserver(Observer<Message> observer){
+        synchronized (observers) {
+            observers.add(observer);
+        }
+    }
+
+    @Override
+    public void notify(Message move) {
+        synchronized (observers) {
+            for(Observer<Message> observer : observers){
+                observer.update(move);
+            }
+        }
     }
 }

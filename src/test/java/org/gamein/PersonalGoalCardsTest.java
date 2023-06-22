@@ -63,8 +63,8 @@ public class PersonalGoalCardsTest extends TestCase {
      */
 
     public void Print(PersonalGoalCard pgc) throws IOException {
-        String art = ConfigsFromJson.getArt("src/main/resources/json/PGCArt.json");
-                int x = Bookshelf.getRows()-1+3, y = 0;
+        String art = ConfigsFromJson.getArt("src/main/resources/json/board_bookshelf_pgc_art.json");
+                int x = Bookshelf.getRows()+10, y = 0;
                 String preset = "\033[";
                 String reset = "0m";
                 for (int i = 0; i< art.length(); i++) {

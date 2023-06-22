@@ -5,15 +5,18 @@ import observer.Observer;
 import server.exceptions.IllegalPlayersNumberException;
 import server.model.*;
 import setup.ConfigsFromJson;
+import util.Messages.Message;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import server.controller.actions.Action;
+
 /**
  * The type Game controller.
  */
-public class GameController implements Observable {
+public class GameController implements Observer<Action> {
 
     /**
      * The Players.
@@ -38,23 +41,30 @@ public class GameController implements Observable {
     /**
      * The Slots.
      */
-    protected static Tile[][] slots = BoardConfig.newEmptyBoard();;
+    protected static Tile[][] slots;
     /**
      * The constant board.
      */
-    protected static Board board = new Board(slots);
+    protected static Board board;
 
     /**
      * Instantiates a new Game controller.
      */
     public GameController() {
+        System.out.println("Creating Playerlist");
         players = new ArrayList<>();
+        System.out.println("Creating TileType");
         try {
+            new TileType();
+            System.out.println("Parsing pgcList");
             pgcList = ConfigsFromJson.getpgcList("src/main/resources/json/personalgoalcards.json");
         }catch (Exception e){
             System.out.println("exception");
         }
+        System.out.println("Getting empty Board");
         slots = BoardConfig.newEmptyBoard();
+        System.out.println("Creating slots Board");
+        board = new Board(slots);
     }
 
     /**
@@ -73,6 +83,7 @@ public class GameController implements Observable {
             case 2, 3, 4 -> board = new Board(BoardConfig.fillBoard(board.getSlots(), pocket, playerNumber));
             default -> throw new IllegalPlayersNumberException("wait, you are doing something wrong");
         }
+        board.updatePickable();
         game = new Game(players, cgcList, board, pocket, playerNumber);
         System.out.println("created game for" + playerNicknames);
         return;
@@ -87,17 +98,14 @@ public class GameController implements Observable {
 
     }
 
-    @Override
-    public void addObserver(Observer observer) {
-
-    }
-
-    @Override
-    public void notify(Object message) {
-
-    }
     public Game getGame(){
         return game;
+    }
+
+    @Override
+    public void update(Action action) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 }
 

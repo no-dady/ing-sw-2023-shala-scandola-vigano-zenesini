@@ -23,7 +23,7 @@ import java.util.List;
 
 public class ClientSkeleton implements ClientInterface, Runnable {
     private ObjectOutputStream oos;
-    private State currState = State.WaitingForResponse;
+    private State currState = State.WAITINGFORRESPONSE;
 
     private final Socket socket;
 

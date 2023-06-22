@@ -12,9 +12,9 @@ import java.rmi.*;
 public interface ClientInterface extends Remote
 {
 
-    void addObserver(Observer<String> observer);
+    void addObserver(Observer<String> observer) throws RemoteException;
 
-    void notify(String message);
+    void notify(String message) throws RemoteException;
 
     void send(String string) throws RemoteException;
 

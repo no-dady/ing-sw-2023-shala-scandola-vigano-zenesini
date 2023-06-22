@@ -5,13 +5,15 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import server.controller.PocketBuilder;
 import server.model.Tile;
+import server.model.TileType;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class PocketBuilderTest extends TestCase {
-    public PocketBuilder x;
+    public PocketBuilder x = new PocketBuilder();
     public final AtomicReference<ArrayList<Tile>> pocket = new AtomicReference<ArrayList<Tile>>();
     /**
      * Create the test case
@@ -28,20 +30,17 @@ public class PocketBuilderTest extends TestCase {
     /**
      * Rigourous Test :-)
      */
-    public void Pocket_Builder_Test(){
+    public void test_Pocket() throws IOException {
         int i;
-        Scanner myObj = new Scanner(System.in);
-
-        System.out.println("Inserisci numero tile da generare: ");
-        int n = Integer.parseInt(myObj.nextLine());
-
+        int n = 132;
+        TileType temp = new TileType();
         ArrayList<Tile> pocket = x.createTileListPocket(n);
-        for(i = n; i >= 0; i--)
+        for(i = 0; i < n; i++)
         {
-            System.out.print(pocket.get(i).getTileType() + "\t|\t");
+            System.out.print(pocket.get(i).getTileType().substring(0,2) + "\t|\t");
         }
         boolean ass = true;
-        assertFalse("wow it works", ass);
+        assertTrue("very sad it didn't workk", ass);
 
     }
 

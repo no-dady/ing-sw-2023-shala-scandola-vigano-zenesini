@@ -21,18 +21,23 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TUI implements UI, Runnable {
+    private String cgcs;
     boolean moveHandled;
-    final String bookshelfArt = ConfigsFromJson.getBookshelfArt("src/main/resources/json/bookshelf_art.json");
-    final String boardAndBookshelfArt = ConfigsFromJson.getBoardAndBookshelfArt("src/main/resources/json/board_&_bookshelf_art.json");
+    String boardAndBookshelfArt;
     final Client client;
 
     public TUI(Client client) throws IOException {
         this.client = client;
     }
+    private String nickname;
 
     @Override
     public void run() {
-        String nickname = "";
+        try {
+            boardAndBookshelfArt = ConfigsFromJson.getBoardAndBookshelfArt("src/main/resources/json/board_bookshelf_pgc_art.json");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         String connectionType;
         String host;
         int port;
@@ -89,7 +94,7 @@ public class TUI implements UI, Runnable {
 
         if (client.isOnline()) {
             try {
-                while (!client.getState().equals(State.setNick)) {
+                while (!client.getState().equals(State.SETTINGNICKNAME)) {
                     System.out.println("not yet");
                 }
                 ;
@@ -99,20 +104,20 @@ public class TUI implements UI, Runnable {
                     NicknameMessage nickMessage = new NicknameMessage(nickname);
                     String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
                     client.sendToServer(messageParsed);
-                    while (client.getState().equals(State.WaitingForResponse)) {
+                    while (client.getState().equals(State.WAITINGFORRESPONSE)) {
                     }
-                    if (client.getState().equals(State.setNick)) {
+                    if (client.getState().equals(State.SETTINGNICKNAME)) {
                         System.out.println("[" + nickname + " was already taken, please insert another nickname and press ENTER]");
                     }
-                } while (!client.getState().equals(State.WaitingStart) && !client.getState().equals(State.SetPlayersNum));
+                } while (client.getState().equals(State.SETTINGNICKNAME));
             } catch (Exception e) {
                 System.out.println(client.getState());//client.receivedMessage);
             }
-            while (client.getState().equals(State.WaitingForResponse)) {
+            while (client.getState().equals(State.WAITINGFORRESPONSE)) {
                 System.out.println(client.getState().toString());
             }
             ;
-            if (client.getState().equals(State.SetPlayersNum)) {
+            if (client.getState().equals(State.SETTINGPLAYERSNUMBER)) {
                 String playerNumberString;
                 int playerNumber = 2;
                 do {
@@ -122,48 +127,63 @@ public class TUI implements UI, Runnable {
                 } while (playerNumber < 2 || playerNumber > 4);
                 CreateLobbyMessage createLobbyMessage = new CreateLobbyMessage(nickname, playerNumber);
                 String messageParsed = Parser.toJson(createLobbyMessage, CreateLobbyMessage.class);
-                try
-                {
+                try {
                     client.sendToServer(messageParsed);
                 } catch (RemoteException e) {
                     System.out.println("Cannot send createLobby Message");
                 }
-            } else {
-                System.out.println("[Welcome to the lobby, you'll be waiting for the other players to join]");
             }
+            System.out.println("[Welcome to the lobby, you'll be waiting for the other players to join]");
+
         } else {
             System.out.println("[we were unable to connect to the server, check your internet connection and try later]");
             return;
         }
-        System.out.println("0");
-        while (client.isActive() && client.isOnline()){
+
+        while (!client.getState().equals(State.MYTURN)) ;
+
+        if (client.isActive() && client.isOnline()) {
+            if (client.getGame() != null) {
                 try {
+                    boardAndBookshelfArt = setPGCart(boardAndBookshelfArt);
+                    cgcs = concatCGCarts(ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" + client.getGame().getBoard().getCommonGoalCards().get(0).getName() + ".json"), ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" +client.getGame().getBoard().getCommonGoalCards().get(1).getName() + ".json"));
                     printState();
-                }
-                catch (NullPointerException e){}
-        //COMMENTED THIS LINE vvv ONLY BECAUSE RIGHT NOW WE DONT HAVE A REAL GAME INSIDE THE CLIENT SO getGame LEAD TO A NULLPOINTEREXC
-        //while (client.isActive() && client.isOnline() && !this.client.getGame().hasWinner());
-        while (client.getState().equals(State.NotMyTurn)) {
-            //whatever you want to do whn you are not actively playing
-        }
-        if (client.getState().equals(State.MyTurn)) {
-            Object locker = new Object();
-            synchronized (locker) {
-                while (!isMoveHandled()) {
-                    System.out.println("[it's now your turn]");
-                    printState();
-                   // client.send(new TUISelectTiles(nickname).updateCLI(client.getGame(),in));
-                   // client.send(new TUISelectColumn(nickname).updateCLI(client.getGame(),in));
-                    this.setMoveHandled(true);
+                } catch (NullPointerException ignored) {
+                } catch (RemoteException e) {
+                    System.out.println("Something went wrong with the creation of the model");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
             }
-            this.setMoveHandled(false);
-            locker.notifyAll();
+            //COMMENTED THIS LINE vvv ONLY BECAUSE RIGHT NOW WE DONT HAVE A REAL GAME INSIDE THE CLIENT SO getGame LEAD TO A NULLPOINTEREXC
+            while (client.isActive() && client.isOnline() && !this.client.getGame().hasWinner()) {
+                while (!client.getState().equals(State.WAITINGFORMYTURN)) {
+                    //whatever you want to do whn you are not actively playing
+                    // maybe show bookshelves of the other players
+                }
+                if (client.getState().equals(State.MYTURN)) {
+                    try {
+                        Object locker = new Object();
+                        synchronized (locker) {
+                            while (!isMoveHandled()) {
+                                System.out.println("[it's now your turn]");
+                                printState();
+                                // client.send(new TUISelectTiles(nickname).updateCLI(client.getGame(),in));
+                                // client.send(new TUISelectColumn(nickname).updateCLI(client.getGame(),in));
+                                this.setMoveHandled(true);
+                            }
+                        }
+                        this.setMoveHandled(false);
+                        locker.notifyAll();
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+
+            }
+
         }
-
     }
-
-}
 
     private boolean isMoveHandled() {
         return this.moveHandled;
@@ -185,36 +205,76 @@ public class TUI implements UI, Runnable {
 
     }
 
-    @Override
-    public void setNickname(String nickname) {
+    private void setNickname(String nickname){
+        this.nickname = nickname;
+    }
+    private String concatCGCarts(String cgc1, String cgc2){
+        String cgc1And2 = "";
 
+        String[] cgc1Array = cgc1.split("\n");
+        String[] cgc2Array = cgc2.split("\n");
+        for (int i = 0; i< cgc1Array.length; i++) {
+            cgc1And2  += ("\t\t\t\t" + cgc1Array[i] + "\t\t\t\t" + cgc2Array[i] + "\n");
+
+        }
+        return cgc1And2;
     }
 
-    @Override
-    public void setPlayerNumber(int playerNumber) {
-
-    }
-
-    @Override
-    public void setSelectedTiles(String selectedTiles) {
-
-    }
-
-    @Override
-    public void setSelectedColum(int selectedColum) {
-
-    }
-
-    @Override
-    public void getInfoAboutOtherPlayers(String playerNickname) {
-
-    }
-
-    public void printState(){
+    private String setPGCart(String boardAndBookshelfArt){
+        TileType tiletemp = new TileType();
+        PersonalGoalCard pgc = null;
+        String art = boardAndBookshelfArt;
+        int x = Bookshelf.getRows()+10, y = 0;
         Game game = this.client.getGame();
+        for (Player player: game.getPlayers()
+             ) {System.out.println(nickname + " " + player.getUserName());
+            if (player.getUserName().equals(nickname)){
+                 pgc = player.getPersonalGoalCard();
+        }
+
+        }
+        String preset = "\033[";
+        String reset = "0m";
+        for (int i = 0; i< art.length(); i++) {
+            if (art.charAt(i) == 'x') {
+                int found = 0;
+                for (int j = 0; j<TileType.getTileMap().values().size()-1; j++) {
+                    assert pgc != null;
+                    if (pgc.getCoordinates(TileType.getTileMap().keySet().stream().toList().get(j)).y()==y & pgc.getCoordinates(TileType.getTileMap().keySet().stream().toList().get(j)).x()==x){
+                        String firstHalf = art.substring(0,i);
+                        String secondHalf = art.substring(i+1);
+                        art = firstHalf + preset + TileType.getTileMap().get(TileType.getTileMap().keySet().stream().toList().get(j)).color + "  " + preset + reset + secondHalf;
+                        found = 1;
+                    }
+
+                }
+                if (found == 0){
+                    String firstHalf = art.substring(0,i);
+                    String secondHalf = art.substring(i+1);
+                    art = firstHalf + "  " + secondHalf;
+                }
+                y++;
+            } else if (art.charAt(i) == '\n') {
+                x--;
+                y = 0;
+
+            }
+        }
+        return art;
+    }
+
+    public void printState() throws RemoteException {
+        Game game = this.client.getGame();
+        TileType tiletemp = new TileType();
         int x = 0, y = 0;
         Tile[][] slots = game.getBoard().getSlots();
-        Tile[][] places = game.getPlayers().get(game.getCurrPlayerId()).getBookshelf().getSlots();
+        Tile[][] places = null;
+        for (Player player: game.getPlayers()
+        ) {
+            if (player.getUserName().equals(nickname)) {
+                places = player.getBookshelf().getSlots();
+            }
+        }
         for (int i = 0; i < boardAndBookshelfArt.length(); i++) {
             if ('X' == boardAndBookshelfArt.charAt(i)) {
                 String PRESET = "\033[";
@@ -223,11 +283,16 @@ public class TUI implements UI, Runnable {
                 String RESET = "0m";
                 if (y < slots[0].length) {
                     if (slots[x][y].isPickable()) color = TileType.getTileMap().get(slots[x][y].getTileType()).color;
+                    if (slots[x][y].Empty()) color = RESET;
                     System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(slots[x][y].getTileType()).sign + PRESET + RESET);
-                } else{
-                    System.out.print(slots.length + " " +  places.length + " " +places[0].length +" " +x+ " " + y);
-                    color = TileType.getTileMap().get(places[x - (slots.length - places.length) ][y - slots[0].length].getTileType()).color;
-                    System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(places[x - (slots.length - places.length) ][y - slots[0].length].getTileType()).sign + PRESET + RESET);
+                } else {
+                    if (places[x - (slots.length - 1 - places.length - 1) - 2 ][y - slots[0].length] != null) {
+                        color = TileType.getTileMap().get(places[x - (slots.length - 1 - places.length - 1) -2][y - slots[0].length].getTileType()).color;
+                        System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(places[x - (slots.length - 1 - places.length - 1) -2][y - slots[0].length].getTileType()).sign + PRESET + RESET);
+                    }
+                    else {
+                        System.out.print(PRESET + RESET + PRESET + BLACK_BOLD + "   " + PRESET + RESET);
+                    }
                 }
                 y++;
             } else {
@@ -238,5 +303,6 @@ public class TUI implements UI, Runnable {
                 y = 0;
             }
         }
+        System.out.println("\n" + cgcs);
     }
 }
