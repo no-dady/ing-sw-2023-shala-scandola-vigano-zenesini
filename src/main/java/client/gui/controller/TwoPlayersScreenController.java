@@ -11,11 +11,10 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
     public static final String name ="two-players-screen";
     private GUI gui;
     @Override
-    public void setGUI(GUI gui) {
-        this.gui = gui;
-    }
-    @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
+
 
     }
 
@@ -29,6 +28,11 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
 
     @Override
     public void update() {
+
+    }
+
+    @Override
+    public void setGUI(GUI gui) {
 
     }
 }

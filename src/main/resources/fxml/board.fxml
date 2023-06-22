@@ -6,8 +6,8 @@
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:id="mainContainer"
            xmlns="http://javafx.com/javafx"
-           fx:controller="org.example.BoardController"
-           stylesheets="@css/BoardPage.css">
+           fx:controller="client.gui.controller.BoardController"
+           stylesheets="@../css/BoardPage.css">
 
     <fx:define>
         <Double fx:id="twoPercent" fx:value="2"/>
