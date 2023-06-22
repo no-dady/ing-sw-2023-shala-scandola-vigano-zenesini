@@ -1,43 +1,40 @@
 package server.controller.actions;
 
+import moves.MoveSelectTiles;
 import server.model.Game;
 import server.model.Tile;
 
 import java.util.List;
-import java.util.Scanner;
 
 public class TileSelectAction implements Action{
-    int selectedX, selectedY;
+    List<Tile> selectedTiles;
+    MoveSelectTiles move;
+    String nickName;
+    public TileSelectAction(MoveSelectTiles move) {
+        this.nickName = move.getNickName();
+        this.move = move;
+    }
 
-    List<Tile>  selectedTiles;
-    Scanner sc = new Scanner(System.in);
-    @Override
     public void performAction(Game game) {
-        boolean more;
-        more = sc.nextLine().equals("yes");
-        while (!more) {
-            if (canPerformAction(game)) {
-                selectedTiles.add(game.getBoard().getTile(selectedX, selectedY));
-                game.getBoard().removeTile(selectedX, selectedY);
-                more= sc.nextLine().equals("yes");
-            }
-            else {
-                System.out.println("not a valid tile");
-                more= sc.nextLine().equals("yes");
+        if (canPerformAction(game)) {
+            game.setSelectedTiles(selectedTiles);
+        }
+    }
+
+    public boolean canPerformAction(Game game) {
+        String[] selected = move.getSelectedTiles().split(" ");
+        for (String s : selected) {
+            if (!game.getBoard().getTile(s.charAt(1) - 'a', s.charAt(1) - '1').isPickable()) {
+                return false;
+            } else {
+                selectedTiles.add(game.getBoard().getTile(s.charAt(1) - 'a', s.charAt(1) - '1'));
             }
         }
-        game.setSelectedTiles(selectedTiles);
+        return true;
     }
 
-    @Override
-    public boolean canPerformAction(Game game) {
-        selectedX = sc.nextInt();
-        selectedY = sc.nextInt();
-        return game.getBoard().getTile(selectedX, selectedY).isPickable();
+    public String getNickName() {
+        return nickName;
     }
 
-    @Override
-    public int getIdPlayer() {
-        return 0;
-    }
 }

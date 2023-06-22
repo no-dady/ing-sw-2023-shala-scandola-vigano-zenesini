@@ -1,13 +1,18 @@
 package server.cgc;
 
+import server.model.Bookshelf;
 import server.model.CommonGoalCardStrategy;
 import server.model.Tile;
+
+import java.io.Serializable;
+import java.util.Objects;
 
 
 /**
  * The type Square check.
  */
-public class SquareCheck extends CommonGoalCardStrategy {
+public class SquareCheck extends CommonGoalCardStrategy implements Serializable {
+    private final String name;
 
     /**
      * The Num to look.
@@ -19,10 +24,14 @@ public class SquareCheck extends CommonGoalCardStrategy {
      *
      * @param numToLook the num to look
      */
-    public SquareCheck(int numToLook){
+    public SquareCheck(int numToLook, String name){
         this.numToLook = numToLook;
+        this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
     /**
      * Index equal boolean.
      *
@@ -30,9 +39,7 @@ public class SquareCheck extends CommonGoalCardStrategy {
      * @return the boolean
      */
     public boolean indexEqual(Tile[] toCheck){
-        if (!toCheck[0].Empty() && !toCheck[1].Empty() && !toCheck[2].Empty() && !toCheck[3].Empty())
-            return toCheck[0].getTileType() == toCheck[1].getTileType() && toCheck[1].getTileType() == toCheck[2].getTileType() && toCheck[2].getTileType() == toCheck[3].getTileType();
-        return false;
+            return Objects.equals(toCheck[0].getTileType(), toCheck[1].getTileType()) && Objects.equals(toCheck[1].getTileType(), toCheck[2].getTileType()) && Objects.equals(toCheck[2].getTileType(), toCheck[3].getTileType());
     }
 
     @Override
@@ -40,16 +47,16 @@ public class SquareCheck extends CommonGoalCardStrategy {
         int count = 0;
         Tile[] corners = new Tile[4];
         corners[0] = shelf[0][0];
-        corners[1] = shelf[5][4];
-        corners[2] = shelf[0][4];
-        corners[3] = shelf[5][0];
+        corners[1] = shelf[Bookshelf.getRows()-1][Bookshelf.getCols()-1];
+        corners[2] = shelf[0][Bookshelf.getCols()-1];
+        corners[3] = shelf[Bookshelf.getRows()-1][0];
 
-        if(numToLook == 0){
+        if(numToLook == 1){
             return indexEqual(corners);
         }
         else {
-            for (int row = 0; row < shelf[0].length - 2 && count < 2; row++) {
-                for (int col = 0; col < shelf.length - 1 && count < 2; col++) {
+            for (int row = 0; row < Bookshelf.getRows() - 2 && count < numToLook; row++) {
+                for (int col = 0; col < Bookshelf.getCols() - 2 && count < numToLook; col++) {
                     corners[0] = shelf[row][col];
                     corners[1] = shelf[row + 1][col];
                     corners[2] = shelf[row][col + 1];
@@ -59,7 +66,7 @@ public class SquareCheck extends CommonGoalCardStrategy {
                     }
                 }
             }
-            return count == 2;
+            return count == numToLook;
         }
     }
 }

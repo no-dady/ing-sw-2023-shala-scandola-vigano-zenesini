@@ -3,16 +3,27 @@ package server.cgc;
 import server.model.CommonGoalCardStrategy;
 import server.model.Tile;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 /**
  * The type Shifted checkerboard.
  */
-public class ShiftedCheckerboard extends CommonGoalCardStrategy {
+public class ShiftedCheckerboard extends CommonGoalCardStrategy implements Serializable {
+    private final String name;
+    public ShiftedCheckerboard(String name){
+        this.name = name;
+    }
 
+    public String getName() {
+        return name;
+    }
     @Override
     public boolean conditionCheck(Tile[][] shelf) {
-        int p=0;
+
         for (int k = 0; k < 2; k++){
-            if (!shelf[k][p].Empty() && !shelf[k][p+2].Empty() && !shelf[k][p+4].Empty() && !shelf[k+2][p].Empty() && !shelf[k+2][p+2].Empty() && !shelf[k+2][p+4].Empty() && !shelf[k+4][p+3].Empty() && !shelf[k+4][p+1].Empty() && shelf[k][p].getTileType() == shelf[k][p+2].getTileType() && shelf[k][p+2].getTileType() == shelf[k][p+4].getTileType() && shelf[k][p+4].getTileType() == shelf[k+2][p].getTileType() && shelf[k+2][p].getTileType() == shelf[k+2][p+2].getTileType() && shelf[k+2][p+2].getTileType() == shelf[k+2][p+4].getTileType() && shelf[k+2][p+4].getTileType() == shelf[k+4][p+1].getTileType() && shelf[k+4][p+1].getTileType() == shelf[k+4][p+3].getTileType())
+            int p=0;
+            if (Objects.equals(shelf[k][p].getTileType(), shelf[k][p + 2].getTileType()) && Objects.equals(shelf[k][p + 2].getTileType(), shelf[k][p + 4].getTileType()) && Objects.equals(shelf[k][p + 4].getTileType(), shelf[k + 2][p].getTileType()) && Objects.equals(shelf[k + 2][p].getTileType(), shelf[k + 2][p + 2].getTileType()) && Objects.equals(shelf[k + 2][p + 2].getTileType(), shelf[k + 2][p + 4].getTileType()) && Objects.equals(shelf[k + 2][p + 4].getTileType(), shelf[k + 4][p + 1].getTileType()) && Objects.equals(shelf[k + 4][p + 1].getTileType(), shelf[k + 4][p + 3].getTileType()))
             {
                 return true;
             }

@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:id="mainContainer"
+           xmlns="http://javafx.com/javafx"
+           fx:controller="client.gui.controller.BoardController"
+           stylesheets="@../css/BoardPage.css">
+
+    <fx:define>
+        <Double fx:id="twoPercent" fx:value="2"/>
+        <Double fx:id="threePercent" fx:value="3"/>
+        <Double fx:id="threePointFivePercent" fx:value="3.5"/>
+        <Double fx:id="fourPercent" fx:value="4"/>
+        <Double fx:id="fivePercent" fx:value="5"/>
+        <Double fx:id="sixPercent" fx:value="6"/>
+        <Double fx:id="sevenPercent" fx:value="7"/>
+        <Double fx:id="sevenPointFivePercent" fx:value="7.5"/>
+        <Double fx:id="tenPercent" fx:value="10"/>
+        <Double fx:id="twelvePercent" fx:value="12"/>
+        <Double fx:id="fourteenPercent" fx:value="14"/>
+        <Double fx:id="fourteenPointFourPercent" fx:value="14.4"/>
+        <Double fx:id="fifteenPercent" fx:value="15"/>
+        <Double fx:id="twentyPercent" fx:value="20"/>
+        <Double fx:id="twentyTwoPointFivePercent" fx:value="22.5"/>
+        <Double fx:id="twentyFivePercent" fx:value="25"/>
+        <Double fx:id="thirtyPercent" fx:value="30"/>
+        <Double fx:id="thirtyOnePercent" fx:value="31"/>
+        <Double fx:id="thirtyFivePercent" fx:value="35"/>
+        <Double fx:id="fortyPercent" fx:value="40"/>
+        <Double fx:id="fortySixPercent" fx:value="46"/>
+        <Double fx:id="fiftyPercent" fx:value="50"/>
+        <Double fx:id="sixtyPercent" fx:value="60"/>
+        <Double fx:id="sixtyFivePercent" fx:value="65"/>
+        <Double fx:id="seventyPercent" fx:value="70"/>
+        <Double fx:id="eightyPercent" fx:value="80"/>
+        <Double fx:id="eightyEightPercent" fx:value="88"/>
+        <Double fx:id="oneHundredPercent" fx:value="100"/>
+    </fx:define>
+
+    <GridPane fx:id="interfaceDivider" StackPane.alignment="CENTER">
+        <rowConstraints>
+            <RowConstraints percentHeight="$sixPercent"/>
+            <RowConstraints percentHeight="$eightyEightPercent"/>
+            <RowConstraints percentHeight="$sixPercent"/>
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints percentWidth="$twoPercent"/>
+            <ColumnConstraints percentWidth="$fortySixPercent"/>
+            <ColumnConstraints percentWidth="$twoPercent"/>
+            <ColumnConstraints percentWidth="$twoPercent"/>
+            <ColumnConstraints percentWidth="$fortySixPercent"/>
+            <ColumnConstraints percentWidth="$twoPercent"/>
+        </columnConstraints>
+
+        <GridPane fx:id="isPlayerXTurn" GridPane.columnIndex="4" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                  GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <rowConstraints>
+                <RowConstraints percentHeight="$twentyPercent"/>
+                <RowConstraints percentHeight="$sixtyPercent"/>
+                <RowConstraints percentHeight="$twentyPercent"/>
+            </rowConstraints>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="$fiftyPercent"/>
+                <ColumnConstraints percentWidth="$fiftyPercent"/>
+            </columnConstraints>
+
+            <Pane fx:id="playerTurn" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                  GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Label text="xxx_giovanniGiorgio_xxx is playing... " fx:id="L2"
+                       textAlignment="CENTER" textFill="White" wrapText="true"
+                       alignment="BOTTOM_CENTER"/>
+            </Pane>
+
+        </GridPane>
+
+        <Pane fx:id="Board" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
+              GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <GridPane fx:id="board_grid" prefHeight="${Board.height}" prefWidth="${Board.width}">
+                <rowConstraints>
+                    <RowConstraints percentHeight="$fivePercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$tenPercent"/>
+                    <RowConstraints percentHeight="$fivePercent"/>
+
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="4"/>
+                    <ColumnConstraints percentWidth="10.22"/>
+                    <ColumnConstraints percentWidth="10.22"/>
+                    <ColumnConstraints percentWidth="10.22"/>
+                    <ColumnConstraints percentWidth="10.1"/>
+                    <ColumnConstraints percentWidth="10.1"/>
+                    <ColumnConstraints percentWidth="10.1"/>
+                    <ColumnConstraints percentWidth="10.1"/>
+                    <ColumnConstraints percentWidth="10.1"/>
+                    <ColumnConstraints percentWidth="10.1"/>
+                    <ColumnConstraints percentWidth="4.72"/>
+                </columnConstraints>
+
+                <Pane fx:id="t_1_4" GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_1_5" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_2_4" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_2_5" GridPane.columnIndex="5" GridPane.rowIndex="2" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_2_6" GridPane.columnIndex="6" GridPane.rowIndex="2" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_3_3" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_3_4" GridPane.columnIndex="4" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_3_5" GridPane.columnIndex="5" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_3_6" GridPane.columnIndex="6" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_3_7" GridPane.columnIndex="7" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_4_2" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_4_3" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_4_4" GridPane.columnIndex="4" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_4_5" GridPane.columnIndex="5" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_4_6" GridPane.columnIndex="6" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_4_7" GridPane.columnIndex="7" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_4_8" GridPane.columnIndex="8" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_4_9" GridPane.columnIndex="9" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_5_1" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_5_2" GridPane.columnIndex="2" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_5_3" GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_5_4" GridPane.columnIndex="4" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_5_5" GridPane.columnIndex="5" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_5_6" GridPane.columnIndex="6" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_5_7" GridPane.columnIndex="7" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_5_8" GridPane.columnIndex="8" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_5_9" GridPane.columnIndex="9" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_6_1" GridPane.columnIndex="1" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_6_2" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_6_3" GridPane.columnIndex="3" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_6_4" GridPane.columnIndex="4" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_6_5" GridPane.columnIndex="5" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_6_6" GridPane.columnIndex="6" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_6_7" GridPane.columnIndex="7" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_6_8" GridPane.columnIndex="8" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_7_3" GridPane.columnIndex="3" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_7_4" GridPane.columnIndex="4" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_7_5" GridPane.columnIndex="5" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_7_6" GridPane.columnIndex="6" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_7_7" GridPane.columnIndex="7" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_8_4" GridPane.columnIndex="4" GridPane.rowIndex="8" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_8_5" GridPane.columnIndex="5" GridPane.rowIndex="8" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_8_6" GridPane.columnIndex="6" GridPane.rowIndex="8" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_9_5" GridPane.columnIndex="5" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Pane fx:id="t_9_6" GridPane.columnIndex="6" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+            </GridPane>
+        </Pane>
+
+        <GridPane fx:id="interface" GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.columnSpan="1">
+            <rowConstraints>
+                <RowConstraints percentHeight="$sevenPointFivePercent"/>
+                <RowConstraints percentHeight="$sixtyFivePercent"/>
+                <RowConstraints percentHeight="$fivePercent"/>
+                <RowConstraints percentHeight="$twentyTwoPointFivePercent"/>
+            </rowConstraints>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="$oneHundredPercent"/>
+            </columnConstraints>
+
+            <GridPane fx:id="cgcAndButtons" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="1">
+                <rowConstraints>
+                    <RowConstraints percentHeight="$oneHundredPercent"/>
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="$thirtyOnePercent"/>
+                    <ColumnConstraints percentWidth="$threePointFivePercent"/>
+                    <ColumnConstraints percentWidth="$thirtyOnePercent"/>
+                    <ColumnConstraints percentWidth="$threePointFivePercent"/>
+                    <ColumnConstraints percentWidth="$thirtyOnePercent"/>
+                </columnConstraints>
+
+                <Pane fx:id="cgc_1" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+                <Pane fx:id="cgc_2" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+                <GridPane fx:id="buttons" GridPane.columnIndex="4" GridPane.rowIndex="0" GridPane.columnSpan="1">
+                    <rowConstraints>
+                        <RowConstraints percentHeight="$tenPercent"/>
+                        <RowConstraints percentHeight="$thirtyFivePercent"/>
+                        <RowConstraints percentHeight="$tenPercent"/>
+                        <RowConstraints percentHeight="$thirtyFivePercent"/>
+                        <RowConstraints percentHeight="$tenPercent"/>
+                    </rowConstraints>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="$tenPercent"/>
+                        <ColumnConstraints percentWidth="$eightyPercent"/>
+                        <ColumnConstraints percentWidth="$tenPercent"/>
+                    </columnConstraints>
+
+                    <Pane fx:id="container3" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="end_turn" text="End turn" prefHeight="${container3.height}" prefWidth="${container3.width}"/>
+                    </Pane>
+
+                    <Pane fx:id="container4" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="confirm" text="Confirm" prefHeight="${container4.height}" prefWidth="${container4.width}"/>
+                    </Pane>
+
+                </GridPane>
+            </GridPane>
+
+            <GridPane fx:id="bookshelf" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1">
+                <rowConstraints>
+                    <RowConstraints percentHeight="$oneHundredPercent"/>
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="$sixtyPercent"/>
+                    <ColumnConstraints percentWidth="$tenPercent"/>
+                    <ColumnConstraints percentWidth="$thirtyPercent"/>
+                </columnConstraints>
+
+                <Pane fx:id="bookshelf_image" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                      GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <GridPane fx:id="bookshelf_grid" prefHeight="${bookshelf_image.height}" prefWidth="${bookshelf_image.width}">
+                        <rowConstraints>
+                            <RowConstraints percentHeight="5.1"/>
+                            <RowConstraints percentHeight="13.6"/>
+                            <RowConstraints percentHeight="2.7"/>
+                            <RowConstraints percentHeight="13.55"/>
+                            <RowConstraints percentHeight="2.8"/>
+                            <RowConstraints percentHeight="13.4"/>
+                            <RowConstraints percentHeight="2.9"/>
+                            <RowConstraints percentHeight="13.4"/>
+                            <RowConstraints percentHeight="2.9"/>
+                            <RowConstraints percentHeight="13.4"/>
+                            <RowConstraints percentHeight="2.9"/>
+                            <RowConstraints percentHeight="13.4"/>
+                            <RowConstraints percentHeight="5"/>
+                        </rowConstraints>
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="4"/>
+                            <ColumnConstraints percentWidth="15.1"/>
+                            <ColumnConstraints percentWidth="4.1"/>
+                            <ColumnConstraints percentWidth="15.2"/>
+                            <ColumnConstraints percentWidth="4"/>
+                            <ColumnConstraints percentWidth="15.2"/>
+                            <ColumnConstraints percentWidth="4"/>
+                            <ColumnConstraints percentWidth="15.2"/>
+                            <ColumnConstraints percentWidth="4"/>
+                            <ColumnConstraints percentWidth="15.2"/>
+                            <ColumnConstraints percentWidth="4"/>
+                        </columnConstraints>
+
+                        <Pane fx:id="b_1_6" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_1_5" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_1_4" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_1_3" GridPane.columnIndex="1" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_1_2" GridPane.columnIndex="1" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_1_1" GridPane.columnIndex="1" GridPane.rowIndex="11" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+                        <Pane fx:id="b_2_6" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_2_5" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_2_4" GridPane.columnIndex="3" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_2_3" GridPane.columnIndex="3" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_2_2" GridPane.columnIndex="3" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_2_1" GridPane.columnIndex="3" GridPane.rowIndex="11" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+                        <Pane fx:id="b_3_6" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_3_5" GridPane.columnIndex="5" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_3_4" GridPane.columnIndex="5" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_3_3" GridPane.columnIndex="5" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_3_2" GridPane.columnIndex="5" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_3_1" GridPane.columnIndex="5" GridPane.rowIndex="11" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+                        <Pane fx:id="b_4_6" GridPane.columnIndex="7" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_4_5" GridPane.columnIndex="7" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_4_4" GridPane.columnIndex="7" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_4_3" GridPane.columnIndex="7" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_4_2" GridPane.columnIndex="7" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_4_1" GridPane.columnIndex="7" GridPane.rowIndex="11" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+                        <Pane fx:id="b_5_6" GridPane.columnIndex="9" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_5_5" GridPane.columnIndex="9" GridPane.rowIndex="3" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_5_4" GridPane.columnIndex="9" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_5_3" GridPane.columnIndex="9" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_5_2" GridPane.columnIndex="9" GridPane.rowIndex="9" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Pane fx:id="b_5_1" GridPane.columnIndex="9" GridPane.rowIndex="11" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+                    </GridPane>
+                </Pane>
+
+                <GridPane fx:id="objective" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.columnSpan="1">
+                    <rowConstraints>
+                        <RowConstraints percentHeight="$fivePercent"/>
+                        <RowConstraints percentHeight="$twentyPercent"/>
+                        <RowConstraints percentHeight="$fivePercent"/>
+                        <RowConstraints percentHeight="$fivePercent"/>
+                        <RowConstraints percentHeight="$fivePercent"/>
+                        <RowConstraints percentHeight="$fivePercent"/>
+                        <RowConstraints percentHeight="$fivePercent"/>
+                        <RowConstraints percentHeight="$fiftyPercent"/>
+                    </rowConstraints>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="$oneHundredPercent"/>
+                    </columnConstraints>
+
+                    <GridPane fx:id="selected" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+
+                        <rowConstraints>
+                            <RowConstraints percentHeight="$twentyFivePercent"/>
+                            <RowConstraints percentHeight="$fiftyPercent"/>
+                            <RowConstraints percentHeight="$twentyFivePercent"/>
+                        </rowConstraints>
+                        <columnConstraints>
+                            <ColumnConstraints percentWidth="$twelvePercent"/>
+                            <ColumnConstraints percentWidth="$twentyFivePercent"/>
+                            <ColumnConstraints percentWidth="$threePercent"/>
+                            <ColumnConstraints percentWidth="$twentyFivePercent"/>
+                            <ColumnConstraints percentWidth="$threePercent"/>
+                            <ColumnConstraints percentWidth="$twentyFivePercent"/>
+                            <ColumnConstraints percentWidth="$fivePercent"/>
+                        </columnConstraints>
+
+                        <Pane fx:id="first_tile" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+                        <Pane fx:id="second_tile" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+                        <Pane fx:id="third_tile" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                              GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+
+                    </GridPane>
+
+                    <Pane fx:id="label" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Label text="Your Goal: " fx:id="L1"
+                               textAlignment="CENTER" textFill="White" wrapText="true"
+                               alignment="BOTTOM_CENTER"/>
+                    </Pane>
+
+                    <Pane fx:id="goal_card" GridPane.columnIndex="0" GridPane.rowIndex="7" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+
+                </GridPane>
+            </GridPane>
+
+            <GridPane fx:id="topButtons" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="1">
+                <rowConstraints>
+                    <RowConstraints percentHeight="$fifteenPercent"/>
+                    <RowConstraints percentHeight="$seventyPercent"/>
+                    <RowConstraints percentHeight="$fifteenPercent"/>
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="$sixtyPercent"/>
+                    <ColumnConstraints percentWidth="$fortyPercent"/>
+                </columnConstraints>
+
+                <GridPane fx:id="bookshelfButtons" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1">
+                    <rowConstraints>
+                        <RowConstraints percentHeight="$thirtyPercent"/>
+                        <RowConstraints percentHeight="$seventyPercent"/>
+                    </rowConstraints>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="$fourPercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPointFourPercent"/>
+                        <ColumnConstraints percentWidth="$fivePercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPointFourPercent"/>
+                        <ColumnConstraints percentWidth="$fivePercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPointFourPercent"/>
+                        <ColumnConstraints percentWidth="$fivePercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPointFourPercent"/>
+                        <ColumnConstraints percentWidth="$fivePercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPointFourPercent"/>
+                        <ColumnConstraints percentWidth="$fourPercent"/>
+                    </columnConstraints>
+
+                    <Pane fx:id="container5" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="arrow1" prefHeight="${container5.height}" prefWidth="${container5.width}" />
+                    </Pane>
+
+                    <Pane fx:id="container6" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="arrow2" prefHeight="${container6.height}" prefWidth="${container6.width}" />
+                    </Pane>
+
+                    <Pane fx:id="container7" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="arrow3" prefHeight="${container7.height}" prefWidth="${container7.width}" />
+                    </Pane>
+
+                    <Pane fx:id="container8" GridPane.columnIndex="7" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="arrow4" prefHeight="${container8.height}" prefWidth="${container8.width}" />
+                    </Pane>
+
+                    <Pane fx:id="container9" GridPane.columnIndex="9" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="arrow5" prefHeight="${container9.height}" prefWidth="${container9.width}" />
+                    </Pane>
+
+                </GridPane>
+                <GridPane fx:id="menuPlayerButtons" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1">
+                    <rowConstraints>
+                        <RowConstraints percentHeight="$oneHundredPercent"/>
+                    </rowConstraints>
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="$sixtyFivePercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPercent"/>
+                        <ColumnConstraints percentWidth="$sevenPercent"/>
+                        <ColumnConstraints percentWidth="$fourteenPercent"/>
+                    </columnConstraints>
+
+                    <Pane fx:id="container1" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="menu_button" prefHeight="${container1.height}" prefWidth="${container1.width}"/>
+                    </Pane>
+
+                    <Pane fx:id="container2" GridPane.columnIndex="3" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                          GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Button fx:id="show_ply_button" prefHeight="${container2.height}" prefWidth="${container2.width}"/>
+                    </Pane>
+
+                </GridPane>
+            </GridPane>
+        </GridPane>
+    </GridPane>
+</StackPane>

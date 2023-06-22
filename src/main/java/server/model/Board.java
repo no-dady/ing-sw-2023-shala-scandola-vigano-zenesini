@@ -2,11 +2,17 @@ package server.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
+import observer.Observable;
+import observer.Observer;
+import org.javatuples.Pair;
+import util.Messages.Message;
 
 /**
  * The type Board.
  */
-public class Board implements Serializable {
+public class Board implements Serializable, Observable<Message> {
     private final ArrayList<CommonGoalCardStrategy> commonGoalCardStrategies;
     private Tile[][] slots;
 
@@ -16,9 +22,15 @@ public class Board implements Serializable {
      * @param slots the slots
      */
     public Board(Tile[][] slots) {
+        System.out.println("Creating array");
         this.commonGoalCardStrategies = new ArrayList<>(2);
-        this.commonGoalCardStrategies.add(CommonGoalCardStrategy.getRandomCard());
-        this.commonGoalCardStrategies.add(CommonGoalCardStrategy.getRandomCard());
+        System.out.println("Choosing first cgc");
+        Pair<CommonGoalCardStrategy, CommonGoalCardStrategy> cGcs = CommonGoalCardStrategy.getRandomCards();
+        System.out.println("Adding First cgc");
+        this.commonGoalCardStrategies.add(cGcs.getValue0());
+        System.out.println("Adding second cgc");
+        this.commonGoalCardStrategies.add(cGcs.getValue1());
+        System.out.println("Saving slots");
         this.slots = slots;
     }
 
@@ -70,21 +82,48 @@ public class Board implements Serializable {
     public ArrayList<CommonGoalCardStrategy> getCommonGoalCards() {
         return commonGoalCardStrategies;
     }
-    public void IsPickable(int x, int y) {
-        int count = 0;
-        if((this.getTile(x-1,y).Empty())){
-            count=count+1;
+    public void updatePickable() {
+        int count;
+        for (int x = 0; x< slots.length; x++){
+            for (int y = 0; y< slots[0].length; y++){
+                if (!slots[x][y].Empty()) {
+                    count = 0;
+                    if ((x != 0 && slots[x - 1][y].Empty())) {
+                        count += 1;
+                    }
+                    if ((x != slots.length - 1 && slots[x + 1][y].Empty())) {
+                        count += 1;
+                    }
+                    if ((y != 0 && slots[x][y - 1].Empty())) {
+                        count += 1;
+                    }
+                    if ((y != slots[0].length - 1 && slots[x][y + 1].Empty())) {
+                        count += 1;
+                    }
+                    slots[x][y].setPickable(count >= 2);
+                }
+            }
         }
-        if((this.getTile(x+1,y).Empty())){
-            count=count+1;
-        }
-        if((this.getTile(x,y-1).Empty())){
-            count=count+1;
-        }
-        if((this.getTile(x,y+1).Empty())){
-            count=count+1;
-        }
-        getTile(x, y).setPickable(count >= 2);
+
     }
 
+    private transient final List<Observer<Message>> observers = new ArrayList<>();
+
+    
+    @Override
+    public void addObserver(Observer<Message> observer){
+        synchronized (observers) {
+            observers.add(observer);
+        }
+    }
+
+    
+    @Override
+    public void notify(Message message) {
+        synchronized (observers) {
+            for(Observer<Message> observer : observers){
+                observer.update(message);
+            }
+        }
+    }
 }

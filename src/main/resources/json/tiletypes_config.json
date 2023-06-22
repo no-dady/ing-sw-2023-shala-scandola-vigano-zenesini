@@ -2,32 +2,32 @@
   "CAT": {
     "color": "42m",
     "sign": "CAT",
-    "images":["a","b","c"]
+    "images":["1","2","3"]
   },
-  "TROPHY": {
+  "TROPHIES": {
     "color": "46m",
     "sign": "TRO",
-    "images":["a","b","c"]
+    "images":["1","2","3"]
   },
-  "FLOWERS": {
+  "PLANTS": {
     "color": "45m",
     "sign": "FLO",
-    "images":["a","b","c"]
+    "images":["1","2","3"]
   },
   "TOYS": {
     "color": "0;101m",
     "sign": "TOY",
-    "images":["a","b","c"]
+    "images":["1","2","3"]
   },
   "FRAMES": {
-    "color": "1;34m",
+    "color": "1;44m",
     "sign": "FRA",
-    "images":["a","b","c"]
+    "images":["1","2","3"]
   },
   "BOOKS": {
     "color": "0;107m",
     "sign": "BOO",
-    "images":["a","b","c"]
+    "images":["1","2","3"]
   },
   "EMPTY": {
     "color": "0m",

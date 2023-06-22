@@ -2,13 +2,14 @@ package server.model;
 
 import setup.ConfigsFromJson;
 
+import java.io.Serializable;
 import java.util.*;
 
 
 /**
  * The type Tile type.
  */
-public class TileType {
+public class TileType implements Serializable {
     private static Map<String, TileTypeRecord> tileMap;
     private String key;
     private String color;
@@ -21,24 +22,25 @@ public class TileType {
     public TileType() {
         tileMap = new HashMap<>();
         try {
-            ConfigsFromJson.getTileType("src/main/resources/json/tiletypes_config.json");
+            tileMap = ConfigsFromJson.getTileType("src/main/resources/json/tiletypes_config.json");
         } catch (Exception e) {
             System.out.println(e.getMessage());
+
         }
     }
 
     /**
      * Instantiates a new Tile type.
      *
-     * @param tiletype the tiletype
+     * @param tileType the tileType
      * @param index    the index
      */
-    public TileType(String tiletype, int index) {
+    public TileType(String tileType, int index) {
         TileType temp = new TileType();
-        this.key = tiletype;
-        this.color = tileMap.get(tiletype).color;
-        this.sign = tileMap.get(tiletype).sign;
-        this.image = tileMap.get(tiletype).images.get(index);
+        this.key = tileType;
+        this.color = tileMap.get(tileType).color;
+        this.sign = tileMap.get(tileType).sign;
+        this.image = tileType.charAt(0) + tileType.substring(1).toLowerCase() + tileMap.get(tileType).images.get(index) + ".png";
     }
 
     /**

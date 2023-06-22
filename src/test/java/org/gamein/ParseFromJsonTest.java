@@ -1,21 +1,14 @@
 package org.gamein;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.gamein.controller.BoardConfig;
-import org.gamein.model.CommonGoalCardStrategy;
-import org.gamein.model.PersonalGoalCard;
-import org.gamein.model.Tile;
-import org.gamein.model.TileTypeRecord;
+import server.controller.BoardConfig;
+import server.model.PersonalGoalCard;
+import server.model.Tile;
+import server.model.TileTypeRecord;
 import util.Parser;
-
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

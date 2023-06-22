@@ -1,118 +1,46 @@
 [
   [
     [
-      {
-        "tileType" : "CAT",
-        "tileID": 0
-      },
-      {
-        "tileType" : "FRAMES",
-        "tileID": 1
-      },
-      {
-        "tileType" : "CAT",
-        "tileID": 2
-      },
-      {
-        "tileType" : "CAT",
-        "tileID": 3
-      },
-      {
-      }
-    ],
-    [
-      {
-        "tileType" : "CAT",
-        "tileID": 5
-      },{
-      "tileType" : "CAT",
-      "tileID": 6
-    },
-      {
-        "tileType" : "FRAMES",
-        "tileID": 7
-      },
-      {
-        "tileType" : "FRAMES",
-        "tileID": 8
-      },
-      {
-      }
-    ],
-    [
-      {
-        "tileType" : "TROPHY",
-        "tileID": 10
-      },{
-      "tileType" : "FRAMES",
-      "tileID": 11
-    },
-      {
-        "tileType" : "FRAMES",
-        "tileID": 12
-      },
-      {
-        "tileType" : "FRAMES",
-        "tileID": 13
-      },
-      {
-      }
-    ],
-    [
-      {
-        "tileType" : "BOOK",
-        "tileID": 15
-      },{
-      "tileType" : "BOOK",
-      "tileID": 16
-    },
-      {
-        "tileType" : "BOOK",
-        "tileID": 17
-      },
-      {
-        "tileType" : "BOOK",
-        "tileID": 18
-      },
+      {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID":0,"pickable":false},
+      {"tileType" : { "key":"FRAMES","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
       {}
     ],
     [
-      {
-        "tileType" : "TOYS",
-        "tileID": 20
-      },{
-      "tileType" : "CAT",
-      "tileID": 21
-    },
-      {
-        "tileType" : "CAT",
-        "tileID": 22
-      },
-      {
-        "tileType" : "CAT",
-        "tileID": 23
-      },
-      {
-      }
+      {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID":0,"pickable":false},
+      {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {"tileType" : { "key":"FRAMES","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {"tileType" : { "key":"FRAMES","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {}
     ],
     [
-      {
-        "tileType" : "FRAMES",
-        "tileID": 25
-      },{
-      "tileType" : "FRAMES",
-      "tileID": 26
-    },
-      {
-        "tileType" : "FRAMES",
-        "tileID": 27
-      },
-      {
-        "tileType" : "FRAMES",
-        "tileID": 28
-      },
-      {
-      }
+      {"tileType" : { "key":"TROPHIES","image":"","sign":"","color":""},"tileID":0,"pickable":false},
+      {"tileType" : { "key":"FRAMES","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {"tileType" : { "key":"FRAMES","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {"tileType" : { "key":"FRAMES","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {}
+    ],
+    [
+      {"tileType" : { "key":"BOOKS","image":"","sign":"","color":""},"tileID":0,"pickable":false},
+      {"tileType" : { "key":"BOOKS","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {"tileType" : { "key":"BOOKS","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {"tileType" : { "key":"BOOKS","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {}
+    ],
+    [
+      {"tileType" : { "key":"TOYS","image":"","sign":"","color":""},"tileID":0,"pickable":false},
+      {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {}
+    ],
+    [
+      {"tileType" : { "key":"FRAMES","image":"","sign":"","color":""},"tileID":0,"pickable":false},
+      {"tileType" : { "key":"FRAMES","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {"tileType" : { "key":"FRAMES","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {"tileType" : { "key":"FRAMES","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+      {}
     ]
   ]
 ]

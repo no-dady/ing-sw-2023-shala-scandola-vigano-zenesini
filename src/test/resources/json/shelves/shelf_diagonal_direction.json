@@ -1,74 +1,32 @@
 [
     [
         [
-            {
-                "tileType" : "CAT",
-                "tileID": 0
-            },
-            {
-                "tileType" : "CAT",
-                "tileID": 1
-            },
-            {
-                "tileType" : "CAT",
-                "tileID": 2
-            },
-            {
-                "tileType" : "CAT",
-                "tileID": 3
-            },
-            {
-                "tileType" : "TOYS",
-                "tileID": 29
-            }
+            {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID":0,"pickable":false},
+            {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+            {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+            {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+            {"tileType" : { "key":"TOYS","image":"","sign":"","color":""},"tileID": 0,"pickable": false}
         ],
         [
-            {
-                "tileType" : "CAT",
-                "tileID": 5
-            },
-            {
-                "tileType" : "FRAMES",
-                "tileID": 6
-            },
-            {
-                "tileType" : "FRAMES",
-                "tileID": 7
-            },
-            {
-                "tileType" : "TOYS",
-                "tileID": 8
-            },
+            {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID":0,"pickable":false},
+            {"tileType" : { "key":"FRAMES","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+            {"tileType" : { "key":"FRAMES","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+            {"tileType" : { "key":"TOYS","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
             {
             }
         ],
         [
-            {
-                "tileType" : "TROPHY",
-                "tileID": 10
-            },
-            {
-                "tileType" : "TOYS",
-                "tileID": 11
-            },
-            {
-                "tileType" : "TOYS",
-                "tileID": 12
-            },
+            {"tileType" : { "key":"TROPHIES","image":"","sign":"","color":""},"tileID":0,"pickable":false},
+            {"tileType" : { "key":"TOYS","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+            {"tileType" : { "key":"TOYS","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
             {
             },
             {
             }
         ],
         [
-            {
-                "tileType" : "BOOK",
-                "tileID": 15
-            },
-            {
-                "tileType" : "TOYS",
-                "tileID": 16
-            },
+            {"tileType" : { "key":"TOYS","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
+            {"tileType" : { "key":"TOYS","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
             {
             },
             {
@@ -76,10 +34,7 @@
             {}
         ],
         [
-            {
-                "tileType" : "TOYS",
-                "tileID": 20
-            },
+            {"tileType" : { "key":"TOYS","image":"","sign":"","color":""},"tileID":0,"pickable":false},
             {
             },
             {

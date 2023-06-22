@@ -1,18 +1,22 @@
 package server.controller;
 
+import observer.Observable;
+import observer.Observer;
 import server.exceptions.IllegalPlayersNumberException;
 import server.model.*;
 import setup.ConfigsFromJson;
+import util.Messages.Message;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import server.controller.actions.Action;
+
 /**
  * The type Game controller.
  */
-public class GameController {
+public class GameController implements Observer<Action> {
 
     /**
      * The Players.
@@ -23,10 +27,6 @@ public class GameController {
      */
     protected static Game game;
     /**
-     * The constant board.
-     */
-    protected static Board board;
-    /**
      * The constant pocket.
      */
     protected static Pocket pocket;
@@ -35,40 +35,36 @@ public class GameController {
      */
     protected static List<PersonalGoalCard> pgcList;
     /**
-     * The Cgc enum.
+     * The Cgc List.
      */
-    protected static CommonGoalCardStrategy[] cgcEnum;
+    protected static List<CommonGoalCardStrategy> cgcList;
     /**
      * The Slots.
      */
     protected static Tile[][] slots;
+    /**
+     * The constant board.
+     */
+    protected static Board board;
 
     /**
      * Instantiates a new Game controller.
      */
     public GameController() {
+        System.out.println("Creating Playerlist");
         players = new ArrayList<>();
+        System.out.println("Creating TileType");
         try {
+            new TileType();
+            System.out.println("Parsing pgcList");
             pgcList = ConfigsFromJson.getpgcList("src/main/resources/json/personalgoalcards.json");
         }catch (Exception e){
             System.out.println("exception");
         }
-
-
-        System.exit(0);
-        // TODO: Player needed object generation
-        players.add(new Player(0, "Test1", new Bookshelf(), pgcList.get(1)));
-
-        // TODO: Make call to method for generating random CommonGoalCard
-        //cgcEnum = new CommonGoalCard[2];
-        //cgcEnum[0] = CommonGoalCard.TWO_4EQ_TILES_SQUARE;
-        //cgcEnum[1] = CommonGoalCard.TWO_DISTINCT_COLUMNS;
-
-        // TODO: Generate slots to pass to the board constructor
-        slots = BoardInitializer.newEmptyBoard();
-        //board = new Board(cgcEnum, slots);
-
-        //game = new Game(players, board, pocket);
+        System.out.println("Getting empty Board");
+        slots = BoardConfig.newEmptyBoard();
+        System.out.println("Creating slots Board");
+        board = new Board(slots);
     }
 
     /**
@@ -77,23 +73,20 @@ public class GameController {
      * @param playerNumber the player number
      * @throws IllegalPlayersNumberException the illegal players number exception
      */
-    void createLobby(int playerNumber) throws IllegalPlayersNumberException {
-        PersonalGoalCard personalGoalCard;
-        PocketBuilder builder = new PocketBuilder();
-        BoardFiller builderBoard = new BoardFiller();
-        pocket = new Pocket(builder.createTileListPocket(132));
+    public void createLobby(int playerNumber, List<String> playerNicknames) throws IllegalPlayersNumberException {
+        pocket = new Pocket(new PocketBuilder().createTileListPocket(132));
         for (int i = 0; i < playerNumber; i++) {
-            //personalGoalCard.select();
             Collections.shuffle(pgcList);
-            personalGoalCard = pgcList.remove(0);
-            players.add(new Player(i, "player" + i, new Bookshelf(), personalGoalCard));
+            players.add(new Player(i, playerNicknames.get(i), new Bookshelf(), pgcList.remove(0)));
         }
         switch (playerNumber) {
-            //case 2, 3, 4 -> board = new Board(cgcEnum, builderBoard.fillBoard(board.getSlots(), pocket, playerNumber));
+            case 2, 3, 4 -> board = new Board(BoardConfig.fillBoard(board.getSlots(), pocket, playerNumber));
             default -> throw new IllegalPlayersNumberException("wait, you are doing something wrong");
         }
-
-        //gameState = new GameState(players, board, pocket);
+        board.updatePickable();
+        game = new Game(players, cgcList, board, pocket, playerNumber);
+        System.out.println("created game for" + playerNicknames);
+        return;
     }
 
     /**
@@ -103,6 +96,16 @@ public class GameController {
      */
     void start(List<String> usernames) {
 
+    }
+
+    public Game getGame(){
+        return game;
+    }
+
+    @Override
+    public void update(Action action) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 }
 
