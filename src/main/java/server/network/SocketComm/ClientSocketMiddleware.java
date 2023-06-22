@@ -7,9 +7,6 @@ import client.network.State;
 import server.model.Game;
 import server.model.Lobby;
 import server.network.Server;
-import server.model.Board;
-import server.model.Bookshelf;
-import server.model.Tile;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -21,7 +18,7 @@ import java.util.List;
 
 
 
-public class ClientSkeleton implements ClientInterface, Runnable {
+public class ClientSocketMiddleware implements ClientInterface, Runnable {
     private ObjectOutputStream oos;
     private State currState = State.WAITINGFORRESPONSE;
 
@@ -39,7 +36,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
      * @param socket the socket
      * @throws RemoteException the remote exception
      */
-    public ClientSkeleton(Socket socket, Server server) throws RemoteException
+    public ClientSocketMiddleware(Socket socket, Server server) throws RemoteException
     {
         this.socket = socket;
         this.server = server;

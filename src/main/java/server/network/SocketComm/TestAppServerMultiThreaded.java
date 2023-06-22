@@ -3,9 +3,6 @@ package server.network.SocketComm;
 import client.network.ClientInterface;
 import server.model.Lobby;
 import server.network.Server;
-import server.network.ServerInterface;
-import util.Messages.AskMoveMessage;
-import util.Parser;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -79,7 +76,7 @@ public class TestAppServerMultiThreaded {
     private static void startSocket(List<Lobby> lobbyList) throws RemoteException
     {
         ArrayList<Thread> memory = new ArrayList<Thread>();
-        ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
+        ArrayList<ClientSocketMiddleware> clientsList = new ArrayList<ClientSocketMiddleware>();
         Server serverInterface = new Server(false, lobbyList);
         System.out.println("Server Started");
         try {
@@ -88,10 +85,10 @@ public class TestAppServerMultiThreaded {
                 System.out.println("Waiting connections...");
                 Socket socket = serverSocket.accept();
                 System.out.println("New connection found");
-                ClientSkeleton clientSkeleton = new ClientSkeleton(socket, serverInterface);
+                ClientSocketMiddleware clientSocketMiddleware = new ClientSocketMiddleware(socket, serverInterface);
                 //To send the info you have to call the clientSkeleton's function on the server-side
                 //clientsList.add(clientSkeleton);
-                Thread clientSkeletonThread = new Thread(clientSkeleton);
+                Thread clientSkeletonThread = new Thread(clientSocketMiddleware);
                 memory.add(clientSkeletonThread);
                 clientSkeletonThread.start();
                 System.out.println("Thread launched from main");

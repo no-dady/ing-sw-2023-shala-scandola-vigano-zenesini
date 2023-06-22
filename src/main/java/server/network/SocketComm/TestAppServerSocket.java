@@ -1,7 +1,6 @@
 package server.network.SocketComm;
 
 import server.network.Server;
-import server.network.ServerInterface;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -22,7 +21,7 @@ public class TestAppServerSocket {
     public static void main(String[] args) throws RemoteException
     {
         ArrayList<Thread> memory = new ArrayList<Thread>();
-        ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
+        ArrayList<ClientSocketMiddleware> clientsList = new ArrayList<ClientSocketMiddleware>();
         Server server = new Server(false, null);
         System.out.println("Server Started");
         try {
@@ -32,10 +31,10 @@ public class TestAppServerSocket {
                 Socket socket = serverSocket.accept();
                 System.out.println("New connection found");
                 notifyAllClients(clientsList);
-                ClientSkeleton clientSkeleton = new ClientSkeleton(socket, server);
+                ClientSocketMiddleware clientSocketMiddleware = new ClientSocketMiddleware(socket, server);
                 //To send the info you have to call the clientSkeleton's function on the server-side
-                clientsList.add(clientSkeleton);
-                Thread clientSkeletonThread = new Thread(clientSkeleton);
+                clientsList.add(clientSocketMiddleware);
+                Thread clientSkeletonThread = new Thread(clientSocketMiddleware);
                 memory.add(clientSkeletonThread);
                 clientSkeletonThread.start();
                 System.out.println("Thread launched from main");
@@ -46,11 +45,11 @@ public class TestAppServerSocket {
         }
     }
 
-    public static void notifyAllClients(ArrayList<ClientSkeleton> clientsList)
+    public static void notifyAllClients(ArrayList<ClientSocketMiddleware> clientsList)
     {
-        for (ClientSkeleton clientSkeleton : clientsList)
+        for (ClientSocketMiddleware clientSocketMiddleware : clientsList)
         {
-            clientSkeleton.notifyNewConn("New connection ");
+            clientSocketMiddleware.notifyNewConn("New connection ");
         }
     }
 }

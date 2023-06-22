@@ -1,6 +1,5 @@
 package server.view;
 
-import client.Client;
 import client.network.ClientInterface;
 import moves.MoveSelectTiles;
 import observer.Observer;
@@ -9,11 +8,8 @@ import util.Messages.Message;
 import server.controller.actions.Action;
 import server.controller.actions.TileSelectAction;
 import server.model.Player;
-import setup.Setup;
 import util.Parser;
-import server.network.SocketComm.ClientSkeleton;
 
-import java.io.IOException;
 import java.rmi.RemoteException;
 
 public class RemoteView extends View {

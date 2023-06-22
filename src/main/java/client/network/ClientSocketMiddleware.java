@@ -1,6 +1,8 @@
 package client.network;
 
 import client.Client;
+import observer.Observable;
+import observer.Observer;
 import server.model.Tile;
 import server.network.ServerInterface;
 
@@ -8,12 +10,14 @@ import java.io.*;
 import java.net.Socket;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Server stub.
  */
 //It implements the Server, but it will be used on the client-side to communicate
-public class ClientSocketMiddleware implements ServerInterface, Runnable {
+public class ClientSocketMiddleware implements Observable<String>, ServerInterface, Runnable {
     Client client;
     /**
      * The Ip.
@@ -25,7 +29,11 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
      */
     int port;
 
+    private boolean active = true;
+    private final boolean standby = false;
+
     private ObjectOutputStream oos;
+    private DataOutputStream out;
 
     private Socket socket;
 
@@ -47,32 +55,44 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
     @Override
     public void run()
     {
+        DataInputStream in;
 
         try
         {
             socket = new Socket(ip, port);
+            in = new DataInputStream(socket.getInputStream());
+            out = new DataOutputStream(socket.getOutputStream());
             System.out.println("Created socket");
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            System.out.println("Created oos");
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            System.out.println("Created ois");
+            // oos = new ObjectOutputStream(socket.getOutputStream());
+            // System.out.println("Created oos");
+            // ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            // System.out.println("Created ois");
 
             System.out.println("Created streams");
             String rec;
-            while (true)
+            while (isActive())
             {
-                rec = (String) ois.readObject();
-                clientinterface.send(rec);
+                //rec = (String) ois.readObject();
+                rec = in.readUTF();
+                notify(rec);
+                //clientinterface.send(rec);
             }
-        } catch(IOException e)
-        {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e)
-        {
-            e.printStackTrace();
         }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        } 
 
     }
+
+    private synchronized boolean isActive(){
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
 
     public void testContinousSend()
     {
@@ -114,63 +134,18 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         }
     }
 
-    //Action n 1
-    @Override
-    public void sendChoice(int columnChoice) throws RemoteException
-    {
-        try
-        {
-            oos.writeInt(1);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send action number sendChoice", e);
-        }
-
-        try
-        {
-            oos.writeInt(columnChoice);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send column choice", e);
-        }
-    }
-
-    //Action n 2
-    @Override
-    public void sendPick(Tile[] tilePick) throws RemoteException
-    {
-        try
-        {
-            oos.writeInt(2);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send action number sendPick", e);
-        }
-
-        try
-        {
-            oos.writeObject(tilePick);
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send tile pick from board", e);
-        }
-    }
-
-    //Action n 3
     @Override
     public void send(String string) throws RemoteException
     {
         try
         {
-            oos.writeObject(string);
+            out.writeUTF(string);
+            out.flush();
+            System.out.println("Send > " + string);
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send string from client", e);
+            throw new RemoteException(e.getMessage());
         }
     }
 
@@ -239,5 +214,23 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         //        client.testSend(string);
         //    }
         //}
+    }
+
+    private transient final List<Observer<String>> observers = new ArrayList<>();
+
+    @Override
+    public void addObserver(Observer<String> observer){
+        synchronized (observers) {
+            observers.add(observer);
+        }
+    }
+
+    @Override
+    public void notify(String message) {
+        synchronized (observers) {
+            for(Observer<String> observer : observers){
+                observer.update(message);
+            }
+        }
     }
 }
