@@ -49,5 +49,13 @@ public class LobbyWaitController implements GenericInterface, Initializable {
     @Override
     public void update() {
 
+            player_1.setText("primo");
+        player_2.setText("secondo");
+        player_3.setText("terzo");
+        player_4.setText("quarto");
+
+
+
+
     }
 }

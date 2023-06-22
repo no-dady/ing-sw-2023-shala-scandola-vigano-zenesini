@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import server.model.Game;
 import util.Messages.Message;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -102,23 +103,9 @@ public class GUI extends Application implements UI {
             break;
             }
             case WAITINGFORMYTURN -> {
-                switch (client.getGame().getPlayers().size()) {
-                    case 2 -> {
-                        activate(TwoPlayersScreenController.name);
-                        break;
-                    }
-                    case 3 -> {
-                        activate(ThreePlayersScreenController.name);
-                        break;
-                    }
-                    case 4 -> {
-                        activate(FourPlayersScreenController.name);
-                        break;
-                    }
-                }
+                activate(BoardController.name);
                 break;
             }
-
             case MYTURN ->{
                     activate(BoardController.name);
             break;
@@ -138,5 +125,8 @@ public class GUI extends Application implements UI {
         this.current = loader.getController();
         current.update();
         main.setRoot(loader.getRoot());
+    }
+    public Game getGame(){
+        return client.getGame();
     }
 }
