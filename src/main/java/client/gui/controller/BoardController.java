@@ -7,11 +7,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import server.model.Bookshelf;
+import server.model.Coordinates;
 import server.model.Player;
 import setup.ConfigsFromJson;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -56,23 +58,8 @@ public class BoardController implements GenericInterface, Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-
     }
 
-    private void fixer(int[][] m, int num, List<Pane> twoPlayers) {
-        int i;
-        int j;
-        for (i = 0; i < gui.getGame().getBoard().getSlots().length; i++) {
-            for (j = 0; j < gui.getGame().getBoard().getSlots()[0].length; j++) {
-                if (m[i][j] != 0 && m[i][j] <= num) {
-                    String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + gui.getGame().getBoard().getTile(i, j).getImage())).toExternalForm();
-                    twoPlayers.get(i + j).setStyle("-fx-background-image: url('" + imageUrl + "');");
-                }
-            }
-        }
-    }
 
     public void onPlayerButtonPress(ActionEvent event) {
     }
@@ -112,15 +99,53 @@ public class BoardController implements GenericInterface, Initializable {
         int[][] m;
         int num = gui.getGame().getNumPlayers();
         Bookshelf bookshelf = null;
+        HashMap <Pane, Coordinates> paneMap= new HashMap<>();
+        paneMap.put( t_1_4,new Coordinates(1,4));
+        paneMap.put( t_1_5,new Coordinates(1,5));
+        paneMap.put( t_2_4,new Coordinates(2,4));
+        paneMap.put( t_2_5,new Coordinates(2,5));
+paneMap.put( t_2_6,new Coordinates(2,6));
+paneMap.put( t_3_3,new Coordinates(3,3));
+paneMap.put( t_3_4,new Coordinates(3,4));
+paneMap.put( t_3_5,new Coordinates(3,5));
+paneMap.put( t_3_6,new Coordinates(3,6));
+paneMap.put( t_3_7,new Coordinates(3,7));
+paneMap.put( t_4_2,new Coordinates(4,2));
+paneMap.put( t_4_3,new Coordinates(4,3));
+paneMap.put( t_4_4,new Coordinates(4,4));
+paneMap.put( t_4_5,new Coordinates(4,5));
+paneMap.put( t_4_6,new Coordinates(4,6));
+paneMap.put( t_4_7,new Coordinates(4,7));
+paneMap.put( t_4_8,new Coordinates(4,8));
+paneMap.put( t_4_9,new Coordinates(4,9));
+paneMap.put( t_5_1,new Coordinates(5,1));
+paneMap.put( t_5_2,new Coordinates(5,2));
+paneMap.put( t_5_3,new Coordinates(5,3));
+paneMap.put( t_5_4,new Coordinates(5,4));
+paneMap.put( t_5_5,new Coordinates(5,5));
+paneMap.put( t_5_6,new Coordinates(5,6));
+paneMap.put( t_5_7,new Coordinates(5,7));
+paneMap.put( t_5_8,new Coordinates(5,8));
+paneMap.put( t_5_9,new Coordinates(5,9));
+paneMap.put( t_6_1,new Coordinates(6,1));
+paneMap.put( t_6_2,new Coordinates(6,2));
+paneMap.put( t_6_3,new Coordinates(6,3));
+paneMap.put( t_6_4,new Coordinates(6,4));
+paneMap.put( t_6_5,new Coordinates(6,5));
+paneMap.put( t_6_6,new Coordinates(6,6));
+paneMap.put( t_6_7,new Coordinates(6,7));
+paneMap.put( t_6_8,new Coordinates(6,8));
+paneMap.put( t_7_3,new Coordinates(7,3));
+paneMap.put( t_7_4,new Coordinates(7,4));
+paneMap.put( t_7_5,new Coordinates(7,5));
+paneMap.put( t_7_6,new Coordinates(7,6));
+paneMap.put( t_7_7,new Coordinates(7,7));
+paneMap.put( t_8_4,new Coordinates(8,4));
+paneMap.put( t_8_5,new Coordinates(8,5));
+paneMap.put( t_8_6,new Coordinates(8,6));
+paneMap.put( t_9_5,new Coordinates(9,5));
+paneMap.put( t_9_6,new Coordinates(9,6));
 
-        List<Pane> twoPlayers = List.of(t_2_4, t_2_5, t_3_4, t_3_5, t_3_6, t_4_3, t_4_4, t_4_5, t_4_6,
-                t_4_7, t_4_8, t_5_2, t_5_3, t_5_4, t_5_5, t_5_6, t_5_7, t_5_8, t_6_2,
-                t_6_3, t_6_4, t_6_5, t_6_6, t_6_7, t_7_4, t_7_5, t_7_6, t_8_5, t_8_6);
-
-
-        List<Pane> threePlayers = new java.util.ArrayList<>(List.of(t_1_4, t_3_3, t_3_7, t_4_9, t_6_1, t_7_3, t_7_7, t_9_6));
-
-        List<Pane> fourPlayers = new java.util.ArrayList<>(List.of(t_1_5, t_2_6, t_4_2, t_5_1, t_5_9, t_6_8, t_8_4, t_9_5));
 
         List<Pane> bookshelfTiles = List.of(b_1_1, b_1_2, b_1_3, b_1_4, b_1_5, b_1_6,
                 b_2_1, b_2_2, b_2_3, b_2_4, b_2_5, b_2_6,
@@ -134,20 +159,15 @@ public class BoardController implements GenericInterface, Initializable {
             throw new RuntimeException(e);
         }
 
-        switch (num) { //board initialization
+        for (Pane p : paneMap.keySet()) {
+            int x = paneMap.get(p).x() - 1;
+            int y = paneMap.get(p).y() - 1;
+            if (m[x][y] != 0 && m[x][y] <= num){
+                String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + gui.getGame().getBoard().getTile(x,y).getImage())).toExternalForm();
+                p.setStyle("-fx-background-image: url('" + imageUrl + "');");
 
-            case (2) -> {
-                fixer(m, num, twoPlayers);
             }
-            case (3) -> {
-                threePlayers.addAll(twoPlayers);
-                fixer(m, num, threePlayers);
-            }
-            case (4) -> {
-                fourPlayers.addAll(twoPlayers);
-                fourPlayers.addAll(threePlayers);
-                fixer(m, num, fourPlayers);
-            }
+
         }
 
         for(Player player : gui.getClient().getGame().getPlayers())

@@ -9,6 +9,5 @@ public class guistarter {
     public static void main(String[] args) throws IOException {
         Client client = new Client(true);
         client.run();
-
     }
 }
