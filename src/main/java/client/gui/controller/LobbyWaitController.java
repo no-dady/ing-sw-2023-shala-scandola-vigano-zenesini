@@ -1,6 +1,7 @@
 package client.gui.controller;
 
 import client.gui.GUI;
+import client.network.State;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,13 +50,10 @@ public class LobbyWaitController implements GenericInterface, Initializable {
     @Override
     public void update() {
 
-            player_1.setText("primo");
+        player_1.setText("primo");
         player_2.setText("secondo");
         player_3.setText("terzo");
         player_4.setText("quarto");
-
-
-
 
     }
 }

@@ -44,8 +44,14 @@ public class Client {
 
     public void setOnline() throws RemoteException, RuntimeException, MalformedURLException, NotBoundException {
         switch (connectionType) {
-            case "RMI" -> clientConnection = new ClientHandler(ip, port);
-            case "SOCKET" -> clientConnection = new ClientHandler(this, ip, port);
+            case "RMI" -> {
+                clientConnection = new ClientHandler(ip, port);
+                clientConnection.setClient(this);
+            }
+            case "SOCKET" -> {
+                clientConnection = new ClientHandler(this, ip, port);
+                clientConnection.setClient(this);
+        }
             default -> throw new RuntimeException("Could not initiate connection");
         }
 
@@ -81,6 +87,9 @@ public class Client {
 
     public UI getUI() {
         return ui;
+    }
+    public void setUi(UI ui) {
+        this.ui =  ui;
     }
 
     public boolean isOnline() {

@@ -156,7 +156,7 @@ public class TUI implements UI, Runnable {
                 }
             }
             //COMMENTED THIS LINE vvv ONLY BECAUSE RIGHT NOW WE DONT HAVE A REAL GAME INSIDE THE CLIENT SO getGame LEAD TO A NULLPOINTEREXC
-            while (client.isActive() && client.isOnline() && !this.client.getGame().hasWinner()) {
+            while (client.isActive() && client.isOnline() && !client.getGame().hasWinner()) {
                 while (!client.getState().equals(State.WAITINGFORMYTURN)) {
                     //whatever you want to do whn you are not actively playing
                     // maybe show bookshelves of the other players

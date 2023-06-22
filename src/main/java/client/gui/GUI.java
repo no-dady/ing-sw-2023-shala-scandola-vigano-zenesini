@@ -52,6 +52,7 @@ public class GUI extends Application implements UI {
     public void printConnectionMessage(Message message) {}
 
     public void start(Stage primaryStage) throws Exception {
+        client.setUi(this);
         primaryStage.getIcons().add(new Image(this.getClass().getResource("/images/icon.png").toString()));
         primaryStage.setTitle("My Shelfie");
         Pane root = new Pane();

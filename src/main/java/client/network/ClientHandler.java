@@ -2,6 +2,7 @@ package client.network;
 
 import client.Client;
 import client.UI;
+import client.gui.GUI;
 import observer.Observer;
 import server.model.Game;
 import server.network.ServerInterface;
@@ -23,6 +24,12 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class ClientHandler extends UnicastRemoteObject implements ClientInterface, Serializable {
     private ServerInterface serverInterface;
+    private Client client;
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     private Game game;
     private State currState = State.WAITINGFORGAMESTART;
     private Thread socketThread;
@@ -162,6 +169,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                 case 4:
                 case 5:
                     System.out.println(trueMessageReceived.getMessage());
+                    if (currState.equals(State.MYTURN) || currState.equals(State.WAITINGFORMYTURN)) client.getUI().update();
                     break;
 
             }
@@ -172,6 +180,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     public UI getUI() throws RemoteException {
         return null;
     }
+
 
     @Override
     public Game getGame() throws RemoteException{

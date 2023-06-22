@@ -189,9 +189,12 @@ paneMap.put( t_9_6,new Coordinates(9,6));
             }
 
         }
-
-        String goalCard = Objects.requireNonNull(getClass().getResource("/images/personal_goal_card/" + gui.getGame().getPlayers().get(0).getPersonalGoalCard().getFileName() + ".png")).toExternalForm();
-        goal_card.setStyle("-fx-background-image: url('" + goalCard + "');");
+        for (Player player : gui.getGame().getPlayers()){
+            if (player.getUserName().equals(gui.getNickname())){
+                String goalCard = Objects.requireNonNull(getClass().getResource("/images/personal_goal_card/" + player.getPersonalGoalCard().getFileName() + ".png")).toExternalForm();
+                goal_card.setStyle("-fx-background-image: url('" + goalCard + "');");
+            }
+        }
 
         String cgc1 = Objects.requireNonNull(getClass().getResource("/images/common_goal_cards/" + gui.getGame().getBoard().getCommonGoalCards().get(0).getName() + ".jpg")).toExternalForm();
         cgc_1.setStyle("-fx-background-image: url('" + cgc1 + "');");
