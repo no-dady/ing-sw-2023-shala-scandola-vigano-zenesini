@@ -1,11 +1,14 @@
 package client.gui;
 
+import client.Client;
 import javafx.application.Application;
 
-public class guistarter {
-    public static void main(String[] args){
+import java.io.IOException;
 
-        Application.launch(GUI.class);
+public class guistarter {
+    public static void main(String[] args) throws IOException {
+        Client client = new Client(true);
+        client.run();
 
     }
 }

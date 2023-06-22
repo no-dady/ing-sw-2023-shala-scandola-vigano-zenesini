@@ -2,9 +2,10 @@ package client.gui;
 
 import client.Client;
 import client.UI;
-import client.gui.controller.GenericInterface;
-import client.gui.controller.InitController;
+import client.gui.controller.*;
+import client.network.State;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -28,15 +29,19 @@ public class GUI extends Application implements UI {
         return client;
     }
 
-    private Client client;
+    private static Client client;
 
-    public GUI(Client client) {
-        this.client = client;
+    public GUI() {
+        super();
     }
 
     @Override
     public void update() {
-        //Platform.runLater(this::intUpdate);
+        Platform.runLater(this::intUpdate);
+    }
+    public static void entry(Client client) {
+        GUI.client = client;
+        launch("");
     }
 
     @Override
@@ -44,11 +49,6 @@ public class GUI extends Application implements UI {
 
     @Override
     public void printConnectionMessage(Message message) {}
-
-    public static void main(String[] args)
-    {
-        launch(args);
-    }
 
     public void start(Stage primaryStage) throws Exception {
         primaryStage.getIcons().add(new Image(this.getClass().getResource("/images/icon.png").toString()));
@@ -71,10 +71,15 @@ public class GUI extends Application implements UI {
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/victory-screen.fxml")));
 
         for (FXMLLoader loader : loaders) {
-            Pane pane = loader.load();
-            GenericInterface controller = loader.getController();
-            controller.setGUI(this);
-            this.loaderMap.put(controller.getName(), loader);
+            try {
+                Pane pane = loader.load();
+                GenericInterface controller = loader.getController();
+                controller.setGUI(this);
+                this.loaderMap.put(controller.getName(), loader);
+            }
+            catch (Exception e){
+                System.out.println(e.toString());
+            }
         }
         this.activate(InitController.name);
         primaryStage.setResizable(true);
@@ -82,8 +87,51 @@ public class GUI extends Application implements UI {
         primaryStage.setFullScreen(false);
     }
 
-    public void setNickname(String nickname) {
+    private void intUpdate(){
+        switch (client.getState()){
+            case SETTINGNICKNAME ->{
+                    activate(InitErrorController.name);
+            break;
+            }
+            case SETTINGPLAYERSNUMBER ->{
+                    activate(LobbySetController.name);
+            break;
+            }
+            case WAITINGINLOBBY ->{
+                    activate(LobbyWaitController.name);
+            break;
+            }
+            case WAITINGFORMYTURN -> {
+                switch (client.getGame().getPlayers().size()) {
+                    case 2 -> {
+                        activate(TwoPlayersScreenController.name);
+                        break;
+                    }
+                    case 3 -> {
+                        activate(ThreePlayersScreenController.name);
+                        break;
+                    }
+                    case 4 -> {
+                        activate(FourPlayersScreenController.name);
+                        break;
+                    }
+                }
+                break;
+            }
 
+            case MYTURN ->{
+                    activate(BoardController.name);
+            break;
+            }
+            case GAMEENDED -> {
+                activate(VictoryScreenController.name);
+                break;
+            }
+        }
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
     public void activate(String name) {
         FXMLLoader loader = this.loaderMap.get(name);

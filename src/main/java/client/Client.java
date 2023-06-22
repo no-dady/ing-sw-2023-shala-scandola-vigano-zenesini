@@ -8,10 +8,12 @@ import java.util.NoSuchElementException;
 import client.tui.TUI;
 import client.gui.GUI;
 import client.network.*;
+import javafx.application.Application;
 import server.model.Game;
 
 public class Client {
-    private final UI ui;
+    private UI ui;
+    private boolean gui;
     private String connectionType;
     private ClientHandler clientConnection;
     private boolean active = true;
@@ -22,7 +24,7 @@ public class Client {
 
     public Client(boolean gui) throws IOException {
         this.active = true;
-        this.ui = gui ? new GUI(this) : new TUI(this);
+        this.gui = gui;
     }
 
     public synchronized boolean isActive() {
@@ -51,13 +53,15 @@ public class Client {
         System.out.println("Connection established");
     }
 
+
     public void run() throws IOException {
         try {
-            if(ui instanceof TUI) {
+            if( !gui ) {
+                ui = new TUI(this);
                 Thread thread = new Thread((Runnable) ui);
                 thread.start();
             } else {
-               // ui.entry();
+                GUI.entry(this);
             }
 
             synchronized(this) {

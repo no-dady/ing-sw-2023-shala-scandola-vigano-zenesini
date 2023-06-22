@@ -7,6 +7,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import util.Messages.NicknameMessage;
+import util.Parser;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,10 +18,10 @@ import static java.lang.Thread.sleep;
 
 public class InitErrorController implements GenericInterface, Initializable {
     private GUI gui;
-    public String temp;
+    public String nickname;
     public static final String name ="init-nickname";
     @FXML
-    public TextField text_field;
+    public TextField nickname_field;
     @FXML
     public Button submit;
 
@@ -28,19 +30,18 @@ public class InitErrorController implements GenericInterface, Initializable {
 
     }
     public void onSubmitClick(ActionEvent event) throws IOException, InterruptedException {
-        temp = text_field.getText();
-        System.out.println(temp);
 
-        if(temp!=null){
-            String Nickname = temp;
+        nickname = nickname_field.getText();
 
-            sleep(2000);
-        }
-        else{
-            System.out.println("Insert Nickname");
-            Alert alert = alertCreator();
-            alert.setContentText("Set the Nickname");
-            alert.showAndWait();
+        if(nickname !=null){
+            String Nickname = nickname;
+            gui.setNickname(nickname);
+            NicknameMessage nickMessage = new NicknameMessage(nickname);
+            String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
+            gui.getClient().sendToServer(messageParsed);
+            gui.update();
+        }else {
+            gui.update();
         }
     }
     @Override

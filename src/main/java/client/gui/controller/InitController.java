@@ -13,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.NotBoundException;
 import java.util.ResourceBundle;
 
 import static java.lang.Thread.sleep;
@@ -30,7 +31,7 @@ public class InitController implements GenericInterface, Initializable {
     @FXML
     public ImageView background;
     @FXML
-    public TextField text_field;
+    public TextField ip_field;
     @FXML
     public ChoiceBox<String> connection_box;
     @FXML
@@ -43,44 +44,24 @@ public class InitController implements GenericInterface, Initializable {
     @FXML
     public void onBoxChoiceClick(ActionEvent event) {
         option = (String) connection_box.getValue();
-        System.out.println(option);
     }
 
 
     @FXML
-    public void onPlayButtonClick(ActionEvent event) throws IOException, InterruptedException {
-        temp = text_field.getText();
-
-        System.out.println(temp);
-
-        if(!temp.equals("") && option!=null){
-
-            port=port_field.getText();
+    public void onPlayButtonClick(ActionEvent event) throws IOException, InterruptedException, NotBoundException {
+        do {
+            Ip = ip_field.getText();
+            System.out.println(Ip);
+            port = port_field.getText();
+            System.out.println(port);
             connection = option;
-            Ip = temp;
+            System.out.println(connection);
+        }while (!Ip.matches("\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b") && port.equals("") && !(connection.equals("RMI") || connection.equals("SOCKET")));
 
-            sleep(2000);
-
-        }
-        if(!temp.equals("") && option==null){
-            System.out.println("Select connection type");
-            Alert alert = alertCreator();
-            alert.setContentText("Set the connection type");
-            alert.showAndWait();
-        }
-        if(temp.equals("") && option!=null){
-            System.out.println("Insert Ip");
-            Alert alert = alertCreator();
-            alert.setContentText("Set the Ip");
-            alert.showAndWait();
-        }
-        if(temp.equals("") && option==null){
-            System.out.println("Insert data");
-            Alert alert = alertCreator();
-            alert.setContentText("Insert data");
-            alert.showAndWait();
-        }
-
+            System.out.println("uscito e sollecitato client");
+            gui.getClient().setConnection(Ip,Integer.parseInt(port),option);
+            gui.getClient().setOnline();
+            gui.update();
 
     }
 
