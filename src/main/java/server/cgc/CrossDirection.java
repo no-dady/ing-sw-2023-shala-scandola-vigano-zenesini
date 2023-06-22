@@ -3,21 +3,30 @@ package server.cgc;
 import server.model.Tile;
 import server.model.CommonGoalCardStrategy;
 
+import java.io.Serializable;
+
 /**
  * The type Cross direction.
  */
 //CROSSDIRECTION
-public class CrossDirection extends CommonGoalCardStrategy {
+public class CrossDirection extends CommonGoalCardStrategy implements Serializable {
     private final int numToLook;
+    private final String name;
 
     /**
      * Instantiates a new Cross direction.
      *
      * @param numToLook the num to look
      */
-    public CrossDirection(int numToLook) {
+    public CrossDirection(int numToLook, String name) {
         this.numToLook = numToLook;
+        this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean conditionCheck(Tile[][] shelf) {
         int rowMax = shelf.length - numToLook + 1;

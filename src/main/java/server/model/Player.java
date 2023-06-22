@@ -1,15 +1,21 @@
 package server.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import observer.Observable;
+import observer.Observer;
+import util.Messages.Message;
 
 /**
  * The type Player.
  */
-public class Player implements Serializable {
+public class Player implements Serializable, Observable<Message> {
     private final int userId;
-    private String username;
+    private final String username;
     private int score;
-    private final Bookshelf personalBookshelf;
+    private Bookshelf personalBookshelf;
     private final PersonalGoalCard personalGoalCard;
 
     /**
@@ -56,6 +62,9 @@ public class Player implements Serializable {
     {
         return this.personalBookshelf;
     }
+    public void setPersonalBookshelf(Bookshelf personalBookshelf) {
+        this.personalBookshelf = personalBookshelf;
+    }
 
     /**
      * Gets personal goal card.
@@ -87,12 +96,6 @@ public class Player implements Serializable {
         return this.score;
     }
 
-    /**
-     * Sets user name.
-     *
-     * @param username the username
-     */
-    public void setUserName(String username) { this.username = username; }
 
     /**
      * Is winner boolean.
@@ -101,5 +104,23 @@ public class Player implements Serializable {
      */
     public boolean isWinner() {
         return personalBookshelf.getNumTiles() == (Bookshelf.getRows() * Bookshelf.getCols());
+    }
+
+    private transient final List<Observer<Message>> observers = new ArrayList<>();
+
+    @Override
+    public void addObserver(Observer<Message> observer){
+        synchronized (observers) {
+            observers.add(observer);
+        }
+    }
+
+    @Override
+    public void notify(Message message) {
+        synchronized (observers) {
+            for(Observer<Message> observer : observers){
+                observer.update(message);
+            }
+        }
     }
 }

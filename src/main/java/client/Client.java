@@ -1,67 +1,40 @@
 package client;
 
-import client.network.RMIHandler;
-import network.ClientInterface;
-import server.model.*;
-import observer.Observer;
-import observer.Observable;
-import server.controller.*;
-import network.Message;
-import network.LastMessage;
-import client.model.*;
-import util.Parser;
-
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
+import java.net.MalformedURLException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import client.tui.TUI;
+import client.gui.GUI;
+import client.network.*;
+import javafx.application.Application;
+import server.model.Game;
 
-import client.network.Connection;
-import client.network.SocketConnection;
-
-
-public class Client implements ClientInterface {
-
-    private final String ip;
-    private final int port;
-    private final int ui;
-    private boolean online = false;
+public class Client {
+    private UI ui;
+    private boolean gui;
+    private String connectionType;
+    private ClientHandler clientConnection;
     private boolean active = true;
-    private Connection handler;
-    // Game Info
-    private GameClient game;
-    private String lobby;
-    private GUI gui;
-    private TUI tui;
+    private boolean online = false;
+    private String ip;
+    private int port;
 
-    public DataOutputStream sokcetOut;
-    public DataInputStream socketIn;
-    private Thread readingThread;
-    private Socket socket;
 
-    public Client(String ip, int port, int ui, int connectionType) {
-        this.ip = ip;
-        this.port = port;
-        this.ui = ui;
-        switch(connectionType) {
-            case 0: handler = new SocketConnection(ip, port);
-            case 1:
-                try {
-                    handler = new RMIHandler(this, ip, String.valueOf(port));
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            default: // Exception
-        }
+    public Client(boolean gui) throws IOException {
+        this.active = true;
+        this.gui = gui;
     }
 
     public synchronized boolean isActive() {
-        return active;
+        return this.active;
+    }
+
+    public void setConnection(String ip, int port, String connectionType) {
+        this.ip = ip;
+        this.port = port;
+        this.connectionType = connectionType;
     }
 
     public synchronized void setActive(boolean active) {
@@ -69,64 +42,72 @@ public class Client implements ClientInterface {
         if(!active) notifyAll();
     }
 
-    public Thread asyncReadFromSocket(final DataInputStream socketIn) {
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                try {
-                    String read;
-                    while (isActive()) {
-                        read = socketIn.readUTF();
-                        Message received = Parser.parseFromJson(read, Message.class);
-                        received.handleMessage(Client.this);
-                    }
-                } catch (Exception e) {
-                    setActive(false);
-                }
-            }
-        });
-        t.start();
-        return t;
+    public void setOnline() throws RemoteException, RuntimeException, MalformedURLException, NotBoundException {
+        switch (connectionType) {
+            case "RMI" -> clientConnection = new ClientHandler(ip, port);
+            case "SOCKET" -> clientConnection = new ClientHandler(this, ip, port);
+            default -> throw new RuntimeException("Could not initiate connection");
+        }
+
+        online = true;
+        System.out.println("Connection established");
     }
 
-     public void run() throws IOException {
-        try{
-            if(ui==1) {
-                tui = new TUI(this);
-                Thread t1 = new Thread(tui);
-                t1.start();
-            }
-            else{
+
+    public void run() throws IOException {
+        try {
+            if( !gui ) {
+                ui = new TUI(this);
+                Thread thread = new Thread((Runnable) ui);
+                thread.start();
+            } else {
                 GUI.entry(this);
             }
-            //chose has been made
-            synchronized (this){
-                while (isActive()){
+
+            synchronized(this) {
+                while (isActive()) {
                     this.wait();
                 }
             }
-            //t1.join();
-        } catch(InterruptedException | NoSuchElementException e){
-            System.out.println("Connection closed from the client side");
+        } catch (InterruptedException | NoSuchElementException ex) {
+            System.out.println("Connection closed from client side");
         } finally {
-            // Close Connections
+            online = false;
+          //  clientConnection.close();
 
-            //stdin.close();
             System.exit(0);
         }
     }
 
-    @Override
-    public void closeConnection() {
-
+    public UI getUI() {
+        return ui;
     }
 
-    @Override
-    public void addObserver(Observer<String> observer) {
-
+    public boolean isOnline() {
+        return online;
     }
 
-    @Override
-    public void send(String json) {
+    public Game getGame() {
+        try {
+            return clientConnection.getGame();
+        }catch (RemoteException e){}
+        return null;
+    }
+    public void setGame(Game game)  {
+        try {
+            clientConnection.setGame(game);
+        }catch (RemoteException e){}
+    }
 
+    public State getState() {
+        try {
+            return clientConnection.getState();
+        }catch (RemoteException e){}
+        return null;
+    }
+
+    public void sendToServer(String parsedString) throws RemoteException
+    {
+        clientConnection.sendToServer(parsedString);
     }
 }

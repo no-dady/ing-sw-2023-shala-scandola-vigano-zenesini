@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="client.gui.controller.InitController">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1386.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/19">
+    <ImageView fx:id="background" fitHeight="400.0" fitWidth="1386.0" VBox.vgrow="ALWAYS">
+        <Image url="@../images/init_connection.png" />
+    </ImageView>
+    <TextField fx:id="ip_field" alignment="CENTER" layoutX="685.0" layoutY="317.0" prefHeight="42.0" prefWidth="200.0" text="0.0.0.0" VBox.vgrow="ALWAYS">
+        <cursor>
+          <Cursor fx:constant="DEFAULT" />
+        </cursor>
+    </TextField>
+    <ChoiceBox fx:id="connection_box" layoutX="910.0" layoutY="317.0" onAction="#onBoxChoiceClick" prefHeight="42.0" prefWidth="200.0" value="Connection type" VBox.vgrow="ALWAYS">
+
+    </ChoiceBox>
+    <Button fx:id="play_button" layoutX="1135.0" layoutY="317.0" mnemonicParsing="false" onAction="#onPlayButtonClick" prefHeight="42.0" prefWidth="200.0" text="Play" VBox.vgrow="ALWAYS" />
+      <TextField fx:id="port_field" alignment="CENTER" layoutX="460.0" layoutY="317.0" prefHeight="42.0" prefWidth="200.0" text="80">
+          <cursor>
+              <Cursor fx:constant="DEFAULT" />
+          </cursor>
+      </TextField>
+</AnchorPane>
+</VBox>

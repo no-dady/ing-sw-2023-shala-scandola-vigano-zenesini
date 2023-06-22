@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,9 +36,17 @@ public class ConfigsFromJson {
         FileReader reader = new FileReader(jsonPath);//"src/main/resources/json/board_art.json"
         return new Gson().fromJson(reader, String.class);
     }
+    public static String getBoardAndBookshelfArt(String jsonPath) throws RuntimeException, IOException {
+        FileReader reader = new FileReader(jsonPath);//"src/main/resources/json/board_bookshelf_pgc_art.json"
+        return new Gson().fromJson(reader, String.class);
+    }
 
     public static String getBookshelfArt(String jsonPath) throws RuntimeException, IOException {
         FileReader reader = new FileReader(jsonPath); // "src/main/resources/json/bookshelf_art.json"
+        return new Gson().fromJson(reader, String.class);
+    }
+    public static String getArt(String jsonPath) throws RuntimeException, IOException {
+        FileReader reader = new FileReader(jsonPath);//"src/main/resources/json/PGCArt.json"
         return new Gson().fromJson(reader, String.class);
     }
 }

@@ -1,37 +1,40 @@
 package server.model;
 
-import server.controller.BoardInitializer;
-
+import observer.Observer;
+import server.controller.BoardConfig;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import observer.Observable;
+import util.Messages.Message;
+
 /**
  * The type Game.
  */
-public class Game implements Serializable {
+public class Game implements Serializable, Observable<Message> {
 
     private static final long serialVersionUID = 1L;
 
     private static List<Game> instance;
-
-    private ArrayList<Player> players;
+    private List<Player> players;
     private int currPlayerId;
     private int gameID;
     private int numPlayers;
     private Board board;
+
     private Pocket pocket;
     private boolean gameStarted;
     private List<Tile> selectedTiles;
-    private GameStatus status;
+    private List<CommonGoalCardStrategy> cgcs;
 
     /**
      * Instantiates a new Game.
      */
     public Game() {
-        this.players = new ArrayList<Player>();
-        CommonGoalCardStrategy commonGoalStrategy;
-        // this.board = new Board(commonGoalStrategy, BoardInitializer.newEmptyBoard());
+        this.players = new ArrayList<>();
+        this.cgcs = null;
+        this.board = new Board(BoardConfig.newEmptyBoard());
         this.pocket = new Pocket();
         this.numPlayers = 0;
         if(instance == null) {
@@ -41,6 +44,13 @@ public class Game implements Serializable {
         this.gameID = instance.size()-1;
         instance.add(this);
 
+    }
+    public Game(List<Player> players, List<CommonGoalCardStrategy> cgcs, Board board, Pocket pocket, int numPlayers) {
+        this.players = players;
+        this.cgcs = cgcs;
+        this.board = board;
+        this.pocket = pocket;
+        this.numPlayers = numPlayers;
     }
 
     /**
@@ -86,7 +96,7 @@ public class Game implements Serializable {
      *
      * @return the players
      */
-    public ArrayList<Player> getPlayers() {
+    public List<Player> getPlayers() {
         return this.players;
     }
 
@@ -113,7 +123,9 @@ public class Game implements Serializable {
      *
      * @return the pocket
      */
-    public Pocket getPocket() { return this.pocket; }
+    public Pocket getPocket() {
+        return this.pocket;
+    }
 
     /**
      * Add player.
@@ -149,15 +161,6 @@ public class Game implements Serializable {
     public void errorMessage(int idPlayer) {
     }
 
-    public Player getCurrPlayer() {
-        if(status == GameStatus.Ended) return null;
-        return players.get(currPlayerId);
-    }
-
-    public Player getPlayerFromId(int id) {
-        return players.get(id);
-    }
-
     public int getCurrPlayerId() {
         return currPlayerId;
     }
@@ -165,14 +168,39 @@ public class Game implements Serializable {
     public void setCurrPlayerId(int currPlayerId) {
         this.currPlayerId = currPlayerId;
     }
-/*
-    public void setBoard(Board board) {
-        this.board = board;
+
+        private transient final List<Observer<Message>> observers = new ArrayList<>();
+
+    public int getNumPlayers() {
+        return numPlayers;
     }
 
-    public void setPocket(Pocket pocket) {
-        this.pocket = pocket;
+    public boolean isGameStarted() {
+        return gameStarted;
     }
-    */
+
+    public List<CommonGoalCardStrategy> getCgcs() {
+        return cgcs;
+    }
+
+	public int getPlayerIndex(Player player) {
+		return 0;
+	}
+    
+    @Override
+    public void addObserver(Observer<Message> observer){
+        synchronized (observers) {
+            observers.add(observer);
+        }
+    }
+
+    @Override
+    public void notify(Message message) {
+        synchronized (observers) {
+            for(Observer<Message> observer : observers){
+                observer.update(message);
+            }
+        }
+    }
 
 }

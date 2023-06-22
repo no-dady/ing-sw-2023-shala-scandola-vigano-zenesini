@@ -2,7 +2,8 @@ package server.cgc;
 
 import server.model.CommonGoalCardStrategy;
 import server.model.Tile;
-import server.model.Tile;
+
+import java.io.Serializable;
 
 /**
  * The type Diagonal direction.
@@ -10,9 +11,10 @@ import server.model.Tile;
 //TODO MAYBE WE COULD SEPARATE THE 11TH AND THE 12TH INTO TWO SEPARATE OBJECT USING THE .size OF
 //THE COLUMN TO CALCULATE THE 12TH CARD
 //DIAGONALDIRECTION
-public class DiagonalDirection extends CommonGoalCardStrategy {
+public class DiagonalDirection extends CommonGoalCardStrategy implements Serializable  {
     private final int numToLook;
     private final boolean isEleven;
+    private final String name;
 
     /**
      * Instantiates a new Diagonal direction.
@@ -20,9 +22,13 @@ public class DiagonalDirection extends CommonGoalCardStrategy {
      * @param numToLook the num to look
      * @param isEleven  the is eleven
      */
-    public DiagonalDirection(int numToLook, boolean isEleven) {
+    public DiagonalDirection(int numToLook, boolean isEleven, String name) {
         this.numToLook = numToLook;
         this.isEleven = isEleven;
+        this.name = name;
+    }
+    public String getName() {
+        return name;
     }
 
     @Override

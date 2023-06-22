@@ -1,65 +1,62 @@
 package server.view;
 
-import network.Message;
+import client.network.ClientInterface;
+import moves.MoveSelectTiles;
+import observer.Observer;
+import util.Messages.LastMessage;
+import util.Messages.Message;
 import server.controller.actions.Action;
+import server.controller.actions.TileSelectAction;
 import server.model.Player;
+import util.Parser;
+
+import java.rmi.RemoteException;
 
 public class RemoteView extends View {
 
-    /**
-     * Private internal class that manages the new message received from the client.
-     */
-    private class MessageReceiver {
+    private class MessageReceiver implements Observer<String> {
 
 
-        @Override
         public void update(String info) {
             System.out.println("Received: " + info);
-            try{
-                Action move= Starter.fromJson(info, Action.class);
+            try {
+                Action move= Parser.fromJson(info, Action.class);
                 handleMove(move);
-            }catch (NullPointerException e){
-                Settable setupper= Starter.fromJson(info,Settable.class);
-                SocketClientConnection connection= (SocketClientConnection)clientConnection;
-                connection.handleSetupper(setupper);
+            // } catch (NullPointerException e){
+            //   Setup setupper= Parser.fromJson(info, Setup.class);
+            //   ClientSkeleton connection= (ClientSkeleton)clientConnection;
+            //   connection.handleSetupper(setupper);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }
 
     }
 
-    private ClientConnection clientConnection;
+    private ClientInterface clientConnection;
 
-    /**
-     * Default constructor. It makes the ClientConnection observable for the internal private class.
-     * @param player
-     * @param c
-     */
-    public RemoteView(Player player, ClientConnection c) {
+    public RemoteView(Player player, ClientInterface c) throws RemoteException {
         super(player);
         this.clientConnection = c;
         c.addObserver(new MessageReceiver());
     }
 
-    /**
-     * Sets a new clientConnection. It makes the ClientConnection observable for the internal private class.
-     * @param clientConnection
-     */
-    public void setClientConnection(ClientConnection clientConnection) {
+    public void setClientConnection(ClientInterface clientConnection) throws RemoteException {
         this.clientConnection = clientConnection;
         clientConnection.addObserver(new MessageReceiver());
     }
 
-    /**
-     * Sends a class Message to the client to updates its model. When the game is offline notifies a MoveAutoPlay
-     * @param message
-     */
     @Override
     public void update(Message message){
         if(!this.isOffline()){
-            clientConnection.send(Starter.toJson(message, Message.class));
+            try {
+                clientConnection.send(Parser.toJson(message, Message.class));
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }else{
             if(message instanceof LastMessage){
-                notify(new MoveAutoPlay(getPlayer().getID()));
+                notify(new TileSelectAction(new MoveSelectTiles("sos")));
             }
         }
     }
