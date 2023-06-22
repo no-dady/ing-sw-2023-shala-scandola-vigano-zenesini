@@ -1,28 +1,25 @@
 package server.model;
 
-import observer.Observer;
-import server.controller.BoardConfig;
+import server.controller.BoardInitializer;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import observer.Observable;
-import util.Messages.Message;
-
 /**
  * The type Game.
  */
-public class Game implements Serializable, Observable<Message> {
+public class Game implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private static List<Game> instance;
-    private List<Player> players;
+
+    private ArrayList<Player> players;
     private int currPlayerId;
     private int gameID;
     private int numPlayers;
     private Board board;
-
     private Pocket pocket;
     private boolean gameStarted;
     private List<Tile> selectedTiles;
@@ -44,13 +41,6 @@ public class Game implements Serializable, Observable<Message> {
         this.gameID = instance.size()-1;
         instance.add(this);
 
-    }
-    public Game(List<Player> players, List<CommonGoalCardStrategy> cgcs, Board board, Pocket pocket, int numPlayers) {
-        this.players = players;
-        this.cgcs = cgcs;
-        this.board = board;
-        this.pocket = pocket;
-        this.numPlayers = numPlayers;
     }
 
     /**
@@ -96,7 +86,7 @@ public class Game implements Serializable, Observable<Message> {
      *
      * @return the players
      */
-    public List<Player> getPlayers() {
+    public ArrayList<Player> getPlayers() {
         return this.players;
     }
 
@@ -123,9 +113,7 @@ public class Game implements Serializable, Observable<Message> {
      *
      * @return the pocket
      */
-    public Pocket getPocket() {
-        return this.pocket;
-    }
+    public Pocket getPocket() { return this.pocket; }
 
     /**
      * Add player.
@@ -168,39 +156,14 @@ public class Game implements Serializable, Observable<Message> {
     public void setCurrPlayerId(int currPlayerId) {
         this.currPlayerId = currPlayerId;
     }
-
-        private transient final List<Observer<Message>> observers = new ArrayList<>();
-
-    public int getNumPlayers() {
-        return numPlayers;
+/*
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
-    public boolean isGameStarted() {
-        return gameStarted;
+    public void setPocket(Pocket pocket) {
+        this.pocket = pocket;
     }
-
-    public List<CommonGoalCardStrategy> getCgcs() {
-        return cgcs;
-    }
-
-	public int getPlayerIndex(Player player) {
-		return 0;
-	}
-    
-    @Override
-    public void addObserver(Observer<Message> observer){
-        synchronized (observers) {
-            observers.add(observer);
-        }
-    }
-
-    @Override
-    public void notify(Message message) {
-        synchronized (observers) {
-            for(Observer<Message> observer : observers){
-                observer.update(message);
-            }
-        }
-    }
+    */
 
 }
