@@ -166,7 +166,7 @@ public class Lobby {
         System.out.println("eccoci qui invece ora");
         for (var entry : playerMap.entrySet()) {
             entry.getValue().setGame(game);
-            entry.getValue().setState(State.MyTurn);
+            entry.getValue().setState(State.MYTURN);
             System.out.println(entry.getValue().getState());
             System.out.println(entry.getValue().getGame());
             ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model" + entry.getValue().getState());
