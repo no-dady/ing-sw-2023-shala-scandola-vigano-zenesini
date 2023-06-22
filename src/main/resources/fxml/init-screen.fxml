@@ -14,7 +14,7 @@
     <ImageView fx:id="background" fitHeight="400.0" fitWidth="1386.0" VBox.vgrow="ALWAYS">
         <Image url="@../images/init_connection.png" />
     </ImageView>
-    <TextField fx:id="ip_field" alignment="CENTER" layoutX="685.0" layoutY="317.0" prefHeight="42.0" prefWidth="200.0" text="0.0.0.0" VBox.vgrow="ALWAYS">
+    <TextField fx:id="ip_field" alignment="CENTER" layoutX="685.0" layoutY="317.0" prefHeight="42.0" prefWidth="200.0" text="127.0.0.1" VBox.vgrow="ALWAYS">
         <cursor>
           <Cursor fx:constant="DEFAULT" />
         </cursor>
@@ -23,7 +23,7 @@
 
     </ChoiceBox>
     <Button fx:id="play_button" layoutX="1135.0" layoutY="317.0" mnemonicParsing="false" onAction="#onPlayButtonClick" prefHeight="42.0" prefWidth="200.0" text="Play" VBox.vgrow="ALWAYS" />
-      <TextField fx:id="port_field" alignment="CENTER" layoutX="460.0" layoutY="317.0" prefHeight="42.0" prefWidth="200.0" text="80">
+      <TextField fx:id="port_field" alignment="CENTER" layoutX="460.0" layoutY="317.0" prefHeight="42.0" prefWidth="200.0" text="1900">
           <cursor>
               <Cursor fx:constant="DEFAULT" />
           </cursor>
