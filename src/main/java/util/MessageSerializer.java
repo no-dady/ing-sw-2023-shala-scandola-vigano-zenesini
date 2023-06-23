@@ -22,6 +22,7 @@ public class MessageSerializer implements JsonSerializer<Message>, JsonDeseriali
         classNameMap.put(ConnectionMessage.className, ConnectionMessage.class);
         classNameMap.put(ReconnectMessage.className, ReconnectMessage.class);
         classNameMap.put(DisconnectMessage.className,DisconnectMessage.class);
+        classNameMap.put(JoinedMessage.className, JoinedMessage.class);
     }
     @Override
     public Message deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

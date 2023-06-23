@@ -18,6 +18,8 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The type Client.
@@ -25,6 +27,8 @@ import java.rmi.server.UnicastRemoteObject;
 public class ClientHandler extends UnicastRemoteObject implements ClientInterface, Serializable {
     private ServerInterface serverInterface;
     private Client client;
+
+    private List<String> playerInLobby;
 
     public void setClient(Client client) {
         this.client = client;
@@ -37,7 +41,8 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     public ClientHandler(String ip, int port) throws RemoteException, MalformedURLException, NotBoundException {
         super();
-        serverInterface = (ServerInterface) Naming.lookup("rmi://" + ip + ":" + port + "/myShelfie");
+        this.serverInterface = (ServerInterface) Naming.lookup("rmi://" + ip + ":" + port + "/myShelfie");
+        this.playerInLobby = new ArrayList<String>();
 
         initialize(serverInterface);
     }
@@ -46,6 +51,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         super();
         ClientSocketMiddleware clientSocketMiddleware = new ClientSocketMiddleware(client, ip, port, this);
         this.serverInterface = clientSocketMiddleware;
+        this.playerInLobby = new ArrayList<String>();
         new Thread(clientSocketMiddleware).start();
     }
 
@@ -153,6 +159,12 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                 //serverInterface.send(Parser.toJson(nickMessage, NicknameMessage.class));
                 setState(State.SETTINGNICKNAME);
             }
+        } else if (string.contains("nicknameJoined"))
+        {
+            System.out.println("Printo");
+            JoinedMessage trueMessageReceived = Parser.fromJson(string, JoinedMessage.class);
+            playerInLobby.add(trueMessageReceived.getNicknameJoined());
+            System.out.println("Ho aggiunto " + trueMessageReceived.getNicknameJoined());
         } else
         {
             ConfirmMessage trueMessageReceived = Parser.fromJson(string, ConfirmMessage.class);
@@ -174,6 +186,10 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
             }
         }
+    }
+
+    public List<String> getPlayerInLobby() {
+        return playerInLobby;
     }
 
     @Override
