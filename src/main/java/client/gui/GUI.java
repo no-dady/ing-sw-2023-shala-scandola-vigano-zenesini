@@ -7,12 +7,15 @@ import client.network.State;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import server.model.Game;
 import util.Messages.Message;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -56,7 +59,7 @@ public class GUI extends Application implements UI {
         primaryStage.getIcons().add(new Image(this.getClass().getResource("/images/icon.png").toString()));
         primaryStage.setTitle("My Shelfie");
         Pane root = new Pane();
-        this.main = new Scene(root, 1280, 692);
+        this.main = new Scene(root);
         primaryStage.setScene(this.main);
 
         ArrayList<FXMLLoader> loaders = new ArrayList<>();
@@ -115,8 +118,12 @@ public class GUI extends Application implements UI {
                 activate(VictoryScreenController.name);
                 break;
             }
+            /*case PLAYERSQUIT -> {
+
+            }*/
         }
     }
+
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
@@ -127,7 +134,12 @@ public class GUI extends Application implements UI {
         current.update();
         main.setRoot(loader.getRoot());
     }
+
     public Game getGame(){
         return client.getGame();
+    }
+    public void stop() {
+        Platform.exit();
+        System.exit(0);
     }
 }

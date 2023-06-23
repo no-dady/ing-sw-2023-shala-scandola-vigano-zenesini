@@ -7,10 +7,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import server.model.Player;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class LobbyWaitController implements GenericInterface, Initializable {
@@ -18,12 +22,11 @@ public class LobbyWaitController implements GenericInterface, Initializable {
     public ImageView spinning_cat;
     private GUI gui;
     public Label dialog_label;
-    public Label player_1;
-    public Label player_2;
-    public Label player_3;
-    public Label player_4;
+    public Label player_1 = null;
+    public Label player_2 = null;
+    public Label player_3 = null;
+    public Label player_4 = null;
     public static final String name ="lobby-wait";
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         RotateTransition spinning = new RotateTransition();
@@ -49,11 +52,9 @@ public class LobbyWaitController implements GenericInterface, Initializable {
 
     @Override
     public void update() {
-
-        player_1.setText("primo");
-        player_2.setText("secondo");
-        player_3.setText("terzo");
-        player_4.setText("quarto");
-
-    }
+        if(gui!=null){
+            List<Label> players = List.of(player_1,player_2,player_3,player_4);
+            for(int i = 0; i<gui.getClient().getClientConnection().getPlayerInLobby().size();i++){
+                players.get(i).setText(gui.getClient().getClientConnection().getPlayerInLobby().get(i));
+                }}}
 }

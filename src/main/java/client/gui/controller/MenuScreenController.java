@@ -27,9 +27,12 @@ public class MenuScreenController implements GenericInterface, Initializable {
     }
 
     public void onQuitButtonPress(ActionEvent event) {
+
+        System.exit(0);
     }
 
     public void onBackButtonPress(ActionEvent event) {
+        gui.activate(BoardController.name);
     }
     @Override
     public String getName() {

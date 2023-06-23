@@ -15,6 +15,7 @@ public class Client {
     private UI ui;
     private boolean gui;
     private String connectionType;
+
     private ClientHandler clientConnection;
     private boolean active = true;
     private boolean online = false;
@@ -101,6 +102,9 @@ public class Client {
             return clientConnection.getGame();
         }catch (RemoteException e){}
         return null;
+    }
+    public ClientHandler getClientConnection() {
+        return clientConnection;
     }
     public void setGame(Game game)  {
         try {

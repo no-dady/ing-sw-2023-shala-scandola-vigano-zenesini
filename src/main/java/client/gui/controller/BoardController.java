@@ -2,9 +2,13 @@ package client.gui.controller;
 
 import client.gui.GUI;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import server.model.Bookshelf;
 import server.model.Coordinates;
@@ -20,6 +24,9 @@ import java.util.ResourceBundle;
 
 public class BoardController implements GenericInterface, Initializable {
 
+    public Label L2;
+    public Label L1;
+    public Pane playerTurn;
     private GUI gui;
 
     public static final String name ="board";
@@ -62,9 +69,24 @@ public class BoardController implements GenericInterface, Initializable {
 
 
     public void onPlayerButtonPress(ActionEvent event) {
+        switch (gui.getClient().getGame().getNumPlayers()) {
+            case(2):
+                gui.activate(TwoPlayersScreenController.name);
+                break;
+            case(3):
+                gui.activate(ThreePlayersScreenController.name);
+                break;
+            case(4):
+                gui.activate(FourPlayersScreenController.name);
+                break;
+        }
+
+
     }
 
+    @FXML
     public void onMenuButtonPress(ActionEvent event) {
+        gui.activate(MenuScreenController.name);
     }
 
     public void onEndTurnButtonPress(ActionEvent event) {
@@ -104,47 +126,47 @@ public class BoardController implements GenericInterface, Initializable {
         paneMap.put( t_1_5,new Coordinates(1,5));
         paneMap.put( t_2_4,new Coordinates(2,4));
         paneMap.put( t_2_5,new Coordinates(2,5));
-paneMap.put( t_2_6,new Coordinates(2,6));
-paneMap.put( t_3_3,new Coordinates(3,3));
-paneMap.put( t_3_4,new Coordinates(3,4));
-paneMap.put( t_3_5,new Coordinates(3,5));
-paneMap.put( t_3_6,new Coordinates(3,6));
-paneMap.put( t_3_7,new Coordinates(3,7));
-paneMap.put( t_4_2,new Coordinates(4,2));
-paneMap.put( t_4_3,new Coordinates(4,3));
-paneMap.put( t_4_4,new Coordinates(4,4));
-paneMap.put( t_4_5,new Coordinates(4,5));
-paneMap.put( t_4_6,new Coordinates(4,6));
-paneMap.put( t_4_7,new Coordinates(4,7));
-paneMap.put( t_4_8,new Coordinates(4,8));
-paneMap.put( t_4_9,new Coordinates(4,9));
-paneMap.put( t_5_1,new Coordinates(5,1));
-paneMap.put( t_5_2,new Coordinates(5,2));
-paneMap.put( t_5_3,new Coordinates(5,3));
-paneMap.put( t_5_4,new Coordinates(5,4));
-paneMap.put( t_5_5,new Coordinates(5,5));
-paneMap.put( t_5_6,new Coordinates(5,6));
-paneMap.put( t_5_7,new Coordinates(5,7));
-paneMap.put( t_5_8,new Coordinates(5,8));
-paneMap.put( t_5_9,new Coordinates(5,9));
-paneMap.put( t_6_1,new Coordinates(6,1));
-paneMap.put( t_6_2,new Coordinates(6,2));
-paneMap.put( t_6_3,new Coordinates(6,3));
-paneMap.put( t_6_4,new Coordinates(6,4));
-paneMap.put( t_6_5,new Coordinates(6,5));
-paneMap.put( t_6_6,new Coordinates(6,6));
-paneMap.put( t_6_7,new Coordinates(6,7));
-paneMap.put( t_6_8,new Coordinates(6,8));
-paneMap.put( t_7_3,new Coordinates(7,3));
-paneMap.put( t_7_4,new Coordinates(7,4));
-paneMap.put( t_7_5,new Coordinates(7,5));
-paneMap.put( t_7_6,new Coordinates(7,6));
-paneMap.put( t_7_7,new Coordinates(7,7));
-paneMap.put( t_8_4,new Coordinates(8,4));
-paneMap.put( t_8_5,new Coordinates(8,5));
-paneMap.put( t_8_6,new Coordinates(8,6));
-paneMap.put( t_9_5,new Coordinates(9,5));
-paneMap.put( t_9_6,new Coordinates(9,6));
+        paneMap.put( t_2_6,new Coordinates(2,6));
+        paneMap.put( t_3_3,new Coordinates(3,3));
+        paneMap.put( t_3_4,new Coordinates(3,4));
+        paneMap.put( t_3_5,new Coordinates(3,5));
+        paneMap.put( t_3_6,new Coordinates(3,6));
+        paneMap.put( t_3_7,new Coordinates(3,7));
+        paneMap.put( t_4_2,new Coordinates(4,2));
+        paneMap.put( t_4_3,new Coordinates(4,3));
+        paneMap.put( t_4_4,new Coordinates(4,4));
+        paneMap.put( t_4_5,new Coordinates(4,5));
+        paneMap.put( t_4_6,new Coordinates(4,6));
+        paneMap.put( t_4_7,new Coordinates(4,7));
+        paneMap.put( t_4_8,new Coordinates(4,8));
+        paneMap.put( t_4_9,new Coordinates(4,9));
+        paneMap.put( t_5_1,new Coordinates(5,1));
+        paneMap.put( t_5_2,new Coordinates(5,2));
+        paneMap.put( t_5_3,new Coordinates(5,3));
+        paneMap.put( t_5_4,new Coordinates(5,4));
+        paneMap.put( t_5_5,new Coordinates(5,5));
+        paneMap.put( t_5_6,new Coordinates(5,6));
+        paneMap.put( t_5_7,new Coordinates(5,7));
+        paneMap.put( t_5_8,new Coordinates(5,8));
+        paneMap.put( t_5_9,new Coordinates(5,9));
+        paneMap.put( t_6_1,new Coordinates(6,1));
+        paneMap.put( t_6_2,new Coordinates(6,2));
+        paneMap.put( t_6_3,new Coordinates(6,3));
+        paneMap.put( t_6_4,new Coordinates(6,4));
+        paneMap.put( t_6_5,new Coordinates(6,5));
+        paneMap.put( t_6_6,new Coordinates(6,6));
+        paneMap.put( t_6_7,new Coordinates(6,7));
+        paneMap.put( t_6_8,new Coordinates(6,8));
+        paneMap.put( t_7_3,new Coordinates(7,3));
+        paneMap.put( t_7_4,new Coordinates(7,4));
+        paneMap.put( t_7_5,new Coordinates(7,5));
+        paneMap.put( t_7_6,new Coordinates(7,6));
+        paneMap.put( t_7_7,new Coordinates(7,7));
+        paneMap.put( t_8_4,new Coordinates(8,4));
+        paneMap.put( t_8_5,new Coordinates(8,5));
+        paneMap.put( t_8_6,new Coordinates(8,6));
+        paneMap.put( t_9_5,new Coordinates(9,5));
+        paneMap.put( t_9_6,new Coordinates(9,6));
 
 
         List<Pane> bookshelfTiles = List.of(b_1_1, b_1_2, b_1_3, b_1_4, b_1_5, b_1_6,
@@ -172,9 +194,14 @@ paneMap.put( t_9_6,new Coordinates(9,6));
 
         for(Player player : gui.getClient().getGame().getPlayers())
         {
-            if(player.getUserName().equals(gui.getNickname()))
+            if(player.getUserName().equals(gui.getNickname()) /*&& player.getUserId() == gui.getGame().getCurrPlayerId()*/)
             {
                 bookshelf=player.getBookshelf();
+                L1.setText(gui.getNickname() + "'s goal: ");
+            }
+            if(player.getUserId() == gui.getClient().getGame().getCurrPlayerId())
+            {
+                L2.setText("It's "+player.getUserName()+" turn");
             }
         }
 
@@ -201,6 +228,8 @@ paneMap.put( t_9_6,new Coordinates(9,6));
 
         String cgc2 = Objects.requireNonNull(getClass().getResource("/images/common_goal_cards/" + gui.getGame().getBoard().getCommonGoalCards().get(1).getName()+ ".jpg")).toExternalForm();
         cgc_2.setStyle("-fx-background-image: url('" + cgc2 + "');");
+
+
 
     }
 
