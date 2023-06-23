@@ -58,7 +58,7 @@ public class TestAppServerMultiThreaded {
     {
         try
         {
-            Server obj = new Server(true, lobbyList);
+            Server obj = new Server(1900, 1334);
 
             LocateRegistry.createRegistry(1900);
 
@@ -80,7 +80,7 @@ public class TestAppServerMultiThreaded {
     {
         ArrayList<Thread> memory = new ArrayList<Thread>();
         ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
-        Server serverInterface = new Server(false, lobbyList);
+        Server serverInterface = new Server(1900, 1337);
         System.out.println("Server Started");
         try {
             ServerSocket serverSocket = new ServerSocket(1234);

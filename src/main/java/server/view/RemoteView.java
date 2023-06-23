@@ -19,12 +19,10 @@ import java.rmi.RemoteException;
 public class RemoteView extends View {
 
     private class MessageReceiver implements Observer<String> {
-
-
         public void update(String info) {
             System.out.println("Received: " + info);
             try {
-                Action move= Parser.fromJson(info, Action.class);
+                Action move = Parser.fromJson(info, Action.class);
                 handleMove(move);
             // } catch (NullPointerException e){
             //   Setup setupper= Parser.fromJson(info, Setup.class);

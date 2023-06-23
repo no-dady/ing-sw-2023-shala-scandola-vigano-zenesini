@@ -7,13 +7,18 @@ import server.model.Lobby;
 import server.model.LobbyStatus;
 import server.model.Player;
 import server.model.Tile;
+import server.network.SocketComm.ClientSkeleton;
 import server.view.View;
 import server.view.RemoteView;
 import util.Messages.*;
 
 import util.Parser;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.rmi.*;
+import java.rmi.registry.LocateRegistry;
 import java.rmi.server.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +28,7 @@ import java.util.Map;
 /**
  * The type Server.
  */
-public class Server extends UnicastRemoteObject implements ServerInterface {
+public class Server extends UnicastRemoteObject implements ServerInterface, Runnable {
 
     /**
      * The Client.
@@ -31,10 +36,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
 //Temporary position for testing purpose
     public Map<String, ClientInterface> clientList;
 
-    private List<Lobby> lobbyList;
+    private static List<Lobby> lobbyList = new ArrayList<>();
 
+    private int portRmi;
+    private int portSocket;
     public boolean isRMI;
-
     private ClientInterface tempClient;
 
     /**
@@ -50,16 +56,21 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
         return null;
     }
 
+
+    public Server(int portRmi, int portSocket) throws RemoteException {
+        this.portRmi = portRmi;
+        this.portSocket = portSocket;
+    }
+
     /**
      * Instantiates a new Server.
      *
      * @throws RemoteException the remote exception
      */
-    public Server(boolean isRMI, List<Lobby> lobbyList) throws RemoteException {
+    public Server(boolean isRMI) throws RemoteException {
         super();
         this.isRMI = isRMI;
         this.clientList = new HashMap<String, ClientInterface>();
-        this.lobbyList = lobbyList;
     }
 
     @Override
@@ -191,6 +202,87 @@ public class Server extends UnicastRemoteObject implements ServerInterface {
             playersView.put(player.getUserName(), new RemoteView(player, waitingConnection.get(player.getUserName())));
         }
         return playersView;
+    }
+
+
+    private void startRMI(int port)
+    {
+        try
+        {
+            Server obj = new Server(true);
+
+            LocateRegistry.createRegistry(port);
+
+            Naming.rebind("rmi://localhost:" + port + "/myShelfie", obj);
+            ClientInterface clientInterface = null;
+            while (clientInterface == null)
+            {
+                clientInterface = obj.getClient();
+            }
+            clientInterface.send("Test RMI string from server to client");
+        }
+        catch (Exception ex)
+        {
+            System.err.println(ex.getMessage());
+        }
+    }
+
+    private static void startSocket(int port) throws RemoteException {
+        ArrayList<Thread> memory = new ArrayList<Thread>();
+        ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
+        Server serverInterface = new Server(false);
+        System.out.println("Server Started");
+
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            while (true) {
+                System.out.println("Waiting connections...");
+                Socket socket = serverSocket.accept();
+                System.out.println("New connection found");
+                ClientSkeleton clientSocketMiddleware = new ClientSkeleton(socket, serverInterface);
+                //To send the info you have to call the clientSkeleton's function on the server-side
+                //clientsList.add(clientSkeleton);
+                Thread clientSkeletonThread = new Thread(clientSocketMiddleware);
+                memory.add(clientSkeletonThread);
+                clientSkeletonThread.start();
+                System.out.println("Thread launched from main");
+            }
+        }
+        catch (IOException e)
+        {
+            System.err.println("Cannot create server socket:\n" + e.getMessage());
+        }
+    }
+
+    @Override
+    public void run() {
+        Thread rmi = new Thread() {
+            @Override
+            public void run() {
+                startRMI(portRmi);
+            }
+        };
+
+        Thread sockt = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    startSocket(portSocket);
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e.getMessage());
+                }
+            }
+        };
+
+        rmi.start();
+        sockt.start();
+
+        try {
+            rmi.join();
+            sockt.join();
+        } catch (InterruptedException e)
+        {
+            System.out.println("No connection protocol available");
+        }
     }
 
 }
