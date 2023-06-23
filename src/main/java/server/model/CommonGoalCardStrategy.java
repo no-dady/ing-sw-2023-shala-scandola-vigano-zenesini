@@ -20,7 +20,7 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
      */
     protected static List<CommonGoalCardStrategy> listCommonGoalList = null;
     private List<Integer> points = new ArrayList<>(0);
-    private String name = "";
+    private String nameCgC = "";
 
     private int numPlayers;
 
@@ -33,7 +33,7 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
     public abstract boolean conditionCheck (Tile[][] shelf);
 
     public String getName() {
-        return name;
+        return nameCgC;
     }
     private HashMap<String, Integer> completedMap = new HashMap<>();
     public void Print() throws IOException {
