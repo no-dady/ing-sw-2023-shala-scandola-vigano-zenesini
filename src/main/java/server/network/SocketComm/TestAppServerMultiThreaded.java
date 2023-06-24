@@ -85,7 +85,7 @@ public class TestAppServerMultiThreaded {
                 System.out.println("Waiting connections...");
                 Socket socket = serverSocket.accept();
                 System.out.println("New connection found");
-                ClientSocketMiddleware clientSocketMiddleware = new ClientSocketMiddleware(socket, serverInterface);
+                ClientSkeleton clientSocketMiddleware = new ClientSkeleton(socket, serverInterface);
                 //To send the info you have to call the clientSkeleton's function on the server-side
                 //clientsList.add(clientSkeleton);
                 Thread clientSkeletonThread = new Thread(clientSocketMiddleware);
