@@ -100,7 +100,7 @@ public class Board implements Serializable, Observable<Message> {
                     if ((y != slots[0].length - 1 && slots[x][y + 1].Empty())) {
                         count += 1;
                     }
-                    slots[x][y].setPickable(count >= 2);
+                    slots[x][y].setPickable(count >= 1);
                 }
             }
         }
