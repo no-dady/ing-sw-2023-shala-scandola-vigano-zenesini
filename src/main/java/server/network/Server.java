@@ -38,8 +38,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
 
     private static List<Lobby> lobbyList = new ArrayList<>();
 
-    private int portRmi;
-    private int portSocket;
     public boolean isRMI;
     private ClientInterface tempClient;
 
