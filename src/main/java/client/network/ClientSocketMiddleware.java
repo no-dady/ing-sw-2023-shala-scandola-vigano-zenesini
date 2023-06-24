@@ -1,8 +1,6 @@
 package client.network;
 
 import client.Client;
-import observer.Observable;
-import observer.Observer;
 import server.model.Tile;
 import server.network.ServerInterface;
 
@@ -10,14 +8,12 @@ import java.io.*;
 import java.net.Socket;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The type Server stub.
  */
 //It implements the Server, but it will be used on the client-side to communicate
-public class ClientSocketMiddleware implements Observable<String>, ServerInterface, Runnable {
+public class ClientSocketMiddleware implements ServerInterface, Runnable {
     Client client;
     /**
      * The Ip.
@@ -29,11 +25,7 @@ public class ClientSocketMiddleware implements Observable<String>, ServerInterfa
      */
     int port;
 
-    private boolean active = true;
-    private final boolean standby = false;
-
     private ObjectOutputStream oos;
-    private DataOutputStream out;
 
     private Socket socket;
 
@@ -55,44 +47,32 @@ public class ClientSocketMiddleware implements Observable<String>, ServerInterfa
     @Override
     public void run()
     {
-        DataInputStream in;
 
         try
         {
             socket = new Socket(ip, port);
-            in = new DataInputStream(socket.getInputStream());
-            out = new DataOutputStream(socket.getOutputStream());
             System.out.println("Created socket");
-            // oos = new ObjectOutputStream(socket.getOutputStream());
-            // System.out.println("Created oos");
-            // ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            // System.out.println("Created ois");
+            oos = new ObjectOutputStream(socket.getOutputStream());
+            System.out.println("Created oos");
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            System.out.println("Created ois");
 
             System.out.println("Created streams");
             String rec;
-            while (isActive())
+            while (true)
             {
-                //rec = (String) ois.readObject();
-                rec = in.readUTF();
-                notify(rec);
-                //clientinterface.send(rec);
+                rec = (String) ois.readObject();
+                clientinterface.send(rec);
             }
-        }
-        catch(IOException e)
+        } catch(IOException e)
         {
             e.printStackTrace();
-        } 
+        } catch (ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
 
     }
-
-    private synchronized boolean isActive(){
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
 
     public void testContinousSend()
     {
@@ -134,18 +114,17 @@ public class ClientSocketMiddleware implements Observable<String>, ServerInterfa
         }
     }
 
+    //Action n 3
     @Override
     public void send(String string) throws RemoteException
     {
         try
         {
-            out.writeUTF(string);
-            out.flush();
-            System.out.println("Send > " + string);
+            oos.writeObject(string);
         }
         catch (IOException e)
         {
-            throw new RemoteException(e.getMessage());
+            throw new RemoteException("Cannot send string from client", e);
         }
     }
 
@@ -214,23 +193,5 @@ public class ClientSocketMiddleware implements Observable<String>, ServerInterfa
         //        client.testSend(string);
         //    }
         //}
-    }
-
-    private transient final List<Observer<String>> observers = new ArrayList<>();
-
-    @Override
-    public void addObserver(Observer<String> observer){
-        synchronized (observers) {
-            observers.add(observer);
-        }
-    }
-
-    @Override
-    public void notify(String message) {
-        synchronized (observers) {
-            for(Observer<String> observer : observers){
-                observer.update(message);
-            }
-        }
     }
 }

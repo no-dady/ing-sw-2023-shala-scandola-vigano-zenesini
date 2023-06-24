@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * The type Client.
  */
-public class ClientHandler extends UnicastRemoteObject implements ClientInterface {
+public class ClientHandler extends UnicastRemoteObject implements ClientInterface, Serializable {
     private ServerInterface serverInterface;
     private Client client;
 
@@ -87,6 +87,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     {
         System.out.println("Ricevuto: " + string);
         //Message messageReceived = Parser.parseFromJsonString(string, AskMoveMessage.class);
+        //if(messageReceived instanceof AskMoveMessage trueMessageReceived)
         if (string.contains("moveTypeNumber"))
         {
             AskMoveMessage trueMessageReceived = Parser.fromJson(string, AskMoveMessage.class);
@@ -217,22 +218,15 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         return currState;
     }
 
-    private transient final List<Observer<String>> observers = new ArrayList<>();
-
     @Override
-    public void addObserver(Observer<String> observer) throws RemoteException {
-        synchronized (observers) {
-            observers.add(observer);
-        }
+    public void addObserver(Observer<String> observer) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addObserver'");
     }
 
     @Override
-    public void notify(String message) throws RemoteException {
-    synchronized (observers) {
-            for(Observer<String> observer : observers){
-                observer.update(message);
-            }
-        }
+    public void notify(String message) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'notify'");
     }
-
 }

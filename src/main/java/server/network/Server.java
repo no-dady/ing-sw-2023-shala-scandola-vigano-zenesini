@@ -38,11 +38,10 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
 
     private static List<Lobby> lobbyList = new ArrayList<>();
 
-    public boolean isRMI;
-    private ClientInterface tempClient;
-
     private int portRmi;
     private int portSocket;
+    public boolean isRMI;
+    private ClientInterface tempClient;
 
     /**
      * Gets client.
@@ -73,7 +72,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         this.isRMI = isRMI;
         this.clientList = new HashMap<String, ClientInterface>();
     }
-
 
     @Override
     public void register(ClientInterface clientInterface)
@@ -176,7 +174,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
             cgc.addObserver(view);
         }
         game.addObserver(view);
-        
+
         for(Player p : game.getPlayers()) {
             p.getBookshelf().addObserver(view);
             p.getPersonalGoalCard().addObserver(view);

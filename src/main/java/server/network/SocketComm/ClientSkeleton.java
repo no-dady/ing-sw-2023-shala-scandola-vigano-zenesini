@@ -7,6 +7,9 @@ import client.network.State;
 import server.model.Game;
 import server.model.Lobby;
 import server.network.Server;
+import server.model.Board;
+import server.model.Bookshelf;
+import server.model.Tile;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
