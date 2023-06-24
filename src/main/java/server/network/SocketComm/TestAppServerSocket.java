@@ -24,6 +24,7 @@ public class TestAppServerSocket {
         ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
         Server server = new Server(1900, 1334);
         System.out.println("Server Started");
+        int clientSkeletonId = 0;
         try {
             ServerSocket serverSocket = new ServerSocket(1234);
             while (true) {
@@ -31,7 +32,8 @@ public class TestAppServerSocket {
                 Socket socket = serverSocket.accept();
                 System.out.println("New connection found");
                 notifyAllClients(clientsList);
-                ClientSkeleton clientSocketMiddleware = new ClientSkeleton(socket, server);
+                ClientSkeleton clientSocketMiddleware = new ClientSkeleton(socket, server, clientSkeletonId);
+                clientSkeletonId++;
                 //To send the info you have to call the clientSkeleton's function on the server-side
                 clientsList.add(clientSocketMiddleware);
                 Thread clientSkeletonThread = new Thread(clientSocketMiddleware);

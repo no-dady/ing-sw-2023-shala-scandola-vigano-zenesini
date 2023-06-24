@@ -26,5 +26,7 @@ public interface ClientInterface extends Remote
 
     State getState() throws RemoteException;
 
+    void closeConnection() throws RemoteException;
+
     //void close();
 }

@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
+import java.rmi.NoSuchObjectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -37,12 +38,15 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     private Game game;
     private State currState = State.WAITINGFORGAMESTART;
     private Thread socketThread;
+
+    private final boolean isRMI;
     private String nickName;
 
     public ClientHandler(String ip, int port) throws RemoteException, MalformedURLException, NotBoundException {
         super();
         this.serverInterface = (ServerInterface) Naming.lookup("rmi://" + ip + ":" + port + "/myShelfie");
         this.playerInLobby = new ArrayList<String>();
+        this.isRMI = true;
 
         initialize(serverInterface);
     }
@@ -52,6 +56,8 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         ClientSocketMiddleware clientSocketMiddleware = new ClientSocketMiddleware(client, ip, port, this);
         this.serverInterface = clientSocketMiddleware;
         this.playerInLobby = new ArrayList<String>();
+        this.isRMI = false;
+
         new Thread(clientSocketMiddleware).start();
     }
 
@@ -221,6 +227,20 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     public synchronized State getState()throws RemoteException {
         return currState;
     }
+
+    @Override
+    public void closeConnection() throws RemoteException {
+        if (isRMI) {
+            UnicastRemoteObject.unexportObject(this, true);
+        } else {
+            try {
+                serverInterface.closeConnection();
+            } catch (RemoteException e) {
+                System.out.println("Cannot close the Socket connection");
+            }
+        }
+    }
+
 
     @Override
     public void addObserver(Observer<String> observer) {

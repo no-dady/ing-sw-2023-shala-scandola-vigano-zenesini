@@ -31,6 +31,8 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
     private Socket socket;
 
     private ClientInterface clientinterface;
+
+    private boolean isActive;
     /**
      * Instantiates a new Server stub.
      *
@@ -48,6 +50,7 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
     @Override
     public void run()
     {
+        ObjectInputStream ois = null;
 
         try
         {
@@ -55,11 +58,12 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
             System.out.println("Created socket");
             oos = new ObjectOutputStream(socket.getOutputStream());
             System.out.println("Created oos");
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            ois = new ObjectInputStream(socket.getInputStream());
             System.out.println("Created ois");
-
             System.out.println("Created streams");
-            while (true)
+            isActive = true;
+
+            while (isActive)
             {
                 int whatIsSending = (Integer) ois.readObject();
                 switch(whatIsSending)
@@ -81,6 +85,27 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         } catch (ClassNotFoundException e)
         {
             e.printStackTrace();
+        } finally {
+            try
+            {
+                if (oos != null)
+                {
+                    oos.close();
+                }
+
+                if (ois != null)
+                {
+                    ois.close();
+                }
+
+                if (socket != null)
+                {
+                    socket.close();
+                }
+            } catch (IOException e)
+            {
+                System.out.println("Cannot close the Socket connection");
+            }
         }
     }
 
@@ -111,17 +136,16 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
 
     }
 
-    /**
-     * Close.
-     *
-     * @throws RemoteException the remote exception
-     */
-    public void close() throws RemoteException {
-        try {
-            socket.close();
-        } catch (IOException e) {
-            throw new RemoteException("Cannot close socket", e);
+    @Override
+    public void closeConnection() {
+        try
+        {
+            oos.writeObject(1);
+        } catch(IOException e)
+        {
+            System.out.println("Cannot send the disconnecting message");
         }
+        this.isActive = false;
     }
 
     //Action n 3
@@ -130,6 +154,7 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
     {
         try
         {
+            oos.writeObject(0);
             oos.writeObject(string);
         }
         catch (IOException e)

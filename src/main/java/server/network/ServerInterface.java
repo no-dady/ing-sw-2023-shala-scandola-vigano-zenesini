@@ -20,4 +20,6 @@ public interface ServerInterface extends Remote {
     public void register(ClientInterface clientInterface) throws RemoteException;
 
     public void send(String string) throws RemoteException;
+
+    public void closeConnection() throws RemoteException;
 }

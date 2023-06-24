@@ -60,12 +60,6 @@ public class TestAppServerMultiThreaded {
             LocateRegistry.createRegistry(1900);
 
             Naming.rebind("rmi://localhost:1900" + "/myShelfie", obj);
-            ClientInterface clientInterface = null;
-            while (clientInterface == null)
-            {
-                clientInterface = obj.getClient();
-            }
-            clientInterface.send("Test RMI string from server to client");
         }
         catch (Exception ea)
         {
@@ -79,13 +73,15 @@ public class TestAppServerMultiThreaded {
         ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
         Server serverInterface = new Server(1900, 1337);
         System.out.println("Server Started");
+        int clientSkeletonId = 0;
         try {
             ServerSocket serverSocket = new ServerSocket(1234);
             while (true) {
                 System.out.println("Waiting connections...");
                 Socket socket = serverSocket.accept();
                 System.out.println("New connection found");
-                ClientSkeleton clientSocketMiddleware = new ClientSkeleton(socket, serverInterface);
+                ClientSkeleton clientSocketMiddleware = new ClientSkeleton(socket, serverInterface, clientSkeletonId);
+                clientSkeletonId++;
                 //To send the info you have to call the clientSkeleton's function on the server-side
                 //clientsList.add(clientSkeleton);
                 Thread clientSkeletonThread = new Thread(clientSocketMiddleware);

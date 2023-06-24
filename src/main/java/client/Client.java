@@ -112,6 +112,17 @@ public class Client {
         }catch (RemoteException e){}
     }
 
+    public void closeConnection()
+    {
+        try
+        {
+            clientConnection.closeConnection();
+        } catch (RemoteException e)
+        {
+            System.out.println("Cannot close the clientConnection");
+        }
+    }
+
     public State getState() {
         try {
             return clientConnection.getState();

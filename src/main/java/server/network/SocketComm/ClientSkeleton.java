@@ -29,9 +29,12 @@ public class ClientSkeleton implements ClientInterface, Runnable {
 
     private final Server server;
 
+    private final int clientSkeletonId;
     private String nickName;
 
     private Lobby lobby;
+
+    private boolean isActive;
 
     /**
      * Instantiates a new Client skeleton.
@@ -39,10 +42,12 @@ public class ClientSkeleton implements ClientInterface, Runnable {
      * @param socket the socket
      * @throws RemoteException the remote exception
      */
-    public ClientSkeleton(Socket socket, Server server) throws RemoteException
+    public ClientSkeleton(Socket socket, Server server, int clientSkeletonId) throws RemoteException
     {
         this.socket = socket;
         this.server = server;
+        this.clientSkeletonId = clientSkeletonId;
+        this.isActive = true;
     }
 
     @Override
@@ -64,6 +69,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
             ois.close();
             oos.close();
             socket.close();
+            server.removeClientSkeletonThread(clientSkeletonId);
             System.out.println("Disconnected");
         }
         catch(IOException e)
@@ -143,77 +149,35 @@ public class ClientSkeleton implements ClientInterface, Runnable {
      */
     public void receive(ObjectInputStream ois) throws RemoteException
     {
-        String rec;
-        while (true)
+        try
         {
-            try
-            {
-                rec = (String) ois.readObject();
-                server.send(rec);
-            } catch (IOException e)
-            {
-                System.out.println(e.getMessage());
-            } catch (ClassNotFoundException e)
-            {
-                System.out.println(e.getMessage());
+            while (isActive) {
+                int whatIsSending = (Integer) ois.readObject();
+                switch (whatIsSending) {
+                    case 0:
+                        String rec = (String) ois.readObject();
+                        server.send(rec);
+                        break;
+
+                    case 1:
+                        closeConnection();
+                        break;
+                }
             }
+        } catch (IOException e)
+        {
+            System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e)
+        {
+            System.out.println(e.getMessage());
         }
-        //int actionNumber;
-//
-        //try
-        //{
-        //    actionNumber = ois.readInt();
-        //}
-        //catch (IOException e)
-        //{
-        //    throw new RemoteException("Cannot receive actionNumber from client", e);
-        //}
-//
-        //switch (actionNumber) {
-        //    case 1 -> {
-        //        int choice;
-        //        try {
-        //            choice = ois.readInt();
-        //        } catch (IOException e) {
-        //            throw new RemoteException("Cannot receive choice from client", e);
-        //        }
-        //        serverInterface.sendChoice(choice);
-        //    }
-        //    case 2 -> {
-        //        Tile[] tilePick;
-        //        try {
-        //            tilePick = (Tile[]) ois.readObject();
-        //        } catch (IOException e) {
-        //            throw new RemoteException("Cannot receive tilePick from client", e);
-        //        } catch (ClassNotFoundException e) {
-        //            throw new RemoteException("Cannot deserialize tilePick from client", e);
-        //        }
-        //        serverInterface.sendPick(tilePick);
-        //    }
-        //    case 3 -> {
-        //        String string;
-        //        try {
-        //            string = (String) ois.readObject();
-        //        } catch (IOException e) {
-        //            throw new RemoteException("Cannot receive String from client", e);
-        //        } catch (ClassNotFoundException e) {
-        //            throw new RemoteException("Cannot deserialize String from client", e);
-        //        }
-        //        serverInterface.testSend(string);
-        //    }
-        //    case 4 -> {
-        //        String nickname;
-        //        try {
-        //            nickname = (String) ois.readObject();
-        //        } catch (IOException e) {
-        //            throw new RemoteException("Cannot receive nickname from client", e);
-        //        } catch (ClassNotFoundException e) {
-        //            throw new RemoteException("Cannot deserialize nickname from client", e);
-        //        }
-        //        serverInterface.register(this, nickname);
-        //    }
-        //}
     }
+
+    public void closeConnection()
+    {
+        isActive = false;
+    }
+
 
 
     private void close(String playerName, Lobby lobby) throws RemoteException {

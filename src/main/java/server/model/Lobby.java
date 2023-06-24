@@ -218,4 +218,19 @@ public class Lobby {
         disconnectedPlayers.clear();
         active=false;
     }
+
+    public void closeAllConnections()
+    {
+        try
+        {
+            for (var entity : playerMap.entrySet())
+            {
+                entity.getValue().closeConnection();
+            }
+        } catch(RemoteException e)
+        {
+            System.out.println("Cannot close connection of the clients");
+        }
+        clear();
+    }
 }

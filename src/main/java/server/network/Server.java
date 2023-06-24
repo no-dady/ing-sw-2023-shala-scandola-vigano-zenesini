@@ -30,14 +30,9 @@ import java.util.Map;
  */
 public class Server extends UnicastRemoteObject implements ServerInterface, Runnable {
 
-    /**
-     * The Client.
-     */
-//Temporary position for testing purpose
-    public Map<String, ClientInterface> clientList;
-
     private static List<Lobby> lobbyList = new ArrayList<>();
 
+    private Map<Integer, Thread> threadMemory = new HashMap<Integer, Thread>();
     private int portRmi;
     private int portSocket;
     public boolean isRMI;
@@ -48,13 +43,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
      *
      * @return the client
      */
-    public ClientInterface getClient() {
-        if (clientList.size() > 0)
-        {
-            return this.clientList.get(0);
-        }
-        return null;
-    }
 
 
     public Server(int portRmi, int portSocket) throws RemoteException {
@@ -70,24 +58,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
     public Server(boolean isRMI) throws RemoteException {
         super();
         this.isRMI = isRMI;
-        this.clientList = new HashMap<String, ClientInterface>();
     }
 
     @Override
     public void register(ClientInterface clientInterface)
     {
-        //clientList.put(nickName, clientInterface);
-        //System.out.println(nickName + " joined the match");
         System.out.println("Registering new client");
-        //if (isRMI)
-        //{
-        //    try {
-        //        for (Map.Entry<String, ClientInterface> entry : clientList.entrySet())
-        //        {
-        //            entry.getValue().send("Sto avvisando " + entry.getKey() + " che si é aggiunto alla partita " + nickName);
-        //        }
-        //    } catch(RemoteException e) { System.out.println(e); }
-        //}
         this.tempClient = clientInterface;
         AskMoveMessage messageToSend = new AskMoveMessage(0);
         try
@@ -202,12 +178,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
             LocateRegistry.createRegistry(port);
 
             Naming.rebind("rmi://localhost:" + port + "/myShelfie", obj);
-            ClientInterface clientInterface = null;
-            while (clientInterface == null)
-            {
-                clientInterface = obj.getClient();
-            }
-            clientInterface.send("Test RMI string from server to client");
         }
         catch (Exception ex)
         {
@@ -215,22 +185,22 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         }
     }
 
-    private static void startSocket(int port) throws RemoteException {
-        ArrayList<Thread> memory = new ArrayList<Thread>();
-        ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
+    private void startSocket(int port) throws RemoteException {
         Server serverInterface = new Server(false);
         System.out.println("Server Started");
+        int clientSkeletonId = 0;
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             while (true) {
                 System.out.println("Waiting connections...");
                 Socket socket = serverSocket.accept();
                 System.out.println("New connection found");
-                ClientSkeleton clientSocketMiddleware = new ClientSkeleton(socket, serverInterface);
+                ClientSkeleton clientSocketMiddleware = new ClientSkeleton(socket, serverInterface, clientSkeletonId);
+                clientSkeletonId++;
                 //To send the info you have to call the clientSkeleton's function on the server-side
                 //clientsList.add(clientSkeleton);
                 Thread clientSkeletonThread = new Thread(clientSocketMiddleware);
-                memory.add(clientSkeletonThread);
+                threadMemory.put(clientSkeletonId, clientSkeletonThread);
                 clientSkeletonThread.start();
                 System.out.println("Thread launched from main");
             }
@@ -238,6 +208,26 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         catch (IOException e)
         {
             System.err.println("Cannot create server socket:\n" + e.getMessage());
+        }
+    }
+
+    public void removeClientSkeletonThread(int clientSkeletonId)
+    {
+        threadMemory.remove(clientSkeletonId);
+    }
+
+    @Override
+    public void closeConnection() throws RemoteException {
+        for (Lobby lobby : lobbyList)
+        {
+            lobby.closeAllConnections();
+        }
+
+        try {
+            UnicastRemoteObject.unexportObject(this, true);
+        } catch (NoSuchObjectException e)
+        {
+            System.out.println("Cannot close the RMI Connection");
         }
     }
 
@@ -250,7 +240,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
             }
         };
 
-        Thread sockt = new Thread() {
+        Thread socket = new Thread() {
             @Override
             public void run() {
                 try {
@@ -262,11 +252,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         };
 
         rmi.start();
-        sockt.start();
+        socket.start();
 
         try {
             rmi.join();
-            sockt.join();
+            socket.join();
         } catch (InterruptedException e)
         {
             System.out.println("No connection protocol available");
