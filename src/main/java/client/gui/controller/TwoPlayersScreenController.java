@@ -40,6 +40,7 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
 
     @Override
     public void setGUI(GUI gui) {
+        this.gui = gui;
 
     }
 }

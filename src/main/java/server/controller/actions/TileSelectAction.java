@@ -23,8 +23,11 @@ public class TileSelectAction implements Action{
 
     public boolean canPerformAction(Game game) {
         String[] selected = move.getSelectedTiles().split(" ");
+        if (!((selected[1].charAt(1)-'A' == selected[2].charAt(0)-'A') && (selected[2].charAt(0)-'A'  == selected[0].charAt(0)-'A')) || (selected[1].charAt(1)-'1' == selected[2].charAt(1)-'1'&& selected[2].charAt(1)-'1'  == selected[0].charAt(1)-'1' )){
+            return false;
+        }
         for (String s : selected) {
-            if (!game.getBoard().getTile(s.charAt(1) - 'a', s.charAt(1) - '1').isPickable()) {
+            if (!game.getBoard().getTile(s.charAt(1) - 'A', s.charAt(1) - '1').isPickable()) {
                 return false;
             } else {
                 selectedTiles.add(game.getBoard().getTile(s.charAt(1) - 'a', s.charAt(1) - '1'));

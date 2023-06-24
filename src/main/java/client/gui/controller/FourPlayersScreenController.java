@@ -60,6 +60,6 @@ public class FourPlayersScreenController implements GenericInterface, Initializa
 
     @Override
     public void setGUI(GUI gui) {
-
+        this.gui = gui;
     }
 }

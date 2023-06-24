@@ -237,8 +237,7 @@ public class TUI implements UI, Runnable {
         String art = boardAndBookshelfArt;
         int x = Bookshelf.getRows()+10, y = 0;
         Game game = this.client.getGame();
-        for (Player player: game.getPlayers()
-             ) {System.out.println(nickname + " " + player.getUserName());
+        for (Player player: game.getPlayers()) {
             if (player.getUserName().equals(nickname)){
                  pgc = player.getPersonalGoalCard();
         }
