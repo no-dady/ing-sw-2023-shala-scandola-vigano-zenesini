@@ -319,7 +319,7 @@ public class BoardController implements GenericInterface, Initializable {
             }
             if(player.getUserId() == gui.getClient().getGame().getCurrPlayerId())
             {
-                L2.setText("It's "+player.getUserName()+" turn");
+                L2.setText("It's "+player.getUserName()+"'s turn");
             }
         }
 
