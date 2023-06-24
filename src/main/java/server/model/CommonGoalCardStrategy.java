@@ -120,6 +120,11 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         }
     }
 
+    public int getNumPlayers()
+    {
+        return numPlayers;
+    }
+
     /**
      * Add player.
      *

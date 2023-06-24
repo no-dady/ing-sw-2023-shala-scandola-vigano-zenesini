@@ -161,10 +161,14 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
             }
         } else if (string.contains("nicknameJoined"))
         {
-            System.out.println("Printo");
             JoinedMessage trueMessageReceived = Parser.fromJson(string, JoinedMessage.class);
             playerInLobby.add(trueMessageReceived.getNicknameJoined());
             System.out.println("Ho aggiunto " + trueMessageReceived.getNicknameJoined());
+        } else if (string.contains("stateToSend"))
+        {
+            StateMessage trueMessageReceived = Parser.fromJson(string, StateMessage.class);
+            setState(trueMessageReceived.getState());
+            System.out.println("State Arrived");
         } else
         {
             ConfirmMessage trueMessageReceived = Parser.fromJson(string, ConfirmMessage.class);

@@ -22,9 +22,8 @@ public interface ClientInterface extends Remote
 
     Game getGame() throws RemoteException;
 
-    void setGame(Game model) throws RemoteException;
+    void setGame(Game game) throws RemoteException;
 
-    void setState(State state) throws RemoteException;
     State getState() throws RemoteException;
 
     //void close();

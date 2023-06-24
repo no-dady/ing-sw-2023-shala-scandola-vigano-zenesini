@@ -1,5 +1,6 @@
 package util;
 
+import client.network.State;
 import com.google.gson.*;
 import util.Messages.*;
 
@@ -22,7 +23,9 @@ public class MessageSerializer implements JsonSerializer<Message>, JsonDeseriali
         classNameMap.put(ConnectionMessage.className, ConnectionMessage.class);
         classNameMap.put(ReconnectMessage.className, ReconnectMessage.class);
         classNameMap.put(DisconnectMessage.className,DisconnectMessage.class);
+        classNameMap.put(CurrentPlayerMessage.className, CurrentPlayerMessage.class);
         classNameMap.put(JoinedMessage.className, JoinedMessage.class);
+        classNameMap.put(StateMessage.className, StateMessage.class);
     }
     @Override
     public Message deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

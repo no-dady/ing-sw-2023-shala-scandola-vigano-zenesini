@@ -1,6 +1,7 @@
 package client.network;
 
 import client.Client;
+import server.model.Game;
 import server.model.Tile;
 import server.network.ServerInterface;
 
@@ -58,11 +59,21 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
             System.out.println("Created ois");
 
             System.out.println("Created streams");
-            String rec;
             while (true)
             {
-                rec = (String) ois.readObject();
-                clientinterface.send(rec);
+                int whatIsSending = (Integer) ois.readObject();
+                switch(whatIsSending)
+                {
+                    case 0:
+                        String rec = (String) ois.readObject();
+                        clientinterface.send(rec);
+                        break;
+
+                    case 1:
+                        Game game = (Game) ois.readObject();
+                        clientinterface.setGame(game);
+                        break;
+                }
             }
         } catch(IOException e)
         {
@@ -71,7 +82,6 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         {
             e.printStackTrace();
         }
-
     }
 
     public void testContinousSend()

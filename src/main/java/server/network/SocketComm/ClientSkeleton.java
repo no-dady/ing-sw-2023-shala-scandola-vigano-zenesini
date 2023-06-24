@@ -93,11 +93,26 @@ public class ClientSkeleton implements ClientInterface, Runnable {
     {
         try
         {
+            oos.writeObject(0);
             oos.writeObject(string);
         }
         catch (IOException e)
         {
             throw new RemoteException("Cannot send the String", e);
+        }
+    }
+
+    @Override
+    public void setGame(Game game) throws RemoteException
+    {
+        try
+        {
+            oos.writeObject(1);
+            oos.writeObject(game);
+        }
+        catch (IOException e)
+        {
+            throw new RemoteException("Cannot send the Game", e);
         }
     }
 
@@ -109,16 +124,6 @@ public class ClientSkeleton implements ClientInterface, Runnable {
     @Override
     public Game getGame() {
         return null;
-    }
-
-    @Override
-    public void setGame(Game model) {
-
-    }
-
-    @Override
-    public void setState(State state) {
-        this.currState = state;
     }
 
     @Override
