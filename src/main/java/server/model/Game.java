@@ -99,6 +99,15 @@ public class Game implements Serializable, Observable<Message> {
     public List<Player> getPlayers() {
         return this.players;
     }
+    public Player getPlayerByNickname(String nickName){
+        for (Player p: players
+             ) {if (p.getUserName().equals(nickName)){
+                 return p;}
+
+        };
+        System.out.println("no such player");
+        return null;
+    }
 
     /**
      * Gets board.
