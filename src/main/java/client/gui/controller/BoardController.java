@@ -195,7 +195,8 @@ public class BoardController implements GenericInterface, Initializable {
         int num = gui.getGame().getNumPlayers();
 
         Bookshelf bookshelf = null;
-        HashMap <Pane, Coordinates> paneMap = new HashMap<>();
+        HashMap <Pane, Coordinates> paneMap= new HashMap<>();
+        HashMap <Pane, Coordinates> bookshelfMap = new HashMap<>();
         paneMap.put( t_1_4,new Coordinates(1,4));
         paneMap.put( t_1_5,new Coordinates(1,5));
         paneMap.put( t_2_4,new Coordinates(2,4));
@@ -241,13 +242,41 @@ public class BoardController implements GenericInterface, Initializable {
         paneMap.put( t_8_6,new Coordinates(8,6));
         paneMap.put( t_9_5,new Coordinates(9,5));
         paneMap.put( t_9_6,new Coordinates(9,6));
-
-
+        bookshelfMap.put( b_1_1, new Coordinates(1,1));
+        bookshelfMap.put( b_1_2, new Coordinates(1,2));
+        bookshelfMap.put( b_1_3, new Coordinates(1,3));
+        bookshelfMap.put( b_1_4, new Coordinates(1,4));
+        bookshelfMap.put( b_1_5, new Coordinates(1,5));
+        bookshelfMap.put( b_1_6, new Coordinates(1,6));
+        bookshelfMap.put( b_2_1, new Coordinates(2,1));
+        bookshelfMap.put( b_2_2, new Coordinates(2,2));
+        bookshelfMap.put( b_2_3, new Coordinates(2,3));
+        bookshelfMap.put( b_2_4, new Coordinates(2,4));
+        bookshelfMap.put( b_2_5, new Coordinates(2,5));
+        bookshelfMap.put( b_2_6, new Coordinates(2,6));
+        bookshelfMap.put( b_3_1, new Coordinates(3,1));
+        bookshelfMap.put( b_3_2, new Coordinates(3,2));
+        bookshelfMap.put( b_3_3, new Coordinates(3,3));
+        bookshelfMap.put( b_3_4, new Coordinates(3,4));
+        bookshelfMap.put( b_3_5, new Coordinates(3,5));
+        bookshelfMap.put( b_3_6, new Coordinates(3,6));
+        bookshelfMap.put( b_4_1, new Coordinates(4,1));
+        bookshelfMap.put( b_4_2, new Coordinates(4,2));
+        bookshelfMap.put( b_4_3, new Coordinates(4,3));
+        bookshelfMap.put( b_4_4, new Coordinates(4,4));
+        bookshelfMap.put( b_4_5, new Coordinates(4,5));
+        bookshelfMap.put( b_4_6, new Coordinates(4,6));
+        bookshelfMap.put( b_5_1, new Coordinates(5,1));
+        bookshelfMap.put( b_5_2, new Coordinates(5,2));
+        bookshelfMap.put( b_5_3, new Coordinates(5,3));
+        bookshelfMap.put( b_5_4, new Coordinates(5,4));
+        bookshelfMap.put( b_5_5, new Coordinates(5,5));
+        bookshelfMap.put( b_5_6, new Coordinates(5,6));
         List<Pane> bookshelfTiles = List.of(b_1_1, b_1_2, b_1_3, b_1_4, b_1_5, b_1_6,
-                                            b_2_1, b_2_2, b_2_3, b_2_4, b_2_5, b_2_6,
-                                            b_3_1, b_3_2, b_3_3, b_3_4, b_3_5, b_3_6,
-                                            b_4_1, b_4_2, b_4_3, b_4_4, b_4_5, b_4_6,
-                                            b_5_1, b_5_2, b_5_3, b_5_4, b_5_5, b_5_6);
+                b_2_1, b_2_2, b_2_3, b_2_4, b_2_5, b_2_6,
+                b_3_1, b_3_2, b_3_3, b_3_4, b_3_5, b_3_6,
+                b_4_1, b_4_2, b_4_3, b_4_4, b_4_5, b_4_6,
+                b_5_1, b_5_2, b_5_3, b_5_4, b_5_5, b_5_6);
 
         List<Button> arrows = List.of(arrow1,arrow2,arrow3,arrow4,arrow5);
 
@@ -294,18 +323,16 @@ public class BoardController implements GenericInterface, Initializable {
             }
         }
 
-        for(i = 0; i < Bookshelf.getRows(); i++) //bookshelf initialization
-        {
-            for(j = 0; j < Bookshelf.getCols(); j++)
-            {
-                if (bookshelf.getSlots()[i][j] != null) {
-                    String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + bookshelf.getSlots()[i][j].getImage())).toExternalForm();
-                    bookshelfTiles.get(i + j).setStyle("-fx-background-image: url('" + imageUrl + "');");
-                }
+        for (Pane p : bookshelfMap.keySet()) {
+            int x = bookshelfMap.get(p).x() - 1;
+            int y = bookshelfMap.get(p).y() - 1;
+            if (bookshelf.getSlots()[y][x] != null) {
+                String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + bookshelf.getSlots()[y][x].getImage())).toExternalForm();
+                p.setStyle("-fx-background-image: url('" + imageUrl + "');");
             }
         }
 
-        for (Player player : gui.getGame().getPlayers()){ //personal goal card initialization
+        for (Player player : gui.getGame().getPlayers()){
             if (player.getUserName().equals(gui.getNickname())){
                 String goalCard = Objects.requireNonNull(getClass().getResource("/images/personal_goal_card/" + player.getPersonalGoalCard().getFileName() + ".png")).toExternalForm();
                 goal_card.setStyle("-fx-background-image: url('" + goalCard + "');");

@@ -27,6 +27,7 @@ public class Game implements Serializable, Observable<Message> {
     private boolean gameStarted;
     private List<Tile> selectedTiles;
     private List<CommonGoalCardStrategy> cgcs;
+    private String currPlayerNick;
 
     /**
      * Instantiates a new Game.
@@ -212,4 +213,10 @@ public class Game implements Serializable, Observable<Message> {
         }
     }
 
+    public String getCurrPlayerNick() {
+        return this.currPlayerNick;
+    }
+    public void setCurrPlayerNick(String currPlayerNick) {
+         this.currPlayerNick = currPlayerNick;
+    }
 }
