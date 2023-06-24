@@ -5,11 +5,11 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import server.model.Bookshelf;
 import server.model.Coordinates;
 import server.model.Player;
@@ -17,16 +17,19 @@ import setup.ConfigsFromJson;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class BoardController implements GenericInterface, Initializable {
 
     public Label L2;
     public Label L1;
     public Pane playerTurn;
+    @FXML
+    public Pane first_tile;
+    @FXML
+    public Pane second_tile;
+    @FXML
+    public Pane third_tile;
     private GUI gui;
 
     public static final String name ="board";
@@ -61,7 +64,13 @@ public class BoardController implements GenericInterface, Initializable {
             b_4_1, b_4_2, b_4_3, b_4_4, b_4_5, b_4_6,
             b_5_1, b_5_2, b_5_3, b_5_4, b_5_5, b_5_6; //index of tiles on bookshelf
 
+    public DropShadow dropShadow = new DropShadow(BlurType.GAUSSIAN, Color.WHITE, 15, 0.5, 0, 1);
+    public int selectedColumn = 0;
+    public int count = 0;
 
+    public int[] index = new int[0];
+    public HashMap <Character, Character> selectedTiles= new HashMap<>();
+    public List<Pane> selectedIds = new ArrayList<Pane>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -80,8 +89,6 @@ public class BoardController implements GenericInterface, Initializable {
                 gui.activate(FourPlayersScreenController.name);
                 break;
         }
-
-
     }
 
     @FXML
@@ -90,24 +97,56 @@ public class BoardController implements GenericInterface, Initializable {
     }
 
     public void onEndTurnButtonPress(ActionEvent event) {
+        if(end_turn.getText().equals("End turn")){
+
+        }
+        if(end_turn.getText().equals("Cancel")){
+            first_tile.setBackground(null);
+            second_tile.setBackground(null);
+            third_tile.setBackground(null);
+            end_turn.setText("End_turn");
+            selectedTiles.clear();
+            //selectedIds.clear();
+            selectedColumn = 0;
+            count = 0;
+            update();
+        }
     }
 
     public void onConfirmButtonPress(ActionEvent event) {
+        //if(selectedColumn!=0){
+            for (Map.Entry<Character, Character> entry : selectedTiles.entrySet()) {
+                System.out.println("x:" + entry.getKey() + ", y:" + entry.getValue());
+            }
+            end_turn.setText("End_turn");
+        //}
+        end_turn.setText("End_turn");
+
     }
 
     public void onArrowOnePress(ActionEvent event) {
+        selectedColumn = 1;
+        update();
     }
 
     public void onArrowTwoPress(ActionEvent event) {
+        selectedColumn = 2;
+        update();
     }
 
     public void onArrowThreePress(ActionEvent event) {
+        selectedColumn = 3;
+        update();
     }
 
     public void onArrowFourPress(ActionEvent event) {
+        selectedColumn = 4;
+        update();
     }
 
     public void onArrowFivePress(ActionEvent event) {
+        selectedColumn = 5;
+        update();
     }
 
     @Override
@@ -117,11 +156,12 @@ public class BoardController implements GenericInterface, Initializable {
 
     @Override
     public void update() {
-        int i,j;
+        int i,j,n=0;
         int[][] m;
         int num = gui.getGame().getNumPlayers();
+
         Bookshelf bookshelf = null;
-        HashMap <Pane, Coordinates> paneMap= new HashMap<>();
+        HashMap <Pane, Coordinates> paneMap = new HashMap<>();
         paneMap.put( t_1_4,new Coordinates(1,4));
         paneMap.put( t_1_5,new Coordinates(1,5));
         paneMap.put( t_2_4,new Coordinates(2,4));
@@ -170,10 +210,12 @@ public class BoardController implements GenericInterface, Initializable {
 
 
         List<Pane> bookshelfTiles = List.of(b_1_1, b_1_2, b_1_3, b_1_4, b_1_5, b_1_6,
-                b_2_1, b_2_2, b_2_3, b_2_4, b_2_5, b_2_6,
-                b_3_1, b_3_2, b_3_3, b_3_4, b_3_5, b_3_6,
-                b_4_1, b_4_2, b_4_3, b_4_4, b_4_5, b_4_6,
-                b_5_1, b_5_2, b_5_3, b_5_4, b_5_5, b_5_6);
+                                            b_2_1, b_2_2, b_2_3, b_2_4, b_2_5, b_2_6,
+                                            b_3_1, b_3_2, b_3_3, b_3_4, b_3_5, b_3_6,
+                                            b_4_1, b_4_2, b_4_3, b_4_4, b_4_5, b_4_6,
+                                            b_5_1, b_5_2, b_5_3, b_5_4, b_5_5, b_5_6);
+
+        List<Button> arrows = List.of(arrow1,arrow2,arrow3,arrow4,arrow5);
 
         try {
             m = ConfigsFromJson.getBoardConfig("src/main/resources/json/board_config.json").pattern;
@@ -187,9 +229,21 @@ public class BoardController implements GenericInterface, Initializable {
             if (m[x][y] != 0 && m[x][y] <= num){
                 String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + gui.getGame().getBoard().getTile(x,y).getImage())).toExternalForm();
                 p.setStyle("-fx-background-image: url('" + imageUrl + "');");
+                if(gui.getGame().getPlayers().get(0).getUserId() == gui.getGame().getCurrPlayerId() && gui.getNickname().equals(gui.getGame().getPlayers().get(0).getUserName())) {
+                    if (gui.getGame().getBoard().getTile(x, y).isPickable()) {
 
+                        p.setOnMouseEntered(event -> {
+                            p.setEffect(dropShadow);
+                        });
+
+                        p.setOnMouseExited(event -> {
+                            p.setEffect(null);
+                        });
+
+                        p.setOnMouseClicked(event -> onTilePressed(p));
+                    }
+                }
             }
-
         }
 
         for(Player player : gui.getClient().getGame().getPlayers())
@@ -214,8 +268,38 @@ public class BoardController implements GenericInterface, Initializable {
                     bookshelfTiles.get(i + j).setStyle("-fx-background-image: url('" + imageUrl + "');");
                 }
             }
-
         }
+
+
+        /*for(i = 0; i < Bookshelf.getCols(); i++) {
+            for(j = 0; j < Bookshelf.getRows(); j++){
+                if(bookshelfTiles.get(n).getBackground()!=null){
+                    index[i]++;
+                    n++;
+                }
+                else {
+                    j = Bookshelf.getRows();
+                    n = n + Bookshelf.getRows() - j;
+                }
+            }
+        }*/
+
+        /*for(i = 0; i < index.length; i++){
+            if(selectedTiles.size()>index[i]){
+                arrows.get(i).isDefaultButton();
+                arrows.get(i).setEffect(dropShadow);
+            }
+            else {
+                arrows.get(i).isDisabled();
+            }
+        }
+
+        if(selectedColumn!=0){
+            for(i = 0; i < selectedTiles.size(); i++) {
+                bookshelfTiles.get(i+(selectedColumn)*Bookshelf.getRows()+index[selectedColumn]).setBackground(selectedIds.get(i).getBackground());
+            }
+        }*/
+
         for (Player player : gui.getGame().getPlayers()){
             if (player.getUserName().equals(gui.getNickname())){
                 String goalCard = Objects.requireNonNull(getClass().getResource("/images/personal_goal_card/" + player.getPersonalGoalCard().getFileName() + ".png")).toExternalForm();
@@ -223,14 +307,27 @@ public class BoardController implements GenericInterface, Initializable {
             }
         }
 
+
         String cgc1 = Objects.requireNonNull(getClass().getResource("/images/common_goal_cards/" + gui.getGame().getBoard().getCommonGoalCards().get(0).getName() + ".jpg")).toExternalForm();
         cgc_1.setStyle("-fx-background-image: url('" + cgc1 + "');");
 
         String cgc2 = Objects.requireNonNull(getClass().getResource("/images/common_goal_cards/" + gui.getGame().getBoard().getCommonGoalCards().get(1).getName()+ ".jpg")).toExternalForm();
         cgc_2.setStyle("-fx-background-image: url('" + cgc2 + "');");
 
+    }
 
+    private void onTilePressed(Pane p) {
+        List<Pane> frames = List.of(first_tile,second_tile,third_tile);
+        if(count<3){
+            end_turn.setText("Cancel");
+            p.setEffect(dropShadow);
+            frames.get(count).setBackground(p.getBackground());
+            selectedTiles.put(p.getId().charAt(2),p.getId().charAt(4));
+            //selectedIds.add(p);
 
+            count++;
+            update();
+        }
     }
 
     @Override
