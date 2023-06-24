@@ -106,7 +106,10 @@ public class BoardController implements GenericInterface, Initializable {
             third_tile.setBackground(null);
             end_turn.setText("End_turn");
             selectedTiles.clear();
-            //selectedIds.clear();
+            for (Pane x: selectedIds) {
+                x.setOpacity(1);
+            }
+            selectedIds.clear();
             selectedColumn = 0;
             count = 0;
             update();
@@ -321,9 +324,10 @@ public class BoardController implements GenericInterface, Initializable {
         if(count<3){
             end_turn.setText("Cancel");
             p.setEffect(dropShadow);
+            p.setOpacity(0);
             frames.get(count).setBackground(p.getBackground());
             selectedTiles.put(p.getId().charAt(2),p.getId().charAt(4));
-            //selectedIds.add(p);
+            selectedIds.add(p);
 
             count++;
             update();
