@@ -100,18 +100,6 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
     }
 
     @Override
-    public void sendChoice(int columnChoice) throws RemoteException
-    {
-
-    }
-
-    @Override
-    public void sendPick(Tile[] tilePick) throws RemoteException
-    {
-
-    }
-
-    @Override
     public void send(String string) throws RemoteException
     {
         System.out.println("Ricevuto: " + string);
