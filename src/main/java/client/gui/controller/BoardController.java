@@ -20,142 +20,173 @@ import java.net.URL;
 import java.util.*;
 
 public class BoardController implements GenericInterface, Initializable {
-
-    public Label L2;
-    public Label L1;
-    public Pane playerTurn;
-    @FXML
-    public Pane first_tile;
-    @FXML
-    public Pane second_tile;
-    @FXML
-    public Pane third_tile;
     private GUI gui;
 
     public static final String name ="board";
-    public Button menu_button;
-    public Button show_ply_button;
-    public Button end_turn;
-    public Button confirm;
-
-    public Button arrow1;
-    public Button arrow2;
-    public Button arrow3;
-    public Button arrow4;
-    public Button arrow5;
-    @FXML
-    public Pane goal_card;
-    @FXML
-    public Pane cgc_1;
-    @FXML
-    public Pane cgc_2;
-    @FXML
+    @FXML //utils label
+    public Label L1, L2;
+    @FXML //selection buttons
+    public Button arrow1, arrow2, arrow3, arrow4, arrow5;
+    @FXML //utils buttons
+    public Button menu_button, show_ply_button, end_turn, confirm;
+    @FXML //utils pane
+    public Pane playerTurn, first_tile, second_tile, third_tile, goal_card, cgc_1, cgc_2;
+    @FXML //two players cells
     public Pane t_2_4, t_2_5, t_3_4, t_3_5, t_3_6, t_4_3, t_4_4, t_4_5, t_4_6,
-            t_4_7, t_4_8, t_5_2, t_5_3, t_5_4, t_5_5, t_5_6, t_5_7, t_5_8, t_6_2,
-            t_6_3, t_6_4, t_6_5, t_6_6, t_6_7, t_7_4, t_7_5, t_7_6, t_8_5, t_8_6; //two players cells
-    @FXML
-    public Pane t_1_4, t_3_3, t_3_7, t_4_9, t_6_1, t_7_3, t_7_7, t_9_6; //three players exclusive cells
-    @FXML
-    public Pane t_1_5, t_2_6, t_4_2, t_5_1, t_5_9, t_6_8, t_8_4, t_9_5; //four players exclusive cells
-    @FXML
+                t_4_7, t_4_8, t_5_2, t_5_3, t_5_4, t_5_5, t_5_6, t_5_7, t_5_8, t_6_2,
+                t_6_3, t_6_4, t_6_5, t_6_6, t_6_7, t_7_4, t_7_5, t_7_6, t_8_5, t_8_6;
+    @FXML //three players exclusive cells
+    public Pane t_1_4, t_3_3, t_3_7, t_4_9, t_6_1, t_7_3, t_7_7, t_9_6;
+    @FXML //four players exclusive cells
+    public Pane t_1_5, t_2_6, t_4_2, t_5_1, t_5_9, t_6_8, t_8_4, t_9_5;
+    @FXML //index of tiles on bookshelf
     public Pane b_1_1, b_1_2, b_1_3, b_1_4, b_1_5, b_1_6,
-            b_2_1, b_2_2, b_2_3, b_2_4, b_2_5, b_2_6,
-            b_3_1, b_3_2, b_3_3, b_3_4, b_3_5, b_3_6,
-            b_4_1, b_4_2, b_4_3, b_4_4, b_4_5, b_4_6,
-            b_5_1, b_5_2, b_5_3, b_5_4, b_5_5, b_5_6; //index of tiles on bookshelf
+                b_2_1, b_2_2, b_2_3, b_2_4, b_2_5, b_2_6,
+                b_3_1, b_3_2, b_3_3, b_3_4, b_3_5, b_3_6,
+                b_4_1, b_4_2, b_4_3, b_4_4, b_4_5, b_4_6,
+                b_5_1, b_5_2, b_5_3, b_5_4, b_5_5, b_5_6;
+
+    public boolean action = true;
+    public int selectedColumn = 0, count = 0;
+    public List<Pane> selectedIds = new ArrayList<Pane>();
+    public List<Pane> changedBookshelfTiles = new ArrayList<Pane>();
+    public HashMap <Character, Character> selectedTiles= new HashMap<>();
 
     public DropShadow dropShadow = new DropShadow(BlurType.GAUSSIAN, Color.WHITE, 15, 0.5, 0, 1);
-    public int selectedColumn = 0;
-    public int count = 0;
 
-    public int[] index = new int[0];
-    public HashMap <Character, Character> selectedTiles= new HashMap<>();
-    public List<Pane> selectedIds = new ArrayList<Pane>();
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
+    @Override
+    public void setGUI(GUI gui) {
+        this.gui = gui;
+    }
+    @Override
+    public String getName() {
+        return name;
+    }
 
+    public void onArrowOnePress(ActionEvent event) {
+        if(selectedColumn==0){
+            selectedColumn = 1;
+            update();
+        }
+    }
+    public void onArrowTwoPress(ActionEvent event) {
+        if(selectedColumn==0){
+            selectedColumn = 2;
+            update();
+        }
+    }
+    public void onArrowThreePress(ActionEvent event) {
+        if(selectedColumn==0){
+            selectedColumn = 3;
+            update();
+        }
+    }
+    public void onArrowFourPress(ActionEvent event) {
+        if(selectedColumn==0){
+            selectedColumn = 4;
+            update();
+        }
+    }
+    public void onArrowFivePress(ActionEvent event) {
+        if(selectedColumn==0){
+            selectedColumn = 5;
+            update();
+        }
+    }
 
+    public void onMenuButtonPress(ActionEvent event) {
+        gui.activate(MenuScreenController.name);
+        update();
+    }
     public void onPlayerButtonPress(ActionEvent event) {
         switch (gui.getClient().getGame().getNumPlayers()) {
             case(2):
                 gui.activate(TwoPlayersScreenController.name);
-                break;
+                    break;
             case(3):
                 gui.activate(ThreePlayersScreenController.name);
-                break;
+                    break;
             case(4):
                 gui.activate(FourPlayersScreenController.name);
-                break;
+                    break;
         }
     }
-
-    @FXML
-    public void onMenuButtonPress(ActionEvent event) {
-        gui.activate(MenuScreenController.name);
+    public void onConfirmButtonPress(ActionEvent event) { //when you confirm your actions
+        for (Map.Entry<Character, Character> entry : selectedTiles.entrySet()) {
+            System.out.println("x:" + entry.getKey() + ", y:" + entry.getValue());
+        }
+        first_tile.setBackground(null);
+        second_tile.setBackground(null);
+        third_tile.setBackground(null);
+        selectedColumn=0;
+        action=false;
+        end_turn.setText("End_turn");
+        update();
     }
 
-    public void onEndTurnButtonPress(ActionEvent event) {
-        if(end_turn.getText().equals("End turn")){
-
+    public void onEndTurnButtonPress(ActionEvent event) { //if you press the end button
+        if(end_turn.getText().equals("End turn")){ //when you end your action
+            for (Map.Entry<Character, Character> entry : selectedTiles.entrySet()) {
+                System.out.println("x:" + entry.getKey() + ", y:" + entry.getValue());
+            }
+            System.out.println(selectedColumn);
         }
-        if(end_turn.getText().equals("Cancel")){
+        if(end_turn.getText().equals("Cancel")){ //when you cancel your action after selecting some tiles
             first_tile.setBackground(null);
             second_tile.setBackground(null);
             third_tile.setBackground(null);
             end_turn.setText("End_turn");
-            selectedTiles.clear();
+            for (Pane y: changedBookshelfTiles) {
+                y.setBackground(null);
+            }
             for (Pane x: selectedIds) {
                 x.setOpacity(1);
+                x.setDisable(false);
             }
+            changedBookshelfTiles.clear();
+            selectedTiles.clear();
             selectedIds.clear();
             selectedColumn = 0;
+            action = true;
             count = 0;
             update();
         }
     }
 
-    public void onConfirmButtonPress(ActionEvent event) {
-        //if(selectedColumn!=0){
-            for (Map.Entry<Character, Character> entry : selectedTiles.entrySet()) {
-                System.out.println("x:" + entry.getKey() + ", y:" + entry.getValue());
+    public int getEmptyColumns(List<Pane> bookshelTiles, int x){ //this method return the number of free cells in a column
+        int num = 0;
+        for (int i = 0; i < Bookshelf.getRows(); i++){
+            if(bookshelTiles.get(x+i).getBackground()==null)
+            {
+                num++;
             }
-            end_turn.setText("End_turn");
-        //}
-        end_turn.setText("End_turn");
-
+        }
+        return num;
     }
 
-    public void onArrowOnePress(ActionEvent event) {
-        selectedColumn = 1;
-        update();
+    private void onTilePressed(Pane p) { //this method add tiles to the selected ones and show them on the selection panel
+        if(action) {
+            List<Pane> frames = List.of(first_tile, second_tile, third_tile);
+            if (count < 3) {
+                end_turn.setText("Cancel");
+                p.setOpacity(0);
+                p.setDisable(true);
+                frames.get(count).setBackground(p.getBackground());
+                selectedTiles.put(p.getId().charAt(2), p.getId().charAt(4));
+                selectedIds.add(p);
+
+                count++;
+                update();
+            }
+        }
     }
 
-    public void onArrowTwoPress(ActionEvent event) {
-        selectedColumn = 2;
-        update();
-    }
-
-    public void onArrowThreePress(ActionEvent event) {
-        selectedColumn = 3;
-        update();
-    }
-
-    public void onArrowFourPress(ActionEvent event) {
-        selectedColumn = 4;
-        update();
-    }
-
-    public void onArrowFivePress(ActionEvent event) {
-        selectedColumn = 5;
-        update();
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
 
     @Override
     public void update() {
@@ -226,7 +257,7 @@ public class BoardController implements GenericInterface, Initializable {
             throw new RuntimeException(e);
         }
 
-        for (Pane p : paneMap.keySet()) {
+        for (Pane p : paneMap.keySet()) { //initializing board + tiles
             int x = paneMap.get(p).x() - 1;
             int y = paneMap.get(p).y() - 1;
             if (m[x][y] != 0 && m[x][y] <= num){
@@ -242,14 +273,15 @@ public class BoardController implements GenericInterface, Initializable {
                         p.setOnMouseExited(event -> {
                             p.setEffect(null);
                         });
-
-                        p.setOnMouseClicked(event -> onTilePressed(p));
+                        if(action){
+                            p.setOnMouseClicked(event -> onTilePressed(p));
+                        }
                     }
                 }
             }
         }
 
-        for(Player player : gui.getClient().getGame().getPlayers())
+        for(Player player : gui.getClient().getGame().getPlayers()) //initializing some labels
         {
             if(player.getUserName().equals(gui.getNickname()) /*&& player.getUserId() == gui.getGame().getCurrPlayerId()*/)
             {
@@ -273,43 +305,12 @@ public class BoardController implements GenericInterface, Initializable {
             }
         }
 
-
-        /*for(i = 0; i < Bookshelf.getCols(); i++) {
-            for(j = 0; j < Bookshelf.getRows(); j++){
-                if(bookshelfTiles.get(n).getBackground()!=null){
-                    index[i]++;
-                    n++;
-                }
-                else {
-                    j = Bookshelf.getRows();
-                    n = n + Bookshelf.getRows() - j;
-                }
-            }
-        }*/
-
-        /*for(i = 0; i < index.length; i++){
-            if(selectedTiles.size()>index[i]){
-                arrows.get(i).isDefaultButton();
-                arrows.get(i).setEffect(dropShadow);
-            }
-            else {
-                arrows.get(i).isDisabled();
-            }
-        }
-
-        if(selectedColumn!=0){
-            for(i = 0; i < selectedTiles.size(); i++) {
-                bookshelfTiles.get(i+(selectedColumn)*Bookshelf.getRows()+index[selectedColumn]).setBackground(selectedIds.get(i).getBackground());
-            }
-        }*/
-
-        for (Player player : gui.getGame().getPlayers()){
+        for (Player player : gui.getGame().getPlayers()){ //personal goal card initialization
             if (player.getUserName().equals(gui.getNickname())){
                 String goalCard = Objects.requireNonNull(getClass().getResource("/images/personal_goal_card/" + player.getPersonalGoalCard().getFileName() + ".png")).toExternalForm();
                 goal_card.setStyle("-fx-background-image: url('" + goalCard + "');");
             }
         }
-
 
         String cgc1 = Objects.requireNonNull(getClass().getResource("/images/common_goal_cards/" + gui.getGame().getBoard().getCommonGoalCards().get(0).getName() + ".jpg")).toExternalForm();
         cgc_1.setStyle("-fx-background-image: url('" + cgc1 + "');");
@@ -317,26 +318,35 @@ public class BoardController implements GenericInterface, Initializable {
         String cgc2 = Objects.requireNonNull(getClass().getResource("/images/common_goal_cards/" + gui.getGame().getBoard().getCommonGoalCards().get(1).getName()+ ".jpg")).toExternalForm();
         cgc_2.setStyle("-fx-background-image: url('" + cgc2 + "');");
 
-    }
+        for(i = 0; i < Bookshelf.getCols(); i++){ //initializing arrow buttons - what columns you can select
+            if(getEmptyColumns(bookshelfTiles,i)>=selectedTiles.size()){
+                arrows.get(i).setDisable(false);
+                int finalI = i;
+                arrows.get(i).setOnMouseEntered(event -> {
+                    arrows.get(finalI).setEffect(dropShadow);
+                });
 
-    private void onTilePressed(Pane p) {
-        List<Pane> frames = List.of(first_tile,second_tile,third_tile);
-        if(count<3){
-            end_turn.setText("Cancel");
-            p.setEffect(dropShadow);
-            p.setOpacity(0);
-            frames.get(count).setBackground(p.getBackground());
-            selectedTiles.put(p.getId().charAt(2),p.getId().charAt(4));
-            selectedIds.add(p);
+                int finalI1 = i;
+                arrows.get(i).setOnMouseExited(event -> {
+                    arrows.get(finalI1).setEffect(null);
+                });
+            }
+            else {
+                arrows.get(i).setDisable(true);
+            }
+        }
 
-            count++;
-            update();
+        if(action){
+            //preview on the bookshelf
+            if(selectedColumn>0 && selectedTiles.size()!=0){
+                int s = getEmptyColumns(bookshelfTiles,selectedColumn-1);
+                for(i = 0; i < selectedTiles.size(); i++)
+                {
+                    bookshelfTiles.get(i+(Bookshelf.getRows()-s)+(selectedColumn-1)*Bookshelf.getRows()).setBackground(selectedIds.get(i).getBackground());
+                    changedBookshelfTiles.add(bookshelfTiles.get(i+(Bookshelf.getRows()-s)+(selectedColumn-1)*Bookshelf.getRows()));
+                }
+                s = 0;
+            }
         }
     }
-
-    @Override
-    public void setGUI(GUI gui) {
-        this.gui = gui;
-    }
-
 }
