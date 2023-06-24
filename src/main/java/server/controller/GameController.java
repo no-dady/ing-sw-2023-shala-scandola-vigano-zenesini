@@ -105,7 +105,10 @@ public class GameController implements Observer<Action> {
     @Override
     public void update(Action action) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        if(action.canPerformAction(game))
+            action.performAction(game);
+        else
+            System.out.println("Could not perform action");
     }
 }
 

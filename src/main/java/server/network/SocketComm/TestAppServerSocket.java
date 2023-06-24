@@ -21,8 +21,8 @@ public class TestAppServerSocket {
     public static void main(String[] args) throws RemoteException
     {
         ArrayList<Thread> memory = new ArrayList<Thread>();
-        ArrayList<ClientSocketMiddleware> clientsList = new ArrayList<ClientSocketMiddleware>();
-        Server server = new Server(false, null);
+        ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
+        Server server = new Server(1900, 1334);
         System.out.println("Server Started");
         try {
             ServerSocket serverSocket = new ServerSocket(1234);

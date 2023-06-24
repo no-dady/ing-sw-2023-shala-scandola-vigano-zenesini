@@ -2,6 +2,7 @@ package client.network;
 
 import client.Client;
 import client.UI;
+import client.gui.GUI;
 import observer.Observer;
 import server.model.Game;
 import server.network.ServerInterface;
@@ -25,6 +26,14 @@ import java.util.List;
  */
 public class ClientHandler extends UnicastRemoteObject implements ClientInterface {
     private ServerInterface serverInterface;
+    private Client client;
+
+    private List<String> playerInLobby;
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     private Game game;
     private State currState = State.WAITINGFORGAMESTART;
     private Thread socketThread;
@@ -32,7 +41,8 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     public ClientHandler(String ip, int port) throws RemoteException, MalformedURLException, NotBoundException {
         super();
-        serverInterface = (ServerInterface) Naming.lookup("rmi://" + ip + ":" + port + "/myShelfie");
+        this.serverInterface = (ServerInterface) Naming.lookup("rmi://" + ip + ":" + port + "/myShelfie");
+        this.playerInLobby = new ArrayList<String>();
 
         initialize(serverInterface);
     }
@@ -41,6 +51,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         super();
         ClientSocketMiddleware clientSocketMiddleware = new ClientSocketMiddleware(client, ip, port, this);
         this.serverInterface = clientSocketMiddleware;
+        this.playerInLobby = new ArrayList<String>();
         new Thread(clientSocketMiddleware).start();
     }
 
@@ -147,6 +158,12 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                 //serverInterface.send(Parser.toJson(nickMessage, NicknameMessage.class));
                 setState(State.SETTINGNICKNAME);
             }
+        } else if (string.contains("nicknameJoined"))
+        {
+            System.out.println("Printo");
+            JoinedMessage trueMessageReceived = Parser.fromJson(string, JoinedMessage.class);
+            playerInLobby.add(trueMessageReceived.getNicknameJoined());
+            System.out.println("Ho aggiunto " + trueMessageReceived.getNicknameJoined());
         } else
         {
             ConfirmMessage trueMessageReceived = Parser.fromJson(string, ConfirmMessage.class);
@@ -163,16 +180,22 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                 case 4:
                 case 5:
                     System.out.println(trueMessageReceived.getMessage());
+                    if (currState.equals(State.MYTURN) || currState.equals(State.WAITINGFORMYTURN)) client.getUI().update();
                     break;
 
             }
         }
     }
 
+    public List<String> getPlayerInLobby() {
+        return playerInLobby;
+    }
+
     @Override
     public UI getUI() throws RemoteException {
         return null;
     }
+
 
     @Override
     public Game getGame() throws RemoteException{

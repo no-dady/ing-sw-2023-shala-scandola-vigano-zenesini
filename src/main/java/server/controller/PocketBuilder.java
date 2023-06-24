@@ -5,6 +5,7 @@ import server.model.TileType;
 import java.util.Collections;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -23,7 +24,7 @@ public class PocketBuilder {
         Set<String> x = TileType.values();
 
         for (int i = 0; i < numberOfTiles; i++) {
-            result.add(new Tile(new TileType((String) x.toArray()[i % (x.size() -1)], i%3), i));
+            result.add(new Tile(new TileType((String) x.toArray()[i % (x.size() -1)], new Random().nextInt(3)), i));
         }
 
         Collections.shuffle(result);

@@ -15,6 +15,7 @@ public class Client {
     private UI ui;
     private boolean gui;
     private String connectionType;
+
     private ClientHandler clientConnection;
     private boolean active = true;
     private boolean online = false;
@@ -44,8 +45,14 @@ public class Client {
 
     public void setOnline() throws RemoteException, RuntimeException, MalformedURLException, NotBoundException {
         switch (connectionType) {
-            case "RMI" -> clientConnection = new ClientHandler(ip, port);
-            case "SOCKET" -> clientConnection = new ClientHandler(this, ip, port);
+            case "RMI" -> {
+                clientConnection = new ClientHandler(ip, port);
+                clientConnection.setClient(this);
+            }
+            case "SOCKET" -> {
+                clientConnection = new ClientHandler(this, ip, port);
+                clientConnection.setClient(this);
+        }
             default -> throw new RuntimeException("Could not initiate connection");
         }
 
@@ -82,6 +89,9 @@ public class Client {
     public UI getUI() {
         return ui;
     }
+    public void setUi(UI ui) {
+        this.ui =  ui;
+    }
 
     public boolean isOnline() {
         return online;
@@ -92,6 +102,9 @@ public class Client {
             return clientConnection.getGame();
         }catch (RemoteException e){}
         return null;
+    }
+    public ClientHandler getClientConnection() {
+        return clientConnection;
     }
     public void setGame(Game game)  {
         try {

@@ -606,7 +606,6 @@
 }
 
 #b_1_1 {
-    -fx-background-image: url("../images/itemTiles/Toys2.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -614,7 +613,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_1_2 {
-    -fx-background-image: url("../images/itemTiles/Toys2.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -622,7 +620,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_1_3 {
-    -fx-background-image: url("../images/itemTiles/Toys2.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -630,7 +627,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_1_4 {
-    -fx-background-image: url("../images/itemTiles/Toys2.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -638,7 +634,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_1_5 {
-    -fx-background-image: url("../images/itemTiles/Toys2.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -646,7 +641,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_1_6 {
-    -fx-background-image: url("../images/itemTiles/Toys2.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -662,7 +656,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_2_2 {
-    -fx-background-image: url("../images/itemTiles/Trophies1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -670,7 +663,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_2_3 {
-    -fx-background-image: url("../images/itemTiles/Trophies1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -678,7 +670,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_2_4 {
-    -fx-background-image: url("../images/itemTiles/Trophies1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -686,7 +677,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_2_5 {
-    -fx-background-image: url("../images/itemTiles/Trophies1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -694,7 +684,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_2_6 {
-    -fx-background-image: url("../images/itemTiles/Trophies1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -717,7 +706,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_3_3 {
-    -fx-background-image: url("../images/itemTiles/Toys1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -725,7 +713,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_3_4 {
-    -fx-background-image: url("../images/itemTiles/Toys1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -733,7 +720,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_3_5 {
-    -fx-background-image: url("../images/itemTiles/Toys1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -741,7 +727,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_3_6 {
-    -fx-background-image: url("../images/itemTiles/Toys1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -771,7 +756,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_4_4 {
-    -fx-background-image: url("../images/itemTiles/Books1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -779,7 +763,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_4_5 {
-    -fx-background-image: url("../images/itemTiles/Books1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -787,7 +770,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_4_6 {
-    -fx-background-image: url("../images/itemTiles/Books1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -824,7 +806,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_5_5 {
-    -fx-background-image: url("../images/itemTiles/Frames1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;
@@ -832,7 +813,6 @@
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
 }
 #b_5_6 {
-    -fx-background-image: url("../images/itemTiles/Frames1.png");
     -fx-effect: dropshadow(gaussian, black, 10, 0.5, 0.9, 0.3);
     -fx-background-position: center;
     -fx-background-size: contain;

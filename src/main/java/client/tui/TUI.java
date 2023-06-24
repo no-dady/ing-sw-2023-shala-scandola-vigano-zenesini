@@ -56,15 +56,26 @@ public class TUI implements UI, Runnable {
         System.out.println();
         System.out.println();
 
-        try {
-            System.out.println("[type hostname, press ENTER]");
+        //try {
+        //    System.out.println("[type hostname, press ENTER]");
+        //    host = in.nextLine();
+        //    if (!host.matches("\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b")) {
+        //        throw (new Exception());
+        //    }
+        //} catch (Exception e) {
+        //    System.out.println("this is not a valid hostname");
+        //    return;
+        //}
+
+        System.out.println("[type hostname, press ENTER]");
+        while(true)
+        {
             host = in.nextLine();
             if (!host.matches("\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b")) {
-                throw (new Exception());
+                System.out.println("[this is not a valid address, please re-type the address and press ENTER]");
+            } else {
+                break;
             }
-        } catch (Exception e) {
-            System.out.println("this is not a valid hostname");
-            return;
         }
 
         try {
@@ -78,6 +89,7 @@ public class TUI implements UI, Runnable {
         try {
             System.out.println("[type RMI or SOCKET in order to choose your preferred connection method then press ENTER]");
             connectionType = in.nextLine();
+            connectionType = connectionType.toUpperCase();
             if (!(connectionType.equals("RMI") || connectionType.equals("SOCKET"))) {
                 throw (new Exception());
             }
@@ -156,7 +168,7 @@ public class TUI implements UI, Runnable {
                 }
             }
             //COMMENTED THIS LINE vvv ONLY BECAUSE RIGHT NOW WE DONT HAVE A REAL GAME INSIDE THE CLIENT SO getGame LEAD TO A NULLPOINTEREXC
-            while (client.isActive() && client.isOnline() && !this.client.getGame().hasWinner()) {
+            while (client.isActive() && client.isOnline() && !client.getGame().hasWinner()) {
                 while (!client.getState().equals(State.WAITINGFORMYTURN)) {
                     //whatever you want to do whn you are not actively playing
                     // maybe show bookshelves of the other players
