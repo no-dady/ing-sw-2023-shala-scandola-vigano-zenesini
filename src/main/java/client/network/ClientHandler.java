@@ -1,17 +1,12 @@
 package client.network;
 
-import client.Client;
 import client.UI;
-import client.gui.GUI;
 import observer.Observer;
 import server.model.Game;
 import server.network.ServerInterface;
 import util.Messages.*;
 import util.Parser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -20,6 +15,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import client.Client;
 
 /**
  * The type Client.
@@ -27,15 +23,13 @@ import java.util.List;
 public class ClientHandler extends UnicastRemoteObject implements ClientInterface, Serializable {
     private ServerInterface serverInterface;
     private Client client;
-
     private List<String> playerInLobby;
 
-    public void setClient(Client client) {
+    public void setClient(client.Client client) {
         this.client = client;
     }
 
     private Game game;
-    private State currState = State.WAITINGFORGAMESTART;
     private Thread socketThread;
     private String nickName;
 
@@ -47,7 +41,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         initialize(serverInterface);
     }
 
-    public ClientHandler(Client client, String ip, int port) throws RemoteException {
+    public ClientHandler(client.Client client, String ip, int port) throws RemoteException {
         super();
         ClientSocketMiddleware clientSocketMiddleware = new ClientSocketMiddleware(client, ip, port, this);
         this.serverInterface = clientSocketMiddleware;
@@ -78,7 +72,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     public void sendToServer(String string) throws RemoteException
     {
-        currState = State.WAITINGFORRESPONSE;
+        client.setState(State.WAITINGFORRESPONSE);
         serverInterface.send(string);
     }
 
@@ -86,6 +80,8 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     public void send(String string) throws RemoteException
     {
         System.out.println("Ricevuto: " + string);
+        Message msg = Parser.fromJson(string, Message.class);
+        msg.handleMessage(client);
         //Message messageReceived = Parser.parseFromJsonString(string, AskMoveMessage.class);
         //if(messageReceived instanceof AskMoveMessage trueMessageReceived)
         if (string.contains("moveTypeNumber"))
@@ -185,7 +181,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                 case 4:
                 case 5:
                     System.out.println(trueMessageReceived.getMessage());
-                    if (currState.equals(State.MYTURN) || currState.equals(State.WAITINGFORMYTURN)) client.getUI().update();
+                    if (client.getState().equals(State.MYTURN) || client.getState().equals(State.WAITINGFORMYTURN)) client.getUI().update();
                     break;
 
             }
@@ -215,11 +211,11 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     public synchronized void setState(State state) throws RemoteException
     {
-        this.currState = state;
+        this.client.setState(state);
     }
 
     public synchronized State getState()throws RemoteException {
-        return currState;
+        return this.client.getState();
     }
 
     @Override

@@ -1,8 +1,8 @@
 package util.Messages;
 
+import client.Client;
 import client.network.ClientInterface;
 import client.network.State;
-import server.model.Game;
 
 public class StateMessage implements Message {
 
@@ -20,7 +20,7 @@ public class StateMessage implements Message {
     }
 
     @Override
-    public void handleMessage(ClientInterface clientInterface)
+    public void handleMessage(Client client)
     {
         System.out.println("Prova");
     }

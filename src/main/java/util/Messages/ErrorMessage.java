@@ -1,6 +1,6 @@
 package util.Messages;
 
-import client.network.ClientInterface;
+import client.Client;
 
 public class ErrorMessage implements Message {
 
@@ -12,7 +12,7 @@ public class ErrorMessage implements Message {
     }
 
     @Override
-    public void handleMessage(ClientInterface clientInterface)
+    public void handleMessage(Client client)
     {
 
     }

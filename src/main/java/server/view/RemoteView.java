@@ -3,6 +3,8 @@ package server.view;
 import client.network.ClientInterface;
 import moves.MoveSelectTiles;
 import observer.Observer;
+import server.network.SocketComm.ClientSkeleton;
+import setup.Setup;
 import util.Messages.LastMessage;
 import util.Messages.Message;
 import server.controller.actions.Action;
@@ -20,10 +22,10 @@ public class RemoteView extends View {
             try {
                 Action move = Parser.fromJson(info, Action.class);
                 handleMove(move);
-            // } catch (NullPointerException e){
-            //   Setup setupper= Parser.fromJson(info, Setup.class);
-            //   ClientSkeleton connection= (ClientSkeleton)clientConnection;
-            //   connection.handleSetupper(setupper);
+            } catch (NullPointerException e){
+              Setup setupper= Parser.fromJson(info, Setup.class);
+              ClientSkeleton connection= (ClientSkeleton)clientConnection;
+              connection.handleSetupper(setupper);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

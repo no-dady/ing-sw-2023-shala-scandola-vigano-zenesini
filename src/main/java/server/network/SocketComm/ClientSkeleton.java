@@ -7,9 +7,7 @@ import client.network.State;
 import server.model.Game;
 import server.model.Lobby;
 import server.network.Server;
-import server.model.Board;
-import server.model.Bookshelf;
-import server.model.Tile;
+import setup.Setup;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -39,18 +37,15 @@ public class ClientSkeleton implements ClientInterface, Runnable {
      * @param socket the socket
      * @throws RemoteException the remote exception
      */
-    public ClientSkeleton(Socket socket, Server server) throws RemoteException
-    {
+    public ClientSkeleton(Socket socket, Server server) throws RemoteException {
         this.socket = socket;
         this.server = server;
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
         System.out.println("Start thread");
-        try
-        {
+        try {
             ObjectInputStream ois;
             System.out.println("Creating streams");
             this.oos = new ObjectOutputStream(socket.getOutputStream());
@@ -65,20 +60,15 @@ public class ClientSkeleton implements ClientInterface, Runnable {
             oos.close();
             socket.close();
             System.out.println("Disconnected");
-        }
-        catch(IOException e)
-        {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void notifyNewConn(String nickname)
-    {
-        try
-        {
+    public void notifyNewConn(String nickname) {
+        try {
             oos.writeObject(nickname + " connected");
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -89,29 +79,22 @@ public class ClientSkeleton implements ClientInterface, Runnable {
 
     //Action n 4
     @Override
-    public void send(String string) throws RemoteException
-    {
-        try
-        {
+    public void send(String string) throws RemoteException {
+        try {
             oos.writeObject(0);
+            System.out.println(string);
             oos.writeObject(string);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RemoteException("Cannot send the String", e);
         }
     }
 
     @Override
-    public void setGame(Game game) throws RemoteException
-    {
-        try
-        {
+    public void setGame(Game game) throws RemoteException {
+        try {
             oos.writeObject(1);
             oos.writeObject(game);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RemoteException("Cannot send the Game", e);
         }
     }
@@ -131,8 +114,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         return null;
     }
 
-    public String getNickname()
-    {
+    public String getNickname() {
         return this.nickName;
     }
 
@@ -141,20 +123,13 @@ public class ClientSkeleton implements ClientInterface, Runnable {
      *
      * @throws RemoteException the remote exception
      */
-    public void receive(ObjectInputStream ois) throws RemoteException
-    {
+    public void receive(ObjectInputStream ois) throws RemoteException {
         String rec;
-        while (true)
-        {
-            try
-            {
+        while (true) {
+            try {
                 rec = (String) ois.readObject();
                 server.send(rec);
-            } catch (IOException e)
-            {
-                System.out.println(e.getMessage());
-            } catch (ClassNotFoundException e)
-            {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -218,8 +193,8 @@ public class ClientSkeleton implements ClientInterface, Runnable {
 
     private void close(String playerName, Lobby lobby) throws RemoteException {
         System.out.println("Deregistering Client");
-        if(lobby != null && server.findLobby(lobby.getLobbyName())) {
-            if(lobby.disconnectPlayer(playerName)) {
+        if (lobby != null && server.findLobby(lobby.getLobbyName())) {
+            if (lobby.disconnectPlayer(playerName)) {
                 server.removeLobby(lobby);
             }
         }
@@ -240,9 +215,14 @@ public class ClientSkeleton implements ClientInterface, Runnable {
     @Override
     public void notify(String message) {
         synchronized (observers) {
-            for(Observer<String> observer : observers){
+            for (Observer<String> observer : observers) {
                 observer.update(message);
             }
         }
     }
+
+    public void handleSetupper(Setup setupper) {
+        System.out.println("Handle Setupper ::: " + setupper.getName());
+    }
+
 }

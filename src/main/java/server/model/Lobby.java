@@ -76,7 +76,7 @@ public class Lobby {
         return playerMap.containsKey(nickName);
     }
 
-    public void addPlayer(ClientInterface clientInterface, String nickName)
+    public void addPlayer(ClientInterface client, String nickName)
     {
         try
         {
@@ -85,25 +85,25 @@ public class Lobby {
                 ConfirmMessage messageToSendForOther = new ConfirmMessage(nickName + " joined the lobby", 2);
                 entry.getValue().send(Parser.toJson(messageToSendForOther, ConfirmMessage.class));
             }
-            this.playerMap.put(nickName, clientInterface);
+            this.playerMap.put(nickName, client);
             ConfirmMessage messageToSend;
             if (this.playerMap.size() == playerNumber)
             {
                 messageToSend = new ConfirmMessage("Joined " + lobbyName, 3);
-                clientInterface.send(Parser.toJson(messageToSend, ConfirmMessage.class));
+                client.send(Parser.toJson(messageToSend, ConfirmMessage.class));
                 for (var entry : playerMap.entrySet())
                 {
                     JoinedMessage joinedMessage = new JoinedMessage(entry.getKey());
-                    clientInterface.send(Parser.toJson(joinedMessage, JoinedMessage.class));
+                    client.send(Parser.toJson(joinedMessage, JoinedMessage.class));
                 }
                 startGame();
             } else {
                 messageToSend = new ConfirmMessage("Joined " + lobbyName, 1);
-                clientInterface.send(Parser.toJson(messageToSend, ConfirmMessage.class));
+                client.send(Parser.toJson(messageToSend, ConfirmMessage.class));
                 for (var entry : playerMap.entrySet())
                 {
                     JoinedMessage joinedMessage = new JoinedMessage(entry.getKey());
-                    clientInterface.send(Parser.toJson(joinedMessage, JoinedMessage.class));
+                    client.send(Parser.toJson(joinedMessage, JoinedMessage.class));
                 }
             }
         } catch (IOException | IllegalPlayersNumberException e)

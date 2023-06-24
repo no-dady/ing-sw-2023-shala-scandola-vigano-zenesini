@@ -1,7 +1,7 @@
 package util.Messages;
 
+import client.Client;
 import client.network.ClientInterface;
-import server.model.Game;
 
 import java.rmi.RemoteException;
 
@@ -18,7 +18,7 @@ public class CurrentPlayerMessage implements Message {
     }
 
     @Override
-    public void handleMessage(ClientInterface client) throws RemoteException {
+    public void handleMessage(Client client) throws RemoteException {
     }
 
     @Override

@@ -22,6 +22,7 @@ public class Client {
     private String ip;
     private int port;
 
+    private State currState = State.WAITINGFORGAMESTART;
 
     public Client(boolean gui) throws IOException {
         this.active = true;
@@ -59,6 +60,7 @@ public class Client {
         online = true;
         System.out.println("Connection established");
     }
+
 
 
     public void run() throws IOException {
@@ -112,11 +114,11 @@ public class Client {
         }catch (RemoteException e){}
     }
 
-    public State getState() {
-        try {
-            return clientConnection.getState();
-        }catch (RemoteException e){}
-        return null;
+    public synchronized State getState() {
+        return currState;
+    }
+    public synchronized void setState(State status) {
+        this.currState = status;
     }
 
     public void sendToServer(String parsedString) throws RemoteException

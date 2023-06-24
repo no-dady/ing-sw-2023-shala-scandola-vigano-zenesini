@@ -1,5 +1,6 @@
 package util.Messages;
 
+import client.Client;
 import client.network.ClientInterface;
 import server.model.Game;
 
@@ -15,7 +16,7 @@ public class GameMessage implements Message {
 
 
     @Override
-    public void handleMessage(ClientInterface client) throws RemoteException {
+    public void handleMessage(Client client) throws RemoteException {
         Game game = client.getGame();
         game.setCurrPlayerId(id);
     }

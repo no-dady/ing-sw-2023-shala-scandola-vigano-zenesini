@@ -1,13 +1,12 @@
 package client.network;
 
-import client.Client;
 import server.model.Game;
-import server.model.Tile;
 import server.network.ServerInterface;
+import util.Messages.Message;
+import util.Parser;
 
 import java.io.*;
 import java.net.Socket;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 /**
@@ -15,7 +14,7 @@ import java.rmi.RemoteException;
  */
 //It implements the Server, but it will be used on the client-side to communicate
 public class ClientSocketMiddleware implements ServerInterface, Runnable {
-    Client client;
+    client.Client client;
     /**
      * The Ip.
      */
@@ -37,7 +36,7 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
      * @param ip   the ip
      * @param port the port
      */
-    public ClientSocketMiddleware(Client client, String ip, int port, ClientInterface clientInterface)
+    public ClientSocketMiddleware(client.Client client, String ip, int port, ClientInterface clientInterface)
     {
         this.client = client;
         this.ip = ip;
@@ -48,7 +47,6 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
     @Override
     public void run()
     {
-
         try
         {
             socket = new Socket(ip, port);
@@ -59,13 +57,15 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
             System.out.println("Created ois");
 
             System.out.println("Created streams");
-            while (true)
+            while (client.isActive())
             {
+                Message recv = Parser.fromJson(ois.readUTF(), Message.class);
+                recv.handleMessage(client);
                 int whatIsSending = (Integer) ois.readObject();
                 switch(whatIsSending)
                 {
                     case 0:
-                        String rec = (String) ois.readObject();
+                        String rec = ois.readObject().toString();
                         clientinterface.send(rec);
                         break;
 
@@ -75,11 +75,8 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
                         break;
                 }
             }
-        } catch(IOException e)
-        {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e)
-        {
+        } catch(Exception e) {
+            client.setActive(false);
             e.printStackTrace();
         }
     }
@@ -106,7 +103,7 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         }
     }
     @Override
-    public void register(ClientInterface clientInterface) throws RemoteException
+    public void register(ClientInterface client) throws RemoteException
     {
 
     }

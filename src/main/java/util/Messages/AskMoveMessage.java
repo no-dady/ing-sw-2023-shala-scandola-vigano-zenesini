@@ -1,6 +1,8 @@
 package util.Messages;
 
-import client.network.ClientInterface;
+
+import client.Client;
+import client.network.State;
 
 public class AskMoveMessage implements Message {
 
@@ -12,9 +14,9 @@ public class AskMoveMessage implements Message {
     }
 
     @Override
-    public void handleMessage(ClientInterface clientInterface)
+    public void handleMessage(Client client)
     {
-
+        client.setState(State.SETTINGNICKNAME);
     }
 
     public int getMoveTypeNumber()

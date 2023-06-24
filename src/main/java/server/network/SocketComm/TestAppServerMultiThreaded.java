@@ -33,7 +33,7 @@ public class TestAppServerMultiThreaded {
                 try
                 {
                     startSocket(lobbyList);
-                } catch(RemoteException e)
+                } catch(Exception e)
                 {
                     System.out.println("Remote exception");
                 }
@@ -60,12 +60,12 @@ public class TestAppServerMultiThreaded {
             LocateRegistry.createRegistry(1900);
 
             Naming.rebind("rmi://localhost:1900" + "/myShelfie", obj);
-            ClientInterface clientInterface = null;
-            while (clientInterface == null)
+            ClientInterface client = null;
+            while (client == null)
             {
-                clientInterface = obj.getClient();
+                client = obj.getClient();
             }
-            clientInterface.send("Test RMI string from server to client");
+            client.send("Test RMI string from server to client");
         }
         catch (Exception ea)
         {
@@ -73,7 +73,7 @@ public class TestAppServerMultiThreaded {
         }
     }
 
-    private static void startSocket(List<Lobby> lobbyList) throws RemoteException
+    private static void startSocket(List<Lobby> lobbyList) throws RemoteException, IOException
     {
         ArrayList<Thread> memory = new ArrayList<Thread>();
         ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
