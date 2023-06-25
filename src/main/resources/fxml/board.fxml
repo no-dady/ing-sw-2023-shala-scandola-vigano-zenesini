@@ -413,7 +413,7 @@
 
                     <Pane fx:id="label" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="1"
                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <Label text="Your Goal: " fx:id="L1"
+                        <Label fx:id="L1"
                                textAlignment="CENTER" textFill="White" wrapText="true"
                                alignment="BOTTOM_CENTER"/>
                     </Pane>
@@ -493,12 +493,12 @@
 
                     <Pane fx:id="container1" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <Button fx:id="menu_button" prefHeight="${container1.height}" prefWidth="${container1.width}"/>
+                        <Button fx:id="menu_button" prefHeight="${container1.height}" prefWidth="${container1.width}" onAction="#onMenuButtonPress"/>
                     </Pane>
 
                     <Pane fx:id="container2" GridPane.columnIndex="3" GridPane.rowIndex="0" GridPane.columnSpan="1"
                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <Button fx:id="show_ply_button" prefHeight="${container2.height}" prefWidth="${container2.width}"/>
+                        <Button fx:id="show_ply_button" prefHeight="${container2.height}" prefWidth="${container2.width}" onAction="#onPlayerButtonPress"/>
                     </Pane>
 
                 </GridPane>

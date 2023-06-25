@@ -1,12 +1,12 @@
 package util.Messages;
 
+import client.Client;
 import client.network.ClientInterface;
 import server.model.Bookshelf;
 import server.model.Game;
 import server.model.Player;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
 public class BookshelfMessage implements Message {
     public static final String className = "BookshelfMessage";
@@ -18,7 +18,7 @@ public class BookshelfMessage implements Message {
         this.bookshelf = bookshelf;
     }
     @Override
-    public void handleMessage(ClientInterface client) throws RemoteException {
+    public void handleMessage(Client client) throws RemoteException {
         Game game = client.getGame();
         Player owner = game.getPlayers().get(id);
 

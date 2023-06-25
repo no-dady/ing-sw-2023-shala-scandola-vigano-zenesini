@@ -1,6 +1,5 @@
 package client.network;
 
-import client.Client;
 import client.UI;
 import observer.Observer;
 import server.model.Game;
@@ -8,9 +7,7 @@ import server.network.ServerInterface;
 import util.Messages.*;
 import util.Parser;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -19,28 +16,36 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import client.Client;
 
 /**
  * The type Client.
  */
-public class ClientHandler extends UnicastRemoteObject implements ClientInterface {
+public class ClientHandler extends UnicastRemoteObject implements ClientInterface, Serializable {
     private ServerInterface serverInterface;
+    private Client client;
+    private List<String> playerInLobby;
+
+    public void setClient(client.Client client) {
+        this.client = client;
+    }
+
     private Game game;
-    private State currState = State.WAITINGFORGAMESTART;
     private Thread socketThread;
     private String nickName;
 
     public ClientHandler(String ip, int port) throws RemoteException, MalformedURLException, NotBoundException {
         super();
-        serverInterface = (ServerInterface) Naming.lookup("rmi://" + ip + ":" + port + "/myShelfie");
+        this.serverInterface = (ServerInterface) Naming.lookup("rmi://" + ip + ":" + port + "/myShelfie");
+        this.playerInLobby = new ArrayList<String>();
 
         initialize(serverInterface);
     }
 
-    public ClientHandler(Client client, String ip, int port) throws RemoteException {
-        super();
+    public ClientHandler(client.Client client, String ip, int port) throws IOException, RemoteException {
         ClientSocketMiddleware clientSocketMiddleware = new ClientSocketMiddleware(client, ip, port, this);
         this.serverInterface = clientSocketMiddleware;
+        this.playerInLobby = new ArrayList<String>();
         new Thread(clientSocketMiddleware).start();
     }
 
@@ -67,7 +72,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     public void sendToServer(String string) throws RemoteException
     {
-        currState = State.WAITINGFORRESPONSE;
+        client.setState(State.WAITINGFORRESPONSE);
         serverInterface.send(string);
     }
 
@@ -75,7 +80,11 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     public void send(String string) throws RemoteException
     {
         System.out.println("Ricevuto: " + string);
+        Message msg = Parser.fromJson(string, Message.class);
+        msg.handleMessage(client);
         //Message messageReceived = Parser.parseFromJsonString(string, AskMoveMessage.class);
+        //if(messageReceived instanceof AskMoveMessage trueMessageReceived)
+        /*
         if (string.contains("moveTypeNumber"))
         {
             AskMoveMessage trueMessageReceived = Parser.fromJson(string, AskMoveMessage.class);
@@ -147,32 +156,44 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
                 //serverInterface.send(Parser.toJson(nickMessage, NicknameMessage.class));
                 setState(State.SETTINGNICKNAME);
             }
+        } else if (string.contains("nicknameJoined"))
+        {
+            JoinedMessage trueMessageReceived = Parser.fromJson(string, JoinedMessage.class);
+            playerInLobby.add(trueMessageReceived.getNicknameJoined());
+            System.out.println("Ho aggiunto " + trueMessageReceived.getNicknameJoined());
+        } else if (string.contains("stateToSend"))
+        {
+            StateMessage trueMessageReceived = Parser.fromJson(string, StateMessage.class);
+            setState(trueMessageReceived.getState());
+            System.out.println("State Arrived");
         } else
         {
             ConfirmMessage trueMessageReceived = Parser.fromJson(string, ConfirmMessage.class);
-            switch(trueMessageReceived.getConfirmNumber())
-            {
-                case 0:
-                case 1:
+            switch (trueMessageReceived.getConfirmNumber()) {
+                case 0, 1 -> {
                     setState(State.WAITINGINLOBBY);
                     System.out.println("Waiting in lobby");
-                    break;
-
-                case 2:
-                case 3:
-                case 4:
-                case 5:
+                }
+                case 2, 3, 4, 5 -> {
                     System.out.println(trueMessageReceived.getMessage());
-                    break;
-
+                    if (client.getState().equals(State.MYTURN) || client.getState().equals(State.WAITINGFORMYTURN))
+                        client.getUI().update();
+                }
             }
         }
+
+         */
+    }
+
+    public List<String> getPlayerInLobby() {
+        return playerInLobby;
     }
 
     @Override
     public UI getUI() throws RemoteException {
         return null;
     }
+
 
     @Override
     public Game getGame() throws RemoteException{
@@ -187,29 +208,21 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     public synchronized void setState(State state) throws RemoteException
     {
-        this.currState = state;
+        this.client.setState(state);
     }
 
     public synchronized State getState()throws RemoteException {
-        return currState;
-    }
-
-    private transient final List<Observer<String>> observers = new ArrayList<>();
-
-    @Override
-    public void addObserver(Observer<String> observer) throws RemoteException {
-        synchronized (observers) {
-            observers.add(observer);
-        }
+        return this.client.getState();
     }
 
     @Override
-    public void notify(String message) throws RemoteException {
-    synchronized (observers) {
-            for(Observer<String> observer : observers){
-                observer.update(message);
-            }
-        }
+    public void close() throws IOException {
+        this.serverInterface.close();
+    }
+
+    @Override
+    public void addObserver(Observer<String> observer) {
+
     }
 
 }

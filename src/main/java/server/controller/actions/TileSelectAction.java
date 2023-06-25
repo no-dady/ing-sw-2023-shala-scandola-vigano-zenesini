@@ -16,21 +16,11 @@ public class TileSelectAction implements Action{
     }
 
     public void performAction(Game game) {
-        if (canPerformAction(game)) {
-            game.setSelectedTiles(selectedTiles);
-        }
+        game.setSelectedTiles(selectedTiles);
     }
 
     public boolean canPerformAction(Game game) {
-        String[] selected = move.getSelectedTiles().split(" ");
-        for (String s : selected) {
-            if (!game.getBoard().getTile(s.charAt(1) - 'a', s.charAt(1) - '1').isPickable()) {
-                return false;
-            } else {
-                selectedTiles.add(game.getBoard().getTile(s.charAt(1) - 'a', s.charAt(1) - '1'));
-            }
-        }
-        return true;
+        return move.canPerform(game);
     }
 
     public String getNickName() {

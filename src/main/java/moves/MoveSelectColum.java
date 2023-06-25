@@ -17,7 +17,8 @@ public class MoveSelectColum extends Move {
 
     @Override
     public boolean canPerform(Game game) {
-        return true;
+        int selectedY = this.getSelectedColumn();
+        return game.getPlayerByNickname(getNickName()).getBookshelf().getEmptyTilesColumn(selectedY) >= game.getSelectedTiles().size();
     }
 
     public int getSelectedColumn() {

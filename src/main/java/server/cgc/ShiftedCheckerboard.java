@@ -10,6 +10,7 @@ import java.util.Objects;
  * The type Shifted checkerboard.
  */
 public class ShiftedCheckerboard extends CommonGoalCardStrategy implements Serializable {
+    public static final String className = "ShiftedCheckerboard";
     private final String name;
     public ShiftedCheckerboard(String name){
         this.name = name;
@@ -29,5 +30,9 @@ public class ShiftedCheckerboard extends CommonGoalCardStrategy implements Seria
             }
         }
         return false;
+    }
+    @Override
+    public String getClassName() {
+        return className;
     }
 }

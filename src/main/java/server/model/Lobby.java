@@ -6,10 +6,7 @@ import server.controller.GameController;
 import server.exceptions.IllegalPlayersNumberException;
 import server.view.RemoteView;
 import server.view.View;
-import util.Messages.ConfirmMessage;
-import util.Messages.DisconnectMessage;
-import util.Messages.Message;
-import util.Messages.ReconnectMessage;
+import util.Messages.*;
 import util.Parser;
 
 import java.io.IOException;
@@ -43,6 +40,14 @@ public class Lobby {
         this.playerMap.put(adminNickname, adminPlayer);
         this.lobbyName = adminNickname + "'s Lobby";
         lobbyStatus = LobbyStatus.Setup;
+        try
+        {
+            JoinedMessage joinedMessage = new JoinedMessage(adminNickname);
+            adminPlayer.send(Parser.toJson(joinedMessage, JoinedMessage.class));
+        } catch(RemoteException e)
+        {
+            System.out.println("Cannot send the nickMessage to admin");
+        }
     }
 
     public LobbyStatus getLobbyStatus() {
@@ -71,7 +76,7 @@ public class Lobby {
         return playerMap.containsKey(nickName);
     }
 
-    public void addPlayer(ClientInterface clientInterface, String nickName)
+    public void addPlayer(ClientInterface client, String nickName)
     {
         try
         {
@@ -80,16 +85,26 @@ public class Lobby {
                 ConfirmMessage messageToSendForOther = new ConfirmMessage(nickName + " joined the lobby", 2);
                 entry.getValue().send(Parser.toJson(messageToSendForOther, ConfirmMessage.class));
             }
-            this.playerMap.put(nickName, clientInterface);
+            this.playerMap.put(nickName, client);
             ConfirmMessage messageToSend;
             if (this.playerMap.size() == playerNumber)
             {
                 messageToSend = new ConfirmMessage("Joined " + lobbyName, 3);
-                clientInterface.send(Parser.toJson(messageToSend, ConfirmMessage.class));
+                client.send(Parser.toJson(messageToSend, ConfirmMessage.class));
+                for (var entry : playerMap.entrySet())
+                {
+                    JoinedMessage joinedMessage = new JoinedMessage(entry.getKey());
+                    client.send(Parser.toJson(joinedMessage, JoinedMessage.class));
+                }
                 startGame();
             } else {
                 messageToSend = new ConfirmMessage("Joined " + lobbyName, 1);
-                clientInterface.send(Parser.toJson(messageToSend, ConfirmMessage.class));
+                client.send(Parser.toJson(messageToSend, ConfirmMessage.class));
+                for (var entry : playerMap.entrySet())
+                {
+                    JoinedMessage joinedMessage = new JoinedMessage(entry.getKey());
+                    client.send(Parser.toJson(joinedMessage, JoinedMessage.class));
+                }
             }
         } catch (IOException | IllegalPlayersNumberException e)
         {
@@ -167,7 +182,8 @@ public class Lobby {
         System.out.println("eccoci qui invece ora");
         for (var entry : playerMap.entrySet()) {
             entry.getValue().setGame(game);
-            entry.getValue().setState(State.MYTURN);
+            StateMessage stateMessage = new StateMessage(State.MYTURN);
+            entry.getValue().send(Parser.toJson(stateMessage, StateMessage.class));
             System.out.println(entry.getValue().getState());
             System.out.println(entry.getValue().getGame());
             ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model" + entry.getValue().getState(), 5);

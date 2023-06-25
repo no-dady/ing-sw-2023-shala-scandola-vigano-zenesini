@@ -1,39 +1,36 @@
 package client.network;
 
 import client.Client;
-import observer.Observable;
-import observer.Observer;
-import server.model.Tile;
+import server.model.Game;
 import server.network.ServerInterface;
+import util.Messages.AskMoveMessage;
+import util.Messages.Message;
+import util.Parser;
 
 import java.io.*;
 import java.net.Socket;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The type Server stub.
  */
 //It implements the Server, but it will be used on the client-side to communicate
-public class ClientSocketMiddleware implements Observable<String>, ServerInterface, Runnable {
-    Client client;
+public class ClientSocketMiddleware implements ServerInterface, Runnable {
+    private Client client;
     /**
      * The Ip.
      */
-    String ip;
+    private String ip;
 
     /**
      * The Port.
      */
-    int port;
-
-    private boolean active = true;
-    private final boolean standby = false;
+    private int port;
 
     private ObjectOutputStream oos;
-    private DataOutputStream out;
+    private final DataInputStream ins;
+    private DataOutputStream outs;
+    private ObjectInputStream ois;
 
     private Socket socket;
 
@@ -44,55 +41,52 @@ public class ClientSocketMiddleware implements Observable<String>, ServerInterfa
      * @param ip   the ip
      * @param port the port
      */
-    public ClientSocketMiddleware(Client client, String ip, int port, ClientInterface clientInterface)
-    {
+    public ClientSocketMiddleware(Client client, String ip, int port, ClientInterface clientInterface) throws IOException {
         this.client = client;
         this.ip = ip;
         this.port = port;
         this.clientinterface = clientInterface;
+
+        socket = new Socket(ip, port);
+        ins = new DataInputStream(socket.getInputStream());
+        outs = new DataOutputStream(socket.getOutputStream());
     }
 
     @Override
     public void run()
     {
-        DataInputStream in;
-
         try
         {
-            socket = new Socket(ip, port);
-            in = new DataInputStream(socket.getInputStream());
-            out = new DataOutputStream(socket.getOutputStream());
-            System.out.println("Created socket");
+            // System.out.println("Created socket");
             // oos = new ObjectOutputStream(socket.getOutputStream());
             // System.out.println("Created oos");
-            // ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            // ois = new ObjectInputStream(socket.getInputStream());
             // System.out.println("Created ois");
 
-            System.out.println("Created streams");
-            String rec;
-            while (isActive())
-            {
-                //rec = (String) ois.readObject();
-                rec = in.readUTF();
-                notify(rec);
-                //clientinterface.send(rec);
+            String read;
+
+            while (client.isActive()) {
+                read = ins.readUTF();
+                Message recv = Parser.fromJson(read, Message.class);
+                recv.handleMessage(client);
+                // int whatIsSending = (Integer) ois.readObject();
+                // switch (whatIsSending) {
+                //     case 0:
+                //         String rec = ois.readObject().toString();
+                //         clientinterface.send(rec);
+                //         break;
+
+                //     case 1:
+                //         Game game = (Game) ois.readObject();
+                //         clientinterface.setGame(game);
+                //         break;
+                // }
             }
-        }
-        catch(IOException e)
-        {
+        } catch(Exception e) {
+            client.setActive(false);
             e.printStackTrace();
-        } 
-
+        }
     }
-
-    private synchronized boolean isActive(){
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
 
     public void testContinousSend()
     {
@@ -116,36 +110,24 @@ public class ClientSocketMiddleware implements Observable<String>, ServerInterfa
         }
     }
     @Override
-    public void register(ClientInterface clientInterface) throws RemoteException
+    public void register(ClientInterface client) throws RemoteException
     {
 
-    }
-
-    /**
-     * Close.
-     *
-     * @throws RemoteException the remote exception
-     */
-    public void close() throws RemoteException {
-        try {
-            socket.close();
-        } catch (IOException e) {
-            throw new RemoteException("Cannot close socket", e);
-        }
     }
 
     @Override
-    public void send(String string) throws RemoteException
+    public void send(String json) throws RemoteException
     {
         try
         {
-            out.writeUTF(string);
-            out.flush();
-            System.out.println("Send > " + string);
+            outs.writeUTF(json);
+            outs.flush();
+            //oos.writeObject(string);
+            //oos.flush();
         }
         catch (IOException e)
         {
-            throw new RemoteException(e.getMessage());
+            throw new RemoteException("Cannot send string from client", e);
         }
     }
 
@@ -216,21 +198,9 @@ public class ClientSocketMiddleware implements Observable<String>, ServerInterfa
         //}
     }
 
-    private transient final List<Observer<String>> observers = new ArrayList<>();
-
     @Override
-    public void addObserver(Observer<String> observer){
-        synchronized (observers) {
-            observers.add(observer);
-        }
-    }
-
-    @Override
-    public void notify(String message) {
-        synchronized (observers) {
-            for(Observer<String> observer : observers){
-                observer.update(message);
-            }
-        }
+    public void close() throws IOException {
+        this.ins.close();
+        this.outs.close();
     }
 }

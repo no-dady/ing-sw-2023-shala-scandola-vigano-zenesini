@@ -15,12 +15,14 @@ public class Client {
     private UI ui;
     private boolean gui;
     private String connectionType;
+
     private ClientHandler clientConnection;
     private boolean active = true;
     private boolean online = false;
     private String ip;
     private int port;
 
+    private State currState = State.WAIT;
 
     public Client(boolean gui) throws IOException {
         this.active = true;
@@ -42,16 +44,23 @@ public class Client {
         if(!active) notifyAll();
     }
 
-    public void setOnline() throws RemoteException, RuntimeException, MalformedURLException, NotBoundException {
+    public void setOnline() throws IOException, RuntimeException, NotBoundException {
         switch (connectionType) {
-            case "RMI" -> clientConnection = new ClientHandler(ip, port);
-            case "SOCKET" -> clientConnection = new ClientHandler(this, ip, port);
+            case "RMI" -> {
+                clientConnection = new ClientHandler(ip, port);
+                clientConnection.setClient(this);
+            }
+            case "SOCKET" -> {
+                clientConnection = new ClientHandler(this, ip, port);
+                clientConnection.setClient(this);
+        }
             default -> throw new RuntimeException("Could not initiate connection");
         }
 
         online = true;
         System.out.println("Connection established");
     }
+
 
 
     public void run() throws IOException {
@@ -73,7 +82,7 @@ public class Client {
             System.out.println("Connection closed from client side");
         } finally {
             online = false;
-          //  clientConnection.close();
+            clientConnection.close();
 
             System.exit(0);
         }
@@ -81,6 +90,9 @@ public class Client {
 
     public UI getUI() {
         return ui;
+    }
+    public void setUi(UI ui) {
+        this.ui =  ui;
     }
 
     public boolean isOnline() {
@@ -93,21 +105,25 @@ public class Client {
         }catch (RemoteException e){}
         return null;
     }
+    public ClientHandler getClientConnection() {
+        return clientConnection;
+    }
     public void setGame(Game game)  {
         try {
             clientConnection.setGame(game);
         }catch (RemoteException e){}
     }
 
-    public State getState() {
-        try {
-            return clientConnection.getState();
-        }catch (RemoteException e){}
-        return null;
+    public synchronized State getState() {
+        return currState;
+    }
+    public synchronized void setState(State status) {
+        this.currState = status;
     }
 
     public void sendToServer(String parsedString) throws RemoteException
     {
         clientConnection.sendToServer(parsedString);
     }
+
 }

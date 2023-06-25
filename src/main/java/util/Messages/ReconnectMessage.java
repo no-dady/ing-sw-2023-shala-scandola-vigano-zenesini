@@ -14,7 +14,7 @@ public class ReconnectMessage extends ConnectionMessage implements Message {
     }
 
     @Override
-    public void handleMessage(ClientInterface client) throws RemoteException {
+    public void handleMessage(Client client) throws RemoteException {
         client.getUI().printConnectionMessage(this);
     }
 

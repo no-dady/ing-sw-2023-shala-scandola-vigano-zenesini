@@ -1,10 +1,9 @@
 package util.Messages;
 
-import client.network.ClientInterface;
+import client.Client;
 import server.model.Bookshelf;
 import server.model.Game;
 import server.model.PersonalGoalCard;
-import server.model.Player;
 
 import java.rmi.RemoteException;
 
@@ -24,7 +23,7 @@ public class InitialMessage implements Message {
     }
 
     @Override
-    public void handleMessage(ClientInterface client) throws RemoteException {
+    public void handleMessage(Client client) throws RemoteException {
         //client.setGame(model);
         Game game = client.getGame();
         // client.setLobby(lobby);

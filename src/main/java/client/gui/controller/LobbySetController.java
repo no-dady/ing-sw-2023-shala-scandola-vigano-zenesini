@@ -43,7 +43,6 @@ public class LobbySetController implements GenericInterface, Initializable {
         selectedNumber = playersNumberBox.getValue();
     }
 
-
     public void onSubmitClick(ActionEvent event) throws IOException, InterruptedException {
         selectedNumber = playersNumberBox.getValue();
         if (!(selectedNumber < 2 || selectedNumber > 4)) {

@@ -33,7 +33,7 @@ public class TestAppServerMultiThreaded {
                 try
                 {
                     startSocket(lobbyList);
-                } catch(RemoteException e)
+                } catch(Exception e)
                 {
                     System.out.println("Remote exception");
                 }
@@ -55,17 +55,17 @@ public class TestAppServerMultiThreaded {
     {
         try
         {
-            Server obj = new Server(true, lobbyList);
+            Server obj = new Server(1900, 1334);
 
             LocateRegistry.createRegistry(1900);
 
             Naming.rebind("rmi://localhost:1900" + "/myShelfie", obj);
-            ClientInterface clientInterface = null;
-            while (clientInterface == null)
+            ClientInterface client = null;
+            while (client == null)
             {
-                clientInterface = obj.getClient();
+                client = obj.getClient();
             }
-            clientInterface.send("Test RMI string from server to client");
+            client.send("Test RMI string from server to client");
         }
         catch (Exception ea)
         {
@@ -73,11 +73,11 @@ public class TestAppServerMultiThreaded {
         }
     }
 
-    private static void startSocket(List<Lobby> lobbyList) throws RemoteException
+    private static void startSocket(List<Lobby> lobbyList) throws RemoteException, IOException
     {
         ArrayList<Thread> memory = new ArrayList<Thread>();
-        ArrayList<ClientSocketMiddleware> clientsList = new ArrayList<ClientSocketMiddleware>();
-        Server serverInterface = new Server(false, lobbyList);
+        ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
+        Server serverInterface = new Server(1900, 1337);
         System.out.println("Server Started");
         try {
             ServerSocket serverSocket = new ServerSocket(1234);
@@ -85,7 +85,7 @@ public class TestAppServerMultiThreaded {
                 System.out.println("Waiting connections...");
                 Socket socket = serverSocket.accept();
                 System.out.println("New connection found");
-                ClientSocketMiddleware clientSocketMiddleware = new ClientSocketMiddleware(socket, serverInterface);
+                ClientSkeleton clientSocketMiddleware = new ClientSkeleton(socket, serverInterface);
                 //To send the info you have to call the clientSkeleton's function on the server-side
                 //clientsList.add(clientSkeleton);
                 Thread clientSkeletonThread = new Thread(clientSocketMiddleware);

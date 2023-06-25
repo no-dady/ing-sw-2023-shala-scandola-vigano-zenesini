@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 //CROSSDIRECTION
 public class CrossDirection extends CommonGoalCardStrategy implements Serializable {
+    public static final String className = "CrossDirection";
     private final int numToLook;
     private final String name;
 
@@ -49,5 +50,9 @@ public class CrossDirection extends CommonGoalCardStrategy implements Serializab
             }
         }
         return false;
+    }
+    @Override
+    public String getClassName() {
+        return className;
     }
 }

@@ -1,36 +1,43 @@
 package server.model;
 
-import server.controller.BoardInitializer;
-
+import observer.Observer;
+import org.javatuples.Pair;
+import server.controller.BoardConfig;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import observer.Observable;
+import observer.Observer;
+import server.controller.BoardConfig;
+import util.Messages.Message;
 
 /**
  * The type Game.
  */
-public class Game implements Serializable {
+public class Game implements Serializable, Observable<Message> {
 
     private static final long serialVersionUID = 1L;
 
     private static List<Game> instance;
-
-    private ArrayList<Player> players;
+    private List<Player> players;
     private int currPlayerId;
     private int gameID;
     private int numPlayers;
     private Board board;
+
     private Pocket pocket;
     private boolean gameStarted;
     private List<Tile> selectedTiles;
-    private List<CommonGoalCardStrategy> cgcs;
+    private Set<CommonGoalCardStrategy> cgcs;
 
     /**
      * Instantiates a new Game.
      */
     public Game() {
         this.players = new ArrayList<>();
-        this.cgcs = null;
+        this.cgcs = CommonGoalCardStrategy.getRandomCards();
         this.board = new Board(BoardConfig.newEmptyBoard());
         this.pocket = new Pocket();
         this.numPlayers = 0;
@@ -50,6 +57,10 @@ public class Game implements Serializable {
      */
     public static Game newGame() {
         return new Game();
+    }
+
+    public int getPlayerIndex(Player player) {
+        return players.indexOf(player);
     }
 
     /**
@@ -87,7 +98,16 @@ public class Game implements Serializable {
      * @return the players
      */
     public ArrayList<Player> getPlayers() {
-        return this.players;
+        return (ArrayList<Player>) this.players;
+    }
+    public Player getPlayerByNickname(String nickName){
+        for (Player p: players)
+        {
+            if (p.getUserName().equals(nickName))
+                 return p;
+        }
+        System.out.println("no such player");
+        return null;
     }
 
     /**
@@ -146,7 +166,7 @@ public class Game implements Serializable {
     public void lastMessage() {
     }
 
-    public void errorMessage(int idPlayer) {
+    public void errorMessage(String nickName) {
     }
 
     public int getCurrPlayerId() {
@@ -156,14 +176,36 @@ public class Game implements Serializable {
     public void setCurrPlayerId(int currPlayerId) {
         this.currPlayerId = currPlayerId;
     }
-/*
-    public void setBoard(Board board) {
-        this.board = board;
+
+    private transient final List<Observer<Message>> observers = new ArrayList<>();
+
+    public int getNumPlayers() {
+        return numPlayers;
     }
 
-    public void setPocket(Pocket pocket) {
-        this.pocket = pocket;
+    public boolean isGameStarted() {
+        return gameStarted;
     }
-    */
+
+    public Set<CommonGoalCardStrategy> getCgcs() {
+        return cgcs;
+    }
+
+    @Override
+    public void addObserver(Observer<Message> observer){
+        synchronized (observers) {
+            observers.add(observer);
+        }
+    }
+
+
+    @Override
+    public void notify(Message message) {
+        synchronized (observers) {
+            for(Observer<Message> observer : observers){
+                observer.update(message);
+            }
+        }
+    }
 
 }

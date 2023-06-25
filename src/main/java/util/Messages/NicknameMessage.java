@@ -6,6 +6,7 @@ import client.network.ClientInterface;
 public class NicknameMessage implements Message {
 
     //private final ClientInterface clientInterface;
+    public static final String className = "NicknameMessage";
 
     private final String nickName;
     public NicknameMessage(String nickName)
@@ -25,13 +26,13 @@ public class NicknameMessage implements Message {
     }
 
     @Override
-    public void handleMessage(ClientInterface clientInterface)
+    public void handleMessage(Client client)
     {
         System.out.println("Prova");
     }
 
     public String getName()
     {
-        return "Boh";
+        return className;
     }
 }

@@ -12,6 +12,7 @@ import java.io.Serializable;
 //THE COLUMN TO CALCULATE THE 12TH CARD
 //DIAGONALDIRECTION
 public class DiagonalDirection extends CommonGoalCardStrategy implements Serializable  {
+    public static final String className = "DiagonalDirection";
     private final int numToLook;
     private final boolean isEleven;
     private final String name;
@@ -29,6 +30,11 @@ public class DiagonalDirection extends CommonGoalCardStrategy implements Seriali
     }
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getClassName() {
+        return className;
     }
 
     @Override

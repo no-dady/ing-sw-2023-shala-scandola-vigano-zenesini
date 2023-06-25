@@ -1,5 +1,6 @@
 package util.Messages;
 
+import client.Client;
 import client.network.ClientInterface;
 
 public class CreateLobbyMessage implements Message {
@@ -30,7 +31,7 @@ public class CreateLobbyMessage implements Message {
         }
 
         @Override
-        public void handleMessage(ClientInterface clientInterface)
+        public void handleMessage(Client client)
         {
             System.out.println("Prova");
         }

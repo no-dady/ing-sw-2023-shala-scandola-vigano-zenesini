@@ -1,9 +1,11 @@
 package client.network;
 
 import client.UI;
+import observer.Observable;
 import observer.Observer;
 import server.model.Game;
 
+import java.io.IOException;
 import java.rmi.*;
 
 /**
@@ -11,21 +13,17 @@ import java.rmi.*;
  */
 public interface ClientInterface extends Remote
 {
+    void send(String string) throws RemoteException;
 
     void addObserver(Observer<String> observer) throws RemoteException;
-
-    void notify(String message) throws RemoteException;
-
-    void send(String string) throws RemoteException;
 
     UI getUI() throws RemoteException;
 
     Game getGame() throws RemoteException;
 
-    void setGame(Game model) throws RemoteException;
+    void setGame(Game game) throws RemoteException;
 
-    void setState(State state) throws RemoteException;
     State getState() throws RemoteException;
 
-    //void close();
+    void close() throws IOException;
 }

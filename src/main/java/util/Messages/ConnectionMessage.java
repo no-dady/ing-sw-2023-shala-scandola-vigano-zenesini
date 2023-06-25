@@ -1,5 +1,6 @@
 package util.Messages;
 
+import client.Client;
 import client.network.ClientInterface;
 
 import java.rmi.RemoteException;
@@ -16,7 +17,7 @@ public class ConnectionMessage implements Message {
         this.playerName = playerName;
     }
     @Override
-    public void handleMessage(ClientInterface client) throws RemoteException {
+    public void handleMessage(Client client) throws RemoteException {
         client.getUI().printConnectionMessage(this);
     }
 

@@ -7,8 +7,8 @@ public class LastMessage implements Message {
     public static final String className = "LastMessage";
 
     @Override
-    public void handleMessage(ClientInterface clientInterface) {
-        //client.getUI().update();
+    public void handleMessage(Client client) {
+        client.getUI().update();
     }
 
     @Override

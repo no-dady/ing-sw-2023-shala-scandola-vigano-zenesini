@@ -2,15 +2,19 @@ package server.network.SocketComm;
 
 import client.UI;
 import client.network.ClientInterface;
+import observer.Observable;
 import observer.Observer;
 import client.network.State;
 import server.model.Game;
 import server.model.Lobby;
 import server.network.Server;
+import setup.Setup;
+import util.Messages.AskMoveMessage;
+import util.Messages.Message;
+import util.Messages.NicknameMessage;
+import util.Parser;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -18,7 +22,7 @@ import java.util.List;
 
 
 
-public class ClientSocketMiddleware implements ClientInterface, Runnable {
+public class ClientSkeleton implements Observable<String>, ClientInterface, Runnable {
     private ObjectOutputStream oos;
     private State currState = State.WAITINGFORRESPONSE;
 
@@ -30,52 +34,91 @@ public class ClientSocketMiddleware implements ClientInterface, Runnable {
 
     private Lobby lobby;
 
+    private DataInputStream in;
+    private DataOutputStream out;
+
+    private ObjectInputStream ois;
+
+    private boolean active = true;
+
+
     /**
      * Instantiates a new Client skeleton.
      *
      * @param socket the socket
      * @throws RemoteException the remote exception
      */
-    public ClientSocketMiddleware(Socket socket, Server server) throws RemoteException
-    {
+    public ClientSkeleton(Socket socket, Server server) throws RemoteException {
         this.socket = socket;
         this.server = server;
     }
 
+    private boolean recNickname(NicknameMessage setup) {
+        return setup.getNickName() != null;
+    }
+
     @Override
-    public void run()
-    {
-        System.out.println("Start thread");
-        try
-        {
-            ObjectInputStream ois;
-            System.out.println("Creating streams");
-            this.oos = new ObjectOutputStream(socket.getOutputStream());
-            System.out.println("Created Output");
-            ois = new ObjectInputStream(socket.getInputStream());
-            System.out.println("Created input");
-            server.register(this);
-
-            receive(ois);
-
-            ois.close();
-            oos.close();
-            socket.close();
-            System.out.println("Disconnected");
-        }
-        catch(IOException e)
-        {
-            System.out.println(e.getMessage());
+    public void send(String json) throws RemoteException {
+        try {
+            out.writeUTF(json);
+            out.flush();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
         }
     }
 
-    public void notifyNewConn(String nickname)
-    {
-        try
-        {
+    void register() {
+        try {
+            Message msg = new AskMoveMessage(0);
+            this.send(Parser.toJson(msg, Message.class));
+        } catch (RemoteException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Start thread");
+        try {
+            // System.out.println("Creating streams");
+            // this.oos = new ObjectOutputStream(socket.getOutputStream());
+            // System.out.println("Created Output");
+            // ois = new ObjectInputStream(socket.getInputStream());
+            // System.out.println("Created input");
+            //receive(ois);
+
+            in = new DataInputStream(socket.getInputStream());
+            out = new DataOutputStream(socket.getOutputStream());
+            boolean confirm = false;
+            //register();
+            String read;
+            do {
+                Message msg = new AskMoveMessage(0);
+                this.send(Parser.toJson(msg, Message.class));
+                read = in.readUTF();
+                System.out.println("Received: " + read);
+                Message msgs = Parser.fromJson(read, NicknameMessage.class);
+                confirm = recNickname((NicknameMessage) msgs);
+            } while(!confirm);
+
+            while(isActive()) {
+                read = in.readUTF();
+                notify(read);
+            }
+            System.out.println("Disconnected");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                close(nickName, lobby);
+            } catch (RemoteException ignored) {}
+        }
+    }
+
+    public void notifyNewConn(String nickname) {
+        try {
             oos.writeObject(nickname + " connected");
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -84,17 +127,25 @@ public class ClientSocketMiddleware implements ClientInterface, Runnable {
         this.lobby = lobby;
     }
 
-    //Action n 4
+    /*Action n 4
     @Override
-    public void send(String string) throws RemoteException
-    {
-        try
-        {
+    public void send(String string) throws RemoteException {
+        try {
+            oos.writeObject(0);
+            System.out.println(string);
             oos.writeObject(string);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             throw new RemoteException("Cannot send the String", e);
+        }
+    }
+    */
+    @Override
+    public void setGame(Game game) throws RemoteException {
+        try {
+            oos.writeObject(1);
+            oos.writeObject(game);
+        } catch (IOException e) {
+            throw new RemoteException("Cannot send the Game", e);
         }
     }
 
@@ -109,22 +160,16 @@ public class ClientSocketMiddleware implements ClientInterface, Runnable {
     }
 
     @Override
-    public void setGame(Game model) {
-
-    }
-
-    @Override
-    public void setState(State state) {
-        this.currState = state;
-    }
-
-    @Override
     public State getState() throws RemoteException {
         return null;
     }
 
-    public String getNickname()
-    {
+    @Override
+    public void close() throws IOException {
+
+    }
+
+    public String getNickname() {
         return this.nickName;
     }
 
@@ -133,20 +178,13 @@ public class ClientSocketMiddleware implements ClientInterface, Runnable {
      *
      * @throws RemoteException the remote exception
      */
-    public void receive(ObjectInputStream ois) throws RemoteException
-    {
+    public void receive(ObjectInputStream ois) throws RemoteException {
         String rec;
-        while (true)
-        {
-            try
-            {
+        while (true) {
+            try {
                 rec = (String) ois.readObject();
                 server.send(rec);
-            } catch (IOException e)
-            {
-                System.out.println(e.getMessage());
-            } catch (ClassNotFoundException e)
-            {
+            } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -210,8 +248,8 @@ public class ClientSocketMiddleware implements ClientInterface, Runnable {
 
     private void close(String playerName, Lobby lobby) throws RemoteException {
         System.out.println("Deregistering Client");
-        if(lobby != null && server.findLobby(lobby.getLobbyName())) {
-            if(lobby.disconnectPlayer(playerName)) {
+        if (lobby != null && server.findLobby(lobby.getLobbyName())) {
+            if (lobby.disconnectPlayer(playerName)) {
                 server.removeLobby(lobby);
             }
         }
@@ -232,9 +270,21 @@ public class ClientSocketMiddleware implements ClientInterface, Runnable {
     @Override
     public void notify(String message) {
         synchronized (observers) {
-            for(Observer<String> observer : observers){
+            for (Observer<String> observer : observers) {
                 observer.update(message);
             }
         }
+    }
+
+    public void handleSetupper(Setup setupper) {
+        System.out.println("Handle Setupper ::: " + setupper.getName());
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

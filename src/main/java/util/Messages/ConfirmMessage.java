@@ -1,5 +1,6 @@
 package util.Messages;
 
+import client.Client;
 import client.network.ClientInterface;
 
 public class ConfirmMessage implements Message {
@@ -25,7 +26,7 @@ public class ConfirmMessage implements Message {
 
     public int getConfirmNumber() { return confirmNumber; }
     @Override
-    public void handleMessage(ClientInterface clientInterface)
+    public void handleMessage(Client client)
     {
 
     }

@@ -3,6 +3,8 @@ package server.view;
 import client.network.ClientInterface;
 import moves.MoveSelectTiles;
 import observer.Observer;
+import server.network.SocketComm.ClientSkeleton;
+import setup.Setup;
 import util.Messages.LastMessage;
 import util.Messages.Message;
 import server.controller.actions.Action;
@@ -15,17 +17,15 @@ import java.rmi.RemoteException;
 public class RemoteView extends View {
 
     private class MessageReceiver implements Observer<String> {
-
-
         public void update(String info) {
             System.out.println("Received: " + info);
             try {
-                Action move= Parser.fromJson(info, Action.class);
+                Action move = Parser.fromJson(info, Action.class);
                 handleMove(move);
-            // } catch (NullPointerException e){
-            //   Setup setupper= Parser.fromJson(info, Setup.class);
-            //   ClientSkeleton connection= (ClientSkeleton)clientConnection;
-            //   connection.handleSetupper(setupper);
+            } catch (NullPointerException e){
+                  Setup setupper = Parser.fromJson(info, Setup.class);
+                  ClientSkeleton connection = (ClientSkeleton)clientConnection;
+                  connection.handleSetupper(setupper);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -53,10 +53,6 @@ public class RemoteView extends View {
                 clientConnection.send(Parser.toJson(message, Message.class));
             } catch (RemoteException e) {
                 e.printStackTrace();
-            }
-        }else{
-            if(message instanceof LastMessage){
-                notify(new TileSelectAction(new MoveSelectTiles("sos")));
             }
         }
     }

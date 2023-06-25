@@ -11,9 +11,13 @@
 }
 
 #mainGrid {
-    -fx-grid-lines-visible: true;
-
+    /*-fx-grid-lines-visible: true;*/
 }
+
+#menuGrid {
+    /*-fx-grid-lines-visible: true;*/
+}
+
 
 #menuImage {
     -fx-background-image: url("../images/GreyBackground.jpg");
@@ -22,11 +26,6 @@
     -fx-background-position: center;
     -fx-background-size: cover;
     -fx-padding: 0.3em 0.3em 0.3em 0.3em;
-}
-
-#menuGrid {
-
-    -fx-grid-lines-visible: true;
 }
 
 mainContainer:hover {

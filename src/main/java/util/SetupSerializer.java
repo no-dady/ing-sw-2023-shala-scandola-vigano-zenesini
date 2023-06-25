@@ -1,0 +1,39 @@
+package util;
+
+import client.network.State;
+import com.google.gson.*;
+import setup.Setup;
+import setup.SetupAll;
+import setup.SetupFirst;
+import util.Messages.*;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+
+public class SetupSerializer implements JsonSerializer<Setup>, JsonDeserializer<Setup> {
+
+    private static final HashMap<String, Class> classNameMap = new HashMap<>();
+    private static final String CLASSNAME = "CLASSNAME";
+    private static final String INSTANCE = "INSTANCE";
+
+    static {
+        classNameMap.put(SetupFirst.className, SetupFirst.class);
+        classNameMap.put(SetupAll.className, SetupAll.class);
+    }
+
+    @Override
+    public Setup deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        String className = json.getAsJsonObject().get(CLASSNAME).getAsString();
+        Class c = classNameMap.get(className);
+        return context.deserialize(json.getAsJsonObject().get(INSTANCE), c);
+    }
+
+    @Override
+    public JsonElement serialize(Setup setup, Type typeOfSrc, JsonSerializationContext context) {
+        JsonObject ret = new JsonObject();
+        ret.addProperty(CLASSNAME, setup.getName());
+        JsonElement e = context.serialize(setup);
+        ret.add(INSTANCE, e);
+        return ret;
+    }
+}
