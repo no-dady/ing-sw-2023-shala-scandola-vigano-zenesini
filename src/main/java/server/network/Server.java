@@ -1,11 +1,9 @@
 package server.network;
 
 import client.network.ClientInterface;
+import org.javatuples.Pair;
 import server.controller.GameController;
-import server.model.Game;
-import server.model.Lobby;
-import server.model.LobbyStatus;
-import server.model.Player;
+import server.model.*;
 import server.network.SocketComm.ClientSkeleton;
 import server.view.View;
 import server.view.RemoteView;
@@ -203,8 +201,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
 
     public static void instanceView(View view, Game game, GameController controller) {
         game.getBoard().addObserver(view);
-        for(var cgc : game.getCgcs()) {
-            cgc.addObserver(view);
+        for(var c : game.getCgcs()) {
+            c.addObserver(view);
         }
         game.addObserver(view);
 

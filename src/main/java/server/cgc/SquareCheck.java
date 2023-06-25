@@ -12,6 +12,7 @@ import java.util.Objects;
  * The type Square check.
  */
 public class SquareCheck extends CommonGoalCardStrategy implements Serializable {
+    public static final String className = "SquareCheck";
     private final String name;
 
     /**
@@ -28,7 +29,10 @@ public class SquareCheck extends CommonGoalCardStrategy implements Serializable 
         this.numToLook = numToLook;
         this.name = name;
     }
-
+    @Override
+    public String getClassName() {
+        return className;
+    }
     public String getName() {
         return name;
     }

@@ -26,6 +26,6 @@ public class JoinedMessage implements Message {
     @Override
     public String getName()
     {
-        return "Beta";
+        return className;
     }
 }

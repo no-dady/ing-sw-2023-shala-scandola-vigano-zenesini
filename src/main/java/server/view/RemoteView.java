@@ -23,9 +23,9 @@ public class RemoteView extends View {
                 Action move = Parser.fromJson(info, Action.class);
                 handleMove(move);
             } catch (NullPointerException e){
-              Setup setupper= Parser.fromJson(info, Setup.class);
-              ClientSkeleton connection= (ClientSkeleton)clientConnection;
-              connection.handleSetupper(setupper);
+                  Setup setupper = Parser.fromJson(info, Setup.class);
+                  ClientSkeleton connection = (ClientSkeleton)clientConnection;
+                  connection.handleSetupper(setupper);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -53,10 +53,6 @@ public class RemoteView extends View {
                 clientConnection.send(Parser.toJson(message, Message.class));
             } catch (RemoteException e) {
                 e.printStackTrace();
-            }
-        }else{
-            if(message instanceof LastMessage){
-                notify(new TileSelectAction(new MoveSelectTiles("sos")));
             }
         }
     }

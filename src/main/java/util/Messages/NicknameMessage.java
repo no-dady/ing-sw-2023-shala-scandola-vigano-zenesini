@@ -6,6 +6,7 @@ import client.network.ClientInterface;
 public class NicknameMessage implements Message {
 
     //private final ClientInterface clientInterface;
+    public static final String className = "NicknameMessage";
 
     private final String nickName;
     public NicknameMessage(String nickName)
@@ -32,6 +33,6 @@ public class NicknameMessage implements Message {
 
     public String getName()
     {
-        return "Boh";
+        return className;
     }
 }

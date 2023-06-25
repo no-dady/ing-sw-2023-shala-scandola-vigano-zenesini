@@ -3,6 +3,7 @@ package server.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import observer.Observable;
 import observer.Observer;
@@ -25,11 +26,12 @@ public class Board implements Serializable, Observable<Message> {
         System.out.println("Creating array");
         this.commonGoalCardStrategies = new ArrayList<>(2);
         System.out.println("Choosing first cgc");
-        Pair<CommonGoalCardStrategy, CommonGoalCardStrategy> cGcs = CommonGoalCardStrategy.getRandomCards();
-        System.out.println("Adding First cgc");
-        this.commonGoalCardStrategies.add(cGcs.getValue0());
-        System.out.println("Adding second cgc");
-        this.commonGoalCardStrategies.add(cGcs.getValue1());
+        Set<CommonGoalCardStrategy> cGcs = CommonGoalCardStrategy.getRandomCards();
+        this.commonGoalCardStrategies.addAll(cGcs);
+        // System.out.println("Adding First cgc");
+        // this.commonGoalCardStrategies.add(cGcs.getValue0());
+        // System.out.println("Adding second cgc");
+        // this.commonGoalCardStrategies.add(cGcs.getValue1());
         System.out.println("Saving slots");
         this.slots = slots;
     }

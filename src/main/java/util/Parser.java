@@ -4,6 +4,7 @@ package util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import server.model.CommonGoalCardStrategy;
 import setup.Setup;
 import util.Messages.Message;
 
@@ -20,6 +21,7 @@ public class Parser {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Message.class, new MessageSerializer());
         builder.registerTypeAdapter(Setup.class, new SetupSerializer());
+        builder.registerTypeAdapter(CommonGoalCardStrategy.class, new CommonGoalSerializer());
 
 
         gson = builder.create();

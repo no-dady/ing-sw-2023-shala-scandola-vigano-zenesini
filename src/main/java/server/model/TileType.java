@@ -10,23 +10,23 @@ import java.util.*;
  * The type Tile type.
  */
 public class TileType implements Serializable {
-    private static Map<String, TileTypeRecord> tileMap;
+    private static Map<String, TileTypeRecord> tileMap = new HashMap<>();
     private String key;
     private String color;
     private String sign;
     private String image;
 
-    /**
-     * Instantiates a new Tile type.
-     */
-    public TileType() {
-        tileMap = new HashMap<>();
+    static {
+
         try {
             tileMap = ConfigsFromJson.getTileType("src/main/resources/json/tiletypes_config.json");
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
         }
+    }
+    public TileType() {
+        tileMap = new HashMap<>();
     }
 
     /**

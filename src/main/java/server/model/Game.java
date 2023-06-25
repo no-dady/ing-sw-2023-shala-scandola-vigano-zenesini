@@ -1,10 +1,12 @@
 package server.model;
 
 import observer.Observer;
+import org.javatuples.Pair;
 import server.controller.BoardConfig;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import observer.Observable;
 import observer.Observer;
@@ -28,14 +30,14 @@ public class Game implements Serializable, Observable<Message> {
     private Pocket pocket;
     private boolean gameStarted;
     private List<Tile> selectedTiles;
-    private List<CommonGoalCardStrategy> cgcs;
+    private Set<CommonGoalCardStrategy> cgcs;
 
     /**
      * Instantiates a new Game.
      */
     public Game() {
         this.players = new ArrayList<>();
-        this.cgcs = null;
+        this.cgcs = CommonGoalCardStrategy.getRandomCards();
         this.board = new Board(BoardConfig.newEmptyBoard());
         this.pocket = new Pocket();
         this.numPlayers = 0;
@@ -99,11 +101,11 @@ public class Game implements Serializable, Observable<Message> {
         return (ArrayList<Player>) this.players;
     }
     public Player getPlayerByNickname(String nickName){
-        for (Player p: players
-             ) {if (p.getUserName().equals(nickName)){
-                 return p;}
-
-        };
+        for (Player p: players)
+        {
+            if (p.getUserName().equals(nickName))
+                 return p;
+        }
         System.out.println("no such player");
         return null;
     }
@@ -175,7 +177,7 @@ public class Game implements Serializable, Observable<Message> {
         this.currPlayerId = currPlayerId;
     }
 
-        private transient final List<Observer<Message>> observers = new ArrayList<>();
+    private transient final List<Observer<Message>> observers = new ArrayList<>();
 
     public int getNumPlayers() {
         return numPlayers;
@@ -185,7 +187,7 @@ public class Game implements Serializable, Observable<Message> {
         return gameStarted;
     }
 
-    public List<CommonGoalCardStrategy> getCgcs() {
+    public Set<CommonGoalCardStrategy> getCgcs() {
         return cgcs;
     }
 

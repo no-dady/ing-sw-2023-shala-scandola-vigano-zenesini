@@ -16,6 +16,7 @@ public class StraightDirection extends CommonGoalCardStrategy implements Seriali
     private boolean isEqual;
     private boolean isVert;
     private final String name;
+    public static final String className = "StraightDirection";
 
     /**
      * Instantiates a new Straight direction.
@@ -86,5 +87,9 @@ public class StraightDirection extends CommonGoalCardStrategy implements Seriali
         }
 
         return (checked == timesToLook);
+    }
+    @Override
+    public String getClassName() {
+        return className;
     }
 }
