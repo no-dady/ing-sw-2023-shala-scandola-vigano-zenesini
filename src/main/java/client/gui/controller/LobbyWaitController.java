@@ -21,7 +21,7 @@ public class LobbyWaitController implements GenericInterface, Initializable {
     @FXML
     public ImageView spinning_cat;
     private GUI gui;
-    public final String dim = "1000x800";
+    public final String dim = "1000x830";
     public Label dialog_label;
     public Label player_1 = null;
     public Label player_2 = null;

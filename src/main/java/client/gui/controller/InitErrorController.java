@@ -18,7 +18,7 @@ import static java.lang.Thread.sleep;
 
 public class InitErrorController implements GenericInterface, Initializable {
     private GUI gui;
-    public final String dim = "1386x400";
+    public final String dim = "1386x430";
 
     public String nickname;
     public static final String name ="init-nickname";

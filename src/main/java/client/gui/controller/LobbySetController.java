@@ -21,7 +21,7 @@ import static java.lang.Thread.sleep;
 public class LobbySetController implements GenericInterface, Initializable {
 
     Integer selectedNumber = null;
-    public final String dim = "1000x800";
+    public final String dim = "1000x830";
 
     private GUI gui;
     public static final String name ="lobby-set";

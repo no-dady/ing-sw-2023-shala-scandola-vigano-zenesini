@@ -20,7 +20,7 @@ import static java.lang.Thread.sleep;
 
 public class InitController implements GenericInterface, Initializable {
     private GUI gui;
-    public final String dim = "1386x400";
+    public final String dim = "1386x430";
 
     public String connection;
     public String option;
