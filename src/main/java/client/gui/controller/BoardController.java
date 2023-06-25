@@ -125,7 +125,7 @@ public class BoardController implements GenericInterface, Initializable {
         second_tile.setBackground(null);
         third_tile.setBackground(null);
         selectedColumn=0;
-        action=false;
+        action = false;
         end_turn.setText("End_turn");
         update();
     }
@@ -159,12 +159,15 @@ public class BoardController implements GenericInterface, Initializable {
         }
     }
 
-    public int getEmptyColumns(List<Pane> bookshelTiles, int x){ //this method return the number of free cells in a column
+    public int getEmptyColumns(HashMap<Pane, Coordinates> bookshelfMap, int x){ //this method return the number of free cells in a column
         int num = 0;
         for (int i = 0; i < Bookshelf.getRows(); i++){
-            if(bookshelTiles.get(x+i).getBackground()==null)
-            {
-                num++;
+            for(Pane p: bookshelfMap.keySet()) {
+                if(bookshelfMap.get(p).x() == (i+1) && bookshelfMap.get(p).y() == x){
+                    if(p.getBackground()==null){
+                        num++;
+                    }
+                }
             }
         }
         return num;
@@ -242,6 +245,7 @@ public class BoardController implements GenericInterface, Initializable {
         paneMap.put( t_8_6,new Coordinates(8,6));
         paneMap.put( t_9_5,new Coordinates(9,5));
         paneMap.put( t_9_6,new Coordinates(9,6));
+
         bookshelfMap.put( b_1_1, new Coordinates(1,1));
         bookshelfMap.put( b_1_2, new Coordinates(1,2));
         bookshelfMap.put( b_1_3, new Coordinates(1,3));
@@ -272,11 +276,12 @@ public class BoardController implements GenericInterface, Initializable {
         bookshelfMap.put( b_5_4, new Coordinates(5,4));
         bookshelfMap.put( b_5_5, new Coordinates(5,5));
         bookshelfMap.put( b_5_6, new Coordinates(5,6));
-        List<Pane> bookshelfTiles = List.of(b_1_1, b_1_2, b_1_3, b_1_4, b_1_5, b_1_6,
+
+        /*List<Pane> bookshelfTiles = List.of(b_1_1, b_1_2, b_1_3, b_1_4, b_1_5, b_1_6,
                 b_2_1, b_2_2, b_2_3, b_2_4, b_2_5, b_2_6,
                 b_3_1, b_3_2, b_3_3, b_3_4, b_3_5, b_3_6,
                 b_4_1, b_4_2, b_4_3, b_4_4, b_4_5, b_4_6,
-                b_5_1, b_5_2, b_5_3, b_5_4, b_5_5, b_5_6);
+                b_5_1, b_5_2, b_5_3, b_5_4, b_5_5, b_5_6);*/
 
         List<Button> arrows = List.of(arrow1,arrow2,arrow3,arrow4,arrow5);
 
@@ -346,7 +351,7 @@ public class BoardController implements GenericInterface, Initializable {
         cgc_2.setStyle("-fx-background-image: url('" + cgc2 + "');");
 
         for(i = 0; i < Bookshelf.getCols(); i++){ //initializing arrow buttons - what columns you can select
-            if(getEmptyColumns(bookshelfTiles,i)>=selectedTiles.size()){
+            if(getEmptyColumns(bookshelfMap,i+1)>=selectedTiles.size()){
                 arrows.get(i).setDisable(false);
                 int finalI = i;
                 arrows.get(i).setOnMouseEntered(event -> {
@@ -363,16 +368,21 @@ public class BoardController implements GenericInterface, Initializable {
             }
         }
 
-        if(action){
+        if(action) {
             //preview on the bookshelf
-            if(selectedColumn>0 && selectedTiles.size()!=0){
-                int s = getEmptyColumns(bookshelfTiles,selectedColumn-1);
-                for(i = 0; i < selectedTiles.size(); i++)
-                {
-                    bookshelfTiles.get(i+(Bookshelf.getRows()-s)+(selectedColumn-1)*Bookshelf.getRows()).setBackground(selectedIds.get(i).getBackground());
-                    changedBookshelfTiles.add(bookshelfTiles.get(i+(Bookshelf.getRows()-s)+(selectedColumn-1)*Bookshelf.getRows()));
+            if (selectedColumn > 0 && selectedTiles.size() != 0) {
+                int s = Bookshelf.getRows() - getEmptyColumns(bookshelfMap, selectedColumn);
+                System.out.println(s);
+                for(int z = 0; z < Bookshelf.getRows(); z++){
+                    for (Pane x : bookshelfMap.keySet()) {
+                        if (bookshelfMap.get(x).x() == selectedColumn && bookshelfMap.get(x).y() == s && z < selectedIds.size()) {
+                            System.out.println(s);
+                            x.setBackground(selectedIds.get(z).getBackground());
+                            changedBookshelfTiles.add(x);
+                            s++;
+                        }
+                    }
                 }
-                s = 0;
             }
         }
     }
