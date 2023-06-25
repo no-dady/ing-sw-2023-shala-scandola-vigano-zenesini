@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import observer.Observable;
+import observer.Observer;
+import server.controller.BoardConfig;
 import util.Messages.Message;
 
 /**
@@ -45,13 +47,6 @@ public class Game implements Serializable, Observable<Message> {
         instance.add(this);
 
     }
-    public Game(List<Player> players, List<CommonGoalCardStrategy> cgcs, Board board, Pocket pocket, int numPlayers) {
-        this.players = players;
-        this.cgcs = cgcs;
-        this.board = board;
-        this.pocket = pocket;
-        this.numPlayers = numPlayers;
-    }
 
     /**
      * New game game.
@@ -60,6 +55,10 @@ public class Game implements Serializable, Observable<Message> {
      */
     public static Game newGame() {
         return new Game();
+    }
+
+    public int getPlayerIndex(Player player) {
+        return players.indexOf(player);
     }
 
     /**
@@ -96,8 +95,8 @@ public class Game implements Serializable, Observable<Message> {
      *
      * @return the players
      */
-    public List<Player> getPlayers() {
-        return this.players;
+    public ArrayList<Player> getPlayers() {
+        return (ArrayList<Player>) this.players;
     }
     public Player getPlayerByNickname(String nickName){
         for (Player p: players
@@ -132,9 +131,7 @@ public class Game implements Serializable, Observable<Message> {
      *
      * @return the pocket
      */
-    public Pocket getPocket() {
-        return this.pocket;
-    }
+    public Pocket getPocket() { return this.pocket; }
 
     /**
      * Add player.
@@ -192,16 +189,13 @@ public class Game implements Serializable, Observable<Message> {
         return cgcs;
     }
 
-	public int getPlayerIndex(Player player) {
-		return 0;
-	}
-    
     @Override
     public void addObserver(Observer<Message> observer){
         synchronized (observers) {
             observers.add(observer);
         }
     }
+
 
     @Override
     public void notify(Message message) {

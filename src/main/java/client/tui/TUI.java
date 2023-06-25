@@ -107,7 +107,7 @@ public class TUI implements UI, Runnable {
         if (client.isOnline()) {
             try {
                 while (!client.getState().equals(State.SETTINGNICKNAME)) {
-                    System.out.println("not yet");
+                    //System.out.println("not yet");
                 }
                 System.out.println("[Insert your nickname and press ENTER]");
                 do {

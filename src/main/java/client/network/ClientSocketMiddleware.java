@@ -1,7 +1,9 @@
 package client.network;
 
+import client.Client;
 import server.model.Game;
 import server.network.ServerInterface;
+import util.Messages.AskMoveMessage;
 import util.Messages.Message;
 import util.Parser;
 
@@ -14,18 +16,21 @@ import java.rmi.RemoteException;
  */
 //It implements the Server, but it will be used on the client-side to communicate
 public class ClientSocketMiddleware implements ServerInterface, Runnable {
-    client.Client client;
+    private Client client;
     /**
      * The Ip.
      */
-    String ip;
+    private String ip;
 
     /**
      * The Port.
      */
-    int port;
+    private int port;
 
     private ObjectOutputStream oos;
+    private final DataInputStream ins;
+    private DataOutputStream outs;
+    private ObjectInputStream ois;
 
     private Socket socket;
 
@@ -36,12 +41,15 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
      * @param ip   the ip
      * @param port the port
      */
-    public ClientSocketMiddleware(client.Client client, String ip, int port, ClientInterface clientInterface)
-    {
+    public ClientSocketMiddleware(Client client, String ip, int port, ClientInterface clientInterface) throws IOException {
         this.client = client;
         this.ip = ip;
         this.port = port;
         this.clientinterface = clientInterface;
+
+        socket = new Socket(ip, port);
+        ins = new DataInputStream(socket.getInputStream());
+        outs = new DataOutputStream(socket.getOutputStream());
     }
 
     @Override
@@ -49,31 +57,30 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
     {
         try
         {
-            socket = new Socket(ip, port);
-            System.out.println("Created socket");
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            System.out.println("Created oos");
-            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-            System.out.println("Created ois");
+            // System.out.println("Created socket");
+            // oos = new ObjectOutputStream(socket.getOutputStream());
+            // System.out.println("Created oos");
+            // ois = new ObjectInputStream(socket.getInputStream());
+            // System.out.println("Created ois");
 
-            System.out.println("Created streams");
-            while (client.isActive())
-            {
-                Message recv = Parser.fromJson(ois.readUTF(), Message.class);
+            String read;
+
+            while (client.isActive()) {
+                read = ins.readUTF();
+                Message recv = Parser.fromJson(read, Message.class);
                 recv.handleMessage(client);
-                int whatIsSending = (Integer) ois.readObject();
-                switch(whatIsSending)
-                {
-                    case 0:
-                        String rec = ois.readObject().toString();
-                        clientinterface.send(rec);
-                        break;
+                // int whatIsSending = (Integer) ois.readObject();
+                // switch (whatIsSending) {
+                //     case 0:
+                //         String rec = ois.readObject().toString();
+                //         clientinterface.send(rec);
+                //         break;
 
-                    case 1:
-                        Game game = (Game) ois.readObject();
-                        clientinterface.setGame(game);
-                        break;
-                }
+                //     case 1:
+                //         Game game = (Game) ois.readObject();
+                //         clientinterface.setGame(game);
+                //         break;
+                // }
             }
         } catch(Exception e) {
             client.setActive(false);
@@ -108,26 +115,15 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
 
     }
 
-    /**
-     * Close.
-     *
-     * @throws RemoteException the remote exception
-     */
-    public void close() throws RemoteException {
-        try {
-            socket.close();
-        } catch (IOException e) {
-            throw new RemoteException("Cannot close socket", e);
-        }
-    }
-
-    //Action n 3
     @Override
-    public void send(String string) throws RemoteException
+    public void send(String json) throws RemoteException
     {
         try
         {
-            oos.writeObject(string);
+            outs.writeUTF(json);
+            outs.flush();
+            //oos.writeObject(string);
+            //oos.flush();
         }
         catch (IOException e)
         {
@@ -200,5 +196,11 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         //        client.testSend(string);
         //    }
         //}
+    }
+
+    @Override
+    public void close() throws IOException {
+        this.ins.close();
+        this.outs.close();
     }
 }

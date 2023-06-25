@@ -15,6 +15,9 @@ public class ClientApp {
             client.run();
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
+            System.exit(-1);
         }
+
+        System.exit(0);
     }
 }

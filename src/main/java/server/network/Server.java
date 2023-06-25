@@ -34,6 +34,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
     private final ServerSocket serverSocket;
     private static List<Lobby> lobbyList = new ArrayList<>();
 
+    private boolean isActive = true;
+
     private int portRmi;
     private int portSocket;
     public boolean isRMI;
@@ -61,6 +63,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
 
 
     public Server(int portRmi, int portSocket) throws IOException {
+        super();
         this.portRmi = portRmi;
         this.portSocket = portSocket;
         this.serverSocket = new ServerSocket(portSocket);
@@ -80,6 +83,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
     @Override
     public void register(ClientInterface client)
     {
+        /*
         //clientList.put(nickName, clientInterface);
         //System.out.println(nickName + " joined the match");
         System.out.println("Registering new client");
@@ -107,8 +111,16 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         // {
         //     System.out.println("Cannot send AskMoveMessage from server");
         // }
+
+         */
     }
 
+    @Override
+    public void send(String json) throws RemoteException {
+    }
+
+
+    /*
     @Override
     public void send(String string) throws RemoteException
     {
@@ -160,6 +172,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
             tempClientInterface.send(Parser.toJson(messageToSend, ConfirmMessage.class));
             tempClientInterface = null;
         }
+
+    }
+    */
+    @Override
+    public void close() throws IOException {
 
     }
 
@@ -253,6 +270,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         // {
         //     System.err.println("Cannot create server socket:\n" + e.getMessage());
         // }
+
+        ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();
         System.out.println("Server is running...");
         System.out.println("Server socket info:");
         System.out.println("\t port: " + serverSocket.getLocalPort());
@@ -265,6 +284,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
                 new Thread(socketConnection).start();
             } catch (IOException e) {
                 System.out.println("Connection Error!");
+            } finally {
             }
         }
     }
@@ -284,6 +304,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
                 try {
                     startSocket(portSocket);
                 } catch (RemoteException e) {
+                    System.out.println("[ERROR] Something bad happened in socket thread");
                     throw new RuntimeException(e.getMessage());
                 }
             }
@@ -301,4 +322,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         }
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 }

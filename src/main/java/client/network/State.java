@@ -1,6 +1,7 @@
 package client.network;
 
 public enum State {
+    WAIT,
     WAITINGINLOBBY,
     SETTINGNICKNAME,
     SETTINGPLAYERSNUMBER,

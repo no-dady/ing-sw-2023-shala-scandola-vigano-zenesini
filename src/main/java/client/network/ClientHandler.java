@@ -7,6 +7,7 @@ import server.network.ServerInterface;
 import util.Messages.*;
 import util.Parser;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -41,8 +42,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         initialize(serverInterface);
     }
 
-    public ClientHandler(client.Client client, String ip, int port) throws RemoteException {
-        super();
+    public ClientHandler(client.Client client, String ip, int port) throws IOException, RemoteException {
         ClientSocketMiddleware clientSocketMiddleware = new ClientSocketMiddleware(client, ip, port, this);
         this.serverInterface = clientSocketMiddleware;
         this.playerInLobby = new ArrayList<String>();
@@ -84,6 +84,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         msg.handleMessage(client);
         //Message messageReceived = Parser.parseFromJsonString(string, AskMoveMessage.class);
         //if(messageReceived instanceof AskMoveMessage trueMessageReceived)
+        /*
         if (string.contains("moveTypeNumber"))
         {
             AskMoveMessage trueMessageReceived = Parser.fromJson(string, AskMoveMessage.class);
@@ -168,24 +169,20 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         } else
         {
             ConfirmMessage trueMessageReceived = Parser.fromJson(string, ConfirmMessage.class);
-            switch(trueMessageReceived.getConfirmNumber())
-            {
-                case 0:
-                case 1:
+            switch (trueMessageReceived.getConfirmNumber()) {
+                case 0, 1 -> {
                     setState(State.WAITINGINLOBBY);
                     System.out.println("Waiting in lobby");
-                    break;
-
-                case 2:
-                case 3:
-                case 4:
-                case 5:
+                }
+                case 2, 3, 4, 5 -> {
                     System.out.println(trueMessageReceived.getMessage());
-                    if (client.getState().equals(State.MYTURN) || client.getState().equals(State.WAITINGFORMYTURN)) client.getUI().update();
-                    break;
-
+                    if (client.getState().equals(State.MYTURN) || client.getState().equals(State.WAITINGFORMYTURN))
+                        client.getUI().update();
+                }
             }
         }
+
+         */
     }
 
     public List<String> getPlayerInLobby() {
@@ -219,14 +216,13 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     }
 
     @Override
-    public void addObserver(Observer<String> observer) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'addObserver'");
+    public void close() throws IOException {
+        this.serverInterface.close();
     }
 
     @Override
-    public void notify(String message) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'notify'");
+    public void addObserver(Observer<String> observer) {
+
     }
+
 }

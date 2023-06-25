@@ -18,7 +18,7 @@ public class TestAppServerSocket {
      * @param args the input arguments
      * @throws RemoteException the remote exception
      */
-    public static void main(String[] args) throws RemoteException
+    public static void main(String[] args) throws IOException
     {
         ArrayList<Thread> memory = new ArrayList<Thread>();
         ArrayList<ClientSkeleton> clientsList = new ArrayList<ClientSkeleton>();

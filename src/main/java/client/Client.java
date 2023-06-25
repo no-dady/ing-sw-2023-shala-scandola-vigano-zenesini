@@ -22,7 +22,7 @@ public class Client {
     private String ip;
     private int port;
 
-    private State currState = State.WAITINGFORGAMESTART;
+    private State currState = State.WAIT;
 
     public Client(boolean gui) throws IOException {
         this.active = true;
@@ -44,7 +44,7 @@ public class Client {
         if(!active) notifyAll();
     }
 
-    public void setOnline() throws RemoteException, RuntimeException, MalformedURLException, NotBoundException {
+    public void setOnline() throws IOException, RuntimeException, NotBoundException {
         switch (connectionType) {
             case "RMI" -> {
                 clientConnection = new ClientHandler(ip, port);
@@ -82,7 +82,7 @@ public class Client {
             System.out.println("Connection closed from client side");
         } finally {
             online = false;
-          //  clientConnection.close();
+            clientConnection.close();
 
             System.exit(0);
         }
@@ -125,4 +125,5 @@ public class Client {
     {
         clientConnection.sendToServer(parsedString);
     }
+
 }

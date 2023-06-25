@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import server.model.Bookshelf;
 import server.model.Coordinates;
 import server.model.Player;
+import server.model.Game;
 import setup.ConfigsFromJson;
 
 import java.io.IOException;

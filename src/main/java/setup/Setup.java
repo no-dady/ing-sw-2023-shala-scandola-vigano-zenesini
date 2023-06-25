@@ -1,19 +1,9 @@
 package setup;
 
-public abstract class Setup {
-    private final String parameter;
-    private final String classname = "";
+public interface Setup {
 
-    public Setup(String parameter) {
-        this.parameter=parameter;
-    }
+    String getParameter();
 
-    public String getParameter() {
-        return parameter;
-    }
-
-    public String getName() {
-        return classname;
-    }
+    String getName();
 
 }

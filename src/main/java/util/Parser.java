@@ -4,6 +4,7 @@ package util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import setup.Setup;
 import util.Messages.Message;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class Parser {
     static {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(Message.class, new MessageSerializer());
+        builder.registerTypeAdapter(Setup.class, new SetupSerializer());
 
 
         gson = builder.create();

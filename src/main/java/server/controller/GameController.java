@@ -84,7 +84,7 @@ public class GameController implements Observer<Action> {
             default -> throw new IllegalPlayersNumberException("wait, you are doing something wrong");
         }
         board.updatePickable();
-        game = new Game(players, cgcList, board, pocket, playerNumber);
+        game = new Game();
         System.out.println("created game for" + playerNicknames);
         return;
     }

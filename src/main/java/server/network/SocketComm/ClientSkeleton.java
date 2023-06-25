@@ -2,16 +2,19 @@ package server.network.SocketComm;
 
 import client.UI;
 import client.network.ClientInterface;
+import observer.Observable;
 import observer.Observer;
 import client.network.State;
 import server.model.Game;
 import server.model.Lobby;
 import server.network.Server;
 import setup.Setup;
+import util.Messages.AskMoveMessage;
+import util.Messages.Message;
+import util.Messages.NicknameMessage;
+import util.Parser;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ import java.util.List;
 
 
 
-public class ClientSkeleton implements ClientInterface, Runnable {
+public class ClientSkeleton implements Observable<String>, ClientInterface, Runnable {
     private ObjectOutputStream oos;
     private State currState = State.WAITINGFORRESPONSE;
 
@@ -30,6 +33,14 @@ public class ClientSkeleton implements ClientInterface, Runnable {
     private String nickName;
 
     private Lobby lobby;
+
+    private DataInputStream in;
+    private DataOutputStream out;
+
+    private ObjectInputStream ois;
+
+    private boolean active = true;
+
 
     /**
      * Instantiates a new Client skeleton.
@@ -42,26 +53,65 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         this.server = server;
     }
 
+    private boolean recNickname(NicknameMessage setup) {
+        return setup.getNickName() != null;
+    }
+
+    @Override
+    public void send(String json) throws RemoteException {
+        try {
+            out.writeUTF(json);
+            out.flush();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    void register() {
+        try {
+            Message msg = new AskMoveMessage(0);
+            this.send(Parser.toJson(msg, Message.class));
+        } catch (RemoteException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
     @Override
     public void run() {
         System.out.println("Start thread");
         try {
-            ObjectInputStream ois;
-            System.out.println("Creating streams");
-            this.oos = new ObjectOutputStream(socket.getOutputStream());
-            System.out.println("Created Output");
-            ois = new ObjectInputStream(socket.getInputStream());
-            System.out.println("Created input");
-            server.register(this);
+            // System.out.println("Creating streams");
+            // this.oos = new ObjectOutputStream(socket.getOutputStream());
+            // System.out.println("Created Output");
+            // ois = new ObjectInputStream(socket.getInputStream());
+            // System.out.println("Created input");
+            //receive(ois);
 
-            receive(ois);
+            in = new DataInputStream(socket.getInputStream());
+            out = new DataOutputStream(socket.getOutputStream());
+            boolean confirm = false;
+            //register();
+            String read;
+            do {
+                Message msg = new AskMoveMessage(0);
+                this.send(Parser.toJson(msg, Message.class));
+                read = in.readUTF();
+                System.out.println("Received: " + read);
+                Message msgs = Parser.fromJson(read, NicknameMessage.class);
+                confirm = recNickname((NicknameMessage) msgs);
+            } while(!confirm);
 
-            ois.close();
-            oos.close();
-            socket.close();
+            while(isActive()) {
+                read = in.readUTF();
+                notify(read);
+            }
             System.out.println("Disconnected");
         } catch (IOException e) {
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                close(nickName, lobby);
+            } catch (RemoteException ignored) {}
         }
     }
 
@@ -77,7 +127,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         this.lobby = lobby;
     }
 
-    //Action n 4
+    /*Action n 4
     @Override
     public void send(String string) throws RemoteException {
         try {
@@ -88,7 +138,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
             throw new RemoteException("Cannot send the String", e);
         }
     }
-
+    */
     @Override
     public void setGame(Game game) throws RemoteException {
         try {
@@ -112,6 +162,11 @@ public class ClientSkeleton implements ClientInterface, Runnable {
     @Override
     public State getState() throws RemoteException {
         return null;
+    }
+
+    @Override
+    public void close() throws IOException {
+
     }
 
     public String getNickname() {
@@ -225,4 +280,11 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         System.out.println("Handle Setupper ::: " + setupper.getName());
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

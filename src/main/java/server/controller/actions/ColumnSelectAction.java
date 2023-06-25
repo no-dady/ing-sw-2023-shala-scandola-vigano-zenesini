@@ -13,7 +13,7 @@ public class ColumnSelectAction implements Action{
     }
 
     public void performAction(Game game) {
-     game.getPlayers().get(game.getCurrPlayerId()).getBookshelf().setSlots(move.getSelectedColumn(), game.getSelectedTiles());
+        game.getPlayers().get(game.getCurrPlayerId()).getBookshelf().setSlots(move.getSelectedColumn(), game.getSelectedTiles());
     }
 
     public boolean canPerformAction(Game game) {
@@ -22,5 +22,4 @@ public class ColumnSelectAction implements Action{
     public String getNickName() {
         return nickName;
     }
-
 }
