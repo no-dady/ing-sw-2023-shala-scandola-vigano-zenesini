@@ -100,7 +100,7 @@ public class GameController implements Observer<Action>, Observable<Game> {
         do{
             if (boardToRefill()){ board.fillBoard(BoardConfig.fillBoard(board.getSlots(), pocket, playersNumber));}
             //receive actions in order to know the turn is completed, do we set a boolean? do we check the last move?
-            randFirst = randFirst + 1;
+            randFirst = (randFirst + 1)%playersNumber;
             game.setCurrPlayerId(players.get(randFirst).getUserId());
             game.setCurrPlayerNick(players.get(randFirst).getUserName());
             wait(); // maybe this is how the game waits for the player to make a move, can this be done in another way?
