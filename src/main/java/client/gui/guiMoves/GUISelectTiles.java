@@ -16,7 +16,8 @@ public class GUISelectTiles implements GUIInterface {
     @Override
     public Move updateGUI(Game game) {
         move.setSelectedTiles(selectedTiles);
-        return move;
+        if (canPerform(game)) return move;
+        else return null;
     }
 
     @Override

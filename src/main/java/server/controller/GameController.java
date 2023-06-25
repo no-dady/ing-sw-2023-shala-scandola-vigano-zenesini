@@ -95,22 +95,23 @@ public class GameController implements Observer<Action>, Observable<Game> {
      */
     public void start() throws InterruptedException {
         int randFirst = new Random().nextInt(playersNumber);
-        game.setCurrPlayerId(players.get(randFirst).getUserId());
-        game.setCurrPlayerNick(players.get(randFirst).getUserName());
-        do{
-            if (boardToRefill()){ board.fillBoard(BoardConfig.fillBoard(board.getSlots(), pocket, playersNumber));}
-            //receive actions in order to know the turn is completed, do we set a boolean? do we check the last move?
-            randFirst = (randFirst + 1)%playersNumber;
-            game.setCurrPlayerId(players.get(randFirst).getUserId());
-            game.setCurrPlayerNick(players.get(randFirst).getUserName());
-            wait(); // maybe this is how the game waits for the player to make a move, can this be done in another way?
-            for (CommonGoalCardStrategy cgc : game.getBoard().getCommonGoalCards()
-            ) {if(cgc.conditionCheck(game.getPlayerByNickname(game.getCurrPlayerNick()).getBookshelf().getSlots())){
-            cgc.addPlayer(game.getPlayerByNickname(game.getCurrPlayerNick()));
-            }
-            }
-        }while (!gameEnded());
-        calculatePoints();
+        //game.setCurrPlayerId(players.get(randFirst).getUserId());
+        //game.setCurrPlayerNick(players.get(randFirst).getUserName());
+        //do{
+         //   if (boardToRefill()){ board.fillBoard(BoardConfig.fillBoard(board.getSlots(), pocket, playersNumber));}
+          //  //receive actions in order to know the turn is completed, do we set a boolean? do we check the last move?
+           // randFirst = (randFirst + 1)%playersNumber;
+           // game.setCurrPlayerId(players.get(randFirst).getUserId());
+           // game.setCurrPlayerNick(players.get(randFirst).getUserName());
+            // maybe this is how the game waits for the player to make a move, can this be done in another way?
+           // for (CommonGoalCardStrategy cgc : game.getBoard().getCommonGoalCards()
+            //) {if(cgc.conditionCheck(game.getPlayerByNickname(game.getCurrPlayerNick()).getBookshelf().getSlots())){
+            //cgc.addPlayer(game.getPlayerByNickname(game.getCurrPlayerNick()));
+           // }
+           // }
+        //}while (!gameEnded());
+        //calculatePoints();
+        //game.setWinner();
 
     }
 

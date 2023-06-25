@@ -16,7 +16,8 @@ public class GUISelectColumn implements GUIInterface {
     @Override
     public Move updateGUI(Game game) {
         move.setSelectedColumn(selectedColumn);
-        return move;
+        if (canPerform(game)) return move;
+        else return null;
     }
 
     @Override
