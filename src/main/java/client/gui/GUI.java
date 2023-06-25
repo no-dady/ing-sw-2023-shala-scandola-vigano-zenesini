@@ -3,11 +3,9 @@ package client.gui;
 import client.Client;
 import client.UI;
 import client.gui.controller.*;
-import client.network.State;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
@@ -17,6 +15,7 @@ import server.model.Game;
 import util.Messages.Message;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -44,7 +43,13 @@ public class GUI extends Application implements UI {
 
     @Override
     public void update() {
-        Platform.runLater(this::intUpdate);
+        Platform.runLater(() -> {
+            try {
+                intUpdate();
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
     public static void entry(Client client) {
         GUI.client = client;
@@ -88,7 +93,7 @@ public class GUI extends Application implements UI {
                 this.sizeMap.put(controller.getName(),controller.getDimensions());
             }
             catch (Exception e){
-                System.out.println(e.toString());
+                System.out.println(e);
             }
         }
         this.activate(InitController.name);
@@ -97,35 +102,17 @@ public class GUI extends Application implements UI {
         primaryStage.setFullScreen(false);
     }
 
-    private void intUpdate(){
+    private void intUpdate() throws RemoteException {
         switch (client.getState()){
-            case SETTINGNICKNAME ->{
-                    activate(InitErrorController.name);
-            break;
+            case SETTINGNICKNAME -> activate(InitErrorController.name);
+            case SETTINGPLAYERSNUMBER -> activate(LobbySetController.name);
+            case WAITINGINLOBBY -> activate(LobbyWaitController.name);
+            case WAITINGFORMYTURN, MYTURN -> activate(BoardController.name);
+            case GAMEENDED -> activate(VictoryScreenController.name);
+            case PLAYERSQUIT -> {
+                client.getClientConnection().closeConnection();
+                System.exit(0);
             }
-            case SETTINGPLAYERSNUMBER ->{
-                    activate(LobbySetController.name);
-            break;
-            }
-            case WAITINGINLOBBY ->{
-                    activate(LobbyWaitController.name);
-            break;
-            }
-            case WAITINGFORMYTURN -> {
-                activate(BoardController.name);
-                break;
-            }
-            case MYTURN ->{
-                    activate(BoardController.name);
-            break;
-            }
-            case GAMEENDED -> {
-                activate(VictoryScreenController.name);
-                break;
-            }
-            /*case PLAYERSQUIT -> {
-
-            }*/
         }
     }
 

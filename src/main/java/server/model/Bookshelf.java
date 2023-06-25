@@ -70,14 +70,14 @@ public class Bookshelf implements Serializable, Observable<Message> {
     public static int getCols() {
         return cols;
     }
-
-    public int getEmptyTilesColumn(int index) {
     /**
      * Gets tile per col.
      *
      * @param index the index
      * @return the tile per col
      **/
+    public int getEmptyTilesColumn(int index) {
+
         int count = 0;
         for (int j = 0; j < rows ; j ++){
 
@@ -130,4 +130,10 @@ public class Bookshelf implements Serializable, Observable<Message> {
             }
         }
     }
+
+    public boolean isFull() {
+        return tileCount == rows * cols;
+    }
+
+
 }

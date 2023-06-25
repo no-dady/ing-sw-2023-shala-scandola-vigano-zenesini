@@ -1,6 +1,7 @@
 package client.gui.controller;
 
 import client.gui.GUI;
+import client.network.State;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -9,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 public class MenuScreenController implements GenericInterface, Initializable {
@@ -31,9 +33,9 @@ public class MenuScreenController implements GenericInterface, Initializable {
         return  this.dim;
     }
 
-    public void onQuitButtonPress(ActionEvent event) {
-
-        System.exit(0);
+    public void onQuitButtonPress(ActionEvent event) throws RemoteException {
+        gui.getClient().getClientConnection().setState(State.PLAYERSQUIT);
+        gui.update();
     }
 
     public void onBackButtonPress(ActionEvent event) {

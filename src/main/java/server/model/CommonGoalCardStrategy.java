@@ -139,7 +139,7 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
      *
      * @return the list
      */
-    public Integer getPlayers(Player player){
+    public Integer getPlayer(Player player){
         return completedMap.remove(player.getUserName());
     }
 

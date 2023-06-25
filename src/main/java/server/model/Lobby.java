@@ -109,6 +109,8 @@ public class Lobby {
         } catch (IOException | IllegalPlayersNumberException e)
         {
             System.out.println("Lobby cannot send confirm to client");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -154,7 +156,7 @@ public class Lobby {
         } else throw new IllegalArgumentException();
     }
 
-    public void startGame() throws IllegalPlayersNumberException, RemoteException {
+    public void startGame() throws IllegalPlayersNumberException, RemoteException, InterruptedException {
         for (var entry : playerMap.entrySet()) {
 
             ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", all " + playerNumber + " players have joined, now the game will start" + entry.getValue().getState(), 4);
@@ -169,17 +171,15 @@ public class Lobby {
         lobbyStatus = LobbyStatus.Playing;
         System.out.println("Creating Game");
         controller = new GameController();
-        System.out.println("eccoci qui");
         controller.createLobby(playerNumber, playerMap.keySet().stream().toList());
         game = controller.getGame();
         if (game!= null){
             System.out.println(game);
         }
         else {
-            System.out.println("qualcosa non va, game è null");
             return;
+
         }
-        System.out.println("eccoci qui invece ora");
         for (var entry : playerMap.entrySet()) {
             entry.getValue().setGame(game);
             StateMessage stateMessage = new StateMessage(State.MYTURN);
@@ -194,6 +194,7 @@ public class Lobby {
             {
                 System.out.println("Cannot send ConfirmMessage from server lobby to client");
             }
+            controller.start();
         }
 
         setActive();
