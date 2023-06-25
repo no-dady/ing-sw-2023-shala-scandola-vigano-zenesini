@@ -159,6 +159,8 @@ public class TUI implements UI, Runnable {
                     boardAndBookshelfArt = setPGCart(boardAndBookshelfArt);
                     cgcs = concatCGCarts(ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" + client.getGame().getBoard().getCommonGoalCards().get(0).getName() + ".json"), ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" +client.getGame().getBoard().getCommonGoalCards().get(1).getName() + ".json"));
                     printState();
+                    new TUISelectTiles(nickname).updateCLI(client.getGame(),in);
+                    new TUISelectColumn(nickname).updateCLI(client.getGame(),in);
                 } catch (NullPointerException ignored) {
                 } catch (RemoteException e) {
                     System.out.println("Something went wrong with the creation of the model");
