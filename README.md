@@ -14,5 +14,6 @@
 | CLI | :white_check_mark: |
 | GUI |:white_check_mark: |
 | Partite Multiple | :white_check_mark: |
-| Resilienza | :white_check_mark: |
+| Resilienza | :negative_squared_cross_mark: |
 | Chat | :negative_squared_cross_mark: |
+| Peristenza | :negative_squared_cross_mark: |
