@@ -127,7 +127,6 @@ public class TUI implements UI, Runnable {
             while (client.getState().equals(State.WAITINGFORRESPONSE)) {
                 System.out.println(client.getState().toString());
             }
-            ;
             if (client.getState().equals(State.SETTINGPLAYERSNUMBER)) {
                 String playerNumberString;
                 int playerNumber = 2;

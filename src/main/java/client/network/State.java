@@ -2,6 +2,8 @@ package client.network;
 
 public enum State {
     WAIT,
+    SETUPFIRST,
+    SETUP,
     WAITINGINLOBBY,
     SETTINGNICKNAME,
     SETTINGPLAYERSNUMBER,
@@ -11,5 +13,4 @@ public enum State {
     WAITINGFORGAMESTART,
     PLAYERSQUIT,
     GAMEENDED
-
 }

@@ -1,6 +1,5 @@
 package util;
 
-import client.network.State;
 import com.google.gson.*;
 import util.Messages.*;
 
@@ -14,7 +13,7 @@ public class MessageSerializer implements JsonSerializer<Message>, JsonDeseriali
     private static final String INSTANCE = "INSTANCE";
 
     static {
-        classNameMap.put(AskMoveMessage.className, AskMoveMessage.class);
+        classNameMap.put(AskSetupMessage.className, AskSetupMessage.class);
         classNameMap.put(GameMessage.className, GameMessage.class);
         classNameMap.put(BookshelfMessage.className, BookshelfMessage.class);
         classNameMap.put(PlayerMessage.className, PlayerMessage.class);

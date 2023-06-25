@@ -4,6 +4,7 @@ import client.UI;
 import observer.Observable;
 import observer.Observer;
 import server.model.Game;
+import server.model.Lobby;
 
 import java.io.IOException;
 import java.rmi.*;
@@ -26,4 +27,6 @@ public interface ClientInterface extends Remote
     State getState() throws RemoteException;
 
     void close() throws IOException;
+
+    Lobby getLobby();
 }

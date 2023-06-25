@@ -24,16 +24,16 @@ public class ConfirmMessage implements Message {
         return message;
     }
 
-    public int getConfirmNumber() { return confirmNumber; }
     @Override
     public void handleMessage(Client client)
     {
-
+        ClientInterface cli = client.getClientConnection();
+        cli.getLobby().getPlayerNumber();
     }
 
     @Override
     public String getName()
     {
-        return "Beta";
+        return className;
     }
 }

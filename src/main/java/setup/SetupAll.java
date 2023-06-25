@@ -1,7 +1,7 @@
 package setup;
 
 public class SetupAll implements Setup {
-        public static final String className = "SetupAll";
+    public static final String className = "SetupAll";
 
     private final String nickname;
 

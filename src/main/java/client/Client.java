@@ -49,10 +49,10 @@ public class Client {
             case "RMI" -> {
                 clientConnection = new ClientHandler(ip, port);
                 clientConnection.setClient(this);
+                clientConnection.initialize();
             }
             case "SOCKET" -> {
                 clientConnection = new ClientHandler(this, ip, port);
-                clientConnection.setClient(this);
         }
             default -> throw new RuntimeException("Could not initiate connection");
         }

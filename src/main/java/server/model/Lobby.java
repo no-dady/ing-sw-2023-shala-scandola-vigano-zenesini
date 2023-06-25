@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Lobby {
+
     private final int playerNumber;
 
     private LobbyStatus lobbyStatus;
@@ -24,7 +25,7 @@ public class Lobby {
 
     private Map<String, ClientInterface> playerMap;
 
-    private HashMap<String, View> playersview= new HashMap<>();
+    private HashMap<String, View> playersview = new HashMap<>();
 
     private GameController controller;
 
@@ -50,6 +51,9 @@ public class Lobby {
         }
     }
 
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
     public LobbyStatus getLobbyStatus() {
         return lobbyStatus;
     }

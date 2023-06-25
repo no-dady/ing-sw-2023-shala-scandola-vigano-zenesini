@@ -14,15 +14,10 @@ public class StateMessage implements Message {
         this.stateToSend = state;
     }
 
-    public State getState()
-    {
-        return stateToSend;
-    }
-
     @Override
     public void handleMessage(Client client)
     {
-        System.out.println("Prova");
+        client.setState(stateToSend);
     }
 
     public String getName()
