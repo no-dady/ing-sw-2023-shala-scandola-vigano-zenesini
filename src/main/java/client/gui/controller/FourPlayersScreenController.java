@@ -16,6 +16,7 @@ import java.util.*;
 
 public class FourPlayersScreenController implements GenericInterface, Initializable {
     public static final String name = "four-players-screen";
+    public final String dim = "1920x1080";
     public Label L3;
     public Label L4;
     public Label L5;
@@ -52,6 +53,11 @@ public class FourPlayersScreenController implements GenericInterface, Initializa
     @Override
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public String getDimensions() {
+        return  this.dim;
     }
 
     @Override

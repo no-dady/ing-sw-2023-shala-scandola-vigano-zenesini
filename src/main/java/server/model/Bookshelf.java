@@ -79,12 +79,21 @@ public class Bookshelf implements Serializable, Observable<Message> {
      * @return the tile per col
      **/
         int count = 0;
-        for(Tile x: this.getSlots()[index]){
-            if(x.getTileId().isEmpty()){
-                count++;
+        for (int j = 0; j < rows ; j ++){
+
+            if ((slots[j][index] == null || slots[j][index].Empty())){
+                count ++;
             }
         }
         return count;
+    }
+    public int lastTileOnColumnIndex(int index){
+        for (int j = 0; j < rows ; j ++){
+            if (slots[j][index] == null || slots[j][index].Empty()){
+                return j;
+            }
+        }
+        return (Bookshelf.getRows() - 1) ;
     }
 
     /**

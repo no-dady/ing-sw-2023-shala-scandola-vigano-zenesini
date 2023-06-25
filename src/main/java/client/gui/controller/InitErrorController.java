@@ -18,6 +18,8 @@ import static java.lang.Thread.sleep;
 
 public class InitErrorController implements GenericInterface, Initializable {
     private GUI gui;
+    public final String dim = "1386x400";
+
     public String nickname;
     public static final String name ="init-nickname";
     @FXML
@@ -28,6 +30,10 @@ public class InitErrorController implements GenericInterface, Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+    @Override
+    public String getDimensions() {
+        return  this.dim;
     }
     public void onSubmitClick(ActionEvent event) throws IOException, InterruptedException {
 

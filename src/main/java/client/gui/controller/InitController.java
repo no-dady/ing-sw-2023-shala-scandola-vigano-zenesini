@@ -20,6 +20,7 @@ import static java.lang.Thread.sleep;
 
 public class InitController implements GenericInterface, Initializable {
     private GUI gui;
+    public final String dim = "1386x400";
 
     public String connection;
     public String option;
@@ -62,6 +63,10 @@ public class InitController implements GenericInterface, Initializable {
             gui.getClient().setOnline();
             gui.update();
 
+    }
+    @Override
+    public String getDimensions() {
+        return  this.dim;
     }
 
 

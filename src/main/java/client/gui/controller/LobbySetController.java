@@ -21,6 +21,8 @@ import static java.lang.Thread.sleep;
 public class LobbySetController implements GenericInterface, Initializable {
 
     Integer selectedNumber = null;
+    public final String dim = "1000x800";
+
     private GUI gui;
     public static final String name ="lobby-set";
     @FXML
@@ -37,6 +39,10 @@ public class LobbySetController implements GenericInterface, Initializable {
         playersNumberBox.getItems().add(2);
         playersNumberBox.getItems().add(3);
         playersNumberBox.getItems().add(4);
+    }
+    @Override
+    public String getDimensions() {
+        return  this.dim;
     }
     @FXML
     public void onNumChoice(ActionEvent event) {

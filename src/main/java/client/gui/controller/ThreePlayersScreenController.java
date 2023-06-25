@@ -17,6 +17,7 @@ public class ThreePlayersScreenController implements GenericInterface, Initializ
     private GUI gui;
     public Label L3;
     public Label L4;
+    public final String dim = "1920x1080";
     public Pane t2_1_1, t2_3_1, t2_5_1, t2_7_1, t2_9_1, t2_11_1,
                 t2_1_3, t2_3_3, t2_5_3, t2_7_3, t2_9_3, t2_11_3,
                 t2_1_5, t2_3_5, t2_5_5, t2_7_5, t2_9_5, t2_11_5,
@@ -31,6 +32,10 @@ public class ThreePlayersScreenController implements GenericInterface, Initializ
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;
+    }
+    @Override
+    public String getDimensions() {
+        return  this.dim;
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -16,6 +16,7 @@ public interface GenericInterface {
     }
 
     public String getName();
+    public String getDimensions();
 
 
     void update();

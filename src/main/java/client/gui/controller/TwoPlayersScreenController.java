@@ -21,6 +21,7 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
                 t2_1_7, t2_3_7, t2_5_7, t2_7_7, t2_9_7, t2_11_7,
                 t2_1_9, t2_3_9, t2_5_9, t2_7_9, t2_9_9, t2_11_9;
     private GUI gui;
+    public final String dim = "1920x1080";
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
@@ -86,6 +87,10 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
                 }
             }
         }
+    }
+    @Override
+    public String getDimensions() {
+        return  this.dim;
     }
 
     @Override

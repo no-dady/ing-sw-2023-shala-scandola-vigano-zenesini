@@ -21,7 +21,7 @@ import java.util.*;
 
 public class BoardController implements GenericInterface, Initializable {
     private GUI gui;
-
+    public final String dim = "1920x1000";
     public static final String name ="board";
     @FXML //utils label
     public Label L1, L2;
@@ -50,8 +50,6 @@ public class BoardController implements GenericInterface, Initializable {
     public int selectedColumn = 0, count = 0;
     public List<Pane> selectedIds = new ArrayList<Pane>();
     public List<Pane> changedBookshelfTiles = new ArrayList<Pane>();
-    public HashMap <Character, Character> selectedTiles= new HashMap<>();
-
     public DropShadow dropShadow = new DropShadow(BlurType.GAUSSIAN, Color.WHITE, 15, 0.5, 0, 1);
 
 
@@ -106,42 +104,46 @@ public class BoardController implements GenericInterface, Initializable {
     }
     public void onPlayerButtonPress(ActionEvent event) {
         switch (gui.getClient().getGame().getNumPlayers()) {
-            case(2):
-                gui.activate(TwoPlayersScreenController.name);
-                    break;
-            case(3):
-                gui.activate(ThreePlayersScreenController.name);
-                    break;
-            case(4):
-                gui.activate(FourPlayersScreenController.name);
-                    break;
+            case (2) -> gui.activate(TwoPlayersScreenController.name);
+            case (3) -> gui.activate(ThreePlayersScreenController.name);
+            case (4) -> gui.activate(FourPlayersScreenController.name);
         }
     }
     public void onConfirmButtonPress(ActionEvent event) { //when you confirm your actions
-        for (Map.Entry<Character, Character> entry : selectedTiles.entrySet()) {
-            System.out.println("x:" + entry.getKey() + ", y:" + entry.getValue());
+        for (Pane entry : selectedIds) {
+            char x = (char) (entry.getId().charAt(2) - '1' + 'A');
+            char y =(entry.getId().charAt(4));
+            System.out.println(x + "" + y);
+            for (Pane r: changedBookshelfTiles
+                 ) {
+                System.out.println(r.getId());
+
+            }
         }
         first_tile.setBackground(null);
         second_tile.setBackground(null);
         third_tile.setBackground(null);
         selectedColumn=0;
         action = false;
-        end_turn.setText("End_turn");
+        end_turn.setText("End turn");
         update();
+    }
+    @Override
+    public String getDimensions() {
+        return  this.dim;
     }
 
     public void onEndTurnButtonPress(ActionEvent event) { //if you press the end button
         if(end_turn.getText().equals("End turn")){ //when you end your action
-            for (Map.Entry<Character, Character> entry : selectedTiles.entrySet()) {
-                System.out.println("x:" + entry.getKey() + ", y:" + entry.getValue());
+            for (Pane entry : selectedIds) {
+                System.out.println("x:" + (char)(entry.getId().charAt(2) - '1' + 'A') + ", y:" + entry.getId().charAt(4));
             }
-            System.out.println(selectedColumn);
         }
         if(end_turn.getText().equals("Cancel")){ //when you cancel your action after selecting some tiles
             first_tile.setBackground(null);
             second_tile.setBackground(null);
             third_tile.setBackground(null);
-            end_turn.setText("End_turn");
+            end_turn.setText("End turn");
             for (Pane y: changedBookshelfTiles) {
                 y.setBackground(null);
             }
@@ -150,27 +152,12 @@ public class BoardController implements GenericInterface, Initializable {
                 x.setDisable(false);
             }
             changedBookshelfTiles.clear();
-            selectedTiles.clear();
             selectedIds.clear();
             selectedColumn = 0;
             action = true;
             count = 0;
             update();
         }
-    }
-
-    public int getEmptyColumns(HashMap<Pane, Coordinates> bookshelfMap, int x){ //this method return the number of free cells in a column
-        int num = 0;
-        for (int i = 0; i < Bookshelf.getRows(); i++){
-            for(Pane p: bookshelfMap.keySet()) {
-                if(bookshelfMap.get(p).x() == (i+1) && bookshelfMap.get(p).y() == x){
-                    if(p.getBackground()==null){
-                        num++;
-                    }
-                }
-            }
-        }
-        return num;
     }
 
     private void onTilePressed(Pane p) { //this method add tiles to the selected ones and show them on the selection panel
@@ -181,9 +168,7 @@ public class BoardController implements GenericInterface, Initializable {
                 p.setOpacity(0);
                 p.setDisable(true);
                 frames.get(count).setBackground(p.getBackground());
-                selectedTiles.put(p.getId().charAt(2), p.getId().charAt(4));
                 selectedIds.add(p);
-
                 count++;
                 update();
             }
@@ -193,7 +178,7 @@ public class BoardController implements GenericInterface, Initializable {
 
     @Override
     public void update() {
-        int i,j,n=0;
+        int i,n=0;
         int[][] m;
         int num = gui.getGame().getNumPlayers();
 
@@ -351,16 +336,14 @@ public class BoardController implements GenericInterface, Initializable {
         cgc_2.setStyle("-fx-background-image: url('" + cgc2 + "');");
 
         for(i = 0; i < Bookshelf.getCols(); i++){ //initializing arrow buttons - what columns you can select
-            if(getEmptyColumns(bookshelfMap,i+1)>=selectedTiles.size()){
+            if(bookshelf.getEmptyTilesColumn(i) >= selectedIds.size()){
                 arrows.get(i).setDisable(false);
                 int finalI = i;
                 arrows.get(i).setOnMouseEntered(event -> {
                     arrows.get(finalI).setEffect(dropShadow);
                 });
-
-                int finalI1 = i;
                 arrows.get(i).setOnMouseExited(event -> {
-                    arrows.get(finalI1).setEffect(null);
+                    arrows.get(finalI).setEffect(null);
                 });
             }
             else {
@@ -370,20 +353,24 @@ public class BoardController implements GenericInterface, Initializable {
 
         if(action) {
             //preview on the bookshelf
-            if (selectedColumn > 0 && selectedTiles.size() != 0) {
-                int s = Bookshelf.getRows() - getEmptyColumns(bookshelfMap, selectedColumn);
-                System.out.println(s);
-                for(int z = 0; z < Bookshelf.getRows(); z++){
-                    for (Pane x : bookshelfMap.keySet()) {
-                        if (bookshelfMap.get(x).x() == selectedColumn && bookshelfMap.get(x).y() == s && z < selectedIds.size()) {
-                            System.out.println(s);
-                            x.setBackground(selectedIds.get(z).getBackground());
-                            changedBookshelfTiles.add(x);
-                            s++;
+            if (selectedColumn > 0 && selectedColumn <= Bookshelf.getCols() && selectedIds.size() != 0) {
+                int ind = 0;
+                int first = bookshelf.lastTileOnColumnIndex(selectedColumn - 1 ) + 1;
+                HashMap<Pane,Integer> k = new HashMap<>();
+                    for (Pane x : bookshelfMap.keySet()) {if (bookshelfMap.get(x).x() == selectedColumn) {k.put(x, bookshelfMap.get(x).y());}}
+                    while (ind < selectedIds.size()) {
+                        for (Pane x : k.keySet()) {
+                            System.out.println("controllo se il pannello" + x.getId() + " va bene per la riga " + first + " e guardo che" + ind + "sia minore di " + selectedIds.size());
+                            if (k.get(x) == first && ind < selectedIds.size()) {
+                                System.out.println("ok andava bene");
+                                x.setBackground(selectedIds.get(ind).getBackground());
+                                ind++;
+                                first++;
+                                changedBookshelfTiles.add(x);
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
