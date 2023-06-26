@@ -34,7 +34,16 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     private final ServerSocket serverSocket;
     private static List<Lobby> lobbyList = new ArrayList<>();
     private boolean registeringClient = false;
-    private List<ClientInterface> clientQueue = new ArrayList<>();
+
+    public static List<ClientInterface> getClientQueue() {
+        return clientQueue;
+    }
+
+    public static void addClientQueue(ClientInterface clientQueue) {
+        Server.clientQueue.add(clientQueue);
+    }
+
+    private static List<ClientInterface> clientQueue = new ArrayList<>();
     private boolean isActive = true;
 
     private int portRmi;

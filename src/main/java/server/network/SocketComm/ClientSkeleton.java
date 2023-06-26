@@ -184,11 +184,13 @@ public class ClientSkeleton implements Observable<String>, ClientInterface, Runn
     public boolean handleSetupper(Setup setupper) throws RemoteException {
         if(this.lobby == null || (setupper.getParameter() != null && lobby.checkNicknameAvailable(setupper.getParameter()))) {
             System.out.println("Handle Setupper ::: " + setupper.getParameter());
-            if(setupper instanceof SetupFirst) {
-                Server.addLobby(new Lobby(((SetupFirst) setupper).getNumOfPlayers(), this, setupper.getParameter()));
-            }
-            this.lobby = Server.getLobby();
-            send(Parser.toJson(new StateMessage(State.WAITINGINLOBBY), Message.class));
+            // if(setupper instanceof SetupFirst) {
+            //     Server.addLobby(new Lobby(((SetupFirst) setupper).getNumOfPlayers(), this, setupper.getParameter()));
+            // }
+            // this.lobby = Server.getLobby();
+            this.nickName = setupper.getParameter();
+            Server.addClientQueue(this);
+            send(Parser.toJson(new StateMessage(State.INQUEUE), Message.class));
             return true;
         }
         return false;
