@@ -64,7 +64,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     public void sendToServer(String string) throws RemoteException
     {
         client.setState(State.WAITINGFORRESPONSE);
-        serverInterface.send(string);
+        serverInterface.sendMessage(string);
     }
 
     @Override

@@ -60,7 +60,21 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
     {}
 
     @Override
-    public void send(String json) throws RemoteException
+    public void sendMessage(String json) throws RemoteException
+    {
+        try
+        {
+            outs.writeUTF(json);
+            outs.flush();
+        }
+        catch (IOException e)
+        {
+            throw new RemoteException("Cannot send string from client", e);
+        }
+    }
+
+    @Override
+    public void sendSetup(String json) throws RemoteException
     {
         try
         {
