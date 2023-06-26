@@ -40,7 +40,7 @@ public class GUI extends Application implements UI {
     }
 
     @Override
-    public void update() {
+    public void update(){
         Platform.runLater(this::intUpdate);
     }
     public static void entry(Client client) {
@@ -68,6 +68,7 @@ public class GUI extends Application implements UI {
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/init-error.fxml")));
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/init-nickname.fxml")));
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/init-screen.fxml")));
+        loaders.add(new FXMLLoader(getClass().getResource("/fxml/lobby-set-nickname.fxml")));
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/lobby-set.fxml")));
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/lobby-waiting.fxml")));
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/menu-screen.fxml")));
@@ -94,12 +95,12 @@ public class GUI extends Application implements UI {
 
     private void intUpdate(){
         switch (client.getState()){
-            case SETTINGNICKNAME ->{
+            case SETUP ->{
                     activate(InitErrorController.name);
             break;
             }
-            case SETTINGPLAYERSNUMBER ->{
-                    activate(LobbySetController.name);
+            case SETUPFIRST ->{
+                    activate(LobbySetNicknameController.name);
             break;
             }
             case WAITINGINLOBBY ->{

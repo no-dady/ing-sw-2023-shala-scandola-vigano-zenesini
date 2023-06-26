@@ -16,6 +16,10 @@ public class SetupFirst implements Setup {
         return nickname;
     }
 
+    public int getNumOfPlayers() {
+        return numOfPlayers;
+    }
+
     @Override
     public String getName() {
         return className;

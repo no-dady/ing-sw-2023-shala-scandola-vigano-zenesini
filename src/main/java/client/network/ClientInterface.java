@@ -28,5 +28,5 @@ public interface ClientInterface extends Remote
 
     void close() throws IOException;
 
-    Lobby getLobby();
+    Lobby getLobby() throws RemoteException;
 }

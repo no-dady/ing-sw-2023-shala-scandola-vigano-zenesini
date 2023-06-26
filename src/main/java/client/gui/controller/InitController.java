@@ -61,7 +61,6 @@ public class InitController implements GenericInterface, Initializable {
             System.out.println("uscito e sollecitato client");
             gui.getClient().setConnection(Ip,Integer.parseInt(port),option);
             gui.getClient().setOnline();
-            gui.update();
 
     }
 

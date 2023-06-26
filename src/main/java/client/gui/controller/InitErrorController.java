@@ -1,6 +1,7 @@
 package client.gui.controller;
 
 import client.gui.GUI;
+import client.gui.guiMoves.GUISetupAll;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,12 +37,7 @@ public class InitErrorController implements GenericInterface, Initializable {
         if(nickname !=null){
             String Nickname = nickname;
             gui.setNickname(nickname);
-            NicknameMessage nickMessage = new NicknameMessage(nickname);
-            String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
-            gui.getClient().sendToServer(messageParsed);
-            gui.update();
-        }else {
-            gui.update();
+            gui.getClient().getClientConnection().send(Parser.toJson(new GUISetupAll().create(nickname), GUISetupAll.class));
         }
     }
     @Override
