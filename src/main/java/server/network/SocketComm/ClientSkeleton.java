@@ -78,12 +78,12 @@ public class ClientSkeleton implements Observable<String>, ClientInterface, Runn
             //register();
             String read;
             do {
-                Message msg = new StateMessage(State.SETTINGNICKNAME);
-                this.send(Parser.toJson(msg, Message.class));
+                server.register(this);
+
                 read = in.readUTF();
                 System.out.println("Received: " + read);
-                Message setupper = Parser.fromJson(read, Message.class);
-                setupper.handleMessage(null);
+                Setup setupper = Parser.fromJson(read, Setup.class);
+                handleSetupper(setupper);
             } while(!confirm);
 
             while(isActive()) {

@@ -66,7 +66,7 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     public void register(ClientInterface client)
     {
         System.out.println("Registering new client");
-        Message msg = new StateMessage(State.SETTINGNICKNAME);
+        Message msg = new StateMessage(State.SETUPFIRST);
         try {
             client.send(Parser.toJson(msg, Message.class));
         } catch (RemoteException e) {

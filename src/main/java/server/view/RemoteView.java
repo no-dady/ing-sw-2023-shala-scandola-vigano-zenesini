@@ -47,7 +47,7 @@ public class RemoteView extends View {
     public void update(Message message){
         if(!this.isOffline()){
             try {
-                clientConnection.receive(Parser.toJson(message, Message.class));
+                clientConnection.send(Parser.toJson(message, Message.class));
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
