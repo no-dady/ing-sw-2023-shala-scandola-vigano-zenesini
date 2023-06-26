@@ -11,6 +11,6 @@ public interface UI {
 
     void setActive();
 
-    void printConnectionMessage(Message message);
+    void printServerMessage(String message);
 
 }

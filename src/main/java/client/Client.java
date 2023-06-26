@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import client.tui.TUI;
 import client.gui.GUI;
@@ -16,6 +18,7 @@ public class Client {
     private boolean gui;
     private String connectionType;
 
+    private List<String> playerInLobby = new ArrayList<String>();
     private ClientHandler clientConnection;
     private boolean active = true;
     private boolean online = false;
@@ -87,6 +90,17 @@ public class Client {
             System.exit(0);
         }
     }
+
+    public void addPlayerInLobby(String nickname)
+    {
+        playerInLobby.add(nickname);
+    }
+
+    public List<String> getPlayerInLobby()
+    {
+        return playerInLobby;
+    }
+
 
     public UI getUI() {
         return ui;

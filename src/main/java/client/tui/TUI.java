@@ -7,6 +7,7 @@ import client.network.State;
 import client.Client;
 import client.tui.tuiMoves.TUISetupAll;
 import client.tui.tuiMoves.TUISetupFirst;
+import javafx.scene.SubScene;
 import moves.MoveSelectTiles;
 import setup.Setup;
 import util.Messages.CreateLobbyMessage;
@@ -218,79 +219,80 @@ public class TUI implements UI, Runnable {
 
     @Override
     public void update() {
-        synchronized (this) {
-            switch (client.getState()) {
-                case SETUP -> {
-                    SetupAll setup = new TUISetupAll().create(in);
-                    setNickname(setup.getParameter());
+        switch (client.getState()) {
+            case SETUP -> {
+                SetupAll setup = new TUISetupAll().create(in);
+                setNickname(setup.getParameter());
+                try {
+                    client.getClientConnection().getServerInterface().sendSetupAll(Parser.toJson(setup, SetupAll.class));
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case INQUEUE -> {
+                System.out.println("[Waiting in queue to join a lobby]");
+            }
+            case MYTURN -> {
+                if (cgcs == null){
                     try {
-                        client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(setup, Setup.class));
-                    } catch (RemoteException e) {
+                        cgcs = concatCGCarts(ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" + client.getGame().getBoard().getCommonGoalCards().get(0).getName() + ".json"), ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" +client.getGame().getBoard().getCommonGoalCards().get(1).getName() + ".json"));
+                    } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
                 }
-                case MYTURN -> {
-                    if (cgcs == null){
-                        try {
-                            cgcs = concatCGCarts(ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" + client.getGame().getBoard().getCommonGoalCards().get(0).getName() + ".json"), ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" +client.getGame().getBoard().getCommonGoalCards().get(1).getName() + ".json"));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    if(boardAndBookshelfArt == null){
-                        try {
-                            boardAndBookshelfArt = ConfigsFromJson.getBoardAndBookshelfArt("src/main/resources/json/board_bookshelf_pgc_art.json");
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                        boardAndBookshelfArt = setPGCart(boardAndBookshelfArt);
-                    }
-                    System.out.println("[it's now your turn]");
+                if(boardAndBookshelfArt == null){
                     try {
-                        printState();
-                    } catch (RemoteException e) {
+                        boardAndBookshelfArt = ConfigsFromJson.getBoardAndBookshelfArt("src/main/resources/json/board_bookshelf_pgc_art.json");
+                    } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+                    boardAndBookshelfArt = setPGCart(boardAndBookshelfArt);
+                }
+                System.out.println("[it's now your turn]");
+                try {
+                    printState();
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectTiles(nickname).updateCLI(client.getGame(), in), MoveSelectTiles.class));
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+                try {
+                    client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectColumn(nickname).updateCLI(client.getGame(), in), MoveSelectTiles.class));
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case GAMEENDED -> {
+                printEndGame();
+            }
+            case SETUPFIRST -> {
+                SetupFirst setup = new TUISetupFirst().create(in);
+                setNickname(setup.getParameter());
+                try {
+                    client.getClientConnection().getServerInterface().sendSetupFirst(Parser.toJson(setup, SetupFirst.class));
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case PLAYERSQUIT -> {
+                //boh... ci serve davvero? se si magari gli facciamo for real giusto passare il turno
+            }
+            case WAITINGINLOBBY -> {
+                System.out.println("[Welcome to the lobby, you'll be waiting for the other players to join]");
+                //maybe anche qui aggiungiamo la feature della lista incrementale man mano che la gente entra
+            }
+            case WAITINGFORMYTURN -> {
+                if(otherPlayersBookshelfArt == null) {
                     try {
-                        client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectTiles(nickname).updateCLI(client.getGame(), in), MoveSelectTiles.class));
-                    } catch (RemoteException e) {
+                        otherPlayersBookshelfArt = createStateOthers();
+                    } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
-                    try {
-                        client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectColumn(nickname).updateCLI(client.getGame(), in), MoveSelectTiles.class));
-                    } catch (RemoteException e) {
-                        throw new RuntimeException(e);
-                    }
                 }
-                case GAMEENDED -> {
-                    printEndGame();
-                }
-                case SETUPFIRST -> {
-                    SetupFirst setup = new TUISetupFirst().create(in);
-                    setNickname(setup.getParameter());
-                    try {
-                        client.getClientConnection().getServerInterface().sendSetupFirst(Parser.toJson(setup, Setup.class));
-                    } catch (RemoteException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-                case PLAYERSQUIT -> {
-                    //boh... ci serve davvero? se si magari gli facciamo for real giusto passare il turno
-                }
-                case WAITINGINLOBBY -> {
-                    System.out.println("[Welcome to the lobby, you'll be waiting for the other players to join]");
-                    //maybe anche qui aggiungiamo la feature della lista incrementale man mano che la gente entra
-                }
-                case WAITINGFORMYTURN -> {
-                    if(otherPlayersBookshelfArt == null) {
-                        try {
-                            otherPlayersBookshelfArt = createStateOthers();
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    printStateOthers();
-                }
+                printStateOthers();
             }
         }
     }
@@ -363,8 +365,8 @@ public class TUI implements UI, Runnable {
     public void setActive() {}
 
     @Override
-    public void printConnectionMessage(Message message) {
-
+    public void printServerMessage(String message) {
+        System.out.println("[" + message + "]");
     }
 
     private void setNickname(String nickname){

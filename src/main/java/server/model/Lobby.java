@@ -11,6 +11,7 @@ import util.Parser;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.rmi.StubNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +45,8 @@ public class Lobby {
         {
             StateMessage stateMessage = new StateMessage(State.WAITINGINLOBBY);
             adminPlayer.send(Parser.toJson(stateMessage, Message.class));
+            JoinedMessage messageItself = new JoinedMessage(adminNickname);
+            adminPlayer.send(Parser.toJson(messageItself, Message.class));
         } catch(RemoteException e)
         {
             System.out.println("Cannot send the nickMessage to admin");
@@ -85,36 +88,40 @@ public class Lobby {
         {
             for (var entry : playerMap.entrySet())
             {
-                ConfirmMessage messageToSendForOther = new ConfirmMessage(nickName + " joined the lobby", 2);
-                entry.getValue().send(Parser.toJson(messageToSendForOther, ConfirmMessage.class));
+                JoinedMessage messageToSendForOther = new JoinedMessage(nickName);
+                entry.getValue().send(Parser.toJson(messageToSendForOther, Message.class));
+                JoinedMessage messageToSendJoined = new JoinedMessage(entry.getKey());
+                client.send(Parser.toJson(messageToSendJoined, Message.class));
             }
             this.playerMap.put(nickName, client);
-            ConfirmMessage messageToSend;
+            JoinedMessage messageItself = new JoinedMessage(nickName);
+            client.send(Parser.toJson(messageItself, Message.class));
             if (this.playerMap.size() == playerNumber)
             {
-                messageToSend = new ConfirmMessage("Joined " + lobbyName, 3);
-                client.send(Parser.toJson(messageToSend, ConfirmMessage.class));
-                for (var entry : playerMap.entrySet())
+                //messageToSend = new ConfirmMessage("Joined " + lobbyName, 3);
+                //client.send(Parser.toJson(messageToSend, ConfirmMessage.class));
+                //for (var entry : playerMap.entrySet())
+                //{
+                //    JoinedMessage joinedMessage = new JoinedMessage(entry.getKey());
+                //    client.send(Parser.toJson(joinedMessage, JoinedMessage.class));
+                //}
+                System.out.println("Let's start the game");
+                for (var entity : playerMap.entrySet())
                 {
-                    JoinedMessage joinedMessage = new JoinedMessage(entry.getKey());
-                    client.send(Parser.toJson(joinedMessage, JoinedMessage.class));
+                    StateMessage stateMessage = new StateMessage(State.WAITINGFORGAMESTART);
+                    entity.getValue().send(Parser.toJson(stateMessage, Message.class));
                 }
-                startGame();
+                //startGame();
             } else {
-                messageToSend = new ConfirmMessage("Joined " + lobbyName, 1);
-                client.send(Parser.toJson(messageToSend, ConfirmMessage.class));
-                for (var entry : playerMap.entrySet())
-                {
-                    JoinedMessage joinedMessage = new JoinedMessage(entry.getKey());
-                    client.send(Parser.toJson(joinedMessage, JoinedMessage.class));
-                }
+                StateMessage stateMessage = new StateMessage(State.WAITINGINLOBBY);
+                client.send(Parser.toJson(stateMessage, Message.class));
             }
-        } catch (IOException | IllegalPlayersNumberException e)
+        } catch (IOException e)//| IllegalPlayersNumberException e)
         {
             System.out.println("Lobby cannot send confirm to client");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        } //catch (InterruptedException e) {
+           // throw new RuntimeException(e);
+        //}
     }
 
     public String getLobbyName() {

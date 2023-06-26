@@ -24,13 +24,6 @@ public class TestAppServerRMI {
             LocateRegistry.createRegistry(1900);
 
             Naming.rebind("rmi://localhost:1900" + "/myShelfie", obj);
-            ClientInterface client = null;
-            while (client == null)
-            {
-                client = obj.getClient();
-            }
-            System.out.println("Uscito");
-            client.send("Test RMI string from server to client");
         }
         catch (Exception ea)
         {

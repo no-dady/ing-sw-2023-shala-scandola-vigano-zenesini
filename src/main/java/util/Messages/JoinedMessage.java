@@ -15,7 +15,8 @@ public class JoinedMessage implements Message {
     @Override
     public void handleMessage(Client client)
     {
-
+        client.getUI().printServerMessage(nicknameJoined + "joined the lobby");
+        client.addPlayerInLobby(nicknameJoined);
     }
 
     public String getNicknameJoined()

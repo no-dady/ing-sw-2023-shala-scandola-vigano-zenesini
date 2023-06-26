@@ -18,7 +18,7 @@ public class ConnectionMessage implements Message {
     }
     @Override
     public void handleMessage(Client client) throws RemoteException {
-        client.getUI().printConnectionMessage(this);
+        //client.getUI().printConnectionMessage(this);
     }
 
     public Set<String> getPlayersName() {

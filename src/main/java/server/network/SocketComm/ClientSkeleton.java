@@ -189,7 +189,7 @@ public class ClientSkeleton implements Observable<String>, ClientInterface, Runn
             // }
             // this.lobby = Server.getLobby();
             this.nickName = setupper.getParameter();
-            Server.addClientQueue(this);
+            //Server.addClientQueue(this);
             send(Parser.toJson(new StateMessage(State.INQUEUE), Message.class));
             return true;
         }

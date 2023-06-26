@@ -30,17 +30,12 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     /**
      * The Client.
      */
-    public Map<String, ClientInterface> clientList = new HashMap<>();
     private final ServerSocket serverSocket;
     private static List<Lobby> lobbyList = new ArrayList<>();
     private boolean registeringClient = false;
 
     public static List<ClientInterface> getClientQueue() {
         return clientQueue;
-    }
-
-    public static void addClientQueue(ClientInterface clientQueue) {
-        Server.clientQueue.add(clientQueue);
     }
 
     private static List<ClientInterface> clientQueue = new ArrayList<>();
@@ -50,14 +45,6 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     private int portSocket;
     public boolean isRMI;
     private ClientInterface tempClientInterface;
-
-    public ClientInterface getClient() {
-        if (clientList.size() > 0)
-        {
-            return this.clientList.get(0);
-        }
-        return null;
-    }
 
     public Server() throws IOException, RemoteException {
         super();
@@ -100,7 +87,7 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
                     Message msg = new StateMessage(State.SETUPFIRST);
                     client.send(Parser.toJson(msg, Message.class));
                 } else {
-                    Message msg = new StateMessage(State.SETTINGNICKNAME);
+                    Message msg = new StateMessage(State.SETUP);
                     client.send(Parser.toJson(msg, Message.class));
                 }
             } catch (RemoteException e) {
@@ -136,7 +123,7 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
         }
         else {
             this.registeringClient = false;
-            System.out.println("Finished");
+            System.out.println("Finished Registering queue");
         }
     }
 
@@ -150,16 +137,15 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     @Override
     public void sendSetupFirst(String json) throws RemoteException {
         SetupFirst setupFirst = Parser.fromJson(json, SetupFirst.class);
-        Lobby newLobby = new Lobby(setupFirst.getNumOfPlayers(), tempClientInterface, setupFirst.getName());
-        System.out.println("Qui");
+        Lobby newLobby = new Lobby(setupFirst.getNumOfPlayers(), tempClientInterface, setupFirst.getParameter());
         lobbyList.add(newLobby);
-        System.out.println("Quo");
         registrationFinished();
     }
 
     @Override
     public void sendSetupAll(String json) throws RemoteException
     {
+        System.out.println("SetupAll");
         SetupAll setupAll = Parser.fromJson(json, SetupAll.class);
         lobbyList.get(lobbyList.size() - 1).addPlayer(tempClientInterface, setupAll.getNickname());
         registrationFinished();

@@ -52,7 +52,7 @@ public class GUI extends Application implements UI {
     public void setActive() {}
 
     @Override
-    public void printConnectionMessage(Message message) {}
+    public void printServerMessage(String message) {}
 
     public void start(Stage primaryStage) throws Exception {
         client.setUi(this);
