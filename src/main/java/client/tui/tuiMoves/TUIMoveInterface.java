@@ -5,7 +5,7 @@ import server.model.Game;
 
 import java.util.Scanner;
 
-public interface TUIInterface {
+public interface TUIMoveInterface {
 
     Move updateCLI(Game game, Scanner stdin);
 

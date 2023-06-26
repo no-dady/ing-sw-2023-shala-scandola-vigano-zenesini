@@ -41,8 +41,8 @@ public class MoveSelectTiles extends Move {
                 switch (inLine) {
                     case 'y' -> {
                         for (Coordinates c : coordArray) {
-                            min = Math.min(min, c.y());
-                            max = Math.max(max, c.y());
+                            min = Math.min(min, c.x());
+                            max = Math.max(max, c.x());
                             if (max - min > 2) {
                                 return false;
                             }
@@ -50,8 +50,8 @@ public class MoveSelectTiles extends Move {
                     }
                     case 'x' -> {
                         for (Coordinates c : coordArray) {
-                            min = Math.min(min, c.x());
-                            max = Math.max(max, c.x());
+                            min = Math.min(min, c.y());
+                            max = Math.max(max, c.y());
                             if (max - min > 2) {
                                 return false;
                             }
@@ -61,7 +61,7 @@ public class MoveSelectTiles extends Move {
                 return true;
             }
             case 2 -> {
-                if (!((coordArray.get(0).y() == coordArray.get(1).y())) || (coordArray.get(0).x() == coordArray.get(1).x()))
+                if ((coordArray.get(0).y() != coordArray.get(1).y() && coordArray.get(0).x() != coordArray.get(1).x()))
                     return false;
                 if ((coordArray.get(0).y() == coordArray.get(1).y())) {
                     inLine = 'y';
@@ -71,8 +71,8 @@ public class MoveSelectTiles extends Move {
                 switch (inLine) {
                     case 'y' -> {
                         for (Coordinates c : coordArray) {
-                            min = Math.min(min, c.y());
-                            max = Math.max(max, c.y());
+                            min = Math.min(min, c.x());
+                            max = Math.max(max, c.x());
                             if (max - min > 1) {
                                 return false;
                             }
@@ -80,8 +80,8 @@ public class MoveSelectTiles extends Move {
                     }
                     case 'x' -> {
                         for (Coordinates c : coordArray) {
-                            min = Math.min(min, c.x());
-                            max = Math.max(max, c.x());
+                            min = Math.min(min, c.y());
+                            max = Math.max(max, c.y());
                             if (max - min > 1) {
                                 return false;
                             }

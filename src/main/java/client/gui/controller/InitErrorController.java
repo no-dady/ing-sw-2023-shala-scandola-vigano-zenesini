@@ -37,7 +37,7 @@ public class InitErrorController implements GenericInterface, Initializable {
         if(nickname !=null){
             String Nickname = nickname;
             gui.setNickname(nickname);
-            gui.getClient().getClientConnection().send(Parser.toJson(new GUISetupAll().create(nickname), GUISetupAll.class));
+            gui.getClient().getClientConnection().send(Parser.toJson(new GUISetupAll().create(nickname, "0"), GUISetupAll.class));
         }
     }
     @Override

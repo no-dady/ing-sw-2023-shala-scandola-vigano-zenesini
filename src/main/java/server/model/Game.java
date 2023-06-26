@@ -9,14 +9,12 @@ import java.util.List;
 import java.util.Set;
 
 import observer.Observable;
-import observer.Observer;
-import server.controller.BoardConfig;
 import util.Messages.Message;
 
 /**
  * The type Game.
  */
-public class Game implements Serializable, Observable<Message> {
+public class Game implements Serializable, Observable<Message>, Observer {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,7 +28,8 @@ public class Game implements Serializable, Observable<Message> {
     private Pocket pocket;
     private boolean gameStarted;
     private List<Tile> selectedTiles;
-    private Set<CommonGoalCardStrategy> cgcs;
+    private Pair<CommonGoalCardStrategy , CommonGoalCardStrategy> cgcs;
+    private String currPlayerNick;
 
     /**
      * Instantiates a new Game.
@@ -48,6 +47,13 @@ public class Game implements Serializable, Observable<Message> {
         this.gameID = instance.size()-1;
         instance.add(this);
 
+    }
+    public Game(List<Player> players, Pair<CommonGoalCardStrategy, CommonGoalCardStrategy> cgcs, Board board, Pocket pocket, int numPlayers) {
+        this.players = players;
+        this.cgcs = cgcs;
+        this.board = board;
+        this.pocket = pocket;
+        this.numPlayers = numPlayers;
     }
 
     /**
@@ -101,11 +107,11 @@ public class Game implements Serializable, Observable<Message> {
         return (ArrayList<Player>) this.players;
     }
     public Player getPlayerByNickname(String nickName){
-        for (Player p: players)
-        {
-            if (p.getUserName().equals(nickName))
-                 return p;
-        }
+        for (Player p: players
+             ) {if (p.getUserName().equals(nickName)){
+                 return p;}
+
+        };
         System.out.println("no such player");
         return null;
     }
@@ -133,7 +139,9 @@ public class Game implements Serializable, Observable<Message> {
      *
      * @return the pocket
      */
-    public Pocket getPocket() { return this.pocket; }
+    public Pocket getPocket() {
+        return this.pocket;
+    }
 
     /**
      * Add player.
@@ -187,7 +195,7 @@ public class Game implements Serializable, Observable<Message> {
         return gameStarted;
     }
 
-    public Set<CommonGoalCardStrategy> getCgcs() {
+    public Pair<CommonGoalCardStrategy, CommonGoalCardStrategy> getCgcs() {
         return cgcs;
     }
 
@@ -198,7 +206,6 @@ public class Game implements Serializable, Observable<Message> {
         }
     }
 
-
     @Override
     public void notify(Message message) {
         synchronized (observers) {
@@ -208,4 +215,15 @@ public class Game implements Serializable, Observable<Message> {
         }
     }
 
+    public String getCurrPlayerNick() {
+        return this.currPlayerNick;
+    }
+    public void setCurrPlayerNick(String currPlayerNick) {
+         this.currPlayerNick = currPlayerNick;
+    }
+
+    @Override
+    public void update(Object message) {
+
+    }
 }
