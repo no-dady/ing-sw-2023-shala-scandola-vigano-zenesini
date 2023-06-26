@@ -147,8 +147,15 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     {
         System.out.println("SetupAll");
         SetupAll setupAll = Parser.fromJson(json, SetupAll.class);
-        lobbyList.get(lobbyList.size() - 1).addPlayer(tempClientInterface, setupAll.getNickname());
-        registrationFinished();
+        Lobby lobbyToJoin =  lobbyList.get(lobbyList.size() - 1);
+        if (lobbyToJoin.checkNicknameAvailable(setupAll.getNickname()))
+        {
+            lobbyToJoin.addPlayer(tempClientInterface,setupAll.getNickname());
+            registrationFinished();
+        } else {
+            StateMessage messageToSend = new StateMessage(State.SETUPAGAIN);
+            tempClientInterface.send(Parser.toJson(messageToSend, Message.class));
+        }
     }
 
 

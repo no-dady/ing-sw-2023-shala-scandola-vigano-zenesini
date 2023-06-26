@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class TUISetupFirst implements TUISetupInterface{
 
-    public SetupFirst create(Scanner stdin) {
+    public SetupFirst create(Scanner stdin, boolean firstTime) {
         String nickname;
         String numOfPlayers;
         System.out.println("[Welcome to the server!]");

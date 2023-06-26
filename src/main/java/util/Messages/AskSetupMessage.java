@@ -8,7 +8,7 @@ public class AskSetupMessage implements Message {
 
     public static final String className = "AskMoveMessage";
 
-    private final State state = State.SETTINGNICKNAME;
+    //private final State state = State.SETTINGNICKNAME;
 
     private final int numPlayers = 0;
 

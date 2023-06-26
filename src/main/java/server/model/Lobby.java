@@ -79,7 +79,7 @@ public class Lobby {
 
     public boolean checkNicknameAvailable(String nickName)
     {
-        return playerMap.containsKey(nickName);
+        return !playerMap.containsKey(nickName);
     }
 
     public void addPlayer(ClientInterface client, String nickName)

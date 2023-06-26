@@ -221,7 +221,16 @@ public class TUI implements UI, Runnable {
     public void update() {
         switch (client.getState()) {
             case SETUP -> {
-                SetupAll setup = new TUISetupAll().create(in);
+                SetupAll setup = new TUISetupAll().create(in, true);
+                setNickname(setup.getParameter());
+                try {
+                    client.getClientConnection().getServerInterface().sendSetupAll(Parser.toJson(setup, SetupAll.class));
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case SETUPAGAIN -> {
+                SetupAll setup = new TUISetupAll().create(in, false);
                 setNickname(setup.getParameter());
                 try {
                     client.getClientConnection().getServerInterface().sendSetupAll(Parser.toJson(setup, SetupAll.class));
@@ -269,7 +278,7 @@ public class TUI implements UI, Runnable {
                 printEndGame();
             }
             case SETUPFIRST -> {
-                SetupFirst setup = new TUISetupFirst().create(in);
+                SetupFirst setup = new TUISetupFirst().create(in, true);
                 setNickname(setup.getParameter());
                 try {
                     client.getClientConnection().getServerInterface().sendSetupFirst(Parser.toJson(setup, SetupFirst.class));
