@@ -5,6 +5,9 @@ import client.tui.tuiMoves.TUISelectColumn;
 import client.tui.tuiMoves.TUISelectTiles;
 import client.network.State;
 import client.Client;
+import client.tui.tuiMoves.TUISetupAll;
+import client.tui.tuiMoves.TUISetupFirst;
+import moves.MoveSelectTiles;
 import util.Messages.CreateLobbyMessage;
 import util.Messages.Message;
 import server.model.*;
@@ -17,6 +20,7 @@ import util.Parser;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -24,24 +28,24 @@ public class TUI implements UI, Runnable {
     private String cgcs;
     boolean moveHandled;
     String boardAndBookshelfArt;
+    String otherPlayersBookshelfArt;
     final Client client;
+    String PRESET = "\033[";
+    String BLACK_BOLD = "1;30m";
+    String color = "0;100m";
+    String RESET = "0m";
 
-    public TUI(Client client) throws IOException {
+    public TUI(Client client){
         this.client = client;
     }
     private String nickname;
+    Scanner in = new Scanner(System.in);
 
     @Override
     public void run() {
-        try {
-            boardAndBookshelfArt = ConfigsFromJson.getBoardAndBookshelfArt("src/main/resources/json/board_bookshelf_pgc_art.json");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         String connectionType;
         String host;
         int port;
-        Scanner in = new Scanner(System.in);
         boolean valid = false;
         System.out.println("""
                        \s
@@ -80,7 +84,7 @@ public class TUI implements UI, Runnable {
 
         try {
             System.out.println("[type port and press ENTER]");
-            port = Integer.valueOf(in.nextLine());
+            port = Integer.parseInt(in.nextLine());
         } catch (Exception e) {
             System.out.println("this is not a valid port number");
             return;
@@ -104,7 +108,10 @@ public class TUI implements UI, Runnable {
             throw new RuntimeException(e);
         }
 
-        if (client.isOnline()) {
+        while (client.isOnline() && client.isActive());
+        
+    }
+    /*
             try {
                 while (!client.getState().equals(State.SETTINGNICKNAME)) {
                     //System.out.println("not yet");
@@ -193,7 +200,11 @@ public class TUI implements UI, Runnable {
             }
 
         }
+
     }
+     */
+
+
 
     private boolean isMoveHandled() {
         return this.moveHandled;
@@ -205,7 +216,147 @@ public class TUI implements UI, Runnable {
 
 
     @Override
-    public void update() {}
+    public void update() {
+        synchronized (this) {
+            switch (client.getState()) {
+                case SETUP -> {
+                    SetupAll setup = new TUISetupAll().create(in);
+                    setNickname(setup.getParameter());
+                    try {
+                        client.getClientConnection().send(Parser.toJson(setup, SetupAll.class));
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                case MYTURN -> {
+                    if (cgcs == null){
+                        try {
+                            cgcs = concatCGCarts(ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" + client.getGame().getBoard().getCommonGoalCards().get(0).getName() + ".json"), ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" +client.getGame().getBoard().getCommonGoalCards().get(1).getName() + ".json"));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    if(boardAndBookshelfArt == null){
+                        try {
+                            boardAndBookshelfArt = ConfigsFromJson.getBoardAndBookshelfArt("src/main/resources/json/board_bookshelf_pgc_art.json");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        boardAndBookshelfArt = setPGCart(boardAndBookshelfArt);
+                    }
+                    System.out.println("[it's now your turn]");
+                    try {
+                        printState();
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        client.getClientConnection().send(Parser.toJson(new TUISelectTiles(nickname).updateCLI(client.getGame(), in), MoveSelectTiles.class));
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        client.getClientConnection().send(Parser.toJson(new TUISelectColumn(nickname).updateCLI(client.getGame(), in), MoveSelectTiles.class));
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                case GAMEENDED -> {
+                    printEndGame();
+                }
+                case SETUPFIRST -> {
+                    SetupFirst setup = new TUISetupFirst().create(in);
+                    setNickname(setup.getParameter());
+                    try {
+                        client.getClientConnection().send(Parser.toJson(setup, SetupFirst.class));
+                    } catch (RemoteException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                case PLAYERSQUIT -> {
+                    //boh... ci serve davvero? se si magari gli facciamo for real giusto passare il turno
+                }
+                case WAITINGINLOBBY -> {
+                    System.out.println("[Welcome to the lobby, you'll be waiting for the other players to join]");
+                    //maybe anche qui aggiungiamo la feature della lista incrementale man mano che la gente entra
+                }
+                case WAITINGFORMYTURN -> {
+                    if(otherPlayersBookshelfArt == null) {
+                        try {
+                            otherPlayersBookshelfArt = createStateOthers();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    printStateOthers();
+                }
+            }
+        }
+    }
+
+    private void printStateOthers() {
+        System.out.println("[Waiting for other players to finish their turn, here are their bookshelves]");
+        ArrayList<Player> otherPlayersList = new ArrayList<>();
+        for (Player p: client.getGame().getPlayers()) {
+            if (!p.getUserName().equals(nickname)) {
+                otherPlayersList.add(p);
+            }
+        }
+        int playerIndex = 0;
+        int tabCounter = 0;
+        int x = -1;
+        int y = 0;
+        for (int i = 0; i< otherPlayersBookshelfArt.length(); i++) {
+            if('X' == otherPlayersBookshelfArt.charAt(i)){
+                Tile[][] slots = otherPlayersList.get(playerIndex).getBookshelf().getSlots();
+                if (!(slots[x][y] == null) && !slots[x][y].Empty()){
+                    color = TileType.getTileMap().get(slots[x][y].getTileType()).color;
+                    System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(slots[x][y].getTileType()).sign + PRESET + RESET);}
+                else {
+                    color = RESET;
+                    System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get("EMPTY").sign + PRESET + RESET);}
+                y++;
+            } else {
+            System.out.print(boardAndBookshelfArt.charAt(i));
+            }
+            if('\t' == boardAndBookshelfArt.charAt(i) && tabCounter < 4){
+                tabCounter++;
+            }
+            if('\t' == boardAndBookshelfArt.charAt(i) && tabCounter == 4){
+                playerIndex = playerIndex + 1;
+                tabCounter++;
+                y = 0;
+            }
+            if ('\n' == boardAndBookshelfArt.charAt(i)){
+                playerIndex = -1;
+                x++;
+                y = 0;
+            }
+        }
+    }
+
+    private String createStateOthers() throws IOException {
+        String bookshelves = "";
+        ArrayList<String[]> artlist = new ArrayList<>();
+        for (Player p : client.getGame().getPlayers()) {
+            if (!p.getUserName().equals(nickname))
+                artlist.add(ConfigsFromJson.getBookshelfArt("src/main/resources/json/bookshelf_art.json").split("\n"));
+        }
+        for(int j = 0; j< ConfigsFromJson.getBookshelfArt("src/main/resources/json/bookshelf_art.json").split("\n").length;j++){
+        for (int i = 0; i< client.getGame().getPlayers().size() - 1 ; i++) {
+                bookshelves += ("\t\t\t\t" + artlist.get(i)[j]);
+        }
+        bookshelves += "\n";
+        }
+        return bookshelves;
+    }
+
+    private void printEndGame() {
+        for (Player p : client.getGame().getPlayers()) {
+            System.out.println("[" + p.getUserName() + " has " + p.getScore() + " points]");
+        }
+        System.out.println("[" + client.getGame().getPlayers().get(0) + " has won the game!]");
+    }
 
     @Override
     public void setActive() {}
@@ -242,8 +393,6 @@ public class TUI implements UI, Runnable {
         }
 
         }
-        String preset = "\033[";
-        String reset = "0m";
         for (int i = 0; i< art.length(); i++) {
             if (art.charAt(i) == 'x') {
                 int found = 0;
@@ -252,7 +401,7 @@ public class TUI implements UI, Runnable {
                     if (pgc.getCoordinates(TileType.getTileMap().keySet().stream().toList().get(j)).y()==y & pgc.getCoordinates(TileType.getTileMap().keySet().stream().toList().get(j)).x()==x){
                         String firstHalf = art.substring(0,i);
                         String secondHalf = art.substring(i+1);
-                        art = firstHalf + preset + TileType.getTileMap().get(TileType.getTileMap().keySet().stream().toList().get(j)).color + "  " + preset + reset + secondHalf;
+                        art = firstHalf + PRESET + TileType.getTileMap().get(TileType.getTileMap().keySet().stream().toList().get(j)).color + "  " + PRESET + RESET + secondHalf;
                         found = 1;
                     }
 
@@ -286,10 +435,6 @@ public class TUI implements UI, Runnable {
         }
         for (int i = 0; i < boardAndBookshelfArt.length(); i++) {
             if ('X' == boardAndBookshelfArt.charAt(i)) {
-                String PRESET = "\033[";
-                String BLACK_BOLD = "1;30m";
-                String color = "0;100m";
-                String RESET = "0m";
                 if (y < slots[0].length) {
                     if (slots[x][y].isPickable()) color = TileType.getTileMap().get(slots[x][y].getTileType()).color;
                     if (slots[x][y].Empty()) color = RESET;
