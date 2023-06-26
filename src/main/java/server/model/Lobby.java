@@ -111,7 +111,7 @@ public class Lobby {
                     StateMessage stateMessage = new StateMessage(State.WAITINGFORGAMESTART);
                     entity.getValue().send(Parser.toJson(stateMessage, Message.class));
                 }
-                //startGame();
+                startGame();
             } else {
                 StateMessage stateMessage = new StateMessage(State.WAITINGINLOBBY);
                 client.send(Parser.toJson(stateMessage, Message.class));
@@ -120,7 +120,12 @@ public class Lobby {
         {
             System.out.println("Lobby cannot send confirm to client");
         } //catch (InterruptedException e) {
-           // throw new RuntimeException(e);
+        catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalPlayersNumberException e) {
+            throw new RuntimeException(e);
+        }
+        // throw new RuntimeException(e);
         //}
     }
 
@@ -166,18 +171,18 @@ public class Lobby {
         } else throw new IllegalArgumentException();
     }
 
-    public void startGame() throws IllegalPlayersNumberException, RemoteException, InterruptedException {
-        for (var entry : playerMap.entrySet()) {
+    public void startGame() throws IllegalPlayersNumberException, IOException, InterruptedException {
+        //for (var entry : playerMap.entrySet()) {
 
-            ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", all " + playerNumber + " players have joined, now the game will start" + entry.getValue().getState(), 4);
-            try
-            {
-                entry.getValue().send(Parser.toJson(messageToSend, ConfirmMessage.class));
-            } catch(RemoteException e)
-            {
-                System.out.println("Cannot send ConfirmMessage from server lobby to client");
-            }
-        }
+            //ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", all " + playerNumber + " players have joined, now the game will start" + entry.getValue().getState(), 4);
+            //try
+            //{
+            //    entry.getValue().send(Parser.toJson(messageToSend, ConfirmMessage.class));
+            //} catch(RemoteException e)
+            //{
+            //    System.out.println("Cannot send ConfirmMessage from server lobby to client");
+            //}
+        //}
         lobbyStatus = LobbyStatus.Playing;
         System.out.println("Creating Game");
         controller = new GameController(this);
@@ -192,22 +197,17 @@ public class Lobby {
         }
         for (var entry : playerMap.entrySet()) {
             entry.getValue().setGame(game);
-            StateMessage stateMessage = new StateMessage(State.MYTURN);
-            entry.getValue().send(Parser.toJson(stateMessage, StateMessage.class));
-            System.out.println(entry.getValue().getState());
-            System.out.println(entry.getValue().getGame());
-            ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model" + entry.getValue().getState(), 5);
-            try
-            {
-                entry.getValue().send(Parser.toJson(messageToSend, ConfirmMessage.class));
-            } catch(RemoteException e)
-            {
-                System.out.println("Cannot send ConfirmMessage from server lobby to client");
-            }
-            controller.start();
+            //ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model", 5);
+            //try
+            //{
+             //   entry.getValue().send(Parser.toJson(messageToSend, ConfirmMessage.class));
+            //} catch(RemoteException e)
+            //{
+            //    System.out.println("Cannot send ConfirmMessage from server lobby to client");
+            //}
         }
-
         setActive();
+        controller.start();
     }
 
     public boolean findDisconnectedPlayers(String nickname) {

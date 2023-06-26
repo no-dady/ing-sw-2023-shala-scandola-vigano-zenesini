@@ -12,6 +12,7 @@ public class VictoryScreenController implements GenericInterface, Initializable 
     public static final String name ="victory-screen";
     public StackPane mainController;
     private GUI gui;
+    public final String dim = "750x900";
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;
@@ -32,5 +33,9 @@ public class VictoryScreenController implements GenericInterface, Initializable 
     @Override
     public void update() {
 
+    }
+    @Override
+    public String getDimensions() {
+        return  this.dim;
     }
 }

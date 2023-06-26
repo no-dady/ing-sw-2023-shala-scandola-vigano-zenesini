@@ -20,6 +20,7 @@ import static java.lang.Thread.sleep;
 
 public class InitController implements GenericInterface, Initializable {
     private GUI gui;
+    public final String dim = "1386x430";
 
     public String connection;
     public String option;
@@ -58,10 +59,13 @@ public class InitController implements GenericInterface, Initializable {
             System.out.println(connection);
         }while (!Ip.matches("\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b") && port.equals("") && !(connection.equals("RMI") || connection.equals("SOCKET")));
 
-            System.out.println("uscito e sollecitato client");
             gui.getClient().setConnection(Ip,Integer.parseInt(port),option);
             gui.getClient().setOnline();
 
+    }
+    @Override
+    public String getDimensions() {
+        return  this.dim;
     }
 
 
@@ -82,7 +86,7 @@ public class InitController implements GenericInterface, Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        connection_box.getItems().addAll("RMI","Socket");
+        connection_box.getItems().addAll("RMI","SOCKET");
     }
 }
 

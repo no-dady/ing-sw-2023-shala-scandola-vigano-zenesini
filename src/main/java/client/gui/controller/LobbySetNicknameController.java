@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import setup.SetupFirst;
 import util.Messages.CreateLobbyMessage;
 import util.Parser;
 
@@ -22,10 +23,11 @@ import java.util.ResourceBundle;
 public class LobbySetNicknameController implements GenericInterface, Initializable {
 
     Integer selectedNumber = null;
+    public final String dim = "1000x830";
     private GUI gui;
     public static final String name ="lobby-set-nickname";
     @FXML
-    public ChoiceBox<Integer> playersNumberBox;
+    public ChoiceBox<String> playersNumberBox;
     @FXML
     public AnchorPane anchor;
     @FXML
@@ -37,26 +39,32 @@ public class LobbySetNicknameController implements GenericInterface, Initializab
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        playersNumberBox.getItems().add(2);
-        playersNumberBox.getItems().add(3);
-        playersNumberBox.getItems().add(4);
+        playersNumberBox.getItems().add("2");
+        playersNumberBox.getItems().add("3");
+        playersNumberBox.getItems().add("4");
 
     }
     @FXML
     public void onNumChoice(ActionEvent event) {
-        selectedNumber = playersNumberBox.getValue();
+        selectedNumber = Integer.valueOf(playersNumberBox.getValue());
     }
 
-    public void onSubmitClick(ActionEvent event) throws IOException, InterruptedException {
-        selectedNumber = playersNumberBox.getValue();
+    public void onSubmitClick(ActionEvent event) throws IOException {
+        selectedNumber = Integer.parseInt(playersNumberBox.getValue());
         String nickname = nicknameField.getText();
         if (!(selectedNumber < 2 || selectedNumber > 4) && nickname != null) {
-            gui.getClient().getClientConnection().send(Parser.toJson(new GUISetupFirst().create(nickname, selectedNumber.toString()), GUISetupFirst.class));
+            gui.setNickname(nickname);
+            gui.getClient().getClientConnection().getServerInterface().sendSetupFirst(Parser.toJson(new GUISetupFirst().create(nickname, playersNumberBox.getValue()), SetupFirst.class));
         }
     }
     @Override
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public String getDimensions() {
+        return this.dim;
     }
 
     @Override

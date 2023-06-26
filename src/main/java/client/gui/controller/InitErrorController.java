@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import setup.SetupAll;
 import util.Messages.NicknameMessage;
 import util.Parser;
 
@@ -19,6 +20,8 @@ import static java.lang.Thread.sleep;
 
 public class InitErrorController implements GenericInterface, Initializable {
     private GUI gui;
+    public final String dim = "1386x430";
+
     public String nickname;
     public static final String name ="init-nickname";
     @FXML
@@ -30,6 +33,10 @@ public class InitErrorController implements GenericInterface, Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+    @Override
+    public String getDimensions() {
+        return  this.dim;
+    }
     public void onSubmitClick(ActionEvent event) throws IOException, InterruptedException {
 
         nickname = nickname_field.getText();
@@ -37,7 +44,7 @@ public class InitErrorController implements GenericInterface, Initializable {
         if(nickname !=null){
             String Nickname = nickname;
             gui.setNickname(nickname);
-            gui.getClient().getClientConnection().send(Parser.toJson(new GUISetupAll().create(nickname, "0"), GUISetupAll.class));
+            gui.getClient().getClientConnection().getServerInterface().sendSetupAll(Parser.toJson(new GUISetupAll().create(nickname, "0"), SetupAll.class));
         }
     }
     @Override

@@ -19,8 +19,8 @@ public class TUISelectColumn implements TUIMoveInterface {
         do {
             do {
                 System.out.println("[go ahead and choose the colum in which you want to put the tile/es and press ENTER]");
-                selectedColumn = stdin.nextInt();
-                System.out.println("[are you okey with this selection?" + selectedColumn + "Y/N then Enter]");
+                selectedColumn = Integer.valueOf(stdin.nextLine());
+                System.out.println("[are you okey with this selection? " + selectedColumn + " press Y/N then ENTER]");
                 confirmed = stdin.nextLine();
             } while (!confirmed.equals("Y"));
             move.setSelectedColumn(selectedColumn);

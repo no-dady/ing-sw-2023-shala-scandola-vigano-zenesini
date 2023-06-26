@@ -1,5 +1,6 @@
 package moves;
 
+import server.model.Bookshelf;
 import server.model.Game;
 
 public class MoveSelectColum extends Move {
@@ -18,9 +19,8 @@ public class MoveSelectColum extends Move {
     @Override
     public boolean canPerform(Game game) {
         int selectedY = this.getSelectedColumn();
-        if(game.getSelectedTiles()==null){
-            return true;
-        }
+        if (selectedY < 0 || selectedY > Bookshelf.getCols()) return false;
+        if (game.getSelectedTiles() == null) return true;
         return game.getPlayerByNickname(getNickName()).getBookshelf().getEmptyTilesColumn(selectedY) >= game.getSelectedTiles().size();
     }
 

@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 
 public class MenuScreenController implements GenericInterface, Initializable {
     private GUI gui;
+    public final String dim = "500x600";
 
     public Button B1;
     public Button B2;
@@ -25,9 +26,12 @@ public class MenuScreenController implements GenericInterface, Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+    @Override
+    public String getDimensions() {
+        return  this.dim;
+    }
 
     public void onQuitButtonPress(ActionEvent event) {
-
         System.exit(0);
     }
 

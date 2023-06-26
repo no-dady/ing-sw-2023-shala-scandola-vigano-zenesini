@@ -58,7 +58,7 @@
 
         <Pane fx:id="P7" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="3"
               GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-            <Label fx:id="L6" prefHeight="${P7.height}" prefWidth="${P7.width}" text="player2 is playing"
+            <Label fx:id="L6" prefHeight="${P7.height}" prefWidth="${P7.width}"
                    textFill="White" wrapText="true" alignment="BOTTOM_LEFT"/>
         </Pane>
 

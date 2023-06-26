@@ -153,7 +153,7 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
             lobbyToJoin.addPlayer(tempClientInterface,setupAll.getNickname());
             registrationFinished();
         } else {
-            StateMessage messageToSend = new StateMessage(State.SETUPAGAIN);
+            StateMessage messageToSend = new StateMessage(State.SETUP);
             tempClientInterface.send(Parser.toJson(messageToSend, Message.class));
         }
     }
@@ -199,7 +199,6 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
         }
 
         view.addObserver(controller);
-        controller.addObserver(game);
     }
 
     private HashMap<String,View> instanceViews(Map<String, ClientInterface> waitingConnection, ArrayList<Player> players) throws RemoteException {

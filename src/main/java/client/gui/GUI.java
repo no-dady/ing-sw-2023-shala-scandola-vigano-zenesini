@@ -3,25 +3,27 @@ package client.gui;
 import client.Client;
 import client.UI;
 import client.gui.controller.*;
-import client.network.State;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import server.model.Coordinates;
 import server.model.Game;
 import util.Messages.Message;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GUI extends Application implements UI {
-    HashMap<String, FXMLLoader> loaderMap = new HashMap<>();;
+    HashMap<String, FXMLLoader> loaderMap = new HashMap<>();
+    HashMap<String, String> sizeMap = new HashMap<>();
     private Scene main;
+    private Stage stage;
     private GenericInterface current;
     private String nickname = "";
 
@@ -61,6 +63,7 @@ public class GUI extends Application implements UI {
         Pane root = new Pane();
         this.main = new Scene(root);
         primaryStage.setScene(this.main);
+        this.stage = primaryStage;
 
         ArrayList<FXMLLoader> loaders = new ArrayList<>();
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/board.fxml")));
@@ -82,9 +85,10 @@ public class GUI extends Application implements UI {
                 GenericInterface controller = loader.getController();
                 controller.setGUI(this);
                 this.loaderMap.put(controller.getName(), loader);
+                this.sizeMap.put(controller.getName(),controller.getDimensions());
             }
             catch (Exception e){
-                System.out.println(e.toString());
+                System.out.println(e);
             }
         }
         this.activate(InitController.name);
@@ -113,7 +117,7 @@ public class GUI extends Application implements UI {
             }
             case MYTURN ->{
                     activate(BoardController.name);
-            break;
+                break;
             }
             case GAMEENDED -> {
                 activate(VictoryScreenController.name);
@@ -131,9 +135,13 @@ public class GUI extends Application implements UI {
     }
     public void activate(String name) {
         FXMLLoader loader = this.loaderMap.get(name);
+        String[] Dimensions = this.sizeMap.get(name).split("x");
+        stage.setWidth(Double.parseDouble(Dimensions[0]));
+        stage.setHeight(Double.parseDouble(Dimensions[1]));
         this.current = loader.getController();
         current.update();
         main.setRoot(loader.getRoot());
+
     }
 
     public Game getGame(){

@@ -21,6 +21,7 @@ public class LobbyWaitController implements GenericInterface, Initializable {
     @FXML
     public ImageView spinning_cat;
     private GUI gui;
+    public final String dim = "1000x830";
     public Label dialog_label;
     public Label player_1 = null;
     public Label player_2 = null;
@@ -38,6 +39,10 @@ public class LobbyWaitController implements GenericInterface, Initializable {
         spinning.setDuration(Duration.millis(1000));
 
         spinning.play();
+    }
+    @Override
+    public String getDimensions() {
+        return  this.dim;
     }
 
     @Override

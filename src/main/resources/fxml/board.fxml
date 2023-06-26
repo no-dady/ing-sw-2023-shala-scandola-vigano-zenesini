@@ -69,7 +69,7 @@
 
             <Pane fx:id="playerTurn" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="1"
                   GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                <Label text="xxx_giovanniGiorgio_xxx is playing... " fx:id="L2"
+                <Label text="... " fx:id="L2"
                        textAlignment="CENTER" textFill="White" wrapText="true"
                        alignment="BOTTOM_CENTER"/>
             </Pane>
@@ -246,12 +246,14 @@
 
                     <Pane fx:id="container3" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="1"
                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <Button fx:id="end_turn" text="End turn" prefHeight="${container3.height}" prefWidth="${container3.width}"/>
+                        <Button fx:id="end_turn" text="End turn" prefHeight="${container3.height}" prefWidth="${container3.width}"
+                                onAction="#onEndTurnButtonPress"/>
                     </Pane>
 
                     <Pane fx:id="container4" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <Button fx:id="confirm" text="Confirm" prefHeight="${container4.height}" prefWidth="${container4.width}"/>
+                        <Button fx:id="confirm" text="Confirm" prefHeight="${container4.height}" prefWidth="${container4.width}"
+                                onAction="#onConfirmButtonPress"/>
                     </Pane>
 
                 </GridPane>
@@ -456,27 +458,32 @@
 
                     <Pane fx:id="container5" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <Button fx:id="arrow1" prefHeight="${container5.height}" prefWidth="${container5.width}" />
+                        <Button fx:id="arrow1" prefHeight="${container5.height}" prefWidth="${container5.width}"
+                                onAction="#onArrowOnePress"/>
                     </Pane>
 
                     <Pane fx:id="container6" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <Button fx:id="arrow2" prefHeight="${container6.height}" prefWidth="${container6.width}" />
+                        <Button fx:id="arrow2" prefHeight="${container6.height}" prefWidth="${container6.width}"
+                                onAction="#onArrowTwoPress"/>
                     </Pane>
 
                     <Pane fx:id="container7" GridPane.columnIndex="5" GridPane.rowIndex="1" GridPane.columnSpan="1"
                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <Button fx:id="arrow3" prefHeight="${container7.height}" prefWidth="${container7.width}" />
+                        <Button fx:id="arrow3" prefHeight="${container7.height}" prefWidth="${container7.width}"
+                                onAction="#onArrowThreePress"/>
                     </Pane>
 
                     <Pane fx:id="container8" GridPane.columnIndex="7" GridPane.rowIndex="1" GridPane.columnSpan="1"
                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <Button fx:id="arrow4" prefHeight="${container8.height}" prefWidth="${container8.width}" />
+                        <Button fx:id="arrow4" prefHeight="${container8.height}" prefWidth="${container8.width}"
+                                onAction="#onArrowFourPress"/>
                     </Pane>
 
                     <Pane fx:id="container9" GridPane.columnIndex="9" GridPane.rowIndex="1" GridPane.columnSpan="1"
                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <Button fx:id="arrow5" prefHeight="${container9.height}" prefWidth="${container9.width}" />
+                        <Button fx:id="arrow5" prefHeight="${container9.height}" prefWidth="${container9.width}"
+                                onAction="#onArrowFivePress"/>
                     </Pane>
 
                 </GridPane>

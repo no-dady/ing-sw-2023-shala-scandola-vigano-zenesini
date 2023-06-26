@@ -8,6 +8,7 @@ import client.Client;
 import client.tui.tuiMoves.TUISetupAll;
 import client.tui.tuiMoves.TUISetupFirst;
 import javafx.scene.SubScene;
+import moves.MoveSelectColum;
 import moves.MoveSelectTiles;
 import setup.Setup;
 import util.Messages.CreateLobbyMessage;
@@ -34,7 +35,7 @@ public class TUI implements UI, Runnable {
     final Client client;
     String PRESET = "\033[";
     String BLACK_BOLD = "1;30m";
-    String color = "0;100m";
+    String COLOR = "0;100m";
     String RESET = "0m";
 
     public TUI(Client client){
@@ -269,7 +270,7 @@ public class TUI implements UI, Runnable {
                     throw new RuntimeException(e);
                 }
                 try {
-                    client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectColumn(nickname).updateCLI(client.getGame(), in), MoveSelectTiles.class));
+                    client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectColumn(nickname).updateCLI(client.getGame(), in), MoveSelectColum.class));
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
@@ -307,41 +308,44 @@ public class TUI implements UI, Runnable {
     }
 
     private void printStateOthers() {
-        System.out.println("[Waiting for other players to finish their turn, here are their bookshelves]");
+
+        System.out.println("[Waiting for other players to finish their turn, here are their current bookshelves]");
         ArrayList<Player> otherPlayersList = new ArrayList<>();
         for (Player p: client.getGame().getPlayers()) {
             if (!p.getUserName().equals(nickname)) {
                 otherPlayersList.add(p);
             }
         }
-        int playerIndex = 0;
+        int playerIndex = - 1;
         int tabCounter = 0;
         int x = -1;
         int y = 0;
         for (int i = 0; i< otherPlayersBookshelfArt.length(); i++) {
             if('X' == otherPlayersBookshelfArt.charAt(i)){
+                String color = COLOR;
                 Tile[][] slots = otherPlayersList.get(playerIndex).getBookshelf().getSlots();
                 if (!(slots[x][y] == null) && !slots[x][y].Empty()){
                     color = TileType.getTileMap().get(slots[x][y].getTileType()).color;
-                    System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(slots[x][y].getTileType()).sign + PRESET + RESET);}
+                }
                 else {
                     color = RESET;
-                    System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get("EMPTY").sign + PRESET + RESET);}
+                }
+                System.out.print(PRESET + color + "   " + PRESET + RESET);
                 y++;
             } else {
-            System.out.print(boardAndBookshelfArt.charAt(i));
+            System.out.print(otherPlayersBookshelfArt.charAt(i));
             }
-            if('\t' == boardAndBookshelfArt.charAt(i) && tabCounter < 4){
+            if('\t' == otherPlayersBookshelfArt.charAt(i) && tabCounter < 4){
                 tabCounter++;
             }
-            if('\t' == boardAndBookshelfArt.charAt(i) && tabCounter == 4){
+            if('\t' == otherPlayersBookshelfArt.charAt(i) && tabCounter == 4){
                 playerIndex = playerIndex + 1;
-                tabCounter++;
+                tabCounter = 0;
                 y = 0;
             }
-            if ('\n' == boardAndBookshelfArt.charAt(i)){
-                playerIndex = -1;
-                x++;
+            if ('\n' == otherPlayersBookshelfArt.charAt(i)){
+                playerIndex = playerIndex - 1;
+                if('║' != otherPlayersBookshelfArt.charAt(i-1)) x++;
                 y = 0;
             }
         }
@@ -407,6 +411,7 @@ public class TUI implements UI, Runnable {
         }
         for (int i = 0; i< art.length(); i++) {
             if (art.charAt(i) == 'x') {
+                String color = COLOR;
                 int found = 0;
                 for (int j = 0; j<TileType.getTileMap().values().size()-1; j++) {
                     assert pgc != null;
@@ -435,7 +440,6 @@ public class TUI implements UI, Runnable {
 
     public void printState() throws RemoteException {
         Game game = this.client.getGame();
-        TileType tiletemp = new TileType();
         int x = 0, y = 0;
         Tile[][] slots = game.getBoard().getSlots();
         Tile[][] places = null;
@@ -447,8 +451,9 @@ public class TUI implements UI, Runnable {
         }
         for (int i = 0; i < boardAndBookshelfArt.length(); i++) {
             if ('X' == boardAndBookshelfArt.charAt(i)) {
+                String color = COLOR;
                 if (y < slots[0].length) {
-                    if (slots[x][y].isPickable()) color = TileType.getTileMap().get(slots[x][y].getTileType()).color;
+                    if (slots[x][y].isPickable()) { color = TileType.getTileMap().get(slots[x][y].getTileType()).color;}
                     if (slots[x][y].Empty()) color = RESET;
                     System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(slots[x][y].getTileType()).sign + PRESET + RESET);
                 } else {
