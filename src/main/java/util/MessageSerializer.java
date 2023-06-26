@@ -26,6 +26,8 @@ public class MessageSerializer implements JsonSerializer<Message>, JsonDeseriali
         classNameMap.put(CurrentPlayerMessage.className, CurrentPlayerMessage.class);
         classNameMap.put(JoinedMessage.className, JoinedMessage.class);
         classNameMap.put(StateMessage.className, StateMessage.class);
+        classNameMap.put(SetupMessage.className, SetupMessage.class);
+        classNameMap.put(InitialMessage.className, InitialMessage.class);
     }
     @Override
     public Message deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {

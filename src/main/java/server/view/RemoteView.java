@@ -1,14 +1,11 @@
 package server.view;
 
 import client.network.ClientInterface;
-import moves.MoveSelectTiles;
 import observer.Observer;
 import server.network.SocketComm.ClientSkeleton;
 import setup.Setup;
-import util.Messages.LastMessage;
 import util.Messages.Message;
 import server.controller.actions.Action;
-import server.controller.actions.TileSelectAction;
 import server.model.Player;
 import util.Parser;
 
@@ -50,7 +47,7 @@ public class RemoteView extends View {
     public void update(Message message){
         if(!this.isOffline()){
             try {
-                clientConnection.send(Parser.toJson(message, Message.class));
+                clientConnection.receive(Parser.toJson(message, Message.class));
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

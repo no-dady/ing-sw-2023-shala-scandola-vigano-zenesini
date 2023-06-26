@@ -38,6 +38,6 @@ public class CreateLobbyMessage implements Message {
 
         public String getName()
         {
-            return "Boh";
+            return className;
         }
 }

@@ -4,6 +4,8 @@ import client.Client;
 import client.network.ClientInterface;
 import client.network.State;
 
+import java.rmi.RemoteException;
+
 public class StateMessage implements Message {
 
     public static final String className = "StateMessage";
@@ -18,10 +20,15 @@ public class StateMessage implements Message {
     public void handleMessage(Client client)
     {
         client.setState(stateToSend);
+        try {
+            client.getUI().update();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getName()
     {
-        return "Boh";
+        return className;
     }
 }
