@@ -111,8 +111,8 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
 
     public static void instanceView(View view, Game game, GameController controller) {
         game.getBoard().addObserver(view);
-        for(var c : game.getCgcs()) {
-            c.addObserver(view);
+        for(Object c : game.getCgcs().toList()) {
+            ((CommonGoalCardStrategy)c).addObserver(view);
         }
         game.addObserver(view);
 
@@ -123,6 +123,7 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
         }
 
         view.addObserver(controller);
+        controller.addObserver(game);
     }
 
     private HashMap<String,View> instanceViews(Map<String, ClientInterface> waitingConnection, ArrayList<Player> players) throws RemoteException {

@@ -70,21 +70,30 @@ public class Bookshelf implements Serializable, Observable<Message> {
     public static int getCols() {
         return cols;
     }
-
-    public int getEmptyTilesColumn(int index) {
     /**
      * Gets tile per col.
      *
      * @param index the index
      * @return the tile per col
      **/
+    public int getEmptyTilesColumn(int index) {
+
         int count = 0;
-        for(Tile x: this.getSlots()[index]){
-            if(x.getTileId().isEmpty()){
-                count++;
+        for (int j = 0; j < rows ; j ++){
+
+            if ((slots[j][index] == null || slots[j][index].Empty())){
+                count ++;
             }
         }
         return count;
+    }
+    public int lastTileOnColumnIndex(int index){
+        for (int j = 0; j < rows ; j ++){
+            if (slots[j][index] == null || slots[j][index].Empty()){
+                return j;
+            }
+        }
+        return (Bookshelf.getRows() - 1) ;
     }
 
     /**
@@ -121,4 +130,10 @@ public class Bookshelf implements Serializable, Observable<Message> {
             }
         }
     }
+
+    public boolean isFull() {
+        return tileCount == rows * cols;
+    }
+
+
 }

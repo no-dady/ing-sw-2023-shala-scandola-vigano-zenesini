@@ -16,17 +16,17 @@ public class TileType implements Serializable {
     private String sign;
     private String image;
 
-    static {
-
+    /**
+     * Instantiates a new Tile type.
+     */
+    public TileType() {
+        tileMap = new HashMap<>();
         try {
             tileMap = ConfigsFromJson.getTileType("src/main/resources/json/tiletypes_config.json");
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
         }
-    }
-    public TileType() {
-        tileMap = new HashMap<>();
     }
 
     /**

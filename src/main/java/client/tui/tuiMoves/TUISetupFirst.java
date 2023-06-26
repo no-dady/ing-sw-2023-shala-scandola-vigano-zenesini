@@ -4,7 +4,7 @@ import setup.SetupFirst;
 
 import java.util.Scanner;
 
-public class TUISetupFirst {
+public class TUISetupFirst implements TUISetupInterface{
 
     public SetupFirst create(Scanner stdin) {
         String nickname;

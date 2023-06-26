@@ -6,7 +6,7 @@ import server.model.Game;
 
 import java.util.Scanner;
 
-public class TUISelectColumn implements TUIInterface{
+public class TUISelectColumn implements TUIMoveInterface {
     public final MoveSelectColum move;
 
     public TUISelectColumn(String nickName){

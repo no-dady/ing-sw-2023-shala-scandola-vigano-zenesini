@@ -6,7 +6,7 @@ import server.model.Bookshelf;
 import server.model.Game;
 import java.util.Scanner;
 
-public class TUISelectTiles implements TUIInterface{
+public class TUISelectTiles implements TUIMoveInterface {
     public final MoveSelectTiles move;
     public TUISelectTiles(String nickName){
         this.move = new MoveSelectTiles(nickName);

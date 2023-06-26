@@ -24,6 +24,10 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
 
     private int numPlayers;
 
+    public String getClassName() {
+        return this.nameCgC;
+    }
+
     /**
      * Condition check boolean.
      *
@@ -40,8 +44,12 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         System.out.println(ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" + this.getName() + ".json"));
     }
 
-    static {
-
+    /**
+     * Gets random card.
+     *
+     * @return the random card
+     */
+    public static Pair<CommonGoalCardStrategy, CommonGoalCardStrategy> getRandomCards() {
         listCommonGoalList = new ArrayList<CommonGoalCardStrategy>();
         // 2 squares of 4 tiles of the same type
         listCommonGoalList.add(new SquareCheck(2, "2Squares"));
@@ -86,22 +94,13 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         // * * * * .
         // * * * * *
         listCommonGoalList.add(new DiagonalDirection(5,false, "Stair"));
-    }
-
-    /**
-     * Gets random card.
-     *
-     * @return the random card
-     */
-    public static Set<CommonGoalCardStrategy> getRandomCards() {
 
         Random random = new Random();
 
-        Set<CommonGoalCardStrategy> retSet = new HashSet<>();
-        retSet.add(listCommonGoalList.get(random.nextInt(listCommonGoalList.size())));
-        retSet.add(listCommonGoalList.get(random.nextInt(listCommonGoalList.size())));
+        CommonGoalCardStrategy firstPick = listCommonGoalList.remove(random.nextInt(listCommonGoalList.size()));
+        CommonGoalCardStrategy secondPick = listCommonGoalList.remove(random.nextInt(listCommonGoalList.size()));
 
-        return retSet;
+        return new Pair<CommonGoalCardStrategy, CommonGoalCardStrategy>(firstPick, secondPick);
     }
 
     public void setNumPlayers(int numPlayers) {
@@ -144,7 +143,7 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
      *
      * @return the list
      */
-    public Integer getPlayers(Player player){
+    public Integer getPlayer(Player player){
         return completedMap.remove(player.getUserName());
     }
 
@@ -165,6 +164,4 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
             }
         }
     }
-
-    public abstract String getClassName();
 }
