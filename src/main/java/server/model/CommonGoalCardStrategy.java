@@ -44,12 +44,7 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         System.out.println(ConfigsFromJson.getArt("src/main/resources/json/cgcArts/" + this.getName() + ".json"));
     }
 
-    /**
-     * Gets random card.
-     *
-     * @return the random card
-     */
-    public static Pair<CommonGoalCardStrategy, CommonGoalCardStrategy> getRandomCards() {
+    static {
         listCommonGoalList = new ArrayList<CommonGoalCardStrategy>();
         // 2 squares of 4 tiles of the same type
         listCommonGoalList.add(new SquareCheck(2, "2Squares"));
@@ -94,13 +89,22 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         // * * * * .
         // * * * * *
         listCommonGoalList.add(new DiagonalDirection(5,false, "Stair"));
+    }
+
+    /**
+     * Gets random card.
+     *
+     * @return the random card
+     */
+    public static Set<CommonGoalCardStrategy> getRandomCards() {
 
         Random random = new Random();
 
-        CommonGoalCardStrategy firstPick = listCommonGoalList.remove(random.nextInt(listCommonGoalList.size()));
-        CommonGoalCardStrategy secondPick = listCommonGoalList.remove(random.nextInt(listCommonGoalList.size()));
+        Set<CommonGoalCardStrategy> res = new HashSet<>();
+        res.add(listCommonGoalList.get(random.nextInt(listCommonGoalList.size())));
+        res.add(listCommonGoalList.get(random.nextInt(listCommonGoalList.size())));
 
-        return new Pair<CommonGoalCardStrategy, CommonGoalCardStrategy>(firstPick, secondPick);
+        return res;
     }
 
     public void setNumPlayers(int numPlayers) {

@@ -28,7 +28,7 @@ public class Game implements Serializable, Observable<Message>, Observer {
     private Pocket pocket;
     private boolean gameStarted;
     private List<Tile> selectedTiles;
-    private Pair<CommonGoalCardStrategy , CommonGoalCardStrategy> cgcs;
+    private Set<CommonGoalCardStrategy> cgcs;
     private String currPlayerNick;
 
     /**
@@ -48,7 +48,7 @@ public class Game implements Serializable, Observable<Message>, Observer {
         instance.add(this);
 
     }
-    public Game(List<Player> players, Pair<CommonGoalCardStrategy, CommonGoalCardStrategy> cgcs, Board board, Pocket pocket, int numPlayers) {
+    public Game(List<Player> players, Set<CommonGoalCardStrategy> cgcs, Board board, Pocket pocket, int numPlayers) {
         this.players = players;
         this.cgcs = cgcs;
         this.board = board;
@@ -195,7 +195,7 @@ public class Game implements Serializable, Observable<Message>, Observer {
         return gameStarted;
     }
 
-    public Pair<CommonGoalCardStrategy, CommonGoalCardStrategy> getCgcs() {
+    public Set<CommonGoalCardStrategy> getCgcs() {
         return cgcs;
     }
 

@@ -109,12 +109,18 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
         }
     }
 
+    public static void addLobby(Lobby lobby) {
+        lobbyList.add(lobby);
+    }
+
+    public static Lobby getLobby() {
+        return lobbyList.get(lobbyList.size() - 1);
+    }
+
     public void registrationFinished()
     {
-        System.out.println("dd");
         if (clientQueue.size() > 0)
         {
-            System.out.println("djdv");
             ClientInterface cli = clientQueue.remove(0);
             this.registeringClient = false;
             register(cli);
@@ -179,8 +185,8 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
 
     public static void instanceView(View view, Game game, GameController controller) {
         game.getBoard().addObserver(view);
-        for(Object c : game.getCgcs().toList()) {
-            ((CommonGoalCardStrategy)c).addObserver(view);
+        for(CommonGoalCardStrategy c : game.getCgcs()) {
+            c.addObserver(view);
         }
         game.addObserver(view);
 
@@ -273,11 +279,11 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
         }
     }
 
-    public boolean isActive() {
+    public synchronized boolean isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public synchronized void setActive(boolean active) {
         isActive = active;
     }
 

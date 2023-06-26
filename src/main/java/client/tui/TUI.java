@@ -8,6 +8,7 @@ import client.Client;
 import client.tui.tuiMoves.TUISetupAll;
 import client.tui.tuiMoves.TUISetupFirst;
 import moves.MoveSelectTiles;
+import setup.Setup;
 import util.Messages.CreateLobbyMessage;
 import util.Messages.Message;
 import server.model.*;
@@ -223,7 +224,7 @@ public class TUI implements UI, Runnable {
                     SetupAll setup = new TUISetupAll().create(in);
                     setNickname(setup.getParameter());
                     try {
-                        client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(setup, SetupAll.class));
+                        client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(setup, Setup.class));
                     } catch (RemoteException e) {
                         throw new RuntimeException(e);
                     }
@@ -268,7 +269,7 @@ public class TUI implements UI, Runnable {
                     SetupFirst setup = new TUISetupFirst().create(in);
                     setNickname(setup.getParameter());
                     try {
-                        client.getClientConnection().getServerInterface().sendSetupFirst(Parser.toJson(setup, SetupFirst.class));
+                        client.getClientConnection().getServerInterface().sendSetupFirst(Parser.toJson(setup, Setup.class));
                     } catch (RemoteException e) {
                         throw new RuntimeException(e);
                     }

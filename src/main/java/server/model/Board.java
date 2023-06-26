@@ -3,6 +3,7 @@ package server.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import observer.Observable;
 import observer.Observer;
@@ -13,7 +14,7 @@ import util.Messages.Message;
  * The type Board.
  */
 public class Board implements Serializable, Observable<Message> {
-    private ArrayList<CommonGoalCardStrategy> commonGoalCardStrategies;
+    private ArrayList<CommonGoalCardStrategy> commonGoalCardStrategies = new ArrayList<>(2);
     private Tile[][] slots;
 
     /**
@@ -28,15 +29,8 @@ public class Board implements Serializable, Observable<Message> {
 
     public Board(Tile[][] slots, int numPlayers){
         System.out.println("Creating array");
-        this.commonGoalCardStrategies = new ArrayList<>(2);
-        System.out.println("Choosing first cgc");
-        Pair<CommonGoalCardStrategy, CommonGoalCardStrategy> cGcs = CommonGoalCardStrategy.getRandomCards();
-        cGcs.getValue0().setNumPlayers(numPlayers);
-        cGcs.getValue1().setNumPlayers(numPlayers);
-        System.out.println("Adding First cgc");
-        this.commonGoalCardStrategies.add(cGcs.getValue0());
-        System.out.println("Adding second cgc");
-        this.commonGoalCardStrategies.add(cGcs.getValue1());
+        System.out.println("Adding cgc");
+        commonGoalCardStrategies.addAll(CommonGoalCardStrategy.getRandomCards());
         System.out.println("Saving slots");
         this.slots = slots;
     }

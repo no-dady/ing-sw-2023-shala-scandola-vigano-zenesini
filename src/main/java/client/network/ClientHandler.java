@@ -5,6 +5,7 @@ import observer.Observer;
 import server.model.Game;
 import server.model.Lobby;
 import server.network.ServerInterface;
+import setup.Setup;
 import util.Messages.*;
 import util.Parser;
 
@@ -119,4 +120,9 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     }
 
+    @Override
+    public boolean handleSetupper(Setup setupper) throws RemoteException {
+        System.out.println("Handle Setupper ::: " + setupper.getName());
+        return true;
+    }
 }

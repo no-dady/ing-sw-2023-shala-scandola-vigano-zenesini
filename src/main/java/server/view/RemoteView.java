@@ -2,6 +2,7 @@ package server.view;
 
 import client.network.ClientInterface;
 import observer.Observer;
+import server.network.ServerInterface;
 import server.network.SocketComm.ClientSkeleton;
 import setup.Setup;
 import util.Messages.Message;
@@ -19,10 +20,14 @@ public class RemoteView extends View {
             try {
                 Action move = Parser.fromJson(info, Action.class);
                 handleMove(move);
-            } catch (NullPointerException e){
+            } catch (NullPointerException e) {
                   Setup setupper = Parser.fromJson(info, Setup.class);
-                  ClientSkeleton connection = (ClientSkeleton)clientConnection;
-                  connection.handleSetupper(setupper);
+                  ClientInterface connection = clientConnection;
+                try {
+                    connection.handleSetupper(setupper);
+                } catch (RemoteException ex) {
+                    throw new RuntimeException(ex);
+                }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

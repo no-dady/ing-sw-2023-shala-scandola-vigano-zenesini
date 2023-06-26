@@ -42,16 +42,12 @@ public class Lobby {
         lobbyStatus = LobbyStatus.Setup;
         try
         {
-            System.out.println("precreo");
             StateMessage stateMessage = new StateMessage(State.WAITINGINLOBBY);
-            System.out.println("premado");
             adminPlayer.send(Parser.toJson(stateMessage, Message.class));
-            System.out.println("mand");
         } catch(RemoteException e)
         {
             System.out.println("Cannot send the nickMessage to admin");
         }
-        System.out.println("Esco");
     }
 
     public int getPlayerNumber() {

@@ -37,7 +37,7 @@ public class GameController implements Observer<Action>, Observable<Game> {
     /**
      * The Cgc List.
      */
-    protected static Pair<CommonGoalCardStrategy, CommonGoalCardStrategy> cgcList;
+    protected static Set<CommonGoalCardStrategy> cgcList;
     /**
      * The Slots.
      */

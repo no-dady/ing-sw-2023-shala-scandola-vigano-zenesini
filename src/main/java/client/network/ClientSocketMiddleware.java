@@ -76,29 +76,13 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
     @Override
     public void sendSetupFirst(String json) throws RemoteException
     {
-        try
-        {
-            outs.writeUTF(json);
-            outs.flush();
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send string from client", e);
-        }
+        sendMessage(json);
     }
 
     @Override
     public void sendSetupAll(String json) throws RemoteException
     {
-        try
-        {
-            outs.writeUTF(json);
-            outs.flush();
-        }
-        catch (IOException e)
-        {
-            throw new RemoteException("Cannot send string from client", e);
-        }
+        sendMessage(json);
     }
 
     public void receive(ClientHandler clientHandler) throws RemoteException

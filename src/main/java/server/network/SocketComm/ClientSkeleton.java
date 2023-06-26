@@ -9,6 +9,7 @@ import server.model.Game;
 import server.model.Lobby;
 import server.network.Server;
 import setup.Setup;
+import setup.SetupFirst;
 import util.Messages.AskSetupMessage;
 import util.Messages.Message;
 import util.Messages.NicknameMessage;
@@ -79,11 +80,10 @@ public class ClientSkeleton implements Observable<String>, ClientInterface, Runn
             String read;
             do {
                 server.register(this);
-
                 read = in.readUTF();
                 System.out.println("Received: " + read);
                 Setup setupper = Parser.fromJson(read, Setup.class);
-                handleSetupper(setupper);
+                confirm = handleSetupper(setupper);
             } while(!confirm);
 
             while(isActive()) {
@@ -180,8 +180,18 @@ public class ClientSkeleton implements Observable<String>, ClientInterface, Runn
         }
     }
 
-    public void handleSetupper(Setup setupper) {
-        System.out.println("Handle Setupper ::: " + setupper.getName());
+    @Override
+    public boolean handleSetupper(Setup setupper) throws RemoteException {
+        if(this.lobby == null || (setupper.getParameter() != null && lobby.checkNicknameAvailable(setupper.getParameter()))) {
+            System.out.println("Handle Setupper ::: " + setupper.getParameter());
+            if(setupper instanceof SetupFirst) {
+                Server.addLobby(new Lobby(((SetupFirst) setupper).getNumOfPlayers(), this, setupper.getParameter()));
+            }
+            this.lobby = Server.getLobby();
+            send(Parser.toJson(new StateMessage(State.WAITINGINLOBBY), Message.class));
+            return true;
+        }
+        return false;
     }
 
     public boolean isActive() {
