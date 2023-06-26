@@ -1,5 +1,7 @@
 package setup;
 
+import client.network.ClientInterface;
+
 public class SetupAll implements Setup {
     public static final String className = "SetupAll";
 
@@ -7,6 +9,11 @@ public class SetupAll implements Setup {
 
     public SetupAll(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getNickname()
+    {
+        return nickname;
     }
 
     @Override

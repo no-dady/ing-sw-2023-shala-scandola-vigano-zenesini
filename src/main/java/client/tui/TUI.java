@@ -223,7 +223,7 @@ public class TUI implements UI, Runnable {
                     SetupAll setup = new TUISetupAll().create(in);
                     setNickname(setup.getParameter());
                     try {
-                        client.getClientConnection().getServerInterface().send(Parser.toJson(setup, SetupAll.class));
+                        client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(setup, SetupAll.class));
                     } catch (RemoteException e) {
                         throw new RuntimeException(e);
                     }
@@ -251,12 +251,12 @@ public class TUI implements UI, Runnable {
                         throw new RuntimeException(e);
                     }
                     try {
-                        client.getClientConnection().getServerInterface().send(Parser.toJson(new TUISelectTiles(nickname).updateCLI(client.getGame(), in), MoveSelectTiles.class));
+                        client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectTiles(nickname).updateCLI(client.getGame(), in), MoveSelectTiles.class));
                     } catch (RemoteException e) {
                         throw new RuntimeException(e);
                     }
                     try {
-                        client.getClientConnection().getServerInterface().send(Parser.toJson(new TUISelectColumn(nickname).updateCLI(client.getGame(), in), MoveSelectTiles.class));
+                        client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectColumn(nickname).updateCLI(client.getGame(), in), MoveSelectTiles.class));
                     } catch (RemoteException e) {
                         throw new RuntimeException(e);
                     }
@@ -268,7 +268,7 @@ public class TUI implements UI, Runnable {
                     SetupFirst setup = new TUISetupFirst().create(in);
                     setNickname(setup.getParameter());
                     try {
-                        client.getClientConnection().getServerInterface().send(Parser.toJson(setup, SetupFirst.class));
+                        client.getClientConnection().getServerInterface().sendSetupFirst(Parser.toJson(setup, SetupFirst.class));
                     } catch (RemoteException e) {
                         throw new RuntimeException(e);
                     }

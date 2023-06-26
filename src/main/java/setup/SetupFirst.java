@@ -1,5 +1,8 @@
 package setup;
 
+import client.Client;
+import client.network.ClientInterface;
+
 public class SetupFirst implements Setup {
     public static final String className = "SetupFirst";
 

@@ -6,10 +6,13 @@ import observer.Observable;
 import observer.Observer;
 import org.javatuples.Pair;
 import server.controller.GameController;
+import server.controller.actions.Action;
 import server.model.*;
 import server.network.SocketComm.ClientSkeleton;
 import server.view.View;
 import server.view.RemoteView;
+import setup.SetupAll;
+import setup.SetupFirst;
 import util.Messages.*;
 
 import util.Parser;
@@ -30,7 +33,8 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     public Map<String, ClientInterface> clientList = new HashMap<>();
     private final ServerSocket serverSocket;
     private static List<Lobby> lobbyList = new ArrayList<>();
-
+    private boolean registeringClient = false;
+    private List<ClientInterface> clientQueue = new ArrayList<>();
     private boolean isActive = true;
 
     private int portRmi;
@@ -65,21 +69,85 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     @Override
     public void register(ClientInterface client)
     {
-        System.out.println("Registering new client");
-        Message msg = new StateMessage(State.SETUPFIRST);
-        try {
-            client.send(Parser.toJson(msg, Message.class));
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
+        if (!registeringClient)
+        {
+            try {
+                registeringClient = true;
+                tempClientInterface = client;
+                System.out.println("Registering new client");
+                Lobby lobbyFound = null;
+                for (Lobby lobby : lobbyList)
+                {
+                    if (lobby.getLobbyStatus() == LobbyStatus.Setup)
+                    {
+                        if (!lobby.isFull())
+                        {
+                            lobbyFound = lobby;
+                        }
+                    }
+                }
+                if (lobbyFound == null)
+                {
+                    Message msg = new StateMessage(State.SETUPFIRST);
+                    client.send(Parser.toJson(msg, Message.class));
+                } else {
+                    Message msg = new StateMessage(State.SETTINGNICKNAME);
+                    client.send(Parser.toJson(msg, Message.class));
+                }
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            clientQueue.add(client);
+            try {
+                Message msg = new StateMessage(State.INQUEUE);
+                client.send(Parser.toJson(msg, Message.class));
+            } catch (RemoteException e)
+            {
+                throw new RuntimeException(e);
+            }
         }
-        // clientList.put("", client);
+    }
+
+    public void registrationFinished()
+    {
+        System.out.println("dd");
+        if (clientQueue.size() > 0)
+        {
+            System.out.println("djdv");
+            ClientInterface cli = clientQueue.remove(0);
+            this.registeringClient = false;
+            register(cli);
+        }
+        else {
+            this.registeringClient = false;
+            System.out.println("Finished");
+        }
     }
 
     // RMI
     @Override
-    public void send(String json) throws RemoteException {
+    public void sendMessage(String json) throws RemoteException {
         System.out.print("Ricevuto: " + json);
         notify(json);
+    }
+
+    @Override
+    public void sendSetupFirst(String json) throws RemoteException {
+        SetupFirst setupFirst = Parser.fromJson(json, SetupFirst.class);
+        Lobby newLobby = new Lobby(setupFirst.getNumOfPlayers(), tempClientInterface, setupFirst.getName());
+        System.out.println("Qui");
+        lobbyList.add(newLobby);
+        System.out.println("Quo");
+        registrationFinished();
+    }
+
+    @Override
+    public void sendSetupAll(String json) throws RemoteException
+    {
+        SetupAll setupAll = Parser.fromJson(json, SetupAll.class);
+        lobbyList.get(lobbyList.size() - 1).addPlayer(tempClientInterface, setupAll.getNickname());
+        registrationFinished();
     }
 
 

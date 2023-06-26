@@ -19,7 +19,11 @@ public interface ServerInterface extends Remote {
 //Needed to registry (and intercept) the client when it connects to the server
     void register(ClientInterface client) throws RemoteException;
 
-    void send(String string) throws RemoteException;
+    void sendMessage(String string) throws RemoteException;
+
+    void sendSetupFirst(String string) throws RemoteException;
+
+    void sendSetupAll(String string) throws RemoteException;
 
     void close() throws IOException;
 }
