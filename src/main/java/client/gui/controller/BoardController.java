@@ -13,7 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import moves.MoveSelectColum;
@@ -308,6 +308,8 @@ public class BoardController implements GenericInterface, Initializable {
 
     @Override
     public void update() {
+        List<Pane> listOfTwo = List.of(t_1_4, t_3_3, t_3_7, t_4_9, t_6_1, t_7_3, t_7_7, t_9_6, t_1_5, t_2_6, t_4_2, t_5_1, t_5_9, t_6_8, t_8_4, t_9_5);
+        List<Pane> listOfThree = List.of(t_1_5, t_2_6, t_4_2, t_5_1, t_5_9, t_6_8, t_8_4, t_9_5);
         HashMap <Pane, Coordinates> paneMap= new HashMap<>();
         HashMap <Pane, Coordinates> bookshelfMap = new HashMap<>();
         paneMap.put( t_1_4,new Coordinates(1,4));
@@ -452,12 +454,10 @@ public class BoardController implements GenericInterface, Initializable {
                         p.setOnMouseExited(event -> {
                             p.setEffect(null);
                         });
-                        //if(action){
-                            //if(){
+
                         p.setOnMouseClicked(event -> onTilePressed(p));
-                            //}
-                        //}
                     }
+
                     for(i = 0; i < Bookshelf.getCols(); i++){ //initializing arrow buttons - what columns you can select
                         if(bookshelf.getEmptyTilesColumn(i) >= selectedIds.size()){
                             arrows.get(i).setDisable(false);
@@ -474,6 +474,17 @@ public class BoardController implements GenericInterface, Initializable {
                         }
                     }
                 }
+            }
+        }
+
+        if(gui.getGame().getNumPlayers()==2){
+            for(Pane p : listOfTwo){
+                p.setOpacity(0);
+            }
+        }
+        if(gui.getGame().getNumPlayers()==3){
+            for(Pane p : listOfThree){
+                p.setOpacity(0);
             }
         }
 
