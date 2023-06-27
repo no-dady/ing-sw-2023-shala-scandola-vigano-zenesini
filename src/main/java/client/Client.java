@@ -1,16 +1,15 @@
 package client;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+
 import client.tui.TUI;
 import client.gui.GUI;
 import client.network.*;
-import javafx.application.Application;
 import server.model.Game;
 
 public class Client {
@@ -64,7 +63,6 @@ public class Client {
         online = true;
         System.out.println("Connection established");
     }
-
 
 
     public void run() throws IOException {
@@ -135,6 +133,11 @@ public class Client {
     public synchronized void setState(State status) {
         this.currState = status;
         this.stateChanged = true;
+        try {
+            if (ui instanceof GUI) ui.update();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public synchronized void setStateChanged(boolean b)

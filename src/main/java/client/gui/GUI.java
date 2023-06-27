@@ -49,7 +49,6 @@ public class GUI extends Application implements UI {
         GUI.client = client;
         launch("");
     }
-
     @Override
     public void setActive() {}
 
@@ -67,7 +66,6 @@ public class GUI extends Application implements UI {
 
         ArrayList<FXMLLoader> loaders = new ArrayList<>();
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/board.fxml")));
-        loaders.add(new FXMLLoader(getClass().getResource("/fxml/four-players-screen.fxml")));
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/init-error.fxml")));
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/init-nickname.fxml")));
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/init-screen.fxml")));
@@ -75,8 +73,6 @@ public class GUI extends Application implements UI {
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/lobby-set.fxml")));
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/lobby-waiting.fxml")));
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/menu-screen.fxml")));
-        loaders.add(new FXMLLoader(getClass().getResource("/fxml/three-players-screen.fxml")));
-        loaders.add(new FXMLLoader(getClass().getResource("/fxml/two-players-screen.fxml")));
         loaders.add(new FXMLLoader(getClass().getResource("/fxml/victory-screen.fxml")));
 
         for (FXMLLoader loader : loaders) {
