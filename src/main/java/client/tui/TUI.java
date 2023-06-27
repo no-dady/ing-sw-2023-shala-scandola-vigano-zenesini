@@ -351,7 +351,7 @@ public class TUI implements UI, Runnable {
                 y = 0;
             }
             if ('\n' == otherPlayersBookshelfArt.charAt(i)){
-                playerIndex = playerIndex - 1;
+                playerIndex = -1;
                 if('║' != otherPlayersBookshelfArt.charAt(i-1)) x++;
                 y = 0;
             }
