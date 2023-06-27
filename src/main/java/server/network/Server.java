@@ -4,9 +4,7 @@ import client.network.ClientInterface;
 import client.network.State;
 import observer.Observable;
 import observer.Observer;
-import org.javatuples.Pair;
 import server.controller.GameController;
-import server.controller.actions.Action;
 import server.model.*;
 import server.network.SocketComm.ClientSkeleton;
 import server.view.View;
@@ -35,11 +33,11 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     private static List<Thread> memory = new ArrayList<Thread>();
     private boolean registeringClient = false;
 
-    public static List<ClientInterface> getClientQueue() {
+    public static Queue<ClientInterface> getClientQueue() {
         return clientQueue;
     }
 
-    private static List<ClientInterface> clientQueue = new ArrayList<>();
+    private static Queue<ClientInterface> clientQueue = new PriorityQueue<>();
     private boolean isActive = true;
 
     private int portRmi;
@@ -116,13 +114,11 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
 
     public void registrationFinished()
     {
-        if (clientQueue.size() > 0)
-        {
-            ClientInterface cli = clientQueue.remove(0);
+        try {
+            ClientInterface cli = clientQueue.remove();
             this.registeringClient = false;
             register(cli);
-        }
-        else {
+        } catch (Exception e) {
             this.registeringClient = false;
             System.out.println("Finished Registering queue");
         }
