@@ -122,7 +122,7 @@ public class BoardController implements GenericInterface, Initializable {
             case (4) -> gui.activate(FourPlayersScreenController.name);
         }
     }
-    public void onConfirmButtonPress(ActionEvent even) { //when you confirm your actions
+    public void onConfirmButtonPress(ActionEvent even) throws RemoteException { //when you confirm your actions
             String temp = new String();
 
             for (Pane entry : selectedIds) {
@@ -141,10 +141,12 @@ public class BoardController implements GenericInterface, Initializable {
             tileMove = (MoveSelectTiles) new GUISelectTiles(gui.getNickname(), temp).updateGUI(gui.getGame());
 
             if (tileMove != null) {
+                gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(tileMove, MoveSelectTiles.class));
 
                 columnMove = (MoveSelectColum) new GUISelectColumn(gui.getNickname(), selectedColumn - 1).updateGUI(gui.getGame());
 
                 if (columnMove != null) {
+                    List<Button> arrows = List.of(arrow1,arrow2,arrow3,arrow4,arrow5);
                     List<Pane> allPanes = List.of(b_1_1, b_1_2, b_1_3, b_1_4, b_1_5, b_1_6,
                             b_2_1, b_2_2, b_2_3, b_2_4, b_2_5, b_2_6,
                             b_3_1, b_3_2, b_3_3, b_3_4, b_3_5, b_3_6,
@@ -158,6 +160,7 @@ public class BoardController implements GenericInterface, Initializable {
                     third_tile.setBackground(null);
                     end_turn.setText("End turn");
                     confirm.setDisable(true);
+                    confirm.setOpacity(0);
                     changedBookshelfTiles.clear();
                     selectedIds.clear();
                     selectedColumn = 0;
@@ -172,7 +175,16 @@ public class BoardController implements GenericInterface, Initializable {
 
                         p.setOnMouseExited(event -> {
                             p.setEffect(null);
-                     });
+                        });
+                    }
+                       for(Button b : arrows){
+                            b.setDisable(true);
+                            b.setOnMouseEntered(event -> {
+                               b.setEffect(null);
+                            });
+                            b.setOnMouseExited(event -> {
+                                b.setEffect(null);
+                            });
                     }
                 } else {
                     Alert alert = alertCreator();
@@ -225,9 +237,9 @@ public class BoardController implements GenericInterface, Initializable {
 
     public void onEndTurnButtonPress(ActionEvent event) throws RemoteException { //if you press the end button
         if(end_turn.getText().equals("End turn")){ //when you end your action
-            gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(tileMove, MoveSelectTiles.class));
             gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(columnMove, MoveSelectColum.class));
             end_turn.setDisable(true);
+            end_turn.setOpacity(0);
         }
         if(end_turn.getText().equals("Cancel")){ //when you cancel your action after selecting some tiles
             first_tile.setBackground(null);
@@ -372,13 +384,26 @@ public class BoardController implements GenericInterface, Initializable {
             }
             if(gui.getClient().getState().equals(State.MYTURN) && !moveHandled){
                 action = true;
-                confirm.setDisable(false);
                 end_turn.setDisable(false);
+                end_turn.setOpacity(1);
+                confirm.setDisable(false);
+                confirm.setOpacity(1);
             }
             else {
                 action = false;
-                confirm.setDisable(true);
                 end_turn.setDisable(true);
+                end_turn.setOpacity(0);
+                confirm.setDisable(true);
+                confirm.setOpacity(0);
+                for(Button b : arrows){
+                    b.setDisable(true);
+                    b.setOnMouseEntered(event -> {
+                        b.setEffect(null);
+                    });
+                    b.setOnMouseExited(event -> {
+                        b.setEffect(null);
+                    });
+                }
             }
         }
 
@@ -400,9 +425,24 @@ public class BoardController implements GenericInterface, Initializable {
                         });
                         //if(action){
                             //if(){
-                                p.setOnMouseClicked(event -> onTilePressed(p));
+                        p.setOnMouseClicked(event -> onTilePressed(p));
                             //}
                         //}
+                    }
+                    for(i = 0; i < Bookshelf.getCols(); i++){ //initializing arrow buttons - what columns you can select
+                        if(bookshelf.getEmptyTilesColumn(i) >= selectedIds.size()){
+                            arrows.get(i).setDisable(false);
+                            int finalI = i;
+                            arrows.get(i).setOnMouseEntered(event -> {
+                                arrows.get(finalI).setEffect(dropShadow);
+                            });
+                            arrows.get(i).setOnMouseExited(event -> {
+                                arrows.get(finalI).setEffect(null);
+                            });
+                        }
+                        else {
+                            arrows.get(i).setDisable(true);
+                        }
                     }
                 }
             }
@@ -429,22 +469,6 @@ public class BoardController implements GenericInterface, Initializable {
 
         String cgc2 = Objects.requireNonNull(getClass().getResource("/images/common_goal_cards/" + gui.getGame().getBoard().getCommonGoalCards().get(1).getName()+ ".jpg")).toExternalForm();
         cgc_2.setStyle("-fx-background-image: url('" + cgc2 + "');");
-
-        for(i = 0; i < Bookshelf.getCols(); i++){ //initializing arrow buttons - what columns you can select
-            if(bookshelf.getEmptyTilesColumn(i) >= selectedIds.size()){
-                arrows.get(i).setDisable(false);
-                int finalI = i;
-                arrows.get(i).setOnMouseEntered(event -> {
-                    arrows.get(finalI).setEffect(dropShadow);
-                });
-                arrows.get(i).setOnMouseExited(event -> {
-                    arrows.get(finalI).setEffect(null);
-                });
-            }
-            else {
-                arrows.get(i).setDisable(true);
-            }
-        }
 
         if(action) {
             //preview on the bookshelf
