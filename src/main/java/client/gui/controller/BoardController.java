@@ -147,6 +147,8 @@ public class BoardController implements GenericInterface, Initializable {
                 changedBookshelfTiles.clear();
                 selectedIds.clear();
                 selectedColumn = 0;
+                confirm.setDisable(true);
+                confirm.setOpacity(0);
                 action = false;
                 count = 0;
                 update();
@@ -341,13 +343,29 @@ public class BoardController implements GenericInterface, Initializable {
             throw new RuntimeException(e);
         }
 
+        for(Player x : gui.getGame().getPlayers()){
+            if(x.getUserId() != gui.getGame().getCurrPlayerId() && x.getUserName().equals(gui.getNickname())){
+                end_turn.setDisable(true);
+                end_turn.setOpacity(0);
+                confirm.setDisable(true);
+                confirm.setOpacity(0);
+            }
+            else{
+                end_turn.setDisable(false);
+                end_turn.setOpacity(1);
+                confirm.setDisable(false);
+                confirm.setOpacity(1);
+            }
+        }
+
+
         for (Pane p : paneMap.keySet()) { //initializing board + tiles
             int x = paneMap.get(p).x() - 1;
             int y = paneMap.get(p).y() - 1;
             if (m[x][y] != 0 && m[x][y] <= num){
                 String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + gui.getGame().getBoard().getTile(x,y).getImage())).toExternalForm();
                 p.setStyle("-fx-background-image: url('" + imageUrl + "');");
-                if(gui.getGame().getPlayers().get(0).getUserId() == gui.getGame().getCurrPlayerId() && gui.getNickname().equals(gui.getGame().getPlayers().get(0).getUserName())) {
+                if(gui.getGame().getPlayers().get(0).getUserId() == gui.getGame().getCurrPlayerId() && gui.getNickname().equals(gui.getGame().getPlayers().get(0).getUserName())) { //gui.getClient().getGame().getCurrPlayerNick().equals(gui.getNickname())
                     if (gui.getGame().getBoard().getTile(x, y).isPickable()) {
 
                         p.setOnMouseEntered(event -> {
