@@ -26,7 +26,7 @@ public class Client {
     private int port;
 
     private State currState = State.WAIT;
-
+    private boolean stateChanged = false;
     public Client(boolean gui) throws IOException {
         this.active = true;
         this.gui = gui;
@@ -133,7 +133,19 @@ public class Client {
     }
     public synchronized void setState(State status) {
         this.currState = status;
+        this.stateChanged = true;
     }
+
+    public synchronized void setStateChanged(boolean b)
+    {
+        this.stateChanged = b;
+    }
+
+    public synchronized boolean getStateChanged()
+    {
+        return stateChanged;
+    }
+
 
     public void sendToServer(String parsedString) throws RemoteException
     {

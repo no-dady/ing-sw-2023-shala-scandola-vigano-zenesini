@@ -111,7 +111,13 @@ public class TUI implements UI, Runnable {
             throw new RuntimeException(e);
         }
 
-        while (client.isOnline() && client.isActive());
+        while (client.isOnline() && client.isActive())
+        {
+            if (client.getStateChanged())
+            {
+                update();
+            }
+        }
         
     }
     /*
@@ -220,6 +226,7 @@ public class TUI implements UI, Runnable {
 
     @Override
     public void update() {
+        client.setStateChanged(false);
         switch (client.getState()) {
             case SETUP -> {
                 SetupAll setup = new TUISetupAll().create(in, true);

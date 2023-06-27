@@ -101,8 +101,10 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         Random random = new Random();
 
         Set<CommonGoalCardStrategy> res = new HashSet<>();
+        CommonGoalCardStrategy cgcFirst = listCommonGoalList.remove(random.nextInt(listCommonGoalList.size()));
+        res.add(cgcFirst);
         res.add(listCommonGoalList.get(random.nextInt(listCommonGoalList.size())));
-        res.add(listCommonGoalList.get(random.nextInt(listCommonGoalList.size())));
+        listCommonGoalList.add(cgcFirst);
 
         return res;
     }

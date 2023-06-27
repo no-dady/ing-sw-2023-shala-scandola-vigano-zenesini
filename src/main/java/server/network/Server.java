@@ -32,6 +32,7 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
      */
     private final ServerSocket serverSocket;
     private static List<Lobby> lobbyList = new ArrayList<>();
+    private static List<Thread> memory = new ArrayList<Thread>();
     private boolean registeringClient = false;
 
     public static List<ClientInterface> getClientQueue() {
@@ -155,6 +156,12 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
         } else {
             StateMessage messageToSend = new StateMessage(State.SETUP);
             tempClientInterface.send(Parser.toJson(messageToSend, Message.class));
+        }
+        if (lobbyToJoin.isFull())
+        {
+            Thread lobbyThread = new Thread(lobbyToJoin);
+            memory.add(lobbyThread);
+            lobbyThread.start();
         }
     }
 

@@ -20,11 +20,11 @@ public class StateMessage implements Message {
     public void handleMessage(Client client)
     {
         client.setState(stateToSend);
-        try {
-            client.getUI().update();
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
+        //try {
+        //    client.getUI().update();
+        //} catch (RemoteException e) {
+        //    throw new RuntimeException(e);
+        //}
     }
 
     public String getName()

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Lobby {
+public class Lobby implements Runnable {
     private final int playerNumber;
 
     private LobbyStatus lobbyStatus;
@@ -111,7 +111,6 @@ public class Lobby {
                     StateMessage stateMessage = new StateMessage(State.WAITINGFORGAMESTART);
                     entity.getValue().send(Parser.toJson(stateMessage, Message.class));
                 }
-                startGame();
             } else {
                 StateMessage stateMessage = new StateMessage(State.WAITINGINLOBBY);
                 client.send(Parser.toJson(stateMessage, Message.class));
@@ -120,11 +119,11 @@ public class Lobby {
         {
             System.out.println("Lobby cannot send confirm to client");
         } //catch (InterruptedException e) {
-        catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalPlayersNumberException e) {
-            throw new RuntimeException(e);
-        }
+        //catch (InterruptedException e) {
+        //    throw new RuntimeException(e);
+        //} catch (IllegalPlayersNumberException e) {
+        //    throw new RuntimeException(e);
+        //}
         // throw new RuntimeException(e);
         //}
     }
@@ -171,7 +170,8 @@ public class Lobby {
         } else throw new IllegalArgumentException();
     }
 
-    public void startGame() throws IllegalPlayersNumberException, IOException, InterruptedException {
+    @Override
+    public void run() {
         //for (var entry : playerMap.entrySet()) {
 
             //ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", all " + playerNumber + " players have joined, now the game will start" + entry.getValue().getState(), 4);
@@ -182,32 +182,37 @@ public class Lobby {
             //{
             //    System.out.println("Cannot send ConfirmMessage from server lobby to client");
             //}
-        //}
-        lobbyStatus = LobbyStatus.Playing;
-        System.out.println("Creating Game");
-        controller = new GameController(this);
-        controller.createLobby(playerNumber, playerMap.keySet().stream().toList());
-        game = controller.getGame();
-        if (game!= null){
-            System.out.println(game);
+        //}]
+        try
+        {
+            lobbyStatus = LobbyStatus.Playing;
+            System.out.println("Creating Game");
+            controller = new GameController(this);
+            controller.createLobby(playerNumber, playerMap.keySet().stream().toList());
+            game = controller.getGame();
+            if (game!= null){
+                System.out.println(game);
+            }
+            else {
+                return;
+            }
+            for (var entry : playerMap.entrySet()) {
+                entry.getValue().setGame(game);
+                //ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model", 5);
+                //try
+                //{
+                //   entry.getValue().send(Parser.toJson(messageToSend, ConfirmMessage.class));
+                //} catch(RemoteException e)
+                //{
+                //    System.out.println("Cannot send ConfirmMessage from server lobby to client");
+                //}
+            }
+            setActive();
+            controller.start();
+        } catch (IllegalPlayersNumberException | IOException | InterruptedException e)
+        {
+            System.out.println(e.getMessage());
         }
-        else {
-            return;
-
-        }
-        for (var entry : playerMap.entrySet()) {
-            entry.getValue().setGame(game);
-            //ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model", 5);
-            //try
-            //{
-             //   entry.getValue().send(Parser.toJson(messageToSend, ConfirmMessage.class));
-            //} catch(RemoteException e)
-            //{
-            //    System.out.println("Cannot send ConfirmMessage from server lobby to client");
-            //}
-        }
-        setActive();
-        controller.start();
     }
 
     public boolean findDisconnectedPlayers(String nickname) {
