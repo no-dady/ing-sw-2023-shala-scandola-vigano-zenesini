@@ -12,6 +12,7 @@ import util.Messages.Message;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import server.controller.actions.Action;
 import util.Messages.StateMessage;
@@ -65,7 +66,7 @@ public class GameController implements Observer<Action>{
             default -> throw new IllegalPlayersNumberException("This players number wasn't supposed to be permitted earlier");
         }
 
-        game = new Game(players, CommonGoalCardStrategy.getRandomCards(), board, pocket, playerNumber);
+        game = new Game(players, new HashSet<>(board.getCommonGoalCards()), board, pocket, playerNumber);
         game.getBoard().updatePickable();
         System.out.println("created game for" + playerNicknames);
     }

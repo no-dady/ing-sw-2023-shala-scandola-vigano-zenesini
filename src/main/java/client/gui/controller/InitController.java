@@ -10,6 +10,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -61,6 +62,7 @@ public class InitController implements GenericInterface, Initializable {
 
             gui.getClient().setConnection(Ip,Integer.parseInt(port),option);
             gui.getClient().setOnline();
+            gui.getClient().setActive(true);
 
     }
     @Override
@@ -87,6 +89,9 @@ public class InitController implements GenericInterface, Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         connection_box.getItems().addAll("RMI","SOCKET");
+    }
+    @Override
+    public void setStage(Stage stage) {
     }
 }
 

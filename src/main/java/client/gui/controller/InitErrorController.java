@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import setup.SetupAll;
 import util.Messages.NicknameMessage;
 import util.Parser;
@@ -55,6 +56,9 @@ public class InitErrorController implements GenericInterface, Initializable {
     @Override
     public void update() {
 
+    }
+    @Override
+    public void setStage(Stage stage) {
     }
 
     @Override

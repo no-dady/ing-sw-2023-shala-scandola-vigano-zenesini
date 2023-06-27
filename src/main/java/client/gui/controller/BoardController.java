@@ -1,20 +1,21 @@
 package client.gui.controller;
 
 import client.gui.GUI;
-import client.gui.guiMoves.GUIMoveInterface;
 import client.gui.guiMoves.GUISelectColumn;
 import client.gui.guiMoves.GUISelectTiles;
 import client.network.State;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import moves.MoveSelectColum;
 import moves.MoveSelectTiles;
 import server.model.Bookshelf;
@@ -30,6 +31,7 @@ import java.util.*;
 
 public class BoardController implements GenericInterface, Initializable {
     private GUI gui;
+    private GenericInterface popupController;
     private boolean moveHandled = false;
     public final String dim = "1920x1000";
     public static final String name ="board";
@@ -38,7 +40,7 @@ public class BoardController implements GenericInterface, Initializable {
     @FXML //selection buttons
     public Button arrow1, arrow2, arrow3, arrow4, arrow5;
     @FXML //utils buttons
-    public Button menu_button, show_ply_button, end_turn, confirm;
+    public Button show_ply_button, end_turn, confirm;
     @FXML //utils pane
     public Pane playerTurn, first_tile, second_tile, third_tile, goal_card, cgc_1, cgc_2;
     @FXML //two players cells
@@ -62,6 +64,7 @@ public class BoardController implements GenericInterface, Initializable {
     public MoveSelectTiles tileMove = null;
     public MoveSelectColum columnMove = null;
     public List<Pane> selectedIds = new ArrayList<Pane>();
+    private FXMLLoader loader;
     public List<Pane> changedBookshelfTiles = new ArrayList<Pane>();
     public DropShadow dropShadow = new DropShadow(BlurType.GAUSSIAN, Color.WHITE, 15, 0.5, 0, 1);
 
@@ -70,6 +73,7 @@ public class BoardController implements GenericInterface, Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
     @Override
     public void setGUI(GUI gui) {
@@ -111,18 +115,39 @@ public class BoardController implements GenericInterface, Initializable {
         }
     }
 
-    public void onMenuButtonPress(ActionEvent event) {
-        gui.activate(MenuScreenController.name);
-        update();
-    }
-    public void onPlayerButtonPress(ActionEvent event) {
-        switch (gui.getClient().getGame().getNumPlayers()) {
-            case (2) -> gui.activate(TwoPlayersScreenController.name);
-            case (3) -> gui.activate(ThreePlayersScreenController.name);
-            case (4) -> gui.activate(FourPlayersScreenController.name);
+    public void onPlayerButtonPress(ActionEvent event) throws IOException {
+        loader = new FXMLLoader();
+        ;
+        Parent layout;
+        // initializing the controller
+        switch (gui.getGame().getNumPlayers()) {
+            case 2 -> {
+                popupController = new TwoPlayersScreenController();
+                loader.setLocation(getClass().getResource("/fxml/two-players-screen.fxml"));
+            }
+            case 3 -> {
+                popupController = new ThreePlayersScreenController();
+                loader.setLocation(getClass().getResource("/fxml/three-players-screen.fxml"));
+            }
+            case 4 -> {
+                popupController = new FourPlayersScreenController();
+                loader.setLocation(getClass().getResource("/fxml/four-players-screen.fxml"));
+            }
         }
+        loader.setController(popupController);
+        popupController.setGUI(gui);
+        layout = loader.load();
+        Scene scene = new Scene(layout);
+        Stage popupStage = new Stage();
+        popupController.setStage(popupStage);
+        popupController.update();
+        popupStage.setWidth(720);
+        popupStage.setHeight(480);
+        popupStage.setScene(scene);
+        popupStage.showAndWait();
+
     }
-    public void onConfirmButtonPress(ActionEvent even) throws RemoteException { //when you confirm your actions
+    public void onConfirmButtonPress(ActionEvent event) throws RemoteException { //when you confirm your actions
             String temp = new String();
 
             for (Pane entry : selectedIds) {
@@ -146,46 +171,13 @@ public class BoardController implements GenericInterface, Initializable {
                 columnMove = (MoveSelectColum) new GUISelectColumn(gui.getNickname(), selectedColumn - 1).updateGUI(gui.getGame());
 
                 if (columnMove != null) {
-                    List<Button> arrows = List.of(arrow1,arrow2,arrow3,arrow4,arrow5);
-                    List<Pane> allPanes = List.of(b_1_1, b_1_2, b_1_3, b_1_4, b_1_5, b_1_6,
-                            b_2_1, b_2_2, b_2_3, b_2_4, b_2_5, b_2_6,
-                            b_3_1, b_3_2, b_3_3, b_3_4, b_3_5, b_3_6,
-                            b_4_1, b_4_2, b_4_3, b_4_4, b_4_5, b_4_6,
-                            b_5_1, b_5_2, b_5_3, b_5_4, b_5_5, b_5_6,t_2_4, t_2_5, t_3_4, t_3_5, t_3_6, t_4_3, t_4_4, t_4_5, t_4_6,
-                            t_4_7, t_4_8, t_5_2, t_5_3, t_5_4, t_5_5, t_5_6, t_5_7, t_5_8, t_6_2,
-                            t_6_3, t_6_4, t_6_5, t_6_6, t_6_7, t_7_4, t_7_5, t_7_6, t_8_5, t_8_6, t_1_4, t_3_3, t_3_7, t_4_9, t_6_1, t_7_3, t_7_7, t_9_6, t_1_5, t_2_6, t_4_2, t_5_1, t_5_9, t_6_8, t_8_4, t_9_5);
-
                     first_tile.setBackground(null);
                     second_tile.setBackground(null);
                     third_tile.setBackground(null);
                     end_turn.setText("End turn");
                     confirm.setDisable(true);
                     confirm.setOpacity(0);
-                    changedBookshelfTiles.clear();
-                    selectedIds.clear();
-                    selectedColumn = 0;
-                    action = false;
-                    count = 0;
-                    moveHandled = true;
-                    for (Pane p : allPanes) {
-                        p.setDisable(true);
-                        p.setOnMouseEntered(event -> {
-                            p.setEffect(null);
-                        });
 
-                        p.setOnMouseExited(event -> {
-                            p.setEffect(null);
-                        });
-                    }
-                       for(Button b : arrows){
-                            b.setDisable(true);
-                            b.setOnMouseEntered(event -> {
-                               b.setEffect(null);
-                            });
-                            b.setOnMouseExited(event -> {
-                                b.setEffect(null);
-                            });
-                    }
                 } else {
                     Alert alert = alertCreator();
                     alert.setContentText("You cannot perform this move, the column is unavailable!");
@@ -235,11 +227,48 @@ public class BoardController implements GenericInterface, Initializable {
         return  this.dim;
     }
 
-    public void onEndTurnButtonPress(ActionEvent event) throws RemoteException { //if you press the end button
+    @Override
+    public void setStage(Stage stage) {
+    }
+
+    public void onEndTurnButtonPress(ActionEvent event1) throws RemoteException { //if you press the end button
         if(end_turn.getText().equals("End turn")){ //when you end your action
             gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(columnMove, MoveSelectColum.class));
             end_turn.setDisable(true);
             end_turn.setOpacity(0);
+            List<Button> arrows = List.of(arrow1,arrow2,arrow3,arrow4,arrow5);
+            List<Pane> allPanes = List.of(b_1_1, b_1_2, b_1_3, b_1_4, b_1_5, b_1_6,
+                    b_2_1, b_2_2, b_2_3, b_2_4, b_2_5, b_2_6,
+                    b_3_1, b_3_2, b_3_3, b_3_4, b_3_5, b_3_6,
+                    b_4_1, b_4_2, b_4_3, b_4_4, b_4_5, b_4_6,
+                    b_5_1, b_5_2, b_5_3, b_5_4, b_5_5, b_5_6,t_2_4, t_2_5, t_3_4, t_3_5, t_3_6, t_4_3, t_4_4, t_4_5, t_4_6,
+                    t_4_7, t_4_8, t_5_2, t_5_3, t_5_4, t_5_5, t_5_6, t_5_7, t_5_8, t_6_2,
+                    t_6_3, t_6_4, t_6_5, t_6_6, t_6_7, t_7_4, t_7_5, t_7_6, t_8_5, t_8_6, t_1_4, t_3_3, t_3_7, t_4_9, t_6_1, t_7_3, t_7_7, t_9_6, t_1_5, t_2_6, t_4_2, t_5_1, t_5_9, t_6_8, t_8_4, t_9_5);
+            changedBookshelfTiles.clear();
+            selectedIds.clear();
+            selectedColumn = 0;
+            action = false;
+            count = 0;
+            moveHandled = true;
+            for (Pane p : allPanes) {
+                p.setDisable(true);
+                p.setOnMouseEntered(event -> {
+                    p.setEffect(null);
+                });
+
+                p.setOnMouseExited(event -> {
+                    p.setEffect(null);
+                });
+            }
+            for(Button b : arrows){
+                b.setDisable(true);
+                b.setOnMouseEntered(event -> {
+                    b.setEffect(null);
+                });
+                b.setOnMouseExited(event -> {
+                    b.setEffect(null);
+                });
+            }
         }
         if(end_turn.getText().equals("Cancel")){ //when you cancel your action after selecting some tiles
             first_tile.setBackground(null);

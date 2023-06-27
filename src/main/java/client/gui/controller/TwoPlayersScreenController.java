@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import server.model.Bookshelf;
 import server.model.Coordinates;
 import server.model.Player;
@@ -15,6 +16,10 @@ import java.util.*;
 public class TwoPlayersScreenController implements GenericInterface, Initializable {
     public static final String name ="two-players-screen";
     public Label L3;
+    private Stage stage;
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
     public Pane t2_1_1, t2_3_1, t2_5_1, t2_7_1, t2_9_1, t2_11_1,
                 t2_1_3, t2_3_3, t2_5_3, t2_7_3, t2_9_3, t2_11_3,
                 t2_1_5, t2_3_5, t2_5_5, t2_7_5, t2_9_5, t2_11_5,
@@ -32,7 +37,7 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
 
 
     public void onBackPress(ActionEvent event) {
-        gui.activate(BoardController.name);
+        stage.hide();
     }
     @Override
     public String getName() {
@@ -74,8 +79,7 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
         bookshelfMap1.put( t2_11_9, new Coordinates(5,1));
         ArrayList<Player> playersThatAreNotMe = new ArrayList<>();
         for (Player p : gui.getGame().getPlayers())  if (!p.getUserName().equals(gui.getNickname())) playersThatAreNotMe.add(p);
-        for (Player p : playersThatAreNotMe
-        ) {
+        for (Player p : playersThatAreNotMe) {
             L3.setText(p.getUserName());
             Bookshelf bookshelf = p.getBookshelf();
             for (Pane pl : bookshelfMap1.keySet()) {

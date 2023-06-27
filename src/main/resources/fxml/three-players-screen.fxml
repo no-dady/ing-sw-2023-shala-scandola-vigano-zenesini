@@ -9,7 +9,6 @@
 <StackPane  xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:id="mainContainerThreePlayer"
-            fx:controller="client.gui.controller.ThreePlayersScreenController"
             stylesheets="@../css/ThreePlayersScreenPage.css">
 
     <fx:define>

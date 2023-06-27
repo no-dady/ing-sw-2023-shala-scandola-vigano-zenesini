@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import server.model.Bookshelf;
 import server.model.Coordinates;
 import server.model.Player;
@@ -21,8 +22,11 @@ public class FourPlayersScreenController implements GenericInterface, Initializa
     public Label L4;
     public Label L5;
     private GUI gui;
+    private Stage stage;
 
-
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     public Pane t2_1_1, t2_3_1, t2_5_1, t2_7_1, t2_9_1, t2_11_1,
                 t2_1_3, t2_3_3, t2_5_3, t2_7_3, t2_9_3, t2_11_3,
@@ -47,7 +51,7 @@ public class FourPlayersScreenController implements GenericInterface, Initializa
     }
 
     public void onBackPress(ActionEvent event) {
-        gui.activate(BoardController.name);
+        stage.hide();
     }
 
     @Override

@@ -2,6 +2,7 @@ package client.gui.controller;
 
 import client.gui.GUI;
 import javafx.scene.control.Alert;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public interface GenericInterface {
@@ -17,6 +18,7 @@ public interface GenericInterface {
 
     public String getName();
     public String getDimensions();
+    public void setStage(Stage stage);
 
 
     void update();

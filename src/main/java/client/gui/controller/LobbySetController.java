@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import util.Messages.CreateLobbyMessage;
 import util.Parser;
 
@@ -68,6 +69,9 @@ public class LobbySetController implements GenericInterface, Initializable {
     @Override
     public void update() {
 
+    }
+    @Override
+    public void setStage(Stage stage) {
     }
 
     @Override

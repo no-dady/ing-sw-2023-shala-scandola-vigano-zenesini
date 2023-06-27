@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import server.model.Bookshelf;
 import server.model.Coordinates;
 import server.model.Player;
@@ -18,6 +19,10 @@ public class ThreePlayersScreenController implements GenericInterface, Initializ
     public Label L3;
     public Label L4;
     public final String dim = "1920x1080";
+    private Stage stage;
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
     public Pane t2_1_1, t2_3_1, t2_5_1, t2_7_1, t2_9_1, t2_11_1,
                 t2_1_3, t2_3_3, t2_5_3, t2_7_3, t2_9_3, t2_11_3,
                 t2_1_5, t2_3_5, t2_5_5, t2_7_5, t2_9_5, t2_11_5,
@@ -43,7 +48,7 @@ public class ThreePlayersScreenController implements GenericInterface, Initializ
     }
 
     public void onBackPress(ActionEvent event) {
-        gui.activate(BoardController.name);
+        stage.hide();
     }
     @Override
     public String getName() {

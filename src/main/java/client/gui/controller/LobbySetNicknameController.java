@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import setup.SetupFirst;
 import util.Messages.CreateLobbyMessage;
 import util.Parser;
@@ -70,6 +71,9 @@ public class LobbySetNicknameController implements GenericInterface, Initializab
     @Override
     public void update() {
 
+    }
+    @Override
+    public void setStage(Stage stage) {
     }
 
     @Override

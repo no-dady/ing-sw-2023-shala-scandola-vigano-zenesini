@@ -4,6 +4,7 @@ import client.gui.GUI;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,6 +34,9 @@ public class VictoryScreenController implements GenericInterface, Initializable 
     @Override
     public void update() {
 
+    }
+    @Override
+    public void setStage(Stage stage) {
     }
     @Override
     public String getDimensions() {

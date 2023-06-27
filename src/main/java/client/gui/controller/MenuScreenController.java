@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,6 +47,9 @@ public class MenuScreenController implements GenericInterface, Initializable {
     @Override
     public void update() {
 
+    }
+    @Override
+    public void setStage(Stage stage) {
     }
 
     @Override
