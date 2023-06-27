@@ -37,7 +37,7 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
         return clientQueue;
     }
 
-    private static Queue<ClientInterface> clientQueue = new PriorityQueue<>();
+    private static Queue<ClientInterface> clientQueue = new LinkedList<>();
     private boolean isActive = true;
 
     private int portRmi;
@@ -115,11 +115,10 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     public void registrationFinished()
     {
         try {
-            ClientInterface cli = clientQueue.remove();
             this.registeringClient = false;
+            ClientInterface cli = clientQueue.remove();
             register(cli);
         } catch (Exception e) {
-            this.registeringClient = false;
             System.out.println("Finished Registering queue");
         }
     }
@@ -245,7 +244,6 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
                 new Thread(socketConnection).start();
             } catch (IOException e) {
                 System.out.println("Connection Error!");
-            } finally {
             }
         }
     }
