@@ -156,19 +156,19 @@ public class Lobby implements Runnable {
         return false;
     }
 
-    public void reconnectPlayer(String nickname, ClientInterface conn) throws RemoteException {
-        if(disconnectedPlayers.contains(nickname)) {
-            playerMap.put(nickname, conn);
-            playersview.get(nickname).setOffline(false);
-            ((RemoteView) playersview.get(nickname)).setClientConnection(conn);
-            playersview.get(nickname).sendInitialMessage(game, getLobbyName());
-            for(String name: playerMap.keySet()) {
-                playerMap.get(name).send(Parser.toJson(new ReconnectMessage(playerMap.keySet(), nickname), Message.class));
-            }
-
-            disconnectedPlayers.remove(nickname);
-        } else throw new IllegalArgumentException();
-    }
+    //public void reconnectPlayer(String nickname, ClientInterface conn) throws RemoteException {
+    //    if(disconnectedPlayers.contains(nickname)) {
+    //        playerMap.put(nickname, conn);
+    //        playersview.get(nickname).setOffline(false);
+    //        ((RemoteView) playersview.get(nickname)).setClientConnection(conn);
+    //        playersview.get(nickname).sendInitialMessage(game, getLobbyName());
+    //        for(String name: playerMap.keySet()) {
+    //            playerMap.get(name).send(Parser.toJson(new ReconnectMessage(playerMap.keySet(), nickname), Message.class));
+    //        }
+//
+    //        disconnectedPlayers.remove(nickname);
+    //    } else throw new IllegalArgumentException();
+    //}
 
     @Override
     public void run() {
@@ -197,7 +197,8 @@ public class Lobby implements Runnable {
                 return;
             }
             for (var entry : playerMap.entrySet()) {
-                entry.getValue().setGame(game);
+                InitialMessage initialMessage = new InitialMessage(game);
+                entry.getValue().send(Parser.toJson(initialMessage, Message.class));
                 //ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model", 5);
                 //try
                 //{

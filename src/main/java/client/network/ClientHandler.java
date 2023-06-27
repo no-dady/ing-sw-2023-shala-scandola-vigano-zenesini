@@ -73,18 +73,11 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         msg.handleMessage(this.client);
     }
 
-    @Override
-    public UI getUI() throws RemoteException {
-        return null;
-    }
-
-    @Override
     public Game getGame() throws RemoteException{
         return this.game;
 
     }
 
-    @Override
     public void setGame(Game model) throws RemoteException{
         this.game = model;
     }
@@ -103,7 +96,6 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         this.serverInterface.close();
     }
 
-    @Override
     public Lobby getLobby() {
         return this.lobby;
     }
@@ -111,11 +103,5 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     @Override
     public void addObserver(Observer<String> observer) {
 
-    }
-
-    @Override
-    public boolean handleSetupper(Setup setupper) throws RemoteException {
-        System.out.println("Handle Setupper ::: " + setupper.getName());
-        return true;
     }
 }

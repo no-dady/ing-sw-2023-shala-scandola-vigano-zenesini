@@ -1,6 +1,7 @@
 package util.Messages;
 
 import client.Client;
+import client.network.ClientHandler;
 import client.network.ClientInterface;
 
 import java.rmi.RemoteException;
@@ -29,12 +30,8 @@ public class ConfirmMessage implements Message {
     @Override
     public void handleMessage(Client client)
     {
-        ClientInterface cli = client.getClientConnection();
-        try {
-            cli.getLobby().getPlayerNumber();
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
+        ClientHandler cli = client.getClientConnection();
+        cli.getLobby().getPlayerNumber();
     }
 
     @Override

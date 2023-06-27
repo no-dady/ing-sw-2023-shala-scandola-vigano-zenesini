@@ -24,7 +24,7 @@ import java.util.List;
 
 
 
-public class ClientSkeleton implements Observable<String>, ClientInterface, Runnable {
+public class ClientSkeleton implements ClientInterface, Runnable {
     private State currState = State.WAITINGFORRESPONSE;
 
     private final Socket socket;
@@ -35,10 +35,9 @@ public class ClientSkeleton implements Observable<String>, ClientInterface, Runn
 
     private Lobby lobby;
 
-    private DataInputStream in;
     private DataOutputStream out;
 
-    private boolean active = true;
+    private boolean isActive = false;
 
 
     public ClientSkeleton(Socket socket, Server server) throws RemoteException {
@@ -73,23 +72,18 @@ public class ClientSkeleton implements Observable<String>, ClientInterface, Runn
     public void run() {
         System.out.println("Start thread");
         try {
-            in = new DataInputStream(socket.getInputStream());
+            DataInputStream in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
             boolean confirm = false;
-            //register();
-            String read;
-            do {
-                server.register(this);
-                read = in.readUTF();
-                System.out.println("Received: " + read);
-                Setup setupper = Parser.fromJson(read, Setup.class);
-                confirm = handleSetupper(setupper);
-            } while(!confirm);
+            isActive = true;
+            server.register(this);
 
-            while(isActive()) {
-                read = in.readUTF();
-                notify(read);
-            }
+            receive(in);
+
+            in.close();
+            out.close();
+            socket.close();
+            //removeClientSkeletonThread
             System.out.println("Disconnected");
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -100,50 +94,36 @@ public class ClientSkeleton implements Observable<String>, ClientInterface, Runn
         }
     }
 
-    public void notifyNewConn(String nickname) {
-        try {
-            out.writeUTF(nickname + " connected");
-        } catch (IOException e) {
+    private void receive(DataInputStream in)
+    {
+        try
+        {
+            while (isActive) {
+                int whatIsSending = in.readInt();
+                String rec = in.readUTF();
+                switch (whatIsSending) {
+                    case 0:
+                        server.sendMessage(rec);
+                        break;
+
+                    case 1:
+                        server.sendSetupFirst(rec);
+                        break;
+
+                    case 2:
+                        server.sendSetupAll(rec);
+                        break;
+                }
+            }
+        } catch (IOException e)
+        {
             System.out.println(e.getMessage());
         }
-    }
-
-    public void setLobby(Lobby lobby) {
-        this.lobby = lobby;
-    }
-
-    @Override
-    public void setGame(Game game) throws RemoteException {
-        try {
-            out.writeUTF("SSS");
-        } catch (IOException e) {
-            throw new RemoteException("Cannot send the Game", e);
-        }
-    }
-
-    @Override
-    public UI getUI() {
-        return null;
-    }
-
-    @Override
-    public Game getGame() {
-        return null;
-    }
-
-    @Override
-    public State getState() throws RemoteException {
-        return null;
     }
 
     @Override
     public void close() throws IOException {
 
-    }
-
-    @Override
-    public Lobby getLobby() {
-        return this.lobby;
     }
 
     public String getNickname() {
@@ -171,36 +151,13 @@ public class ClientSkeleton implements Observable<String>, ClientInterface, Runn
         }
     }
 
-    @Override
-    public void notify(String message) {
-        synchronized (observers) {
-            for (Observer<String> observer : observers) {
-                observer.update(message);
-            }
-        }
-    }
-
-    @Override
-    public boolean handleSetupper(Setup setupper) throws RemoteException {
-        if(this.lobby == null || (setupper.getParameter() != null && lobby.checkNicknameAvailable(setupper.getParameter()))) {
-            System.out.println("Handle Setupper ::: " + setupper.getParameter());
-            // if(setupper instanceof SetupFirst) {
-            //     Server.addLobby(new Lobby(((SetupFirst) setupper).getNumOfPlayers(), this, setupper.getParameter()));
-            // }
-            // this.lobby = Server.getLobby();
-            this.nickName = setupper.getParameter();
-            //Server.addClientQueue(this);
-            send(Parser.toJson(new StateMessage(State.INQUEUE), Message.class));
-            return true;
-        }
-        return false;
-    }
-
     public boolean isActive() {
-        return active;
+        return isActive;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void closeConnection()
+    {
+        isActive = false;
     }
+
 }

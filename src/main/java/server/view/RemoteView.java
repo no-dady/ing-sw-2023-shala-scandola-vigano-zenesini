@@ -20,14 +20,6 @@ public class RemoteView extends View {
             try {
                 Action move = Parser.fromJson(info, Action.class);
                 handleMove(move);
-            } catch (NullPointerException e) {
-                  Setup setupper = Parser.fromJson(info, Setup.class);
-                  ClientInterface connection = clientConnection;
-                try {
-                    connection.handleSetupper(setupper);
-                } catch (RemoteException ex) {
-                    throw new RuntimeException(ex);
-                }
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

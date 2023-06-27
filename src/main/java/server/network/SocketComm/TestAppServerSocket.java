@@ -49,7 +49,7 @@ public class TestAppServerSocket {
     {
         for (ClientSkeleton clientSocketMiddleware : clientsList)
         {
-            clientSocketMiddleware.notifyNewConn("New connection ");
+            //clientSocketMiddleware.notifyNewConn("New connection ");
         }
     }
 }

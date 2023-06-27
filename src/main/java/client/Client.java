@@ -51,14 +51,15 @@ public class Client {
         switch (connectionType) {
             case "RMI" -> {
                 clientConnection = new ClientHandler(ip, port);
-                clientConnection.setClient(this);
-                clientConnection.initialize();
             }
             case "SOCKET" -> {
                 clientConnection = new ClientHandler(this, ip, port);
-        }
+            }
             default -> throw new RuntimeException("Could not initiate connection");
         }
+
+        clientConnection.setClient(this);
+        clientConnection.initialize();
 
         online = true;
         System.out.println("Connection established");
@@ -116,7 +117,7 @@ public class Client {
     public Game getGame() {
         try {
             return clientConnection.getGame();
-        }catch (RemoteException e){}
+        } catch (RemoteException e){}
         return null;
     }
     public ClientHandler getClientConnection() {

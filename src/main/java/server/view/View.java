@@ -55,13 +55,13 @@ public abstract class View implements Observable<Action>, Observer<Message> {
         }
     }
 
-    public void sendInitialMessage(Game game, String lobbyName) {
-        if(game.getPlayerIndex(this.player) == -1) return;
-
-        int id = this.player.getUserId();
-        // TODO: initial message needs to send board and lobbyname to clients
-        this.update(new InitialMessage(game, id, player.getBookshelf(), player.getPersonalGoalCard()));
-        this.update(new LastMessage());
-    }
+    //public void sendInitialMessage(Game game, String lobbyName) {
+    //    if(game.getPlayerIndex(this.player) == -1) return;
+//
+    //    int id = this.player.getUserId();
+    //    // TODO: initial message needs to send board and lobbyname to clients
+    //    this.update(new InitialMessage(game, id, player.getBookshelf(), player.getPersonalGoalCard()));
+    //    this.update(new LastMessage());
+    //}
 
 }

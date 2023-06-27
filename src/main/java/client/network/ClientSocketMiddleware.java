@@ -20,8 +20,8 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
 
     private int port;
 
-    private final DataInputStream ins;
-    private DataOutputStream outs;
+    private DataInputStream in;
+    private DataOutputStream out;
 
     private Socket socket;
 
@@ -34,8 +34,6 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         this.clientinterface = clientInterface;
 
         socket = new Socket(ip, port);
-        ins = new DataInputStream(socket.getInputStream());
-        outs = new DataOutputStream(socket.getOutputStream());
     }
 
     @Override
@@ -43,15 +41,31 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
     {
         try
         {
+            in = new DataInputStream(socket.getInputStream());
+            out = new DataOutputStream(socket.getOutputStream());
             String read;
             while (client.isActive()) {
-                read = ins.readUTF();
-                Message recv = Parser.fromJson(read, Message.class);
-                recv.handleMessage(client);
+                read = in.readUTF();
+                clientinterface.send(read);
             }
         } catch(Exception e) {
             client.setActive(false);
             e.printStackTrace();
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+                if (out != null) {
+                    out.close();
+                }
+                if (socket != null) {
+                    socket.close();
+                }
+            } catch (IOException e)
+            {
+                System.out.println("Cannot close the Socket connection");
+            }
         }
     }
 
@@ -64,25 +78,44 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
     {
         try
         {
-            outs.writeUTF(json);
-            outs.flush();
+            out.writeInt(0);
+            out.writeUTF(json);
+            out.flush();
         }
         catch (IOException e)
         {
-            throw new RemoteException("Cannot send string from client", e);
+            throw new RemoteException("Cannot send string Message from client", e);
         }
     }
 
     @Override
     public void sendSetupFirst(String json) throws RemoteException
     {
-        sendMessage(json);
+        try
+        {
+            out.writeInt(1);
+            out.writeUTF(json);
+            out.flush();
+        }
+        catch (IOException e)
+        {
+            throw new RemoteException("Cannot send string SetupFirst from client", e);
+        }
     }
 
     @Override
     public void sendSetupAll(String json) throws RemoteException
     {
-        sendMessage(json);
+        try
+        {
+            out.writeInt(2);
+            out.writeUTF(json);
+            out.flush();
+        }
+        catch (IOException e)
+        {
+            throw new RemoteException("Cannot send string SetupAll from client", e);
+        }
     }
 
     public void receive(ClientHandler clientHandler) throws RemoteException
@@ -91,7 +124,5 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
 
     @Override
     public void close() throws IOException {
-        this.ins.close();
-        this.outs.close();
     }
 }
