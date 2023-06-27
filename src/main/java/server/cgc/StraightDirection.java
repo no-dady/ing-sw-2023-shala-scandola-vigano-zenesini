@@ -50,7 +50,7 @@ public class StraightDirection extends CommonGoalCardStrategy implements Seriali
             var tile = slots[0][i];
             count = 0;
             for(int j = 0; j < Bookshelf.getRows() && !slots[j][i].Empty() && count < numToLook; ++j) {
-                if((slots[j][i].getTileType().equals(tile.getTileType())) == isEqual) {
+                if((slots[j][i].equals(tile)) == isEqual) {
                     count++;
                 } else {
                     tile = slots[j][i];
@@ -72,8 +72,8 @@ public class StraightDirection extends CommonGoalCardStrategy implements Seriali
         for(int i = 0; i < Bookshelf.getRows() && checked < timesToLook; i++) {
             var tile = slots[i][0];
             count = 0;
-            for(int j = 0; j < Bookshelf.getCols() && !slots[i][j].Empty() && count < numToLook; ++j) {
-                if((slots[i][j].getTileType().equals(tile.getTileType())) == isEqual) {
+            for(int j = 0; j < Bookshelf.getCols() && count < numToLook && !slots[i][j].Empty() ; ++j) {
+                if((slots[i][j].equals(tile)) == isEqual) {
                     count++;
                 } else {
                     tile = slots[i][j];

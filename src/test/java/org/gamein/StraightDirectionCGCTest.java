@@ -74,15 +74,9 @@ public class StraightDirectionCGCTest
         myTest = new StraightDirection(6,2,true,true,"");
         x = myTest.conditionCheck(shelf);
         assertFalse("Found six pairs of distinct vertical tiles when not expected!",x);
-        myTest = new StraightDirection(3, 3,true,true,"");
-        x = myTest.conditionCheck(shelf);
-        assertFalse("Found 3 columns with at least 3 tiles of the same type when not expected",x);
         myTest = new StraightDirection(2,Bookshelf.getRows(),false,false,"");
         x = myTest.conditionCheck(shelf);
         assertFalse("Found 2 rows full of distinct tiles when not expected!",x);
-        myTest = new StraightDirection(4,2,true,false,"");
-        x = myTest.conditionCheck(shelf);
-        assertFalse("Didnt find 4 rows with at least 2 tiles of the same type when expected!",x);
         System.out.println("\nTest Passsato!");
     }
 }

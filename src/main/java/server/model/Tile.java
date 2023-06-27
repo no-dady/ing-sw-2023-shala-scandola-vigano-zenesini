@@ -77,4 +77,19 @@ public class Tile implements Serializable {
     public void setPickable(boolean pickable){
         this.pickable = pickable;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        final Tile t = (Tile) obj;
+
+        return this.getTileType().equals(t.getTileType());
+    }
 }
