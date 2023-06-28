@@ -2,10 +2,8 @@ package util;
 
 import com.google.gson.*;
 import moves.Move;
-import moves.MoveSelectColum;
+import moves.MoveSelectColumn;
 import moves.MoveSelectTiles;
-import server.cgc.*;
-import server.model.CommonGoalCardStrategy;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -17,8 +15,8 @@ public class MoveSerializer implements JsonSerializer<Move>, JsonDeserializer<Mo
 
 
     static {
-        classNameMap.put(MoveSelectTiles.classname, MoveSelectTiles.class);
-        classNameMap.put(MoveSelectColum.className, MoveSelectColum.class);
+        classNameMap.put(MoveSelectTiles.className, MoveSelectTiles.class);
+        classNameMap.put(MoveSelectColumn.className, MoveSelectColumn.class);
     }
 
 

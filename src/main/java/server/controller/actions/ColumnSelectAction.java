@@ -1,13 +1,13 @@
 package server.controller.actions;
 
-import moves.MoveSelectColum;
+import moves.MoveSelectColumn;
 import server.model.Game;
 
 public class ColumnSelectAction implements Action{
     String nickName;
-    MoveSelectColum move;
+    MoveSelectColumn move;
 
-    public ColumnSelectAction(MoveSelectColum move) {
+    public ColumnSelectAction(MoveSelectColumn move) {
         this.nickName = move.getNickName();
         this.move = move;
     }

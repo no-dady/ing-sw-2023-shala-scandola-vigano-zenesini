@@ -1,16 +1,16 @@
 package client.gui.guiMoves;
 
 import moves.Move;
-import moves.MoveSelectColum;
+import moves.MoveSelectColumn;
 import server.model.Game;
 
 
 public class GUISelectColumn implements GUIMoveInterface {
-    private final MoveSelectColum move;
+    private final MoveSelectColumn move;
     private final int selectedColumn;
 
     public GUISelectColumn(String nickName, int lobbyId, int selectedColumn){
-        this.move = new MoveSelectColum(nickName, lobbyId);
+        this.move = new MoveSelectColumn(nickName, lobbyId);
         this.selectedColumn = selectedColumn;
     }
     @Override

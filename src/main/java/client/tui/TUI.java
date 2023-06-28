@@ -3,28 +3,20 @@ package client.tui;
 import client.UI;
 import client.tui.tuiMoves.TUISelectColumn;
 import client.tui.tuiMoves.TUISelectTiles;
-import client.network.State;
 import client.Client;
 import client.tui.tuiMoves.TUISetupAll;
 import client.tui.tuiMoves.TUISetupFirst;
-import javafx.scene.SubScene;
-import moves.MoveSelectColum;
+import moves.MoveSelectColumn;
 import moves.MoveSelectTiles;
-import setup.Setup;
-import util.Messages.CreateLobbyMessage;
-import util.Messages.Message;
 import server.model.*;
 import setup.ConfigsFromJson;
 import setup.SetupAll;
 import setup.SetupFirst;
-import util.Messages.NicknameMessage;
 import util.Parser;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class TUI implements UI, Runnable {
@@ -277,7 +269,7 @@ public class TUI implements UI, Runnable {
                     throw new RuntimeException(e);
                 }
                 try {
-                    client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectColumn(nickname, client.getLobbyId()).updateCLI(client.getGame(), in), MoveSelectColum.class));
+                    client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectColumn(nickname, client.getLobbyId()).updateCLI(client.getGame(), in), MoveSelectColumn.class));
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }

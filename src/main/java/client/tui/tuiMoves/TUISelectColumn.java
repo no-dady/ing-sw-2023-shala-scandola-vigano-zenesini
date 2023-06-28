@@ -1,19 +1,18 @@
 package client.tui.tuiMoves;
 
-import moves.Move;
-import moves.MoveSelectColum;
+import moves.MoveSelectColumn;
 import server.model.Game;
 
 import java.util.Scanner;
 
 public class TUISelectColumn implements TUIMoveInterface {
-    public final MoveSelectColum move;
+    public final MoveSelectColumn move;
 
     public TUISelectColumn(String nickName, int lobbyId){
-        this.move = new MoveSelectColum(nickName, lobbyId);
+        this.move = new MoveSelectColumn(nickName, lobbyId);
     }
     @Override
-    public MoveSelectColum updateCLI(Game game, Scanner stdin) {
+    public MoveSelectColumn updateCLI(Game game, Scanner stdin) {
         int selectedColumn;
         String confirmed;
         do {

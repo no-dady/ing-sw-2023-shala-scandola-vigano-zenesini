@@ -3,12 +3,11 @@ package server.network;
 import client.network.ClientInterface;
 import client.network.State;
 import moves.Move;
-import moves.MoveSelectColum;
+import moves.MoveSelectColumn;
 import moves.MoveSelectTiles;
 import observer.Observable;
 import observer.Observer;
 import server.controller.GameController;
-import server.controller.actions.Action;
 import server.controller.actions.ColumnSelectAction;
 import server.controller.actions.TileSelectAction;
 import server.model.*;
@@ -131,9 +130,9 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     public void sendMessage(String json) throws RemoteException {
         System.out.print("Ricevuto: " + json);
         Move movereceived = Parser.fromJson(json, Move.class);
-        if (movereceived instanceof MoveSelectColum){
+        if (movereceived instanceof MoveSelectColumn){
             System.out.println("Ricevuto: " + movereceived.getLobbyId());
-            lobbyList.get(movereceived.getLobbyId()).getController().update(new ColumnSelectAction((MoveSelectColum) movereceived));
+            lobbyList.get(movereceived.getLobbyId()).getController().update(new ColumnSelectAction((MoveSelectColumn) movereceived));
         }
         else if (movereceived instanceof MoveSelectTiles){
             System.out.println("Ricevuto: " + movereceived.getLobbyId());

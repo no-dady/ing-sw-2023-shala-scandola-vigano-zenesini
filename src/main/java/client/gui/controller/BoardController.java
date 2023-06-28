@@ -16,7 +16,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import moves.MoveSelectColum;
+import moves.MoveSelectColumn;
 import moves.MoveSelectTiles;
 import server.model.Bookshelf;
 import server.model.Coordinates;
@@ -62,7 +62,7 @@ public class BoardController implements GenericInterface, Initializable {
     public boolean action = false;
     public int selectedColumn = 0, count = 0;
     public MoveSelectTiles tileMove = null;
-    public MoveSelectColum columnMove = null;
+    public MoveSelectColumn columnMove = null;
     public List<Pane> selectedIds = new ArrayList<Pane>();
     private FXMLLoader loader;
     public List<Pane> changedBookshelfTiles = new ArrayList<Pane>();
@@ -168,7 +168,7 @@ public class BoardController implements GenericInterface, Initializable {
             if (tileMove != null) {
                 gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(tileMove, MoveSelectTiles.class));
 
-                columnMove = (MoveSelectColum) new GUISelectColumn(gui.getNickname(), gui.getClient().getLobbyId(), selectedColumn - 1).updateGUI(gui.getGame());
+                columnMove = (MoveSelectColumn) new GUISelectColumn(gui.getNickname(), gui.getClient().getLobbyId(), selectedColumn - 1).updateGUI(gui.getGame());
 
                 if (columnMove != null) {
                     first_tile.setBackground(null);
@@ -233,7 +233,7 @@ public class BoardController implements GenericInterface, Initializable {
 
     public void onEndTurnButtonPress(ActionEvent event1) throws RemoteException { //if you press the end button
         if(end_turn.getText().equals("End turn")){ //when you end your action
-            gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(columnMove, MoveSelectColum.class));
+            gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(columnMove, MoveSelectColumn.class));
             end_turn.setDisable(true);
             end_turn.setOpacity(0);
             List<Button> arrows = List.of(arrow1,arrow2,arrow3,arrow4,arrow5);

@@ -45,7 +45,7 @@ public class MaxNTypesTest {
             System.out.println();
         }
 
-        assertFalse(testRow.conditionCheck(shelf), "SUS");
-        assertFalse(testCol.conditionCheck(shelf), "SAS");
+        assertFalse(testRow.conditionCheck(shelf));
+        assertFalse(testCol.conditionCheck(shelf));
     }
 }
