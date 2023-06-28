@@ -168,7 +168,7 @@ public class BoardController implements GenericInterface, Initializable {
             if (tileMove != null) {
                 gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(tileMove, MoveSelectTiles.class));
 
-                columnMove = (MoveSelectColumn) new GUISelectColumn(gui.getNickname(), gui.getClient().getLobbyId(), selectedColumn - 1).updateGUI(gui.getGame());
+                columnMove = (MoveSelectColumn) new GUISelectColumn(gui.getNickname(), gui.getClient().getLobbyId(), selectedColumn).updateGUI(gui.getGame());
 
                 if (columnMove != null) {
                     first_tile.setBackground(null);
