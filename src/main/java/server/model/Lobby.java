@@ -36,6 +36,10 @@ public class Lobby implements Runnable {
 
     private String lobbyName;
 
+    public GameController getController() {
+        return controller;
+    }
+
     public Lobby(int playerNumber, ClientInterface adminPlayer, String adminNickname, int lobbyId)
     {
         this.playerNumber = playerNumber;

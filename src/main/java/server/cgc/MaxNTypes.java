@@ -11,15 +11,18 @@ import java.util.stream.Collectors;
 
 public class MaxNTypes extends CommonGoalCardStrategy implements Serializable {
     private boolean isVertical;
+    public static final String className = "MaxNTypes";
     private int timesToCheck;
+    private final String name;
 
     private int maxDistincts;
 
 
-    public MaxNTypes(boolean isVertical, int maxDistincts, int timesToCheck) {
+    public MaxNTypes(boolean isVertical, int maxDistincts, int timesToCheck, String name) {
         this.isVertical = isVertical;
         this.timesToCheck = timesToCheck;
         this.maxDistincts = maxDistincts;
+        this.name = name;
     }
     @Override
     public boolean conditionCheck(Tile[][] shelf) {
@@ -57,4 +60,12 @@ public class MaxNTypes extends CommonGoalCardStrategy implements Serializable {
         }
         return count == timesToCheck;
     }
+    public String getName() {
+        return name;
+    }
+    public String getClassName() {
+        return className;
+    }
+
+
 }

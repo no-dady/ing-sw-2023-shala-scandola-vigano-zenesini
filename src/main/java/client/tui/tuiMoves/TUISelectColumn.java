@@ -13,7 +13,7 @@ public class TUISelectColumn implements TUIMoveInterface {
         this.move = new MoveSelectColum(nickName, lobbyId);
     }
     @Override
-    public Move updateCLI(Game game, Scanner stdin) {
+    public MoveSelectColum updateCLI(Game game, Scanner stdin) {
         int selectedColumn;
         String confirmed;
         do {

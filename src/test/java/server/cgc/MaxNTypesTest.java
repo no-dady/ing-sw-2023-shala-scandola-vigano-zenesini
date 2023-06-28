@@ -23,8 +23,8 @@ public class MaxNTypesTest {
     public List<Tile[][]> prova;
     @BeforeEach
     void setUp() {
-        testRow = new MaxNTypes(false, 3, 4);
-        testCol = new MaxNTypes(true, 3, 3);
+        testRow = new MaxNTypes(false, 3, 4, "");
+        testCol = new MaxNTypes(true, 3, 3, "");
         try {
             Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/prova.json"));
 

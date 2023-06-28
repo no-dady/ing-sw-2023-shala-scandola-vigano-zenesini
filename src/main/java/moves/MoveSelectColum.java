@@ -4,15 +4,16 @@ import server.model.Bookshelf;
 import server.model.Game;
 
 public class MoveSelectColum extends Move {
+    public static String className;
     int selectedColumn;
-    private final String classname= "MoveSelectColumn";
+    public final String classname= "MoveSelectColumn";
 
     public MoveSelectColum(String nickName, int lobbyId) {
         super(nickName, lobbyId);
     }
 
     @Override
-    public String getName() {
+    public String getClassName() {
         return classname;
     }
 
@@ -31,4 +32,5 @@ public class MoveSelectColum extends Move {
     public void setSelectedColumn(int selectedColumn) {
         this.selectedColumn = selectedColumn;
     }
+
 }

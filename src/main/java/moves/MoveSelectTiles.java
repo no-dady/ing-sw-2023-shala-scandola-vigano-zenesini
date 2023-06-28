@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class MoveSelectTiles extends Move {
     private String selectedTiles;
-    private final String classname = "MoveSelectTiles";
+    public static final String classname = "MoveSelectTiles";
 
     public MoveSelectTiles(String nickName, int lobbyId) {
         super(nickName, lobbyId);
     }
 
     @Override
-    public String getName() {
+    public String getClassName() {
         return classname;
     }
 
