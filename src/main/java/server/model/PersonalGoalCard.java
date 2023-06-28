@@ -51,7 +51,7 @@ public class PersonalGoalCard implements Serializable, Observable<Message> {
         int count= 0;
         for(String key : goals.keySet()) {
             var coord = goals.get(key);
-            if(slots[coord.x()][coord.y()].getTileType().equals(key)){
+            if(!(slots[coord.x()][coord.y()] == null) && !slots[coord.x()][coord.y()].Empty() && slots[coord.x()][coord.y()].getTileType().equals(key)){
                 count ++;
             }
         }

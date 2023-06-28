@@ -47,15 +47,15 @@ public class GameController implements Observer<Action>{
      * @throws IllegalPlayersNumberException the illegal players number exception
      */
     public void createLobby(int playerNumber, List<String> playerNicknames) throws IllegalPlayersNumberException, IOException {
-        ArrayList<Player> players = new ArrayList<>();
-        Tile[][] slots = BoardConfig.newEmptyBoard();
-        Board board = new Board(slots);
-        Pocket pocket = new Pocket(new PocketBuilder().createTileListPocket(132));
         try {
             new TileType();
         }catch (Exception e){
             System.out.println("Failed to create TileType map");
         }
+        ArrayList<Player> players = new ArrayList<>();
+        Tile[][] slots = BoardConfig.newEmptyBoard();
+        Board board = new Board(slots);
+        Pocket pocket = new Pocket(new PocketBuilder().createTileListPocket(132));
         for (int i = 0; i < playerNumber; i++) {
             List<PersonalGoalCard> pgcList = ConfigsFromJson.getpgcList("src/main/resources/json/personalgoalcards.json");
             Collections.shuffle(pgcList);
@@ -187,10 +187,13 @@ public class GameController implements Observer<Action>{
             String nick = action.getNickName();
             Player player = game.getPlayerByNickname(nick);
             if (action instanceof ColumnSelectAction) {
-                for (CommonGoalCardStrategy cgc : game.getBoard().getCommonGoalCards()) {
-                    if (cgc.conditionCheck(player.getBookshelf().getSlots())) {
-                        cgc.addPlayer(player);
+                try {
+                    for (CommonGoalCardStrategy cgc : game.getBoard().getCommonGoalCards()) {
+                        if (cgc.conditionCheck(player.getBookshelf().getSlots())) {
+                            cgc.addPlayer(player);
+                        }
                     }
+                }catch (NullPointerException e) {
                 }
                 if (gameEnded()) {
                     calculatePoints();
