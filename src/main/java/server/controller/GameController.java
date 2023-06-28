@@ -213,7 +213,6 @@ public class GameController implements Observer<Action>{
                             InitialMessage gameMessage = new InitialMessage(game);
                             clientInterface.send(Parser.toJson(gameMessage, Message.class));
                         }
-                        lobby.getConnections().get(nick).send(Parser.toJson(new StateMessage(State.WAITINGFORMYTURN),Message.class));
                     } catch (RemoteException e) {
                         throw new RuntimeException(e);
                     }
@@ -221,6 +220,13 @@ public class GameController implements Observer<Action>{
                     game.setCurrPlayerNick((game.getPlayers().get((player.getUserId() + 1) % game.getNumPlayers()).getUserName()));
                     try {
                         lobby.getConnections().get(game.getPlayers().get((player.getUserId() + 1) % game.getNumPlayers()).getUserName()).send(Parser.toJson(new StateMessage(State.MYTURN),Message.class));
+                        for (var entity : lobby.getConnections().entrySet())
+                        {
+                            if (!entity.getKey().equals(game.getCurrPlayerNick()))
+                            {
+                                entity.getValue().send(Parser.toJson(new StateMessage(State.WAITINGFORMYTURN),Message.class));
+                            }
+                        }
                     } catch (RemoteException e) {
                         throw new RuntimeException(e);
                     }
