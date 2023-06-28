@@ -1,5 +1,6 @@
 package client.tui.tuiMoves;
 
+import moves.Move;
 import moves.MoveSelectColumn;
 import server.model.Game;
 
@@ -12,7 +13,7 @@ public class TUISelectColumn implements TUIMoveInterface {
         this.move = new MoveSelectColumn(nickName, lobbyId);
     }
     @Override
-    public MoveSelectColumn updateCLI(Game game, Scanner stdin) {
+    public Move updateCLI(Game game, Scanner stdin) {
         int selectedColumn;
         String confirmed;
         do {

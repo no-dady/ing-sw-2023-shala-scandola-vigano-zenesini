@@ -4,10 +4,11 @@ import moves.MoveSelectTiles;
 import server.model.Game;
 import server.model.Tile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TileSelectAction implements Action{
-    List<Tile> selectedTiles;
+    List<Tile> selectedTiles = new ArrayList<>();
     MoveSelectTiles move;
     String nickName;
     public TileSelectAction(MoveSelectTiles move) {
@@ -16,6 +17,7 @@ public class TileSelectAction implements Action{
     }
 
     public void performAction(Game game) {
+        for (String s : move.getSelectedTiles().split(" ")) {selectedTiles.add(game.getBoard().getTile(s.charAt(0) - 'A', s.charAt(1) - '1'));}
         game.setSelectedTiles(selectedTiles);
     }
 

@@ -22,6 +22,14 @@ public class Bookshelf implements Serializable, Observable<Message> {
      */
     public Bookshelf() {
         slots = new Tile[rows][cols];
+        for (Tile[] tilecolumn: slots
+             ) {
+            for (Tile t: tilecolumn
+                 ) { t = new Tile();
+
+            }
+
+        }
         tileCount = 0;
     }
 
@@ -42,7 +50,7 @@ public class Bookshelf implements Serializable, Observable<Message> {
      */
     public void setSlots(int column, List<Tile> selectedTiles) {
         int i = 0;
-        while(i < rows && slots[i][column] != null) {
+        while(i < rows && slots[i][column] != null && !slots[i][column].Empty()) {
             ++i;
         }
 

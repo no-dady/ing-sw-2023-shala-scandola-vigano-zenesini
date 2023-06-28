@@ -3,17 +3,30 @@ package moves;
 import server.model.Bookshelf;
 import server.model.Game;
 
-public class MoveSelectColumn extends Move {
+public class MoveSelectColumn implements Move {
+    private final String nickName;
+    private final int lobbyId;
     int selectedColumn;
     public static final String className = "MoveSelectColumn";
 
     public MoveSelectColumn(String nickName, int lobbyId) {
-        super(nickName, lobbyId);
+        this.nickName = nickName;
+        this.lobbyId = lobbyId;
     }
 
     @Override
     public String getClassName() {
         return className;
+    }
+
+    @Override
+    public String getNickName() {
+        return this.nickName;
+    }
+
+    @Override
+    public int getLobbyId() {
+        return this.lobbyId;
     }
 
     @Override

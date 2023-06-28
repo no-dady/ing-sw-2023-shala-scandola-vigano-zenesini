@@ -6,6 +6,7 @@ import client.tui.tuiMoves.TUISelectTiles;
 import client.Client;
 import client.tui.tuiMoves.TUISetupAll;
 import client.tui.tuiMoves.TUISetupFirst;
+import moves.Move;
 import moves.MoveSelectColumn;
 import moves.MoveSelectTiles;
 import server.model.*;
@@ -264,12 +265,12 @@ public class TUI implements UI, Runnable {
                     throw new RuntimeException(e);
                 }
                 try {
-                    client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectTiles(nickname, client.getLobbyId()).updateCLI(client.getGame(), in), MoveSelectTiles.class));
+                    client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectTiles(nickname, client.getLobbyId()).updateCLI(client.getGame(), in), Move.class));
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
                 try {
-                    client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectColumn(nickname, client.getLobbyId()).updateCLI(client.getGame(), in), MoveSelectColumn.class));
+                    client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectColumn(nickname, client.getLobbyId()).updateCLI(client.getGame(), in), Move.class));
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }

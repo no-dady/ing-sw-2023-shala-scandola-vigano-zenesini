@@ -15,6 +15,7 @@ public class MaxNTypes extends CommonGoalCardStrategy implements Serializable {
     private int timesToCheck;
 
     private int maxDistincts;
+    private String name;
 
 
     public MaxNTypes(boolean isVertical, int maxDistincts, int timesToCheck, String name) {

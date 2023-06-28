@@ -12,7 +12,7 @@ public class TUISelectTiles implements TUIMoveInterface {
         this.move = new MoveSelectTiles(nickName, lobbyId);
     }
     @Override
-    public MoveSelectTiles updateCLI(Game game, Scanner stdin) {
+    public Move updateCLI(Game game, Scanner stdin) {
         String selectedTiles;
         String confirmed;
         int max;

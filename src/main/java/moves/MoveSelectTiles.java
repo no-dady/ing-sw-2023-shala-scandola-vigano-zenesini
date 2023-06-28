@@ -5,12 +5,24 @@ import server.model.Game;
 
 import java.util.ArrayList;
 
-public class MoveSelectTiles extends Move {
+public class MoveSelectTiles implements Move {
+    private final String nickName;
+    private final int lobbyId;
     private String selectedTiles;
     public static final String className = "MoveSelectTiles";
 
     public MoveSelectTiles(String nickName, int lobbyId) {
-        super(nickName, lobbyId);
+            this.nickName = nickName;
+            this.lobbyId = lobbyId;
+    }
+    @Override
+    public String getNickName() {
+        return this.nickName;
+    }
+
+    @Override
+    public int getLobbyId() {
+        return this.lobbyId;
     }
 
     @Override
