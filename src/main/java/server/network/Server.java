@@ -181,7 +181,7 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
         lobbyList.removeIf(l -> l.getLobbyName().equals(lobby.getLobbyName()));
     }
 
-    private void addObserverGame(ArrayList<View> playersView, Game game, GameController controller){
+    public static void addObserverGame(List<View> playersView, Game game, GameController controller){
         for(View view: playersView) {
             instanceView(view, game, controller);
         }
@@ -201,14 +201,6 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
         }
 
         view.addObserver(controller);
-    }
-
-    private HashMap<String,View> instanceViews(Map<String, ClientInterface> waitingConnection, ArrayList<Player> players) throws RemoteException {
-        HashMap <String, View> playersView = new HashMap<>();
-        for(Player player: players){
-            playersView.put(player.getUserName(), new RemoteView(player, waitingConnection.get(player.getUserName())));
-        }
-        return playersView;
     }
 
 

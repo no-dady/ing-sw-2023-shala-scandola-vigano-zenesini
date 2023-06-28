@@ -10,29 +10,34 @@ import server.controller.actions.Action;
 import server.model.Player;
 import util.Parser;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 
-public class RemoteView extends View {
+public class RemoteView extends View implements Serializable {
 
-    private class MessageReceiver implements Observer<String> {
+private class MessageReceiver implements Observer<String>, Serializable {
+
+
+
+    public MessageReceiver(){
+        System.out.println("MessageReceiver created");
+    }
         public void update(String info) {
             System.out.println("Received: " + info);
             try {
                 Action move = Parser.fromJson(info, Action.class);
                 handleMove(move);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                System.out.println("Error MessageReceiver");
             }
         }
-
-    }
-
+}
     private ClientInterface clientConnection;
 
     public RemoteView(Player player, ClientInterface c) throws RemoteException {
         super(player);
         this.clientConnection = c;
-        c.addObserver(new MessageReceiver());
+        clientConnection.addObserver(new MessageReceiver());
     }
 
     public void setClientConnection(ClientInterface clientConnection) throws RemoteException {

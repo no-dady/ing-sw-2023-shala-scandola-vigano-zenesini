@@ -4,6 +4,7 @@ import client.network.ClientInterface;
 import client.network.State;
 import server.controller.GameController;
 import server.exceptions.IllegalPlayersNumberException;
+import server.network.Server;
 import server.view.RemoteView;
 import server.view.View;
 import util.Messages.*;
@@ -196,7 +197,9 @@ public class Lobby implements Runnable {
             else {
                 return;
             }
-            for (var entry : playerMap.entrySet()) {
+            playersview = instanceViews(playerMap, game.getPlayers());
+            Server.addObserverGame( playersview.values().stream().toList(), controller.getGame(), controller);
+            /*for (var entry : playerMap.entrySet()) {
                 InitialMessage initialMessage = new InitialMessage(game);
                 entry.getValue().send(Parser.toJson(initialMessage, Message.class));
                 //ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model", 5);
@@ -210,6 +213,8 @@ public class Lobby implements Runnable {
             }
             setActive();
             controller.start();
+
+
         } catch (IllegalPlayersNumberException | IOException | InterruptedException e)
         {
             System.out.println(e.getMessage());
@@ -235,4 +240,12 @@ public class Lobby implements Runnable {
         disconnectedPlayers.clear();
         active=false;
     }
+    public HashMap<String,View> instanceViews(Map<String, ClientInterface> waitingConnection, ArrayList<Player> players) throws RemoteException {
+        HashMap <String, View> playersView = new HashMap<>();
+        for(Player player: players){
+            playersView.put(player.getUserName(), new RemoteView(player, waitingConnection.get(player.getUserName())));
+        }
+        return playersView;
+    }
+
 }
