@@ -7,8 +7,8 @@ import server.model.Game;
 public class GUISelectTiles implements GUIMoveInterface {
     private final MoveSelectTiles move;
     private final String selectedTiles;
-    public GUISelectTiles(String nickName, String selectedTiles){
-        this.move = new MoveSelectTiles(nickName);
+    public GUISelectTiles(String nickName, int lobbyId, String selectedTiles){
+        this.move = new MoveSelectTiles(nickName, lobbyId);
         this.selectedTiles = selectedTiles;
     }
     @Override

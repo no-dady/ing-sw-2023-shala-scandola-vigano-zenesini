@@ -9,8 +9,8 @@ public class MoveSelectTiles extends Move {
     private String selectedTiles;
     private final String classname = "MoveSelectTiles";
 
-    public MoveSelectTiles(String nickName) {
-        super(nickName);
+    public MoveSelectTiles(String nickName, int lobbyId) {
+        super(nickName, lobbyId);
     }
 
     @Override

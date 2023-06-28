@@ -9,8 +9,8 @@ import java.util.Scanner;
 public class TUISelectColumn implements TUIMoveInterface {
     public final MoveSelectColum move;
 
-    public TUISelectColumn(String nickName){
-        this.move = new MoveSelectColum(nickName);
+    public TUISelectColumn(String nickName, int lobbyId){
+        this.move = new MoveSelectColum(nickName, lobbyId);
     }
     @Override
     public Move updateCLI(Game game, Scanner stdin) {

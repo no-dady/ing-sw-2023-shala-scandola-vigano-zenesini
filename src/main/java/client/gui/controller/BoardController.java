@@ -163,12 +163,12 @@ public class BoardController implements GenericInterface, Initializable {
             }
 
             System.out.println(temp);
-            tileMove = (MoveSelectTiles) new GUISelectTiles(gui.getNickname(), temp).updateGUI(gui.getGame());
+            tileMove = (MoveSelectTiles) new GUISelectTiles(gui.getNickname(), gui.getClient().getLobbyId() , temp).updateGUI(gui.getGame());
 
             if (tileMove != null) {
                 gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(tileMove, MoveSelectTiles.class));
 
-                columnMove = (MoveSelectColum) new GUISelectColumn(gui.getNickname(), selectedColumn - 1).updateGUI(gui.getGame());
+                columnMove = (MoveSelectColum) new GUISelectColumn(gui.getNickname(), gui.getClient().getLobbyId(), selectedColumn - 1).updateGUI(gui.getGame());
 
                 if (columnMove != null) {
                     first_tile.setBackground(null);

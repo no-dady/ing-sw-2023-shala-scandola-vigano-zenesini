@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 public class TUISelectTiles implements TUIMoveInterface {
     public final MoveSelectTiles move;
-    public TUISelectTiles(String nickName){
-        this.move = new MoveSelectTiles(nickName);
+    public TUISelectTiles(String nickName, int lobbyId){
+        this.move = new MoveSelectTiles(nickName, lobbyId);
     }
     @Override
     public Move updateCLI(Game game, Scanner stdin) {

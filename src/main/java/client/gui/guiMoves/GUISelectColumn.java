@@ -9,8 +9,8 @@ public class GUISelectColumn implements GUIMoveInterface {
     private final MoveSelectColum move;
     private final int selectedColumn;
 
-    public GUISelectColumn(String nickName, int selectedColumn){
-        this.move = new MoveSelectColum(nickName);
+    public GUISelectColumn(String nickName, int lobbyId, int selectedColumn){
+        this.move = new MoveSelectColum(nickName, lobbyId);
         this.selectedColumn = selectedColumn;
     }
     @Override

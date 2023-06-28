@@ -132,6 +132,11 @@ public class Client {
         this.lobbyId = lobbyId;
         System.out.println("Sono in lobby" + lobbyId);
     }
+
+    public int getLobbyId()
+    {
+        return this.lobbyId;
+    }
     public synchronized State getState() {
         return currState;
     }

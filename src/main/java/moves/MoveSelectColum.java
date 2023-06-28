@@ -7,8 +7,8 @@ public class MoveSelectColum extends Move {
     int selectedColumn;
     private final String classname= "MoveSelectColumn";
 
-    public MoveSelectColum(String nickName) {
-        super(nickName);
+    public MoveSelectColum(String nickName, int lobbyId) {
+        super(nickName, lobbyId);
     }
 
     @Override
