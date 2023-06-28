@@ -25,6 +25,13 @@ public class TileType implements Serializable {
         }
     }
 
+    public TileType() {
+        this.key = "EMPTY";
+        this.color = tileMap.get(this.key).color;
+        this.sign = tileMap.get(this.key).sign;
+        this.image = this.key.charAt(0) + this.key.substring(1).toLowerCase() + tileMap.get(this.key).images.get(0) + ".png";
+    }
+
     public TileType(String tileType, int index) {
         this.key = tileType;
         this.color = tileMap.get(tileType).color;
@@ -84,5 +91,14 @@ public class TileType implements Serializable {
      */
     public static Set<String> values(){
         return tileMap.keySet();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(o == null) return false;
+
+        final TileType obj = (TileType) o;
+
+        return obj.getKey().equals(this.key);
     }
 }

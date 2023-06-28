@@ -26,15 +26,11 @@ class TileTypeTest {
     }
 
     @Test
-    void getColor() {
-    }
-
-    @Test
-    void getImage() {
-    }
-
-    @Test
-    void getSign() {
+    void parseTile() {
+        TileType t = new TileType();
+        String test = Parser.toJson(t, TileType.class);
+        System.out.println(test);
+        assertEquals(t, Parser.fromJson(test, TileType.class));
     }
 
     @Test

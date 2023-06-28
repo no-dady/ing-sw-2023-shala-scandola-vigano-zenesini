@@ -3,7 +3,6 @@ package util;
 import com.google.gson.*;
 import server.cgc.*;
 import server.model.CommonGoalCardStrategy;
-import util.Messages.Message;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
