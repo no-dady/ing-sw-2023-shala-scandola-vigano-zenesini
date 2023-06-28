@@ -65,5 +65,6 @@ public class LobbyWaitController implements GenericInterface, Initializable {
             List<Label> players = List.of(player_1,player_2,player_3,player_4);
             for(int i = 0; i<gui.getClient().getPlayerInLobby().size();i++){
                 players.get(i).setText(gui.getClient().getPlayerInLobby().get(i));
-                }}}
+                }}
+    }
 }

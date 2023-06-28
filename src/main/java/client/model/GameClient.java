@@ -12,7 +12,7 @@ public class GameClient extends Game {
     // private transient Bookshelf bookshelf;
 
     public boolean isMyTurn() {
-        return (12getCurrPlayer() == null) ? false : getCurrPlayer().getUserId() == this.myID;
+        return (getCurrPlayer() == null) ? false : getCurrPlayer().getUserId() == this.myID;
     }
 
     public Player getMe() {
