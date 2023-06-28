@@ -17,7 +17,10 @@ public class TileSelectAction implements Action{
     }
 
     public void performAction(Game game) {
-        for (String s : move.getSelectedTiles().split(" ")) {selectedTiles.add(game.getBoard().getTile(s.charAt(0) - 'A', s.charAt(1) - '1'));}
+        for (String s : move.getSelectedTiles().split(" ")) {
+            selectedTiles.add(game.getBoard().getTile(s.charAt(0) - 'A', s.charAt(1) - '1'));
+            game.getBoard().removeTile(s.charAt(0) - 'A', s.charAt(1) - '1');
+        }
         game.setSelectedTiles(selectedTiles);
     }
 

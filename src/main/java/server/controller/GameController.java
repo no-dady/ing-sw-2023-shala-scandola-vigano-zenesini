@@ -1,5 +1,6 @@
 package server.controller;
 
+import client.network.ClientInterface;
 import client.network.State;
 import observer.Observer;
 import server.controller.actions.ColumnSelectAction;
@@ -7,6 +8,7 @@ import server.controller.actions.TileSelectAction;
 import server.exceptions.IllegalPlayersNumberException;
 import server.model.*;
 import setup.ConfigsFromJson;
+import util.Messages.InitialMessage;
 import util.Messages.Message;
 
 import java.io.IOException;
@@ -206,7 +208,12 @@ public class GameController implements Observer<Action>{
                     }
                 } else {
                     try {
-                    lobby.getConnections().get(nick).send(Parser.toJson(new StateMessage(State.WAITINGFORMYTURN),Message.class));
+                        for (ClientInterface clientInterface : lobby.getConnections().values())
+                        {
+                            InitialMessage gameMessage = new InitialMessage(game);
+                            clientInterface.send(Parser.toJson(gameMessage, Message.class));
+                        }
+                        lobby.getConnections().get(nick).send(Parser.toJson(new StateMessage(State.WAITINGFORMYTURN),Message.class));
                     } catch (RemoteException e) {
                         throw new RuntimeException(e);
                     }

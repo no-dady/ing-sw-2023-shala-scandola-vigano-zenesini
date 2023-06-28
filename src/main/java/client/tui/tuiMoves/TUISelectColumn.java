@@ -22,6 +22,7 @@ public class TUISelectColumn implements TUIMoveInterface {
                 selectedColumn = Integer.valueOf(stdin.nextLine());
                 System.out.println("[are you okey with this selection? " + selectedColumn + " press Y/N then ENTER]");
                 confirmed = stdin.nextLine();
+                selectedColumn--;
             } while (!confirmed.equals("Y"));
             move.setSelectedColumn(selectedColumn);
         }while (!canPerform(game));

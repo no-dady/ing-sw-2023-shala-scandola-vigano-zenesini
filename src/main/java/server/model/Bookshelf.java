@@ -49,15 +49,15 @@ public class Bookshelf implements Serializable, Observable<Message> {
      * @param selectedTiles the selected tiles
      */
     public void setSlots(int column, List<Tile> selectedTiles) {
-        int i = 0;
-        while(i < rows && slots[i][column] != null && !slots[i][column].Empty()) {
-            ++i;
+        int i = rows - 1;
+        while(i > -1 && slots[i][column] != null && !slots[i][column].Empty()) {
+            --i;
         }
 
         for(Tile t : selectedTiles) {
             slots[i][column] = t;
             ++tileCount;
-            ++i;
+            --i;
         }
     }
 
