@@ -100,7 +100,7 @@ public class GameController implements Observer<Action>{
         for (int x = 0; x < rows; x++) {
             for (int y = 0; y < cols; y++) {
                 if (!slots[x][y].Empty()) {
-                    if ((x > 0 && slots[x - 1][y].Empty()) || (x < rows - 1 && slots[x + 1][y].Empty()) || (y > 0 && slots[x][y - 1].Empty()) || (y < cols - 1 && slots[x][y + 1].Empty())) {
+                    if (!(x > 0 && slots[x - 1][y].Empty()) || !(x < rows - 1 && slots[x + 1][y].Empty()) || !(y > 0 && slots[x][y - 1].Empty()) || !(y < cols - 1 && slots[x][y + 1].Empty())) {
                         return false;
                     }
                 }
