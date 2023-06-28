@@ -29,7 +29,8 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
      * The Client.
      */
     private final ServerSocket serverSocket;
-    private static List<Lobby> lobbyList = new ArrayList<>();
+    private static Map<Integer, Lobby> lobbyList = new HashMap<Integer, Lobby>();
+    private int lobbyIdProgressive = 0;
     private static List<Thread> memory = new ArrayList<Thread>();
     private boolean registeringClient = false;
 
@@ -70,12 +71,12 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
                 registeringClient = true;
                 tempClientInterface = client;
                 System.out.println("Registering new client");
-                Lobby lobbyFound = null;
-                for (Lobby lobby : lobbyList)
+                Map.Entry<Integer, Lobby> lobbyFound = null;
+                for (var lobby : lobbyList.entrySet())
                 {
-                    if (lobby.getLobbyStatus() == LobbyStatus.Setup)
+                    if (lobby.getValue().getLobbyStatus() == LobbyStatus.Setup)
                     {
-                        if (!lobby.isFull())
+                        if (!lobby.getValue().isFull())
                         {
                             lobbyFound = lobby;
                         }
@@ -104,10 +105,6 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
         }
     }
 
-    public static void addLobby(Lobby lobby) {
-        lobbyList.add(lobby);
-    }
-
     public static Lobby getLobby() {
         return lobbyList.get(lobbyList.size() - 1);
     }
@@ -133,8 +130,9 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     @Override
     public void sendSetupFirst(String json) throws RemoteException {
         SetupFirst setupFirst = Parser.fromJson(json, SetupFirst.class);
-        Lobby newLobby = new Lobby(setupFirst.getNumOfPlayers(), tempClientInterface, setupFirst.getParameter());
-        lobbyList.add(newLobby);
+        Lobby newLobby = new Lobby(setupFirst.getNumOfPlayers(), tempClientInterface, setupFirst.getParameter(), lobbyIdProgressive);
+        lobbyList.put(lobbyIdProgressive, newLobby);
+        lobbyIdProgressive++;
         registrationFinished();
     }
 
@@ -168,7 +166,7 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
 
 
     public synchronized boolean findLobby(String name) {
-        for(var l : lobbyList) {
+        for(Lobby l : lobbyList.values()) {
             if(l.getLobbyName().equals(name)) {
                 return true;
             }
@@ -178,7 +176,13 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     }
 
     public void removeLobby(Lobby lobby) {
-        lobbyList.removeIf(l -> l.getLobbyName().equals(lobby.getLobbyName()));
+        for (var entryLobby : lobbyList.entrySet())
+        {
+            if (lobby.equals(entryLobby.getValue()))
+            {
+                lobbyList.remove(entryLobby.getKey());
+            }
+        }
     }
 
     private void addObserverGame(ArrayList<View> playersView, Game game, GameController controller){

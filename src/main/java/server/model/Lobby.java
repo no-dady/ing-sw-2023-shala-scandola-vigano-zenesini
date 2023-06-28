@@ -23,6 +23,8 @@ public class Lobby implements Runnable {
 
     private Game game;
 
+    private int lobbyId;
+
     private Map<String, ClientInterface> playerMap;
 
     private HashMap<String, View> playersview= new HashMap<>();
@@ -34,9 +36,10 @@ public class Lobby implements Runnable {
 
     private String lobbyName;
 
-    public Lobby(int playerNumber, ClientInterface adminPlayer, String adminNickname)
+    public Lobby(int playerNumber, ClientInterface adminPlayer, String adminNickname, int lobbyId)
     {
         this.playerNumber = playerNumber;
+        this.lobbyId = lobbyId;
         this.playerMap = new HashMap<String, ClientInterface>();
         this.playerMap.put(adminNickname, adminPlayer);
         this.lobbyName = adminNickname + "'s Lobby";
@@ -45,7 +48,7 @@ public class Lobby implements Runnable {
         {
             StateMessage stateMessage = new StateMessage(State.WAITINGINLOBBY);
             adminPlayer.send(Parser.toJson(stateMessage, Message.class));
-            JoinedMessage messageItself = new JoinedMessage(adminNickname);
+            JoinedMessage messageItself = new JoinedMessage(adminNickname, lobbyId);
             adminPlayer.send(Parser.toJson(messageItself, Message.class));
         } catch(RemoteException e)
         {
@@ -88,13 +91,13 @@ public class Lobby implements Runnable {
         {
             for (var entry : playerMap.entrySet())
             {
-                JoinedMessage messageToSendForOther = new JoinedMessage(nickName);
+                JoinedMessage messageToSendForOther = new JoinedMessage(nickName, lobbyId);
                 entry.getValue().send(Parser.toJson(messageToSendForOther, Message.class));
-                JoinedMessage messageToSendJoined = new JoinedMessage(entry.getKey());
+                JoinedMessage messageToSendJoined = new JoinedMessage(entry.getKey(), lobbyId);
                 client.send(Parser.toJson(messageToSendJoined, Message.class));
             }
             this.playerMap.put(nickName, client);
-            JoinedMessage messageItself = new JoinedMessage(nickName);
+            JoinedMessage messageItself = new JoinedMessage(nickName, lobbyId);
             client.send(Parser.toJson(messageItself, Message.class));
             if (this.playerMap.size() == playerNumber)
             {

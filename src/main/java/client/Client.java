@@ -23,7 +23,7 @@ public class Client {
     private boolean online = false;
     private String ip;
     private int port;
-
+    private int lobbyId = -1;
     private State currState = State.WAIT;
     private boolean stateChanged = false;
     public Client(boolean gui) throws IOException {
@@ -127,6 +127,11 @@ public class Client {
         }catch (RemoteException e){}
     }
 
+    public void setLobbyId(int lobbyId)
+    {
+        this.lobbyId = lobbyId;
+        System.out.println("Sono in lobby" + lobbyId);
+    }
     public synchronized State getState() {
         return currState;
     }

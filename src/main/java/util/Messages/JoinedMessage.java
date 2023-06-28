@@ -7,9 +7,12 @@ public class JoinedMessage implements Message {
     public static final String className = "JoinedMessage";
     private final String nicknameJoined;
 
-    public JoinedMessage(String nicknameJoined)
+    private final int lobbyId;
+
+    public JoinedMessage(String nicknameJoined, int lobbyId)
     {
         this.nicknameJoined = nicknameJoined;
+        this.lobbyId = lobbyId;
     }
 
     @Override
@@ -17,6 +20,7 @@ public class JoinedMessage implements Message {
     {
         client.getUI().printServerMessage(nicknameJoined + " joined the lobby");
         client.addPlayerInLobby(nicknameJoined);
+        client.setLobbyId(lobbyId);
     }
 
     public String getNicknameJoined()
