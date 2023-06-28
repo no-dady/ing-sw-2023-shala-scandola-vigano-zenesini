@@ -9,16 +9,13 @@ import server.model.PersonalGoalCard;
 import server.model.Player;
 import util.Messages.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
-    List<Message> messageList = new ArrayList<>();
-    List<String> parsedList = new ArrayList<>();
+    Queue<Message> messageList = new LinkedList<>();
+    Queue<String> parsedList = new LinkedList<>();
     Set<Player> players = new HashSet<>();
 
     @BeforeEach
@@ -35,10 +32,25 @@ class ParserTest {
         messageList.add(new JoinedMessage("testname", 0));
         messageList.add(new CurrentPlayerMessage("testname"));
         messageList.add(new StateMessage(State.WAIT));
+        for(Message msg : messageList) {
+            parsedList.add(Parser.toJson(msg, Message.class));
+        }
     }
 
     @Test
     void fromJson() {
+        assertInstanceOf(AskSetupMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
+        assertInstanceOf(GameMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
+        assertInstanceOf(BookshelfMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
+        assertInstanceOf(LastMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
+        assertInstanceOf(ConnectionMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
+        assertInstanceOf(InitialMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
+        assertInstanceOf(SetupMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
+        assertInstanceOf(ErrorMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
+        assertInstanceOf(DisconnectMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
+        assertInstanceOf(JoinedMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
+        assertInstanceOf(CurrentPlayerMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
+        assertInstanceOf(StateMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
     }
 
     @Test

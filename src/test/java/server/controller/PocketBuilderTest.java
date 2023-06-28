@@ -31,7 +31,6 @@ public class PocketBuilderTest extends TestCase {
     public void test_Pocket() throws IOException {
         int i;
         int n = 132;
-        TileType temp = new TileType();
         ArrayList<Tile> pocket = x.createTileListPocket(n);
         for(i = 0; i < n; i++)
         {

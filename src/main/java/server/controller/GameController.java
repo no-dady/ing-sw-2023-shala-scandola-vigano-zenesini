@@ -49,11 +49,6 @@ public class GameController implements Observer<Action>{
      * @throws IllegalPlayersNumberException the illegal players number exception
      */
     public void createLobby(int playerNumber, List<String> playerNicknames) throws IllegalPlayersNumberException, IOException {
-        try {
-            new TileType();
-        }catch (Exception e){
-            System.out.println("Failed to create TileType map");
-        }
         ArrayList<Player> players = new ArrayList<>();
         Tile[][] slots = BoardConfig.newEmptyBoard();
         Board board = new Board(slots);

@@ -2,6 +2,7 @@ package server.model;
 
 import setup.ConfigsFromJson;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
@@ -16,27 +17,15 @@ public class TileType implements Serializable {
     private String sign;
     private String image;
 
-    /**
-     * Instantiates a new Tile type.
-     */
-    public TileType() {
-        tileMap = new HashMap<>();
+    static {
         try {
             tileMap = ConfigsFromJson.getTileType("src/main/resources/json/tiletypes_config.json");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-
+        } catch (RuntimeException | IOException e) {
+            System.err.println(e.getMessage());
         }
     }
 
-    /**
-     * Instantiates a new Tile type.
-     *
-     * @param tileType the tileType
-     * @param index    the index
-     */
     public TileType(String tileType, int index) {
-        TileType temp = new TileType();
         this.key = tileType;
         this.color = tileMap.get(tileType).color;
         this.sign = tileMap.get(tileType).sign;
@@ -94,6 +83,6 @@ public class TileType implements Serializable {
      * @return the set
      */
     public static Set<String> values(){
-    return tileMap.keySet();
+        return tileMap.keySet();
     }
 }

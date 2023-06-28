@@ -398,7 +398,6 @@ public class TUI implements UI, Runnable {
     }
 
     private String setPGCart(String boardAndBookshelfArt){
-        TileType tiletemp = new TileType();
         PersonalGoalCard pgc = null;
         String art = boardAndBookshelfArt;
         int x = Bookshelf.getRows()+10, y = 0;

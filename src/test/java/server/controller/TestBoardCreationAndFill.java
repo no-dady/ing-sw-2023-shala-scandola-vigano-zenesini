@@ -30,8 +30,6 @@ public class TestBoardCreationAndFill extends TestCase {
      * Rigourous Test :-)
      */
     public void test_Board() throws IOException {
-
-        TileType test = new TileType();
         Bookshelf bookshelf = new Bookshelf();
         Tile[][] tiles = bookshelf.getSlots();
         board = BoardConfig.newEmptyBoard();
