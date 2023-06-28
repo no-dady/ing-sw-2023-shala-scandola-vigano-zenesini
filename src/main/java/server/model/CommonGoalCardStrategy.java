@@ -55,10 +55,10 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         // 6 vertical strips of 2 tiles of the same type
         listCommonGoalList.add(new StraightDirection(6,2,true,true, "6EqualColsOf2"));
         // 4 rows full of tiles with at least 2 tiles of the same type
-        listCommonGoalList.add(new MaxNTypes(false, 3, 4));
+        listCommonGoalList.add(new MaxNTypes(false, 3, 4, "4RowsMax3Diff"));
         // listCommonGoalList.add(new StraightDirection(4,2,true,false, "4RowsMax3Diff"));
         // 3 columns full of tiles with at least 3 tiles of the same type
-        listCommonGoalList.add(new MaxNTypes(true, 3, 3));
+        listCommonGoalList.add(new MaxNTypes(true, 3, 3, "3ColsMax3Diff"));
         //listCommonGoalList.add(new StraightDirection(3,3,true,true, "3ColsMax3Diff"));
         // 2 rows full of distinct tiles
         listCommonGoalList.add(new StraightDirection(2,Bookshelf.getRows(),false,false, "2FullDistinctRows"));

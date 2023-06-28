@@ -4,7 +4,7 @@ package moves;
 import server.model.Game;
 
 public abstract class Move {
-
+    public static final String classname = "MoveSelectTiles";
     private final String nickName;
     private final int lobbyId;
     public Move(String nickName, int lobbyId) {
@@ -21,7 +21,7 @@ public abstract class Move {
     }
     public abstract boolean canPerform(Game game);
 
-    public abstract String getName();
-
-
+    public String getClassName(){
+        return classname;
+    };
 }

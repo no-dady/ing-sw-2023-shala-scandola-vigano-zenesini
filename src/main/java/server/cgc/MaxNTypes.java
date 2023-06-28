@@ -17,10 +17,11 @@ public class MaxNTypes extends CommonGoalCardStrategy implements Serializable {
     private int maxDistincts;
 
 
-    public MaxNTypes(boolean isVertical, int maxDistincts, int timesToCheck) {
+    public MaxNTypes(boolean isVertical, int maxDistincts, int timesToCheck, String name) {
         this.isVertical = isVertical;
         this.timesToCheck = timesToCheck;
         this.maxDistincts = maxDistincts;
+        this.name = name;
     }
     @Override
     public boolean conditionCheck(Tile[][] shelf) {
@@ -63,4 +64,8 @@ public class MaxNTypes extends CommonGoalCardStrategy implements Serializable {
     public String getClassName() {
         return className;
     }
+    public String getName() {
+        return name;
+    }
+
 }
