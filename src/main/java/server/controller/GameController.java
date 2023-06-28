@@ -237,6 +237,7 @@ public class GameController implements Observer<Action>{
                 if (boardToRefill()) {
                     game.getBoard().fillBoard(BoardConfig.fillBoard(game.getBoard().getSlots(), game.getPocket(), game.getNumPlayers()));
                 }
+                game.getBoard().updatePickable();
             }
         }
         else {

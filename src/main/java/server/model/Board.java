@@ -41,7 +41,6 @@ public class Board implements Serializable, Observable<Message> {
      * @param tiles the tiles
      */
     public void fillBoard(Tile[][] tiles) {
-
         slots = tiles;
     }
 
