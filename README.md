@@ -1,4 +1,4 @@
-# IngSw Project 2023
+# Prova finale - Progetto Ingegneria del Software 2023
 
 > Game: My Shelfie \
 > Team: Shala, Scandola, Viganò, Zenesini \
