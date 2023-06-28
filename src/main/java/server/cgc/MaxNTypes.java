@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class MaxNTypes extends CommonGoalCardStrategy implements Serializable {
+    public static final String className = "MaxNTypes";
     private boolean isVertical;
     private int timesToCheck;
 
@@ -56,5 +57,10 @@ public class MaxNTypes extends CommonGoalCardStrategy implements Serializable {
             foundTypes.clear();
         }
         return count == timesToCheck;
+    }
+
+    @Override
+    public String getClassName() {
+        return className;
     }
 }

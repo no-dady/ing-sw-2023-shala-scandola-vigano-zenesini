@@ -1,4 +1,4 @@
-package org.gamein;
+package server.cgc;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import server.cgc.SquareCheck;
 import server.model.Tile;
 import java.io.Reader;
 import java.nio.file.Files;

@@ -1,4 +1,4 @@
-package org.gamein;
+package util;
 
 import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
@@ -8,7 +8,7 @@ import server.controller.BoardConfig;
 import server.model.PersonalGoalCard;
 import server.model.Tile;
 import server.model.TileTypeRecord;
-import util.Parser;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

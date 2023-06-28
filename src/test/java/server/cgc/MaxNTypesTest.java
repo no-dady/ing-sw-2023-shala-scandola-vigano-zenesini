@@ -3,7 +3,6 @@ package server.cgc;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import junit.framework.TestCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.model.CommonGoalCardStrategy;
@@ -20,7 +19,7 @@ public class MaxNTypesTest {
 
     private CommonGoalCardStrategy testRow;
     private CommonGoalCardStrategy testCol;
-    public List<Tile[][]> prova;
+    public List<Tile[][]> testShelfList;
     @BeforeEach
     void setUp() {
         testRow = new MaxNTypes(false, 3, 4);
@@ -29,7 +28,7 @@ public class MaxNTypesTest {
             Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/prova.json"));
 
             Gson gson = new GsonBuilder().serializeNulls().create();
-            prova = gson.fromJson(reader, new TypeToken<List<Tile[][]>>(){}.getType());
+            testShelfList = gson.fromJson(reader, new TypeToken<List<Tile[][]>>(){}.getType());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             fail();
@@ -38,7 +37,7 @@ public class MaxNTypesTest {
 
     @Test
     void conditionCheck() {
-        Tile[][] shelf = prova.get(0);
+        Tile[][] shelf = testShelfList.get(0);
         for(int i = 5; i >= 0; i--) {
             for(int j = 0; j < 5; j++) {
                 System.out.print(shelf[i][j].getTileType() + "\t|\t");

@@ -1,15 +1,13 @@
-package org.gamein;
+package server.controller;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import server.controller.PocketBuilder;
 import server.model.Tile;
 import server.model.TileType;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class PocketBuilderTest extends TestCase {

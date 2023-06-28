@@ -20,6 +20,7 @@ public class CommonGoalSerializer  implements JsonSerializer<CommonGoalCardStrat
         classNameMap.put(SquareCheck.className, SquareCheck.class);
         classNameMap.put(StraightDirection.className, StraightDirection.class);
         classNameMap.put(ShiftedCheckerboard.className, ShiftedCheckerboard.class);
+        classNameMap.put(MaxNTypes.className, MaxNTypes.class);
     }
 
 

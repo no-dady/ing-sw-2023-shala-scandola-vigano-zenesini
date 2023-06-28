@@ -1,4 +1,4 @@
-package org.gamein;
+package server.model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,10 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import server.model.Bookshelf;
-import server.model.PersonalGoalCard;
-import server.model.Tile;
-import server.model.TileType;
 import setup.ConfigsFromJson;
 
 import java.io.IOException;

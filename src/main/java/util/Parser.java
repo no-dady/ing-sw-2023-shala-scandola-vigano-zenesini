@@ -22,6 +22,7 @@ public class Parser {
         builder.registerTypeAdapter(Message.class, new MessageSerializer());
         builder.registerTypeAdapter(Setup.class, new SetupSerializer());
         builder.registerTypeAdapter(CommonGoalCardStrategy.class, new CommonGoalSerializer());
+        builder.setPrettyPrinting();
 
 
         gson = builder.create();
