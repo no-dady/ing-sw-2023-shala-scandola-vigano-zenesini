@@ -25,8 +25,8 @@
 SYNTAX:
         java -jar CLIENT_GC49.jar [OPTION]
 OPTIONS:
-        --cli    Starts it.polimi.client in command line interface
-        --gui    Starts it.polimi.client in gui mode
+        --cli    Starts client in command line interface
+        --gui    Starts client in gui mode
 ```
 
 ### Server
