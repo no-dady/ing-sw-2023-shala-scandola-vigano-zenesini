@@ -81,7 +81,7 @@ public class Client {
                 }
             }
         } catch (InterruptedException | NoSuchElementException ex) {
-            System.out.println("Connection closed from it.polimi.client side");
+            System.out.println("Connection closed from client side");
         } finally {
             online = false;
             clientConnection.close();
