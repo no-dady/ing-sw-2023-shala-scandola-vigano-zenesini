@@ -316,7 +316,7 @@ public class TUI implements UI, Runnable {
         }
         int playerIndex = - 1;
         int tabCounter = 0;
-        int x = -1;
+        int x = 6;
         int y = 0;
         for (int i = 0; i< otherPlayersBookshelfArt.length(); i++) {
             if('X' == otherPlayersBookshelfArt.charAt(i)){
@@ -328,7 +328,7 @@ public class TUI implements UI, Runnable {
                 else {
                     color = RESET;
                 }
-                System.out.print(PRESET + color + "   " + PRESET + RESET);
+                System.out.print(PRESET + color + "   "+ PRESET + RESET);
                 y++;
             } else {
             System.out.print(otherPlayersBookshelfArt.charAt(i));
@@ -343,7 +343,7 @@ public class TUI implements UI, Runnable {
             }
             if ('\n' == otherPlayersBookshelfArt.charAt(i)){
                 playerIndex = -1;
-                if('║' != otherPlayersBookshelfArt.charAt(i-1)) x++;
+                if('║' != otherPlayersBookshelfArt.charAt(i-1)) x--;
                 y = 0;
             }
         }
@@ -474,9 +474,9 @@ public class TUI implements UI, Runnable {
                     if (slots[x][y].Empty()) color = RESET;
                     System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(slots[x][y].getTileType()).sign + PRESET + RESET);
                 } else {
-                    if (places[x - (slots.length - 1 - places.length - 1) - 2 ][y - slots[0].length] != null) {
-                        color = TileType.getTileMap().get(places[x - (slots.length - 1 - places.length - 1) -2][y - slots[0].length].getTileType()).color;
-                        System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(places[x - (slots.length - 1 - places.length - 1) -2][y - slots[0].length].getTileType()).sign + PRESET + RESET);
+                    if (places[Bookshelf.getRows() - (x - (slots.length - 1 - places.length - 1) - 2) - 1 ][y - slots[0].length] != null) {
+                        color = TileType.getTileMap().get(places[Bookshelf.getRows() - (x - (slots.length - 1 - places.length - 1) - 2) - 1][y - slots[0].length].getTileType()).color;
+                        System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(places[Bookshelf.getRows() - (x - (slots.length - 1 - places.length - 1) - 2) - 1 ][y - slots[0].length].getTileType()).sign + PRESET + RESET);
                     }
                     else {
                         System.out.print(PRESET + RESET + PRESET + BLACK_BOLD + "   " + PRESET + RESET);

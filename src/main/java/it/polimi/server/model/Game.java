@@ -3,9 +3,7 @@ package it.polimi.server.model;
 import it.polimi.observer.Observer;
 import it.polimi.server.controller.BoardConfig;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import it.polimi.observer.Observable;
 import it.polimi.util.Exclude;
@@ -36,7 +34,7 @@ public class Game implements Serializable, Observable<Message> {
      */
     public Game() {
         this.players = new ArrayList<>();
-        this.cgcs = CommonGoalCardStrategy.getRandomCards();
+        this.cgcs = null;
         this.board = new Board(BoardConfig.newEmptyBoard());
         this.pocket = new Pocket();
         this.numPlayers = 0;

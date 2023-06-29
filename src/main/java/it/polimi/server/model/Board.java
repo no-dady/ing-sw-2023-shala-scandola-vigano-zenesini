@@ -29,6 +29,9 @@ public class Board implements Serializable, Observable<Message> {
         System.out.println("Creating array");
         System.out.println("Adding cgc");
         commonGoalCardStrategies.addAll(CommonGoalCardStrategy.getRandomCards());
+        for (CommonGoalCardStrategy c: commonGoalCardStrategies) {
+            c.setNumPlayers(numPlayers);
+        }
         System.out.println("Saving slots");
         this.slots = slots;
     }
