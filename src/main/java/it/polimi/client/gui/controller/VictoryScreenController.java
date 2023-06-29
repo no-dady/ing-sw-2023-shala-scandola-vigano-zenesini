@@ -47,15 +47,13 @@ public class VictoryScreenController implements GenericInterface, Initializable 
 
     @Override
     public void update() {
-        int i = 0;
         List<Label> names = List.of(FirstPlayer, SecondPlayer, ThirdPlayer, FourthPlayer);
         List<Label> points = List.of(PointsOfFirst, PointsOfSecond, PointsOfThird, PointsOfFourth);
         List<Player> ranking = gui.getClient().getGame().getPlayers();
         Collections.sort(ranking, (p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()));
-        for(Label x : names){
-            x.setText(ranking.get(i).getUserName());
+        for (int i = 0; i< gui.getGame().getNumPlayers(); i++){
+            names.get(i).setText(ranking.get(i).getUserName());
             points.get(i).setText(String.valueOf(ranking.get(i).getScore()));
-            i++;
         }
     }
     @Override

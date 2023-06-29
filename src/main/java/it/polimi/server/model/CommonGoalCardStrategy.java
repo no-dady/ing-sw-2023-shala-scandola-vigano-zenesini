@@ -164,6 +164,10 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         }
     }
 
+    public boolean isCompletedByPlayer(Player player){
+        return completedMap.containsKey(player.getUserName());
+    }
+
     private transient final List<Observer<Message>> observers = new ArrayList<>();
 
     @Override

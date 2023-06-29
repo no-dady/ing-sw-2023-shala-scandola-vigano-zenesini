@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -22,7 +21,6 @@ import static java.lang.Thread.sleep;
 
 public class LobbySetController implements GenericInterface, Initializable {
 
-    public TextField nicknameField;
     Integer selectedNumber = null;
     public final String dim = "1000x830";
 
@@ -79,8 +77,5 @@ public class LobbySetController implements GenericInterface, Initializable {
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;
-    }
-
-    public void onSubmitNickname(ActionEvent event) {
     }
 }

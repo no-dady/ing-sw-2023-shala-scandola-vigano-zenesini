@@ -108,6 +108,12 @@
     -fx-background-position: center;
     -fx-cursor: hand;
 }
+.button:hover {
+    -fx-effect: dropshadow(gaussian, white, 30, 0.5, 0.9, 0.3);
+}
+#1_4:hover {
+    -fx-effect: dropshadow(gaussian, white, 30, 0.5, 0.9, 0.3);
+}
 
 #menu_button {
     -fx-background-color: orange;
