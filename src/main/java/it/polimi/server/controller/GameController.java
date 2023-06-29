@@ -225,12 +225,13 @@ public class GameController implements Observer<Action>{
                     }
 
                 }
-            } else if (action instanceof TileSelectAction) {
                 game.getBoard().updatePickable();
                 if (boardToRefill()) {
                     game.getBoard().fillBoard(BoardConfig.fillBoard(game.getBoard().getSlots(), game.getPocket(), game.getNumPlayers()));
                 }
                 game.getBoard().updatePickable();
+            } else if (action instanceof TileSelectAction) {
+
             }
             try {
                 for (ClientInterface clientInterface : lobby.getConnections().values()) {
