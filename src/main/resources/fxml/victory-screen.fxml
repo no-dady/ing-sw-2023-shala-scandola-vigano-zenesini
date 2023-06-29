@@ -129,20 +129,16 @@
             </Pane>
 
             <Label fx:id="PointsOfFirst" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.columnSpan="1"
-                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
-                   text="1000 " textFill="White" wrapText="true"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER" textFill="White" wrapText="true"
                    alignment="BOTTOM_LEFT"/>
             <Label fx:id="PointsOfSecond" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.columnSpan="1"
-                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
-                   text="850 " textFill="White" wrapText="true"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER" textFill="White" wrapText="true"
                    alignment="BOTTOM_LEFT"/>
             <Label fx:id="PointsOfThird" GridPane.columnIndex="3" GridPane.rowIndex="6" GridPane.columnSpan="1"
-                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
-                   text="730 " textFill="White" wrapText="true"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER" textFill="White" wrapText="true"
                    alignment="BOTTOM_LEFT"/>
             <Label fx:id="PointsOfFourth" GridPane.columnIndex="3" GridPane.rowIndex="8" GridPane.columnSpan="1"
-                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
-                   text="680 " textFill="White" wrapText="true"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER" textFill="White" wrapText="true"
                    alignment="BOTTOM_LEFT"/>
 
         </GridPane>
