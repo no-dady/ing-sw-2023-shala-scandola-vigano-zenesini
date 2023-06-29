@@ -34,7 +34,6 @@ public class VictoryScreenController implements GenericInterface, Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
     public void onQuitPress(ActionEvent event) {
@@ -42,7 +41,7 @@ public class VictoryScreenController implements GenericInterface, Initializable 
     }
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override
@@ -50,6 +49,7 @@ public class VictoryScreenController implements GenericInterface, Initializable 
         int i = 0;
         List<Label> names = List.of(FirstPlayer, SecondPlayer, ThirdPlayer, FourthPlayer);
         List<Label> points = List.of(PointsOfFirst, PointsOfSecond, PointsOfThird, PointsOfFourth);
+
         List<Player> ranking = gui.getClient().getGame().getPlayers();
         Collections.sort(ranking, (p1, p2) -> Integer.compare(p2.getScore(), p1.getScore()));
         for(Label x : names){
