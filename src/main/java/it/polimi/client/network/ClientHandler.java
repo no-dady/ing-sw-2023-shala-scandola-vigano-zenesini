@@ -23,6 +23,7 @@ import it.polimi.client.Client;
 public class ClientHandler extends UnicastRemoteObject implements ClientInterface, Serializable {
     private ServerInterface serverInterface;
     private Client client;
+    private final boolean isRmi;
     private Lobby lobby;
 
     private int playerCount = 0;
@@ -38,11 +39,13 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     public ClientHandler(String ip, int port) throws RemoteException, MalformedURLException, NotBoundException {
         super();
         this.serverInterface = (ServerInterface) Naming.lookup("rmi://" + ip + ":" + port + "/myShelfie");
+        this.isRmi = true;
     }
 
     public ClientHandler(Client client, String ip, int port) throws IOException, RemoteException {
         ClientSocketMiddleware clientSocketMiddleware = new ClientSocketMiddleware(client, ip, port, this);
         this.serverInterface = clientSocketMiddleware;
+        this.isRmi = false;
         new Thread(clientSocketMiddleware).start();
     }
 
@@ -90,7 +93,10 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
 
     @Override
     public void close() throws IOException {
-        this.serverInterface.close();
+        if (isRmi)
+        {
+            UnicastRemoteObject.unexportObject(this, true);
+        }
     }
 
     public Lobby getLobby() {
