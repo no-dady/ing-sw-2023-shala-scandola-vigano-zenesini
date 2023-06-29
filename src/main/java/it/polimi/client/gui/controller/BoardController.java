@@ -163,7 +163,6 @@ public class BoardController implements GenericInterface, Initializable {
                 char x = (char) (entry.getId().charAt(2) - '1' + 'A');
                 char y = (entry.getId().charAt(4));
                 temp += (x + "" + y + " ");
-                System.out.println(x + "" + y);
                 for (Pane r : changedBookshelfTiles
                 ) {
                     System.out.println(r.getId());
@@ -172,7 +171,7 @@ public class BoardController implements GenericInterface, Initializable {
             }
 
             System.out.println(temp);
-            tileMove = (MoveSelectTiles) new GUISelectTiles(gui.getNickname(), gui.getClient().getLobbyId() , temp).updateGUI(gui.getGame());
+            tileMove = (MoveSelectTiles) new GUISelectTiles(gui.getNickname(), gui.getClient().getLobbyId() , temp.substring(0,temp.length()-1)).updateGUI(gui.getGame());
 
             if (tileMove != null) {
                 gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(tileMove, Move.class));

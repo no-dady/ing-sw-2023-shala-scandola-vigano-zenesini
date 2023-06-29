@@ -6,7 +6,8 @@ import it.polimi.server.model.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 public class MoveSelectTiles implements Move {
     private final String nickName;
     private final int lobbyId;
@@ -36,7 +37,12 @@ public class MoveSelectTiles implements Move {
     public boolean canPerform(Game game) {
         int min = Math.max(game.getBoard().getSlots()[0].length,game.getBoard().getSlots().length) , max = 0;
         char inLine;
+        String regex = "^(?:[A-I][1-9] ){0,2}[A-I][1-9]$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(selectedTiles);
         ArrayList<Coordinates> coordArray = new ArrayList<>();
+        if (selectedTiles.length() < 2) return false;
+        if (!matcher.matches()) return false;
         for (int i = 0; i < this.getSelectedTiles().split(" ").length; i++) coordArray.add(new Coordinates(this.getSelectedTiles().split(" ")[i].charAt(0) - 'A', this.getSelectedTiles().split(" ")[i].charAt(1) - '1'));
         if (coordArray.stream().map(Coordinates::y).distinct().count() != coordArray.size() &&  coordArray.stream().map(Coordinates::x).distinct().count() != coordArray.size()) return false;
         for (Coordinates c : coordArray) if (!game.getBoard().getTile(c.x(), c.y()).isPickable()) return false;
