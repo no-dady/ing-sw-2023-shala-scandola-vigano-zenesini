@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import it.polimi.observer.Observable;
+import it.polimi.util.Exclude;
 import it.polimi.util.Messages.Message;
 
 /**
@@ -21,6 +22,7 @@ public class Game implements Serializable, Observable<Message> {
     private int currPlayerId;
     private int gameID;
     private int numPlayers;
+    @Exclude
     private Board board;
 
     private Pocket pocket;

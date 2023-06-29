@@ -1,6 +1,8 @@
 package it.polimi.util;
 
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -19,6 +21,18 @@ import java.nio.file.Paths;
 
 public class Parser {
     private static final Gson gson;
+    private static final ExclusionStrategy strategy = new ExclusionStrategy() {
+        @Override
+        public boolean shouldSkipClass(Class<?> clazz) {
+            return false;
+        }
+
+        @Override
+        public boolean shouldSkipField(FieldAttributes field) {
+            return field.getAnnotation(Exclude.class) != null;
+        }
+    };
+
 
     static {
         GsonBuilder builder = new GsonBuilder();
@@ -26,8 +40,9 @@ public class Parser {
         builder.registerTypeAdapter(Setup.class, new SetupSerializer());
         builder.registerTypeAdapter(Move.class, new MoveSerializer());
         builder.registerTypeAdapter(CommonGoalCardStrategy.class, new CommonGoalSerializer());
-        builder.serializeNulls();
-        builder.setPrettyPrinting();
+        builder.addSerializationExclusionStrategy(strategy);
+        //builder.serializeNulls();
+        //builder.setPrettyPrinting();
 
         gson = builder.create();
     }
