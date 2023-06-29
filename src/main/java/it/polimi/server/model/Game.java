@@ -13,11 +13,10 @@ import it.polimi.util.Messages.Message;
 /**
  * The type Game.
  */
-public class Game implements Serializable, Observable<Message>, Observer {
+public class Game implements Serializable, Observable<Message> {
 
     private static final long serialVersionUID = 1L;
 
-    private static List<Game> instance;
     private List<Player> players;
     private int currPlayerId;
     private int gameID;
@@ -39,12 +38,6 @@ public class Game implements Serializable, Observable<Message>, Observer {
         this.board = new Board(BoardConfig.newEmptyBoard());
         this.pocket = new Pocket();
         this.numPlayers = 0;
-        if(instance == null) {
-            instance = new ArrayList<Game>(1);
-        }
-
-        this.gameID = instance.size()-1;
-        instance.add(this);
 
     }
     public Game(List<Player> players, Set<CommonGoalCardStrategy> cgcs, Board board, Pocket pocket, int numPlayers) {
@@ -68,16 +61,6 @@ public class Game implements Serializable, Observable<Message>, Observer {
         return players.indexOf(player);
     }
 
-    /**
-     * Gets instance.
-     *
-     * @param gameId the game id
-     * @return the instance
-     */
-    public Game getInstance(int gameId) {
-        if(gameId < 0 || gameId >= instance.size());
-        return instance.get(gameID);
-    }
 
     /**
      * Sets game started.
@@ -86,15 +69,6 @@ public class Game implements Serializable, Observable<Message>, Observer {
      */
     public void setGameStarted(boolean gameStarted) {
         this.gameStarted = gameStarted;
-    }
-
-    /**
-     * Gets game id.
-     *
-     * @return the game id
-     */
-    public int getGameId() {
-        return this.gameID;
     }
 
     /**
@@ -221,8 +195,4 @@ public class Game implements Serializable, Observable<Message>, Observer {
          this.currPlayerNick = currPlayerNick;
     }
 
-    @Override
-    public void update(Object message) {
-
-    }
 }
