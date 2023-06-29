@@ -16,3 +16,25 @@
 | Partite Multiple | :white_check_mark: |
 | Resilienza | :white_check_mark: |
 | Chat | :negative_squared_cross_mark: |
+
+## Usage
+
+### Client
+
+```bash
+SYNTAX:
+        java -jar CLIENT_GC49.jar [OPTION]
+OPTIONS:
+        --cli    Starts client in command line interface
+        --gui    Starts client in gui mode
+```
+
+### Server
+
+```bash
+SYNTAX:
+        java -jar SERVER_GC49.jar [--rmi | PORT] [--socket | PORT]
+OPTIONS:
+        --rmi   Specify rmi port, default is 1900
+        --socket        Specify socket port, default is 1337
+```
