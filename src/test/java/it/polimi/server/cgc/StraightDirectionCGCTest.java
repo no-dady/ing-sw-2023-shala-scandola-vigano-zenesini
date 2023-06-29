@@ -83,9 +83,9 @@ public class StraightDirectionCGCTest
         printShelf(shelf.get(0));
         assertFalse(toTest.conditionCheck(shelf.get(0)), "Found when shelf is empty");
         printShelf(shelf.get(1));
-        assertTrue(toTest.conditionCheck(shelf.get(1)), "");
+        assertFalse(toTest.conditionCheck(shelf.get(1)), "Found when not expected");
         printShelf(shelf.get(2));
-        assertFalse(toTest.conditionCheck(shelf.get(2)), "");
+        assertTrue(toTest.conditionCheck(shelf.get(2)), "Not found when expected");
         System.out.println("\nTest Four Passsato!");
 
         System.out.println("\nTest Passsato!");
