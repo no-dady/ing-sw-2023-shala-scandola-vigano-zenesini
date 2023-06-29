@@ -73,6 +73,17 @@ public class StraightDirectionCGCTest
         myTest = new StraightDirection(6,2,true,true,"");
         x = myTest.conditionCheck(shelf);
         assertFalse("Found six pairs of distinct vertical tiles when not expected!",x);
+        // Check Empy bookshelf
+        System.out.println("\nPrinting empty shelf for test\n");
+        Tile[][] empty = new Bookshelf().getSlots();
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print("|\t" + empty[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
+        x = myTest.conditionCheck(empty);
+        assertFalse("Found six pairs of distinct vertical tiles when not expected!",x);
         myTest = new StraightDirection(2,Bookshelf.getRows(),false,false,"");
         x = myTest.conditionCheck(shelf);
         assertFalse("Found 2 rows full of distinct tiles when not expected!",x);

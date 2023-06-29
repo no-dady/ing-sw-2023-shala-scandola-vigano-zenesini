@@ -3,6 +3,7 @@ package it.polimi.server.cgc;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.server.model.Bookshelf;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -56,6 +57,16 @@ public class SquareCheckCGCTwoSquaresTest extends TestCase {
             System.out.println();
         }
         SquareCheck myTest = new SquareCheck(2, "2Squares");
-        assertTrue("Found two full distinct squares!", myTest.conditionCheck(shelf));
+        assertTrue("Did not find two full distinct squares!", myTest.conditionCheck(shelf));
+        System.out.println();
+        System.out.println();
+        Tile[][] empty = new Bookshelf().getSlots();
+        for(int i = 5; i >= 0; i--) {
+            for(int j = 0; j < 5; j++) {
+                System.out.print("|\t" + empty[i][j].getTileType() + "\t|\t");
+            }
+            System.out.println();
+        }
+        assertFalse("Found two full distinct squares when not expected", myTest.conditionCheck(new Bookshelf().getSlots()));
     }
 }

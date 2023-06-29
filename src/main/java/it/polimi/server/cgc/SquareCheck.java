@@ -3,9 +3,13 @@ package it.polimi.server.cgc;
 import it.polimi.server.model.Bookshelf;
 import it.polimi.server.model.CommonGoalCardStrategy;
 import it.polimi.server.model.Tile;
+import it.polimi.server.model.TileType;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 /**
@@ -43,7 +47,7 @@ public class SquareCheck extends CommonGoalCardStrategy implements Serializable 
      * @return the boolean
      */
     public boolean indexEqual(Tile[] toCheck){
-            return Objects.equals(toCheck[0].getTileType(), toCheck[1].getTileType()) && Objects.equals(toCheck[1].getTileType(), toCheck[2].getTileType()) && Objects.equals(toCheck[2].getTileType(), toCheck[3].getTileType());
+        return Arrays.stream(toCheck).distinct().count() == 1;
     }
 
     @Override

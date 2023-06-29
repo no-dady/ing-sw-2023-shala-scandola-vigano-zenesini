@@ -80,16 +80,23 @@ public class Tile implements Serializable {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null) {
+        if(obj == this) return true;
+
+        if (obj == null || this.tileType.getKey().equals("EMPTY") || ((Tile) obj).getTileType().equals("EMPTY")) {
             return false;
         }
 
-        if (obj.getClass() != this.getClass()) {
+        if (!(obj instanceof Tile)) {
             return false;
         }
 
         final Tile t = (Tile) obj;
 
         return this.getTileType().equals(t.getTileType());
+    }
+
+    @Override
+    public int hashCode() {
+        return TileType.getTileMap().keySet().stream().toList().indexOf(this.getTileType());
     }
 }

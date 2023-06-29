@@ -96,7 +96,7 @@ public class TileType implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if(o == null) return false;
+        if(this.key.equals("EMPTY") || o == null || ((TileType)o).getKey().equals("EMPTY")) return false;
 
         final TileType obj = (TileType) o;
 
