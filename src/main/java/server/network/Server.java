@@ -235,13 +235,9 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
         try
         {
             LocateRegistry.createRegistry(port);
+            System.out.println("[ RMI Info ] rmi://localhost:" + port + "/myShelfie");
             Naming.rebind("rmi://localhost:" + port + "/myShelfie", this);
-            // ClientInterface client = null;
-            // while (client == null)
-            // {
-            //     client = this.getClient();
-            // }
-            // client.send("Test RMI string from server to client");
+            System.out.println("\nWaiting for messages..\n");
         }
         catch (Exception ex)
         {
@@ -250,7 +246,6 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     }
 
     private void startSocket(int port) throws RemoteException {
-        System.out.println("Server is running...");
         System.out.println("Server socket info:");
         System.out.println("\t port: " + serverSocket.getLocalPort());
         System.out.println("\t address: " + serverSocket.getInetAddress());
@@ -268,6 +263,7 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
 
     @Override
     public void run() {
+        System.out.println("Server is running...");
         Thread rmi = new Thread() {
             @Override
             public void run() {
