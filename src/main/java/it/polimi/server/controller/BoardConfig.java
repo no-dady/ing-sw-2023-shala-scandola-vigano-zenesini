@@ -56,7 +56,7 @@ public class BoardConfig {
             BoardConfig boardConfig = ConfigsFromJson.getBoardConfig(Parser.getResourcePath("json/board_config.json"));
             for (int i = 0; i < boardConfig.rows; i++) {
                 for (int j = 0; j < boardConfig.cols; j++) {
-                    if ((boardConfig.pattern[i][j] <= playerNum && boardConfig.pattern[i][j] != 0) & board[i][j].Empty()) {
+                    if ((boardConfig.pattern[i][j] <= playerNum && boardConfig.pattern[i][j] != 0) & board[i][j].Empty() && pocket.getLeft() != 0) {
                         board[i][j] = pocket.popTiles(1).get(0);
                     }
                 }

@@ -170,6 +170,10 @@ public class GameController implements Observer<Action>{
                 return true;
             }
         }
+        if (boardToRefill() && game.getPocket().getLeft() == 0)
+        {
+            return true;
+        }
        return false;
     }
 
