@@ -203,8 +203,9 @@ public class Lobby implements Runnable {
             }
             for (var entry : playerMap.entrySet()) {
                 InitialMessage initialMessage = new InitialMessage(game);
-                //System.out.println(Parser.toJson(initialMessage, Message.class));
                 entry.getValue().send(Parser.toJson(initialMessage, Message.class));
+                BoardMessage boardMessage = new BoardMessage(game.getBoard());
+                entry.getValue().send(Parser.toJson(boardMessage, Message.class));
                 //ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model", 5);
                 //try
                 //{

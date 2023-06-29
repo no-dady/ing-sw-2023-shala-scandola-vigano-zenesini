@@ -243,7 +243,7 @@ public class TUI implements UI, Runnable {
             case MYTURN -> {
                 if (cgcs == null){
                     try {
-                        cgcs = concatCGCarts(ConfigsFromJson.getArt(Parser.getResourcePath("json/cgcArts/" + client.getGame().getBoard().getCommonGoalCards().get(0).getName() + ".json")), ConfigsFromJson.getArt(Parser.getResourcePath("cgcArts/" +client.getGame().getBoard().getCommonGoalCards().get(1).getName() + ".json")));
+                        cgcs = concatCGCarts(ConfigsFromJson.getArt(Parser.getResourcePath("json/cgcArts/" + client.getGame().getBoard().getCommonGoalCards().get(0).getName() + ".json")), ConfigsFromJson.getArt(Parser.getResourcePath("json/cgcArts/" +client.getGame().getBoard().getCommonGoalCards().get(1).getName() + ".json")));
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }

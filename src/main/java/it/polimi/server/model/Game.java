@@ -97,6 +97,10 @@ public class Game implements Serializable, Observable<Message> {
      * @return the board
     **/
     public Board getBoard() { return this.board; }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
     /* @return the selected tiles during a turn
      */
     public List<Tile> getSelectedTiles() {

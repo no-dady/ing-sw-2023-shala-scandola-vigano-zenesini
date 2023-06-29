@@ -8,6 +8,7 @@ import it.polimi.server.controller.actions.TileSelectAction;
 import it.polimi.server.exceptions.IllegalPlayersNumberException;
 import it.polimi.server.model.*;
 import it.polimi.setup.ConfigsFromJson;
+import it.polimi.util.Messages.BoardMessage;
 import it.polimi.util.Messages.InitialMessage;
 import it.polimi.util.Messages.Message;
 
@@ -206,6 +207,8 @@ public class GameController implements Observer<Action>{
                         {
                             InitialMessage gameMessage = new InitialMessage(game);
                             clientInterface.send(Parser.toJson(gameMessage, Message.class));
+                            BoardMessage boardMessage = new BoardMessage(game.getBoard());
+                            clientInterface.send(Parser.toJson(boardMessage, Message.class));
                         }
                     } catch (RemoteException e) {
                         throw new RuntimeException(e);
