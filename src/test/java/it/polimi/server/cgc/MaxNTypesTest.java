@@ -27,8 +27,8 @@ public class MaxNTypesTest {
         testRow = new MaxNTypes(false, 3, 4, "");
         testCol = new MaxNTypes(true, 3, 3, "");
         try {
-            assertEquals("D:\\Github\\ing-sw-2023-shala-scandola-vigano-zenesini\\target\\test-classes\\json\\shelves\\prova.json", Parser.getResourcePath("json/shelves/prova.json"));
-            BufferedReader reader = Files.newBufferedReader(Paths.get(Parser.getResourcePath("json\\shelves\\prova.json")));
+            assertEquals("D:\\Github\\ing-sw-2023-shala-scandola-vigano-zenesini\\target\\test-classes\\json\\shelves\\bookshelf_test.json", Parser.getResourcePath("json/shelves/bookshelf_test.json"));
+            BufferedReader reader = Files.newBufferedReader(Paths.get(Parser.getResourcePath("json\\shelves\\bookshelf_test.json")));
             String json = reader.lines().collect(Collectors.joining());
 
             Gson gson = new GsonBuilder().serializeNulls().create();

@@ -32,7 +32,7 @@ public class ServerApp {
             server = new Server(rmiPort, socketPort);
             server.run();
         } catch (IOException ex) {
-            System.out.println("Could not initialize it.polimi.server:\n" + ex.getMessage());
+            System.out.println("Could not initialize server:\n" + ex.getMessage());
         }
     }
 }
