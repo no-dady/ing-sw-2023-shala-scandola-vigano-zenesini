@@ -1,6 +1,50 @@
 [
     [
         [
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {}
+        ],
+        [
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    ],
+    [
+        [
             {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID":0,"pickable":false},
             {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID": 0,"pickable": false},
             {"tileType" : { "key":"CAT","image":"","sign":"","color":""},"tileID": 0,"pickable": false},

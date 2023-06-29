@@ -94,12 +94,4 @@ public class TileType implements Serializable {
         return tileMap.keySet();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if(this.key.equals("EMPTY") || o == null || ((TileType)o).getKey().equals("EMPTY")) return false;
-
-        final TileType obj = (TileType) o;
-
-        return obj.getKey().equals(this.key);
-    }
 }
