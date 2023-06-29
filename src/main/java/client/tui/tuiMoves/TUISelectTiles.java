@@ -4,6 +4,9 @@ import moves.Move;
 import moves.MoveSelectTiles;
 import server.model.Bookshelf;
 import server.model.Game;
+import server.model.Tile;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TUISelectTiles implements TUIMoveInterface {

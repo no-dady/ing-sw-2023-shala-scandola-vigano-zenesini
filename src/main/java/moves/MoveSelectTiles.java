@@ -2,8 +2,10 @@ package moves;
 
 import server.model.Coordinates;
 import server.model.Game;
+import server.model.Tile;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MoveSelectTiles implements Move {
     private final String nickName;
@@ -38,6 +40,12 @@ public class MoveSelectTiles implements Move {
         for (int i = 0; i < this.getSelectedTiles().split(" ").length; i++) coordArray.add(new Coordinates(this.getSelectedTiles().split(" ")[i].charAt(0) - 'A', this.getSelectedTiles().split(" ")[i].charAt(1) - '1'));
         if (coordArray.stream().map(Coordinates::y).distinct().count() != coordArray.size() &&  coordArray.stream().map(Coordinates::x).distinct().count() != coordArray.size()) return false;
         for (Coordinates c : coordArray) if (!game.getBoard().getTile(c.x(), c.y()).isPickable()) return false;
+        List<Tile> selectedTilesList = new ArrayList<Tile>();
+        for (String s : selectedTiles.split(" ")) {
+            selectedTilesList.add(game.getBoard().getTile(s.charAt(0) - 'A', s.charAt(1) - '1'));
+            game.getBoard().removeTile(s.charAt(0) - 'A', s.charAt(1) - '1');
+        }
+        game.setSelectedTiles(selectedTilesList);
         switch (coordArray.size()) {
             case 1 -> {
                 return true;
