@@ -22,8 +22,6 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
     private List<Integer> points = new ArrayList<>(0);
     private String nameCgC = "";
 
-    public static String className;
-
     private int numPlayers;
 
     public abstract String getClassName();

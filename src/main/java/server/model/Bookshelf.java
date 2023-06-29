@@ -22,11 +22,9 @@ public class Bookshelf implements Serializable, Observable<Message> {
      */
     public Bookshelf() {
         slots = new Tile[rows][cols];
-        for (Tile[] tilecolumn: slots
-             ) {
-            for (Tile t: tilecolumn
-                 ) { t = new Tile();
-
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                slots[i][j] = new Tile();
             }
 
         }
