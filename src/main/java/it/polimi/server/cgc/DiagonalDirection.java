@@ -8,7 +8,6 @@ import java.io.Serializable;
 /**
  * The type Diagonal direction.
  */
-//TODO MAYBE WE COULD SEPARATE THE 11TH AND THE 12TH INTO TWO SEPARATE OBJECT USING THE .size OF
 //THE COLUMN TO CALCULATE THE 12TH CARD
 //DIAGONALDIRECTION
 public class DiagonalDirection extends CommonGoalCardStrategy implements Serializable  {

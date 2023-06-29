@@ -45,8 +45,6 @@ public class GUI extends Application implements UI {
         GUI.client = client;
         launch("");
     }
-    @Override
-    public void setActive() {}
 
     @Override
     public void printServerMessage(String message) {}

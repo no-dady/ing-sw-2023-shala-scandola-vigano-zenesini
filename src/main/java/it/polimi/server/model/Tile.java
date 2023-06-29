@@ -52,16 +52,6 @@ public class Tile implements Serializable {
     public String getImage(){return this.tileType.getImage();}
 
     /**
-     * Gets tile id.
-     *
-     * @return the tile id
-     */
-    public Optional<Integer> getTileId()
-    {
-        return Optional.of(this.tileID);
-    }
-
-    /**
      * Gets pickable
      * @return the boolean pickable
      */

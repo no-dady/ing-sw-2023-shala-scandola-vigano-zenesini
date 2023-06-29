@@ -2,7 +2,6 @@ package it.polimi.client.network;
 
 import it.polimi.observer.Observer;
 import it.polimi.server.model.Game;
-import it.polimi.server.model.Lobby;
 import it.polimi.server.network.ServerInterface;
 import it.polimi.util.Messages.*;
 import it.polimi.util.Parser;
@@ -24,17 +23,10 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     private ServerInterface serverInterface;
     private Client client;
     private final boolean isRmi;
-    private Lobby lobby;
-
-    private int playerCount = 0;
-
     public void setClient(Client client) {
         this.client = client;
     }
-
     private Game game;
-    private Thread socketThread;
-    private String nickName;
 
     public ClientHandler(String ip, int port) throws RemoteException, MalformedURLException, NotBoundException {
         super();
@@ -82,25 +74,12 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
         this.game = model;
     }
 
-    public synchronized void setState(State state) throws RemoteException
-    {
-        this.client.setState(state);
-    }
-
-    public synchronized State getState()throws RemoteException {
-        return this.client.getState();
-    }
-
     @Override
     public void close() throws IOException {
         if (isRmi)
         {
             UnicastRemoteObject.unexportObject(this, true);
         }
-    }
-
-    public Lobby getLobby() {
-        return this.lobby;
     }
 
     @Override

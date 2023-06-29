@@ -9,7 +9,6 @@ public class TUISetupAll implements TUISetupInterface{
 
     public SetupAll create(Scanner stdin, boolean firstTime) {
         String nickname;
-        String numOfPlayers;
         if (firstTime)
         {
             System.out.println("[Welcome to the it.polimi.server!]");

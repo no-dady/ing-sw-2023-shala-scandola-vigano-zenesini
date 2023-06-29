@@ -13,11 +13,6 @@ import java.rmi.RemoteException;
 //It implements the Server, but it will be used on the it.polimi.client-side to communicate
 public class ClientSocketMiddleware implements ServerInterface, Runnable {
     private Client client;
-
-    private String ip;
-
-    private int port;
-
     private DataInputStream in;
     private DataOutputStream out;
 
@@ -27,8 +22,6 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
 
     public ClientSocketMiddleware(Client client, String ip, int port, ClientInterface clientInterface) throws IOException {
         this.client = client;
-        this.ip = ip;
-        this.port = port;
         this.clientinterface = clientInterface;
 
         socket = new Socket(ip, port);
@@ -114,9 +107,5 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         {
             throw new RemoteException("Cannot send string SetupAll from it.polimi.client", e);
         }
-    }
-
-    public void receive(ClientHandler clientHandler) throws RemoteException
-    {
     }
 }

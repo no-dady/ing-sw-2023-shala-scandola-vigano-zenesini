@@ -54,17 +54,6 @@ public class TUI implements UI, Runnable {
         System.out.println();
         System.out.println();
 
-        //try {
-        //    System.out.println("[type hostname, press ENTER]");
-        //    host = in.nextLine();
-        //    if (!host.matches("\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b")) {
-        //        throw (new Exception());
-        //    }
-        //} catch (Exception e) {
-        //    System.out.println("this is not a valid hostname");
-        //    return;
-        //}
-
         System.out.println("[type hostname, press ENTER]");
         while(true)
         {
@@ -111,109 +100,6 @@ public class TUI implements UI, Runnable {
         }
         
     }
-    /*
-            try {
-                while (!it.polimi.client.getState().equals(State.SETTINGNICKNAME)) {
-                    //System.out.println("not yet");
-                }
-                System.out.println("[Insert your nickname and press ENTER]");
-                do {
-                    nickname = in.nextLine();
-                    NicknameMessage nickMessage = new NicknameMessage(nickname);
-                    String messageParsed = Parser.toJson(nickMessage, NicknameMessage.class);
-                    it.polimi.client.sendToServer(messageParsed);
-                    while (it.polimi.client.getState().equals(State.WAITINGFORRESPONSE)) {
-                    }
-                    if (it.polimi.client.getState().equals(State.SETTINGNICKNAME)) {
-                        System.out.println("[" + nickname + " was already taken, please insert another nickname and press ENTER]");
-                    }
-                } while (it.polimi.client.getState().equals(State.SETTINGNICKNAME));
-            } catch (Exception e) {
-                System.out.println(it.polimi.client.getState());//it.polimi.client.receivedMessage);
-            }
-            while (it.polimi.client.getState().equals(State.WAITINGFORRESPONSE)) {
-                System.out.println(it.polimi.client.getState().toString());
-            }
-            if (it.polimi.client.getState().equals(State.SETTINGPLAYERSNUMBER)) {
-                String playerNumberString;
-                int playerNumber = 2;
-                do {
-                    System.out.println("[Welcome, you are the first one to enter the lobby, select the number of players in your game (2-3-4) and press ENTER]");
-                    playerNumberString = in.nextLine();
-                    playerNumber = Integer.parseInt(playerNumberString);
-                } while (playerNumber < 2 || playerNumber > 4);
-                CreateLobbyMessage createLobbyMessage = new CreateLobbyMessage(nickname, playerNumber);
-                String messageParsed = Parser.toJson(createLobbyMessage, CreateLobbyMessage.class);
-                try {
-                    it.polimi.client.sendToServer(messageParsed);
-                } catch (RemoteException e) {
-                    System.out.println("Cannot send createLobby Message");
-                }
-            }
-            System.out.println("[Welcome to the lobby, you'll be waiting for the other players to join]");
-
-        } else {
-            System.out.println("[we were unable to connect to the it.polimi.server, check your internet connection and try later]");
-            return;
-        }
-
-        while (!it.polimi.client.getState().equals(State.MYTURN)) ;
-
-        if (it.polimi.client.isActive() && it.polimi.client.isOnline()) {
-            if (it.polimi.client.getGame() != null) {
-                try {
-                    boardAndBookshelfArt = setPGCart(boardAndBookshelfArt);
-                    cgcs = concatCGCarts(ConfigsFromJson.getArt(Parser.getFilePath("cgcArts/" + it.polimi.client.getGame().getBoard().getCommonGoalCards().get(0).getName() + ".json"), ConfigsFromJson.getArt(Parser.getFilePath("cgcArts/" +it.polimi.client.getGame().getBoard().getCommonGoalCards().get(1).getName() + ".json"));
-                    printState();
-                } catch (NullPointerException ignored) {
-                } catch (RemoteException e) {
-                    System.out.println("Something went wrong with the creation of the model");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            //COMMENTED THIS LINE vvv ONLY BECAUSE RIGHT NOW WE DONT HAVE A REAL GAME INSIDE THE CLIENT SO getGame LEAD TO A NULLPOINTEREXC
-            while (it.polimi.client.isActive() && it.polimi.client.isOnline() && !it.polimi.client.getGame().hasWinner()) {
-                while (!it.polimi.client.getState().equals(State.WAITINGFORMYTURN)) {
-                    //whatever you want to do whn you are not actively playing
-                    // maybe show bookshelves of the other players
-                }
-                if (it.polimi.client.getState().equals(State.MYTURN)) {
-                    try {
-                        Object locker = new Object();
-                        synchronized (locker) {
-                            while (!isMoveHandled()) {
-                                System.out.println("[it's now your turn]");
-                                printState();
-                                // it.polimi.client.send(new TUISelectTiles(nickname).updateCLI(it.polimi.client.getGame(),in));
-                                // it.polimi.client.send(new TUISelectColumn(nickname).updateCLI(it.polimi.client.getGame(),in));
-                                this.setMoveHandled(true);
-                            }
-                        }
-                        this.setMoveHandled(false);
-                        locker.notifyAll();
-                    } catch (RemoteException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-
-            }
-
-        }
-
-    }
-     */
-
-
-
-    private boolean isMoveHandled() {
-        return this.moveHandled;
-    }
-
-    private void setMoveHandled(boolean b) {
-        this.moveHandled = b;
-    }
-
 
     @Override
     public void update() {
@@ -284,9 +170,6 @@ public class TUI implements UI, Runnable {
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
-            }
-            case PLAYERSQUIT -> {
-                //boh... ci serve davvero? se si magari gli facciamo for real giusto passare il turno
             }
             case WAITINGINLOBBY -> {
                 System.out.println("[Welcome to the lobby, you'll be waiting for the other players to join]");
@@ -391,9 +274,6 @@ public class TUI implements UI, Runnable {
         }
         System.out.print("won the game!]");
     }
-
-    @Override
-    public void setActive() {}
 
     @Override
     public void printServerMessage(String message) {
