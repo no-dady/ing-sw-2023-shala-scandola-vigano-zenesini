@@ -6,7 +6,7 @@
 <StackPane xmlns:fx="http://javafx.com/fxml"
            fx:id="mainContainer"
            xmlns="http://javafx.com/javafx"
-           fx:controller="client.gui.controller.BoardController"
+           fx:controller="it.polimi.client.gui.controller.BoardController"
            stylesheets="@../css/BoardPage.css">
 
     <fx:define>
@@ -500,7 +500,6 @@
 
                     <Pane fx:id="container1" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                        <Button fx:id="menu_button" prefHeight="${container1.height}" prefWidth="${container1.width}" onAction="#onMenuButtonPress"/>
                     </Pane>
 
                     <Pane fx:id="container2" GridPane.columnIndex="3" GridPane.rowIndex="0" GridPane.columnSpan="1"

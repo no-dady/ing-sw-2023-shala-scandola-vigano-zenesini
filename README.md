@@ -1,4 +1,4 @@
-# Prova finale - Progetto Ingegneria del Software 2023
+# Progetto ingegneria del software 2023
 
 > Game: My Shelfie \
 > Team: Shala, Scandola, Viganò, Zenesini \
@@ -14,6 +14,27 @@
 | CLI | :white_check_mark: |
 | GUI |:white_check_mark: |
 | Partite Multiple | :white_check_mark: |
-| Resilienza | :negative_squared_cross_mark: |
+| Resilienza | :white_check_mark: |
 | Chat | :negative_squared_cross_mark: |
-| Peristenza | :negative_squared_cross_mark: |
+
+## Usage
+
+### Client
+
+```bash
+SYNTAX:
+        java -jar CLIENT_GC49.jar [OPTION]
+OPTIONS:
+        --cli    Starts it.polimi.client in command line interface
+        --gui    Starts it.polimi.client in gui mode
+```
+
+### Server
+
+```bash
+SYNTAX:
+        java -jar SERVER_GC49.jar [--rmi | PORT] [--socket | PORT]
+OPTIONS:
+        --rmi   Specify rmi port, default is 1900
+        --socket        Specify socket port, default is 1337
+```

@@ -9,8 +9,8 @@ Valutazione del diagramma UML delle classi del gruppo 39.
 
 ## Lati positivi
 
-- Tenere traccia dello stato in cui si trova l'handler è un'ottima trovata per gestire le possibili mosse dei giocatori e prevenire mosse invalide prima di aggiornare il server, e anche tenere tracci del tipo di connessione all'interno handler e clientHandler risulta utile a facilitare la comunicazione con il server.
-- L'idea di separare, tramite la classe Lobby, le varie partite in corso sul server è ottima per poter gestire la comunicazione con i vari clientHandler connessi
+- Tenere traccia dello stato in cui si trova l'handler è un'ottima trovata per gestire le possibili mosse dei giocatori e prevenire mosse invalide prima di aggiornare il it.polimi.server, e anche tenere tracci del tipo di connessione all'interno handler e clientHandler risulta utile a facilitare la comunicazione con il it.polimi.server.
+- L'idea di separare, tramite la classe Lobby, le varie partite in corso sul it.polimi.server è ottima per poter gestire la comunicazione con i vari clientHandler connessi
 - Stesso discorso anche per le enumerazioni dello stato e della connessione.
 
 ## Lati negativi
