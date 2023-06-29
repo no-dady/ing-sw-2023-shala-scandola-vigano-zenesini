@@ -13,7 +13,6 @@ public class GameMessage implements Message {
         this.id = id;
     }
 
-
     @Override
     public void handleMessage(Client client) throws RemoteException {
         Game game = client.getGame();

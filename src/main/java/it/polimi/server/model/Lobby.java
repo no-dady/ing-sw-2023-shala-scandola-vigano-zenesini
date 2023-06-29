@@ -4,7 +4,6 @@ import it.polimi.client.network.ClientInterface;
 import it.polimi.client.network.State;
 import it.polimi.server.controller.GameController;
 import it.polimi.server.exceptions.IllegalPlayersNumberException;
-import it.polimi.server.view.View;
 import it.polimi.util.Messages.*;
 import it.polimi.util.Parser;
 
@@ -24,8 +23,6 @@ public class Lobby implements Runnable {
     private int lobbyId;
 
     private Map<String, ClientInterface> playerMap;
-
-    private HashMap<String, View> playersview= new HashMap<>();
 
     private GameController controller;
 
@@ -151,29 +148,10 @@ public class Lobby implements Runnable {
             for(String name: playerMap.keySet()) {
                 playerMap.get(name).send(Parser.toJson(new DisconnectMessage(playerMap.keySet(), nickname), Message.class));
             }
-
-            try {
-                playersview.get(nickname).setOffline(true);
-            } catch (NullPointerException dc) {
-            }
         } else throw new IllegalArgumentException();
 
         return false;
     }
-
-    //public void reconnectPlayer(String nickname, ClientInterface conn) throws RemoteException {
-    //    if(disconnectedPlayers.contains(nickname)) {
-    //        playerMap.put(nickname, conn);
-    //        playersview.get(nickname).setOffline(false);
-    //        ((RemoteView) playersview.get(nickname)).setClientConnection(conn);
-    //        playersview.get(nickname).sendInitialMessage(game, getLobbyName());
-    //        for(String name: playerMap.keySet()) {
-    //            playerMap.get(name).send(Parser.toJson(new ReconnectMessage(playerMap.keySet(), nickname), Message.class));
-    //        }
-//
-    //        disconnectedPlayers.remove(nickname);
-    //    } else throw new IllegalArgumentException();
-    //}
 
     @Override
     public void run() {
@@ -238,7 +216,6 @@ public class Lobby implements Runnable {
             controller=null;
         }
         playerMap.clear();
-        playersview.clear();
         disconnectedPlayers.clear();
         active=false;
     }

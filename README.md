@@ -14,7 +14,7 @@
 | CLI | :white_check_mark: |
 | GUI |:white_check_mark: |
 | Partite Multiple | :white_check_mark: |
-| Resilienza | :white_check_mark: |
+| Resilienza | :negative_squared_cross_mark: |
 | Chat | :negative_squared_cross_mark: |
 
 ## Usage
@@ -25,8 +25,8 @@
 SYNTAX:
         java -jar CLIENT_GC49.jar [OPTION]
 OPTIONS:
-        --cli    Starts it.polimi.client in command line interface
-        --gui    Starts it.polimi.client in gui mode
+        --cli    Starts client in command line interface
+        --gui    Starts client in gui mode
 ```
 
 ### Server

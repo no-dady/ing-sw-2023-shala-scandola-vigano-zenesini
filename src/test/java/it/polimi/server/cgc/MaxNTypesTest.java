@@ -3,6 +3,7 @@ package it.polimi.server.cgc;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import it.polimi.server.model.Bookshelf;
 import it.polimi.util.Parser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +11,7 @@ import it.polimi.server.model.CommonGoalCardStrategy;
 import it.polimi.server.model.Tile;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -19,37 +21,69 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class MaxNTypesTest {
 
-    private CommonGoalCardStrategy testRow;
-    private CommonGoalCardStrategy testCol;
-    public List<Tile[][]> testShelfList;
-    @BeforeEach
-    void setUp() {
-        testRow = new MaxNTypes(false, 3, 4, "");
-        testCol = new MaxNTypes(true, 3, 3, "");
-        try {
-            assertEquals("D:\\Github\\ing-sw-2023-shala-scandola-vigano-zenesini\\target\\test-classes\\json\\shelves\\prova.json", Parser.getResourcePath("json/shelves/prova.json"));
-            BufferedReader reader = Files.newBufferedReader(Paths.get(Parser.getResourcePath("json\\shelves\\prova.json")));
-            String json = reader.lines().collect(Collectors.joining());
+    private CommonGoalCardStrategy toTest;
 
-            Gson gson = new GsonBuilder().serializeNulls().create();
-            testShelfList = Parser.fromJson(json, new TypeToken<List<Tile[][]>>(){}.getType());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            fail();
-        }
-    }
-
-    @Test
-    void conditionCheck() {
-        Tile[][] shelf = testShelfList.get(0);
+    public static void printShelf(Tile[][] shelf) {
+        System.out.println();
         for(int i = 5; i >= 0; i--) {
+            System.out.print("|\t");
             for(int j = 0; j < 5; j++) {
                 System.out.print(shelf[i][j].getTileType() + "\t|\t");
             }
             System.out.println();
         }
+    }
 
-        assertFalse(testRow.conditionCheck(shelf));
-        assertFalse(testCol.conditionCheck(shelf));
+    public static List<Tile[][]> getTilesForTest(String jsonPath) throws IOException {
+        BufferedReader reader = Files.newBufferedReader(Paths.get(Parser.getResourcePath(jsonPath)));
+        String json = reader.lines().collect(Collectors.joining());
+        return Parser.fromJson(json, new TypeToken<List<Tile[][]>>(){}.getType());
+    }
+
+    @Test
+    void conditionCheck() throws IOException {
+        String path = "json/shelves/StraightDirectionTest";
+
+        List<Tile[][]> shelf = StraightDirectionCGCTest.getTilesForTest(path + "/testOne.json");
+        toTest = new StraightDirection(2, Bookshelf.getCols(), false, true, "");
+        printShelf(shelf.get(0));
+        assertFalse(toTest.conditionCheck(shelf.get(0)), "Bookshelf is Empty should be false");
+        printShelf(shelf.get(1));
+        assertFalse(toTest.conditionCheck(shelf.get(1)), "Found two full distinct columns when not expected!");
+        printShelf(shelf.get(2));
+        assertTrue(toTest.conditionCheck(shelf.get(2)), "Did not find two full distinct columns when expected!");
+        System.out.println("\nTest One Passsato!");
+
+        shelf = StraightDirectionCGCTest.getTilesForTest(path + "/testTwo.json");
+        toTest = new StraightDirection(4,4,true,true,"");
+        printShelf(shelf.get(0));
+        assertFalse(toTest.conditionCheck(shelf.get(0)), "Found when shelf is empty");
+        printShelf(shelf.get(1));
+        assertTrue(toTest.conditionCheck(shelf.get(1)), "Didn't find cgc when expected");
+        printShelf(shelf.get(2));
+        assertFalse(toTest.conditionCheck(shelf.get(2)), "Found When not expected");
+        System.out.println("\nTest Two Passsato!");
+
+        shelf = StraightDirectionCGCTest.getTilesForTest(path + "/testThree.json");
+        toTest = new StraightDirection(6,2,true,true,"");
+        printShelf(shelf.get(0));
+        assertFalse(toTest.conditionCheck(shelf.get(0)), "Found when shelf is empty");
+        printShelf(shelf.get(1));
+        assertFalse(toTest.conditionCheck(shelf.get(1)), "Found when not expected");
+        printShelf(shelf.get(2));
+        assertTrue(toTest.conditionCheck(shelf.get(2)), "Not Found when expected");
+        System.out.println("\nTest Three Passsato!");
+
+        shelf = StraightDirectionCGCTest.getTilesForTest(path + "/testFour.json");
+        toTest = new StraightDirection(2, Bookshelf.getRows(),false,false,"");
+        printShelf(shelf.get(0));
+        assertFalse(toTest.conditionCheck(shelf.get(0)), "Found when shelf is empty");
+        printShelf(shelf.get(1));
+        assertFalse(toTest.conditionCheck(shelf.get(1)), "Found when not expected");
+        printShelf(shelf.get(2));
+        assertTrue(toTest.conditionCheck(shelf.get(2)), "Not found when expected");
+        System.out.println("\nTest Four Passsato!");
+
+        System.out.println("\nTest Passsato!");
     }
 }

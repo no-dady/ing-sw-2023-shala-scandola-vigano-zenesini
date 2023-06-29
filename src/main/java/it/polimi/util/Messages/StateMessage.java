@@ -17,11 +17,6 @@ public class StateMessage implements Message {
     public void handleMessage(Client client)
     {
         client.setState(stateToSend);
-        //try {
-        //    it.polimi.client.getUI().update();
-        //} catch (RemoteException e) {
-        //    throw new RuntimeException(e);
-        //}
     }
 
     public String getName()

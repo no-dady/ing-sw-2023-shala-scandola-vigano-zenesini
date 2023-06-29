@@ -44,7 +44,7 @@ public class ShiftedCheckerboardCGCTest
             fail();
         }
         try {
-            Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/prova.json"));
+            Reader reader = Files.newBufferedReader(Paths.get("src/test/resources/json/shelves/bookshelf_test.json"));
 
             Gson gson = new GsonBuilder().serializeNulls().create();
             shelfb = gson.fromJson(reader, new TypeToken<List<Tile[][]>>(){}.getType());

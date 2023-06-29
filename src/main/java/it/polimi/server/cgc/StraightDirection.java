@@ -5,6 +5,9 @@ import it.polimi.server.model.CommonGoalCardStrategy;
 import it.polimi.server.model.Tile;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The type Straight direction.
@@ -49,16 +52,18 @@ public class StraightDirection extends CommonGoalCardStrategy implements Seriali
         for(int i = 0; i < Bookshelf.getCols() && checked < timesToLook; i++) {
             var tile = slots[0][i];
             count = 0;
-            for(int j = 0; j < Bookshelf.getRows() && !slots[j][i].Empty() && count < numToLook; ++j) {
+            for(int j = 0; j < Bookshelf.getRows() && !slots[j][i].Empty() && checked < timesToLook; ++j) {
                 if((slots[j][i].equals(tile)) == isEqual) {
                     count++;
                 } else {
                     tile = slots[j][i];
-                    count = 0;
+                    count = 1;
                 }
-            }
-            if(count == numToLook) {
-                checked++;
+
+                if(count == numToLook) {
+                    checked++;
+                    count = 1;
+                }
             }
 
         }
@@ -69,19 +74,35 @@ public class StraightDirection extends CommonGoalCardStrategy implements Seriali
     private boolean checkRows(Tile[][] slots) {
         int count = 0, checked = 0;
 
-        for(int i = 0; i < Bookshelf.getRows() && checked < timesToLook; i++) {
-            var tile = slots[i][0];
-            count = 0;
-            for(int j = 0; j < Bookshelf.getCols() && count < numToLook && !slots[i][j].Empty() ; ++j) {
-                if((slots[i][j].equals(tile)) == isEqual) {
-                    count++;
-                } else {
-                    tile = slots[i][j];
-                    count = 0;
+        if(!isEqual) {
+           for(int i = 0; i < Bookshelf.getRows() && checked < timesToLook; i++) {
+               Set<String> tileTypes = new HashSet<>();
+               for(int j = 0; j < Bookshelf.getCols() && !slots[i][j].Empty(); j++) {
+                   tileTypes.add(slots[i][j].getTileType());
+               }
+               if(Bookshelf.getCols() == tileTypes.size()) {
+                   checked++;
+               }
+           }
+        }
+        else
+        {
+            for(int i = 0; i < Bookshelf.getRows() && checked < timesToLook; i++) {
+                var tile = slots[i][0];
+                count = 0;
+                for(int j = 0; j < Bookshelf.getCols() && checked < timesToLook && !slots[i][j].Empty() ; ++j) {
+                    if((slots[i][j].equals(tile)) == isEqual) {
+                        count++;
+                    } else {
+                        tile = slots[i][j];
+                        count = 1;
+                    }
+
+                    if(count == numToLook) {
+                        checked++;
+                        count = 1;
+                    }
                 }
-            }
-            if(count == numToLook) {
-                checked++;
             }
 
         }
