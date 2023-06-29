@@ -4,6 +4,7 @@ import it.polimi.client.gui.GUI;
 import it.polimi.client.gui.guiMoves.GUISelectColumn;
 import it.polimi.client.gui.guiMoves.GUISelectTiles;
 import it.polimi.client.network.State;
+import it.polimi.moves.Move;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -166,7 +167,7 @@ public class BoardController implements GenericInterface, Initializable {
             tileMove = (MoveSelectTiles) new GUISelectTiles(gui.getNickname(), gui.getClient().getLobbyId() , temp).updateGUI(gui.getGame());
 
             if (tileMove != null) {
-                gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(tileMove, MoveSelectTiles.class));
+                gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(tileMove, Move.class));
 
                 columnMove = (MoveSelectColumn) new GUISelectColumn(gui.getNickname(), gui.getClient().getLobbyId(), selectedColumn).updateGUI(gui.getGame());
 
@@ -233,7 +234,7 @@ public class BoardController implements GenericInterface, Initializable {
 
     public void onEndTurnButtonPress(ActionEvent event1) throws RemoteException { //if you press the end button
         if(end_turn.getText().equals("End turn")){ //when you end your action
-            gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(columnMove, MoveSelectColumn.class));
+            gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(columnMove, Move.class));
             end_turn.setDisable(true);
             end_turn.setOpacity(0);
             List<Button> arrows = List.of(arrow1,arrow2,arrow3,arrow4,arrow5);
@@ -441,7 +442,7 @@ public class BoardController implements GenericInterface, Initializable {
         for (Pane p : paneMap.keySet()) { //initializing board + tiles
             int x = paneMap.get(p).x() - 1;
             int y = paneMap.get(p).y() - 1;
-            if (m[x][y] != 0 && m[x][y] <= num){
+            if (m[x][y] != 0 && m[x][y] <= num && (gui.getGame().getBoard().getTile(x,y) != null && !gui.getGame().getBoard().getTile(x,y).Empty())){
                 String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + gui.getGame().getBoard().getTile(x,y).getImage())).toExternalForm();
                 p.setStyle("-fx-background-image: url('" + imageUrl + "');");
                 if(action && !moveHandled){//gui.getGame().getPlayers().get(0).getUserId() == gui.getGame().getCurrPlayerId() && gui.getNickname().equals(gui.getGame().getPlayers().get(0).getUserName())) {
@@ -474,6 +475,8 @@ public class BoardController implements GenericInterface, Initializable {
                         }
                     }
                 }
+            } else if(gui.getGame().getBoard().getTile(x,y) == null || gui.getGame().getBoard().getTile(x,y).Empty()) {
+                //set tile a null
             }
         }
 
@@ -490,10 +493,12 @@ public class BoardController implements GenericInterface, Initializable {
 
         for (Pane p : bookshelfMap.keySet()) {
             int x = bookshelfMap.get(p).x() - 1;
-            int y = bookshelfMap.get(p).y() - 1;
-            if (bookshelf.getSlots()[y][x] != null) {
+            int y = Bookshelf.getRows() - bookshelfMap.get(p).y() ;
+            if (bookshelf.getSlots()[y][x] != null && !(bookshelf.getSlots()[y][x].Empty())) {
                 String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + bookshelf.getSlots()[y][x].getImage())).toExternalForm();
                 p.setStyle("-fx-background-image: url('" + imageUrl + "');");
+            }else {
+
             }
         }
 

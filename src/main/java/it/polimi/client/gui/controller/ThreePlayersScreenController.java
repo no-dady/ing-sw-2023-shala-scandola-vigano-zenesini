@@ -131,8 +131,8 @@ public class ThreePlayersScreenController implements GenericInterface, Initializ
             Bookshelf bookshelf = p.getBookshelf();
             for (Pane pl : bookshelfTiles.get(playersThatAreNotMe.indexOf(p)).keySet()) {
                 int x = bookshelfTiles.get(playersThatAreNotMe.indexOf(p)).get(pl).x() - 1;
-                int y = bookshelfTiles.get(playersThatAreNotMe.indexOf(p)).get(pl).y() - 1;
-                if (bookshelf.getSlots()[y][x] != null) {
+                int y = Bookshelf.getRows() - bookshelfTiles.get(playersThatAreNotMe.indexOf(p)).get(pl).y();
+                if (bookshelf.getSlots()[y][x] != null && !bookshelf.getSlots()[y][x].Empty()) {
                     String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + bookshelf.getSlots()[y][x].getImage())).toExternalForm();
                     pl.setStyle("-fx-background-image: url('" + imageUrl + "');");
                 }
