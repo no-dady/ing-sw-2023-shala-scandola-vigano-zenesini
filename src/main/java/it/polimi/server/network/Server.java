@@ -11,7 +11,6 @@ import it.polimi.server.controller.GameController;
 import it.polimi.server.controller.actions.ColumnSelectAction;
 import it.polimi.server.controller.actions.TileSelectAction;
 import it.polimi.server.model.*;
-import it.polimi.server.network.SocketComm.ClientSkeleton;
 import it.polimi.server.view.View;
 import it.polimi.server.view.RemoteView;
 import it.polimi.setup.SetupAll;

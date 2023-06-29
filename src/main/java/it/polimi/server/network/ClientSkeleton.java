@@ -1,4 +1,4 @@
-package it.polimi.server.network.SocketComm;
+package it.polimi.server.network;
 
 import it.polimi.client.network.ClientInterface;
 import it.polimi.observer.Observer;
