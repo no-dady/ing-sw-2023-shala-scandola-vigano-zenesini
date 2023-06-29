@@ -88,30 +88,40 @@ public class BoardController implements GenericInterface, Initializable {
         if(selectedColumn==0){
             selectedColumn = 1;
             update();
+            end_turn.setOpacity(1);
+            end_turn.setDisable(false);
         }
     }
     public void onArrowTwoPress(ActionEvent event) {
         if(selectedColumn==0){
             selectedColumn = 2;
             update();
+            end_turn.setOpacity(1);
+            end_turn.setDisable(false);
         }
     }
     public void onArrowThreePress(ActionEvent event) {
         if(selectedColumn==0){
             selectedColumn = 3;
             update();
+            end_turn.setOpacity(1);
+            end_turn.setDisable(false);
         }
     }
     public void onArrowFourPress(ActionEvent event) {
         if(selectedColumn==0){
             selectedColumn = 4;
             update();
+            end_turn.setOpacity(1);
+            end_turn.setDisable(false);
         }
     }
     public void onArrowFivePress(ActionEvent event) {
         if(selectedColumn==0){
             selectedColumn = 5;
             update();
+            end_turn.setOpacity(1);
+            end_turn.setDisable(false);
         }
     }
 
@@ -170,9 +180,11 @@ public class BoardController implements GenericInterface, Initializable {
                 columnMove = (MoveSelectColumn) new GUISelectColumn(gui.getNickname(), gui.getClient().getLobbyId(), selectedColumn-1).updateGUI(gui.getGame());
 
                 if (columnMove != null) {
-                    first_tile.setBackground(null);
-                    second_tile.setBackground(null);
-                    third_tile.setBackground(null);
+                    first_tile.setOpacity(0);
+                    second_tile.setOpacity(0);
+                    third_tile.setOpacity(0);
+                    end_turn.setOpacity(1);
+                    end_turn.setDisable(false);
                     end_turn.setText("End turn");
                     confirm.setDisable(true);
                     confirm.setOpacity(0);
@@ -185,9 +197,9 @@ public class BoardController implements GenericInterface, Initializable {
                     Alert alert = alertCreator();
                     alert.setContentText("You cannot perform this move, the column is unavailable!");
                     alert.showAndWait();
-                    first_tile.setBackground(null);
-                    second_tile.setBackground(null);
-                    third_tile.setBackground(null);
+                    first_tile.setOpacity(0);
+                    second_tile.setOpacity(0);
+                    third_tile.setOpacity(0);
                     end_turn.setText("End turn");
                     for (Pane x : selectedIds) {
                         x.setOpacity(1);
@@ -204,9 +216,9 @@ public class BoardController implements GenericInterface, Initializable {
                 Alert alert = alertCreator();
                 alert.setContentText("You cannot perform this move, is against the rules!");
                 alert.showAndWait();
-                first_tile.setBackground(null);
-                second_tile.setBackground(null);
-                third_tile.setBackground(null);
+                first_tile.setOpacity(0);
+                second_tile.setOpacity(0);
+                third_tile.setOpacity(0);
                 end_turn.setText("End turn");
                 for (Pane y : changedBookshelfTiles) {
                     y.setOpacity(0);
@@ -274,10 +286,12 @@ public class BoardController implements GenericInterface, Initializable {
             }
         }
         if(end_turn.getText().equals("Cancel")){ //when you cancel your action after selecting some tiles
-            first_tile.setBackground(null);
-            second_tile.setBackground(null);
-            third_tile.setBackground(null);
+            first_tile.setOpacity(0);
+            second_tile.setOpacity(0);
+            third_tile.setOpacity(0);
             end_turn.setText("End turn");
+            end_turn.setDisable(true);
+            end_turn.setOpacity(0);
             for (Pane y: changedBookshelfTiles) {
                 y.setOpacity(0);
             }
@@ -297,13 +311,16 @@ public class BoardController implements GenericInterface, Initializable {
         if(action) {
             List<Pane> frames = List.of(first_tile, second_tile, third_tile);
             if (count < 3) {
-                end_turn.setText("Cancel");
                 p.setOpacity(0);
                 p.setDisable(true);
                 frames.get(count).setBackground(p.getBackground());
+                frames.get(count).setOpacity(1);
                 selectedIds.add(p);
                 count++;
                 update();
+                end_turn.setOpacity(1);
+                end_turn.setDisable(false);
+                end_turn.setText("Cancel");
             }
         }
     }
@@ -419,8 +436,8 @@ public class BoardController implements GenericInterface, Initializable {
                 L2.setText("It's "+ player.getUserName() +"'s turn");
             }
             if(action){
-                end_turn.setDisable(false);
-                end_turn.setOpacity(1);
+                end_turn.setDisable(true);
+                end_turn.setOpacity(0);
                 confirm.setDisable(false);
                 confirm.setOpacity(1);
                 for(Button b : arrows){
@@ -459,9 +476,8 @@ public class BoardController implements GenericInterface, Initializable {
                 p.setOpacity(1);
                 p.setDisable(true);
                 if(action){//gui.getGame().getPlayers().get(0).getUserId() == gui.getGame().getCurrPlayerId() && gui.getNickname().equals(gui.getGame().getPlayers().get(0).getUserName())) {
-                    p.setDisable(false);
                     if (gui.getGame().getBoard().getTile(x, y).isPickable()) {
-
+                        p.setDisable(false);
                         p.setOnMouseEntered(event -> {
                             p.setEffect(dropShadow);
                         });

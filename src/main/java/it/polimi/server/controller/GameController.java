@@ -110,6 +110,7 @@ public class GameController implements Observer<Action>{
             for (CommonGoalCardStrategy cgc : game.getBoard().getCommonGoalCards()) {
                 cgcPoints += cgc.getPlayer(player);
             }
+            System.out.println(cgcPoints + ":cgc " + calculateBookshelfPoints(player.getBookshelf()) + ":adjacent " + player.getPersonalGoalCard().completed(player.getBookshelf().getSlots()) + ":pgc ");
             player.setScore(calculateBookshelfPoints(player.getBookshelf()) + player.getPersonalGoalCard().completed(player.getBookshelf().getSlots()) + cgcPoints);
         }
     }
