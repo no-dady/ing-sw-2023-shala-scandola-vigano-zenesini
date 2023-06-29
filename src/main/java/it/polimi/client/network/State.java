@@ -1,0 +1,18 @@
+package it.polimi.client.network;
+
+public enum State {
+    WAIT,
+    SETUPFIRST,
+    SETUP,
+    WAITINGINLOBBY,
+    SETTINGNICKNAME,
+    SETUPAGAIN,
+    WAITINGFORMYTURN,
+    MYTURN,
+    WAITINGFORRESPONSE,
+    WAITINGFORGAMESTART,
+
+    INQUEUE,
+    PLAYERSQUIT,
+    GAMEENDED
+}

@@ -54,4 +54,4 @@ Il controller del gameplay, inizializza e inizia la partita.
 
 ### TurnController (deprecated)
 
-Controller del turno che si occupa di aggiornare la view in base alla situazione di gioco. Per ora utilizza il pattern deprecato dell'observer in java.util
+Controller del turno che si occupa di aggiornare la view in base alla situazione di gioco. Per ora utilizza il pattern deprecato dell'it.polimi.observer in java.it.polimi.util

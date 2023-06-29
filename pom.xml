@@ -76,12 +76,12 @@
         <version>3.6.0</version>
         <executions>
           <execution>
-            <id>build-client</id>
+            <id>build-it.polimi.client</id>
             <configuration>
               <appendAssemblyId>false</appendAssemblyId>
               <archive>
                 <manifest>
-                  <mainClass>ClientApp</mainClass>
+                  <mainClass>it.polimi.ClientApp</mainClass>
                 </manifest>
               </archive>
               <finalName>CLIENT_GC49</finalName>
@@ -95,12 +95,12 @@
             </goals>
           </execution>
           <execution>
-            <id>build-server</id>
+            <id>build-it.polimi.server</id>
             <configuration>
               <appendAssemblyId>false</appendAssemblyId>
               <archive>
                 <manifest>
-                  <mainClass>ServerApp</mainClass>
+                  <mainClass>it.polimi.ServerApp</mainClass>
                 </manifest>
               </archive>
               <finalName>SERVER_GC49</finalName>
