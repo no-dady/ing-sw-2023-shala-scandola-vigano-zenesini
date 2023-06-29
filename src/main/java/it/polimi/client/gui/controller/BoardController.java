@@ -33,7 +33,6 @@ import java.util.*;
 public class BoardController implements GenericInterface, Initializable {
     private GUI gui;
     private GenericInterface popupController;
-    private boolean moveHandled = false;
     public final String dim = "1920x1000";
     public static final String name ="board";
     @FXML //utils label
@@ -176,10 +175,10 @@ public class BoardController implements GenericInterface, Initializable {
                     third_tile.setBackground(null);
                     end_turn.setText("End turn");
                     confirm.setDisable(true);
-                    confirm.setStyle("-fx-background-image: url('/images/Empty.png')");
+                    confirm.setOpacity(0);
                     for (Pane x : selectedIds) {
                         //x.setDisable(true);
-                        x.setStyle("-fx-background-image: url('/images/Empty.png')");
+                        x.setBackground(null);
                     }
 
                 } else {
@@ -190,9 +189,6 @@ public class BoardController implements GenericInterface, Initializable {
                     second_tile.setBackground(null);
                     third_tile.setBackground(null);
                     end_turn.setText("End turn");
-                    for (Pane y : changedBookshelfTiles) {
-                        y.setBackground(null);
-                    }
                     for (Pane x : selectedIds) {
                         x.setOpacity(1);
                         x.setDisable(false);
@@ -249,11 +245,14 @@ public class BoardController implements GenericInterface, Initializable {
                     t_4_7, t_4_8, t_5_2, t_5_3, t_5_4, t_5_5, t_5_6, t_5_7, t_5_8, t_6_2,
                     t_6_3, t_6_4, t_6_5, t_6_6, t_6_7, t_7_4, t_7_5, t_7_6, t_8_5, t_8_6, t_1_4, t_3_3, t_3_7, t_4_9, t_6_1, t_7_3, t_7_7, t_9_6, t_1_5, t_2_6, t_4_2, t_5_1, t_5_9, t_6_8, t_8_4, t_9_5);
             changedBookshelfTiles.clear();
+            for (Pane x : selectedIds) {
+                x.setOpacity(1);
+                x.setDisable(false);
+            }
             selectedIds.clear();
             selectedColumn = 0;
             action = false;
             count = 0;
-            moveHandled = true;
             for (Pane p : allPanes) {
                 p.setDisable(true);
                 p.setOnMouseEntered(event -> {
@@ -312,6 +311,8 @@ public class BoardController implements GenericInterface, Initializable {
 
     @Override
     public void update() {
+        if (gui.getClient().getState().equals(State.MYTURN)) action = true;
+        else if (gui.getClient().getState().equals(State.WAITINGFORMYTURN)) action = false;
         List<Pane> listOfTwo = List.of(t_1_4, t_3_3, t_3_7, t_4_9, t_6_1, t_7_3, t_7_7, t_9_6, t_1_5, t_2_6, t_4_2, t_5_1, t_5_9, t_6_8, t_8_4, t_9_5);
         List<Pane> listOfThree = List.of(t_1_5, t_2_6, t_4_2, t_5_1, t_5_9, t_6_8, t_8_4, t_9_5);
         HashMap <Pane, Coordinates> paneMap= new HashMap<>();
@@ -392,7 +393,7 @@ public class BoardController implements GenericInterface, Initializable {
         bookshelfMap.put( b_5_4, new Coordinates(5,4));
         bookshelfMap.put( b_5_5, new Coordinates(5,5));
         bookshelfMap.put( b_5_6, new Coordinates(5,6));
-        System.out.println(moveHandled + "" + action);
+
         int i;
         int[][] m;
         int num = gui.getGame().getNumPlayers();
@@ -417,15 +418,22 @@ public class BoardController implements GenericInterface, Initializable {
             {
                 L2.setText("It's "+ player.getUserName() +"'s turn");
             }
-            if(gui.getClient().getState().equals(State.MYTURN) && !moveHandled){
-                action = true;
+            if(action){
                 end_turn.setDisable(false);
                 end_turn.setOpacity(1);
                 confirm.setDisable(false);
                 confirm.setOpacity(1);
+                for(Button b : arrows){
+                    b.setDisable(false);
+                    b.setOnMouseEntered(event -> {
+                        b.setEffect(dropShadow);
+                    });
+                    b.setOnMouseExited(event -> {
+                        b.setEffect(null);
+                    });
+                }
             }
             else {
-                action = false;
                 end_turn.setDisable(true);
                 end_turn.setOpacity(0);
                 confirm.setDisable(true);
@@ -448,8 +456,9 @@ public class BoardController implements GenericInterface, Initializable {
             if (m[x][y] != 0 && m[x][y] <= num && (gui.getGame().getBoard().getTile(x,y) != null && !gui.getGame().getBoard().getTile(x,y).Empty())){
                 String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + gui.getGame().getBoard().getTile(x,y).getImage())).toExternalForm();
                 p.setStyle("-fx-background-image: url('" + imageUrl + "');");
-                if(action && !moveHandled){//gui.getGame().getPlayers().get(0).getUserId() == gui.getGame().getCurrPlayerId() && gui.getNickname().equals(gui.getGame().getPlayers().get(0).getUserName())) {
+                if(action){//gui.getGame().getPlayers().get(0).getUserId() == gui.getGame().getCurrPlayerId() && gui.getNickname().equals(gui.getGame().getPlayers().get(0).getUserName())) {
                     if (gui.getGame().getBoard().getTile(x, y).isPickable()) {
+                        p.setDisable(false);
 
                         p.setOnMouseEntered(event -> {
                             p.setEffect(dropShadow);
@@ -479,10 +488,10 @@ public class BoardController implements GenericInterface, Initializable {
                     }
                 }
             } else if(gui.getGame().getBoard().getTile(x,y) == null || gui.getGame().getBoard().getTile(x,y).Empty()) {
-                //set tile a null
+                p.setBackground(null);
                 for (Pane k : selectedIds) {
                     //k.setDisable(true);
-                    k.setStyle("-fx-background-image: url('/images/Empty.png')");
+                    k.setBackground(null);
                 }
             }
         }
@@ -505,7 +514,7 @@ public class BoardController implements GenericInterface, Initializable {
                 String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + bookshelf.getSlots()[y][x].getImage())).toExternalForm();
                 p.setStyle("-fx-background-image: url('" + imageUrl + "');");
             }else {
-
+                p.setBackground(null);
             }
         }
 

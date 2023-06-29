@@ -108,7 +108,7 @@ public class GUI extends Application implements UI {
                 break;
             }
             case MYTURN ->{
-                    activate(BoardController.name);
+                activate(BoardController.name);
                 break;
             }
             case GAMEENDED -> {

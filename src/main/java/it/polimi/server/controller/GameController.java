@@ -190,7 +190,7 @@ public class GameController implements Observer<Action>{
                             cgc.addPlayer(player);
                         }
                     }
-                }catch (NullPointerException e) {
+                } catch (NullPointerException e) {
                 }
                 if (gameEnded()) {
                     calculatePoints();
@@ -200,32 +200,19 @@ public class GameController implements Observer<Action>{
                             lobby.getConnections().get(p.getUserName()).send(Parser.toJson(gameMessage, Message.class));
                             BoardMessage boardMessage = new BoardMessage(game.getBoard());
                             lobby.getConnections().get(p.getUserName()).send(Parser.toJson(boardMessage, Message.class));
-                            lobby.getConnections().get(p.getUserName()).send(Parser.toJson(new StateMessage(State.GAMEENDED),Message.class));
+                            lobby.getConnections().get(p.getUserName()).send(Parser.toJson(new StateMessage(State.GAMEENDED), Message.class));
                         } catch (RemoteException e) {
                             throw new RuntimeException(e);
                         }
                     }
                 } else {
-                    try {
-                        for (ClientInterface clientInterface : lobby.getConnections().values())
-                        {
-                            InitialMessage gameMessage = new InitialMessage(game);
-                            clientInterface.send(Parser.toJson(gameMessage, Message.class));
-                            BoardMessage boardMessage = new BoardMessage(game.getBoard());
-                            clientInterface.send(Parser.toJson(boardMessage, Message.class));
-                        }
-                    } catch (RemoteException e) {
-                        throw new RuntimeException(e);
-                    }
                     game.setCurrPlayerId((player.getUserId() + 1) % game.getNumPlayers());
                     game.setCurrPlayerNick((game.getPlayers().get((player.getUserId() + 1) % game.getNumPlayers()).getUserName()));
                     try {
-                        lobby.getConnections().get(game.getPlayers().get((player.getUserId() + 1) % game.getNumPlayers()).getUserName()).send(Parser.toJson(new StateMessage(State.MYTURN),Message.class));
-                        for (var entity : lobby.getConnections().entrySet())
-                        {
-                            if (!entity.getKey().equals(game.getCurrPlayerNick()))
-                            {
-                                entity.getValue().send(Parser.toJson(new StateMessage(State.WAITINGFORMYTURN),Message.class));
+                        lobby.getConnections().get(game.getPlayers().get((player.getUserId() + 1) % game.getNumPlayers()).getUserName()).send(Parser.toJson(new StateMessage(State.MYTURN), Message.class));
+                        for (var entity : lobby.getConnections().entrySet()) {
+                            if (!entity.getKey().equals(game.getCurrPlayerNick())) {
+                                entity.getValue().send(Parser.toJson(new StateMessage(State.WAITINGFORMYTURN), Message.class));
                             }
                         }
                     } catch (RemoteException e) {
@@ -239,6 +226,16 @@ public class GameController implements Observer<Action>{
                     game.getBoard().fillBoard(BoardConfig.fillBoard(game.getBoard().getSlots(), game.getPocket(), game.getNumPlayers()));
                 }
                 game.getBoard().updatePickable();
+            }
+            try {
+                for (ClientInterface clientInterface : lobby.getConnections().values()) {
+                    InitialMessage gameMessage = new InitialMessage(game);
+                    clientInterface.send(Parser.toJson(gameMessage, Message.class));
+                    BoardMessage boardMessage = new BoardMessage(game.getBoard());
+                    clientInterface.send(Parser.toJson(boardMessage, Message.class));
+                }
+            } catch (RemoteException e) {
+                throw new RuntimeException(e);
             }
         }
         else {
