@@ -43,7 +43,6 @@ public class MoveSelectTiles implements Move {
         List<Tile> selectedTilesList = new ArrayList<Tile>();
         for (String s : selectedTiles.split(" ")) {
             selectedTilesList.add(game.getBoard().getTile(s.charAt(0) - 'A', s.charAt(1) - '1'));
-            game.getBoard().removeTile(s.charAt(0) - 'A', s.charAt(1) - '1');
         }
         game.setSelectedTiles(selectedTilesList);
         switch (coordArray.size()) {
