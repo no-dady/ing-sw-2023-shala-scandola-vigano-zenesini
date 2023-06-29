@@ -100,24 +100,20 @@
                    text="Points " textFill="White" wrapText="true"
                    alignment="BOTTOM_CENTER"/>
 
-            <Label fx:id="L12" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="1"
-                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
-                   text="Player1 " textFill="White" wrapText="true"
+            <Label fx:id="FirstPlayer" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER" textFill="White" wrapText="true"
                    alignment="BOTTOM_LEFT"/>
 
-            <Label fx:id="L13" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.columnSpan="1"
-                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
-                   text="Player2 " textFill="White" wrapText="true"
+            <Label fx:id="SecondPlayer" GridPane.columnIndex="2" GridPane.rowIndex="4" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER" textFill="White" wrapText="true"
                    alignment="BOTTOM_LEFT"/>
 
-            <Label fx:id="L14" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.columnSpan="1"
-                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
-                   text="Player3 " textFill="White" wrapText="true"
+            <Label fx:id="ThirdPlayer" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER" textFill="White" wrapText="true"
                    alignment="BOTTOM_LEFT"/>
 
-            <Label fx:id="L15" GridPane.columnIndex="2" GridPane.rowIndex="8" GridPane.columnSpan="1"
-                   GridPane.halignment="CENTER" GridPane.valignment="CENTER"
-                   text="Player4 " textFill="White" wrapText="true"
+            <Label fx:id="FourthPlayer" GridPane.columnIndex="2" GridPane.rowIndex="8" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER" textFill="White" wrapText="true"
                    alignment="BOTTOM_LEFT"/>
 
             <Pane fx:id="P1" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="1"
@@ -132,19 +128,19 @@
                         textFill="White" onAction="#onQuitPress"/>
             </Pane>
 
-            <Label fx:id="L16" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.columnSpan="1"
+            <Label fx:id="PointsOfFirst" GridPane.columnIndex="3" GridPane.rowIndex="2" GridPane.columnSpan="1"
                    GridPane.halignment="CENTER" GridPane.valignment="CENTER"
                    text="1000 " textFill="White" wrapText="true"
                    alignment="BOTTOM_LEFT"/>
-            <Label fx:id="L17" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.columnSpan="1"
+            <Label fx:id="PointsOfSecond" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.columnSpan="1"
                    GridPane.halignment="CENTER" GridPane.valignment="CENTER"
                    text="850 " textFill="White" wrapText="true"
                    alignment="BOTTOM_LEFT"/>
-            <Label fx:id="L18" GridPane.columnIndex="3" GridPane.rowIndex="6" GridPane.columnSpan="1"
+            <Label fx:id="PointsOfThird" GridPane.columnIndex="3" GridPane.rowIndex="6" GridPane.columnSpan="1"
                    GridPane.halignment="CENTER" GridPane.valignment="CENTER"
                    text="730 " textFill="White" wrapText="true"
                    alignment="BOTTOM_LEFT"/>
-            <Label fx:id="L19" GridPane.columnIndex="3" GridPane.rowIndex="8" GridPane.columnSpan="1"
+            <Label fx:id="PointsOfFourth" GridPane.columnIndex="3" GridPane.rowIndex="8" GridPane.columnSpan="1"
                    GridPane.halignment="CENTER" GridPane.valignment="CENTER"
                    text="680 " textFill="White" wrapText="true"
                    alignment="BOTTOM_LEFT"/>

@@ -43,49 +43,49 @@
     -fx-alignment: center;
 }
 
-#L12 {
+#FirstPlayer {
     -fx-font-family: 'Garamond';
     -fx-font-size: 1.5em;
     -fx-alignment: bottom-left;
 }
 
-#L13 {
+#SecondPlayer {
     -fx-font-family: 'Garamond';
     -fx-font-size: 1.5em;
     -fx-alignment: bottom-left;
 }
 
-#L14 {
+#ThirdPlayer {
     -fx-font-family: 'Garamond';
     -fx-font-size: 1.5em;
     -fx-alignment: bottom-left;
 }
 
-#L15 {
+#FourthPlayer {
     -fx-font-family: 'Garamond';
     -fx-font-size: 1.5em;
     -fx-alignment: bottom-left;
 }
 
-#L16 {
+#PointsOfFirst {
     -fx-font-family: 'Garamond';
     -fx-font-size: 1.5em;
     -fx-alignment: bottom-left;
 }
 
-#L17 {
+#PointsOfSecond {
     -fx-font-family: 'Garamond';
     -fx-font-size: 1.5em;
     -fx-alignment: bottom-left;
 }
 
-#L18 {
+#PointsOfThird {
     -fx-font-family: 'Garamond';
     -fx-font-size: 1.5em;
     -fx-alignment: bottom-left;
 }
 
-#L19 {
+#PointsOfFourth {
     -fx-font-family: 'Garamond';
     -fx-font-size: 1.5em;
     -fx-alignment: bottom-left;

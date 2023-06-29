@@ -118,7 +118,6 @@ public class BoardController implements GenericInterface, Initializable {
 
     public void onPlayerButtonPress(ActionEvent event) throws IOException {
         loader = new FXMLLoader();
-        ;
         Parent layout;
         // initializing the controller
         switch (gui.getGame().getNumPlayers()) {
@@ -169,7 +168,7 @@ public class BoardController implements GenericInterface, Initializable {
             if (tileMove != null) {
                 gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(tileMove, Move.class));
 
-                columnMove = (MoveSelectColumn) new GUISelectColumn(gui.getNickname(), gui.getClient().getLobbyId(), selectedColumn).updateGUI(gui.getGame());
+                columnMove = (MoveSelectColumn) new GUISelectColumn(gui.getNickname(), gui.getClient().getLobbyId(), selectedColumn-1).updateGUI(gui.getGame());
 
                 if (columnMove != null) {
                     first_tile.setBackground(null);
@@ -177,7 +176,11 @@ public class BoardController implements GenericInterface, Initializable {
                     third_tile.setBackground(null);
                     end_turn.setText("End turn");
                     confirm.setDisable(true);
-                    confirm.setOpacity(0);
+                    confirm.setStyle("-fx-background-image: url('/images/Empty.png')");
+                    for (Pane x : selectedIds) {
+                        //x.setDisable(true);
+                        x.setStyle("-fx-background-image: url('/images/Empty.png')");
+                    }
 
                 } else {
                     Alert alert = alertCreator();
@@ -390,7 +393,7 @@ public class BoardController implements GenericInterface, Initializable {
         bookshelfMap.put( b_5_5, new Coordinates(5,5));
         bookshelfMap.put( b_5_6, new Coordinates(5,6));
         System.out.println(moveHandled + "" + action);
-        int i,j,n=0;
+        int i;
         int[][] m;
         int num = gui.getGame().getNumPlayers();
         Bookshelf bookshelf = null;
@@ -412,7 +415,7 @@ public class BoardController implements GenericInterface, Initializable {
             }
             if(player.getUserId() == gui.getClient().getGame().getCurrPlayerId())
             {
-                L2.setText("It's "+player.getUserName()+"'s turn");
+                L2.setText("It's "+ player.getUserName() +"'s turn");
             }
             if(gui.getClient().getState().equals(State.MYTURN) && !moveHandled){
                 action = true;
@@ -477,6 +480,10 @@ public class BoardController implements GenericInterface, Initializable {
                 }
             } else if(gui.getGame().getBoard().getTile(x,y) == null || gui.getGame().getBoard().getTile(x,y).Empty()) {
                 //set tile a null
+                for (Pane k : selectedIds) {
+                    //k.setDisable(true);
+                    k.setStyle("-fx-background-image: url('/images/Empty.png')");
+                }
             }
         }
 
@@ -493,7 +500,7 @@ public class BoardController implements GenericInterface, Initializable {
 
         for (Pane p : bookshelfMap.keySet()) {
             int x = bookshelfMap.get(p).x() - 1;
-            int y = Bookshelf.getRows() - bookshelfMap.get(p).y() ;
+            int y = bookshelfMap.get(p).y() -1;
             if (bookshelf.getSlots()[y][x] != null && !(bookshelf.getSlots()[y][x].Empty())) {
                 String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + bookshelf.getSlots()[y][x].getImage())).toExternalForm();
                 p.setStyle("-fx-background-image: url('" + imageUrl + "');");
