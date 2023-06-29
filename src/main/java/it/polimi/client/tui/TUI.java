@@ -366,10 +366,30 @@ public class TUI implements UI, Runnable {
     }
 
     private void printEndGame() {
+        int maxPoint = 0;
         for (Player p : client.getGame().getPlayers()) {
             System.out.println("[" + p.getUserName() + " has " + p.getScore() + " points]");
+            if (maxPoint < p.getScore())
+            {
+                maxPoint = p.getScore();
+            }
         }
-        System.out.println("[" + client.getGame().getPlayers().get(0) + " has won the game!]");
+        System.out.print("[");
+        boolean found = false;
+        for (Player p : client.getGame().getPlayers())
+        {
+            if (p.getScore() == maxPoint)
+            {
+                if (!found)
+                {
+                    System.out.print(p.getUserName() + " ");
+                    found = true;
+                } else {
+                    System.out.print("and " + p.getUserName() + " ");
+                }
+            }
+        }
+        System.out.print("won the game!]");
     }
 
     @Override

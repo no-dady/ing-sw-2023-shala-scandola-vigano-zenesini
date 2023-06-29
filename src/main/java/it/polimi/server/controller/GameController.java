@@ -196,6 +196,10 @@ public class GameController implements Observer<Action>{
                     calculatePoints();
                     for (Player p : game.getPlayers()) {
                         try {
+                            InitialMessage gameMessage = new InitialMessage(game);
+                            lobby.getConnections().get(p.getUserName()).send(Parser.toJson(gameMessage, Message.class));
+                            BoardMessage boardMessage = new BoardMessage(game.getBoard());
+                            lobby.getConnections().get(p.getUserName()).send(Parser.toJson(boardMessage, Message.class));
                             lobby.getConnections().get(p.getUserName()).send(Parser.toJson(new StateMessage(State.GAMEENDED),Message.class));
                         } catch (RemoteException e) {
                             throw new RuntimeException(e);
