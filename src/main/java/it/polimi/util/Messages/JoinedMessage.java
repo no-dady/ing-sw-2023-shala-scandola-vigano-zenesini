@@ -22,11 +22,6 @@ public class JoinedMessage implements Message {
         client.setLobbyId(lobbyId);
     }
 
-    public String getNicknameJoined()
-    {
-        return nicknameJoined;
-    }
-
     @Override
     public String getName()
     {

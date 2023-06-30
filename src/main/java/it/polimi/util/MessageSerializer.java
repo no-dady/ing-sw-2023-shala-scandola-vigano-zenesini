@@ -13,20 +13,12 @@ public class MessageSerializer implements JsonSerializer<Message>, JsonDeseriali
     private static final String INSTANCE = "INSTANCE";
 
     static {
-        classNameMap.put(AskSetupMessage.className, AskSetupMessage.class);
         classNameMap.put(GameMessage.className, GameMessage.class);
-        classNameMap.put(BookshelfMessage.className, BookshelfMessage.class);
-        classNameMap.put(PlayerMessage.className, PlayerMessage.class);
-        classNameMap.put(LastMessage.className, LastMessage.class);
-        classNameMap.put(ConfirmMessage.className, ConfirmMessage.class);
-        classNameMap.put(ErrorMessage.className, ErrorMessage.class);
         classNameMap.put(ConnectionMessage.className, ConnectionMessage.class);
-        classNameMap.put(ReconnectMessage.className, ReconnectMessage.class);
         classNameMap.put(DisconnectMessage.className,DisconnectMessage.class);
         classNameMap.put(CurrentPlayerMessage.className, CurrentPlayerMessage.class);
         classNameMap.put(JoinedMessage.className, JoinedMessage.class);
         classNameMap.put(StateMessage.className, StateMessage.class);
-        classNameMap.put(SetupMessage.className, SetupMessage.class);
         classNameMap.put(InitialMessage.className, InitialMessage.class);
         classNameMap.put(BoardMessage.className, BoardMessage.class);
     }

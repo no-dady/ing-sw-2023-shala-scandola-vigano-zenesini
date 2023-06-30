@@ -19,14 +19,9 @@ class ParserTest {
 
     @BeforeEach
     void setUp() {
-        messageList.add(new AskSetupMessage());
         messageList.add(new GameMessage(0));
-        messageList.add(new BookshelfMessage(0, new Bookshelf()));
-        messageList.add(new LastMessage());
         messageList.add(new ConnectionMessage(new HashSet<String>(), "testname"));
         messageList.add(new InitialMessage(new Game()));
-        messageList.add(new SetupMessage("testname", 2));
-        messageList.add(new ErrorMessage("Test Message"));
         messageList.add(new DisconnectMessage(new HashSet<String>(),"testname"));
         messageList.add(new JoinedMessage("testname", 0));
         messageList.add(new CurrentPlayerMessage("testname"));
@@ -38,14 +33,9 @@ class ParserTest {
 
     @Test
     void fromJson() {
-        assertInstanceOf(AskSetupMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
         assertInstanceOf(GameMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
-        assertInstanceOf(BookshelfMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
-        assertInstanceOf(LastMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
         assertInstanceOf(ConnectionMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
         assertInstanceOf(InitialMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
-        assertInstanceOf(SetupMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
-        assertInstanceOf(ErrorMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
         assertInstanceOf(DisconnectMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
         assertInstanceOf(JoinedMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
         assertInstanceOf(CurrentPlayerMessage.class, Parser.fromJson(parsedList.remove(), Message.class));
