@@ -149,12 +149,12 @@ public class TUI implements UI, Runnable {
                     throw new RuntimeException(e);
                 }
                 try {
-                    client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectTiles(nickname, client.getLobbyId()).updateCLI(client.getGame(), in), Move.class));
+                    client.getClientConnection().getServerInterface().sendAction(Parser.toJson(new TUISelectTiles(nickname, client.getLobbyId()).updateCLI(client.getGame(), in), Move.class));
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }
                 try {
-                    client.getClientConnection().getServerInterface().sendMessage(Parser.toJson(new TUISelectColumn(nickname, client.getLobbyId()).updateCLI(client.getGame(), in), Move.class));
+                    client.getClientConnection().getServerInterface().sendAction(Parser.toJson(new TUISelectColumn(nickname, client.getLobbyId()).updateCLI(client.getGame(), in), Move.class));
                 } catch (RemoteException e) {
                     throw new RuntimeException(e);
                 }

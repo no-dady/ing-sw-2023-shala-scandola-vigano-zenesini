@@ -1,16 +1,12 @@
 package it.polimi.server.network;
 
 import it.polimi.client.network.ClientInterface;
-import it.polimi.observer.Observer;
 import it.polimi.server.model.Lobby;
 import it.polimi.setup.Setup;
 
 import java.io.*;
 import java.net.Socket;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
-
 
 
 public class ClientSkeleton implements ClientInterface, Runnable {
@@ -77,7 +73,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
                 String rec = in.readUTF();
                 switch (whatIsSending) {
                     case 0:
-                        server.sendMessage(rec);
+                        server.sendAction(rec);
                         break;
 
                     case 1:

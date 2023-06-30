@@ -115,7 +115,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
 
     // RMI
     @Override
-    public void sendMessage(String json) throws RemoteException {
+    public void sendAction(String json) throws RemoteException {
         System.out.print("Ricevuto: " + json);
         Move movereceived = Parser.fromJson(json, Move.class);
         if (movereceived instanceof MoveSelectColumn){
