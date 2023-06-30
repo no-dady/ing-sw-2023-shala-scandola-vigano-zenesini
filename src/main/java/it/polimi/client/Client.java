@@ -143,11 +143,7 @@ public class Client {
     public synchronized void setState(State status) {
         this.currState = status;
         this.stateChanged = true;
-        try {
-            if (ui instanceof GUI) ui.update();
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
+        if (ui instanceof GUI) ui.update();
     }
 
     public synchronized void setStateChanged(boolean b)
