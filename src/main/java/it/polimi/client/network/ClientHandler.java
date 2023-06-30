@@ -1,6 +1,5 @@
 package it.polimi.client.network;
 
-import it.polimi.observer.Observer;
 import it.polimi.server.model.Game;
 import it.polimi.server.network.ServerInterface;
 import it.polimi.util.Messages.*;
@@ -54,7 +53,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     public void sendToServer(String string) throws RemoteException
     {
         client.setState(State.WAITINGFORRESPONSE);
-        serverInterface.sendMessage(string);
+        serverInterface.sendAction(string);
     }
 
     @Override

@@ -65,7 +65,7 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
     {}
 
     @Override
-    public void sendMessage(String json) throws RemoteException
+    public void sendAction(String json) throws RemoteException
     {
         try
         {

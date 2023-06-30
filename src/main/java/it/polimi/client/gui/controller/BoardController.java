@@ -174,7 +174,7 @@ public class BoardController implements GenericInterface, Initializable {
             tileMove = (MoveSelectTiles) new GUISelectTiles(gui.getNickname(), gui.getClient().getLobbyId() , temp.substring(0,temp.length()-1)).updateGUI(gui.getGame());
 
             if (tileMove != null) {
-                gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(tileMove, Move.class));
+                gui.getClient().getClientConnection().getServerInterface().sendAction(Parser.toJson(tileMove, Move.class));
 
                 columnMove = (MoveSelectColumn) new GUISelectColumn(gui.getNickname(), gui.getClient().getLobbyId(), selectedColumn-1).updateGUI(gui.getGame());
 
@@ -244,7 +244,7 @@ public class BoardController implements GenericInterface, Initializable {
 
     public void onEndTurnButtonPress(ActionEvent event1) throws RemoteException { //if you press the end button
         if(end_turn.getText().equals("End turn")){ //when you end your action
-            gui.getClient().getClientConnection().getServerInterface().sendMessage(Parser.toJson(columnMove, Move.class));
+            gui.getClient().getClientConnection().getServerInterface().sendAction(Parser.toJson(columnMove, Move.class));
             end_turn.setDisable(true);
             end_turn.setOpacity(0);
             List<Button> arrows = List.of(arrow1,arrow2,arrow3,arrow4,arrow5);
