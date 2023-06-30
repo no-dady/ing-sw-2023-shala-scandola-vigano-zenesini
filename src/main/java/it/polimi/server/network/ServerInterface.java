@@ -24,6 +24,4 @@ public interface ServerInterface extends Remote {
     void sendSetupFirst(String string) throws RemoteException;
 
     void sendSetupAll(String string) throws RemoteException;
-
-    void close() throws IOException;
 }

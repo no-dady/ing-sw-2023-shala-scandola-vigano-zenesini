@@ -5,14 +5,9 @@ import it.polimi.client.network.State;
 import it.polimi.moves.Move;
 import it.polimi.moves.MoveSelectColumn;
 import it.polimi.moves.MoveSelectTiles;
-import it.polimi.observer.Observable;
-import it.polimi.observer.Observer;
-import it.polimi.server.controller.GameController;
 import it.polimi.server.controller.actions.ColumnSelectAction;
 import it.polimi.server.controller.actions.TileSelectAction;
 import it.polimi.server.model.*;
-import it.polimi.server.view.View;
-import it.polimi.server.view.RemoteView;
 import it.polimi.setup.SetupAll;
 import it.polimi.setup.SetupFirst;
 import it.polimi.util.Messages.*;
@@ -27,7 +22,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.*;
 import java.util.*;
 
-public class Server extends UnicastRemoteObject implements Observable<String>, ServerInterface, Runnable {
+public class Server extends UnicastRemoteObject implements ServerInterface, Runnable {
 
     /**
      * The Client.
@@ -37,17 +32,11 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
     private int lobbyIdProgressive = 0;
     private static List<Thread> memory = new ArrayList<Thread>();
     private boolean registeringClient = false;
-
-    public static Queue<ClientInterface> getClientQueue() {
-        return clientQueue;
-    }
-
     private static Queue<ClientInterface> clientQueue = new LinkedList<>();
     private boolean isActive = true;
 
     private int portRmi;
     private int portSocket;
-    public boolean isRMI;
     private ClientInterface tempClientInterface;
 
     public Server() throws IOException, RemoteException {
@@ -137,7 +126,6 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
             System.out.println("Ricevuto: " + movereceived.getLobbyId());
             lobbyList.get(movereceived.getLobbyId()).getController().update(new TileSelectAction((MoveSelectTiles) movereceived));
         }
-        notify(json);
     }
 
     @Override
@@ -171,13 +159,6 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
         }
     }
 
-
-    @Override
-    public void close() throws IOException {
-
-    }
-
-
     public synchronized boolean findLobby(String name) {
         for(Lobby l : lobbyList.values()) {
             if(l.getLobbyName().equals(name)) {
@@ -197,37 +178,6 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
             }
         }
     }
-
-    private void addObserverGame(ArrayList<View> playersView, Game game, GameController controller){
-        for(View view: playersView) {
-            instanceView(view, game, controller);
-        }
-    }
-
-    public static void instanceView(View view, Game game, GameController controller) {
-        game.getBoard().addObserver(view);
-        for(CommonGoalCardStrategy c : game.getCgcs()) {
-            c.addObserver(view);
-        }
-        game.addObserver(view);
-
-        for(Player p : game.getPlayers()) {
-            p.getBookshelf().addObserver(view);
-            p.getPersonalGoalCard().addObserver(view);
-            p.addObserver(view);
-        }
-
-        view.addObserver(controller);
-    }
-
-    private HashMap<String,View> instanceViews(Map<String, ClientInterface> waitingConnection, ArrayList<Player> players) throws RemoteException {
-        HashMap <String, View> playersView = new HashMap<>();
-        for(Player player: players){
-            playersView.put(player.getUserName(), new RemoteView(player, waitingConnection.get(player.getUserName())));
-        }
-        return playersView;
-    }
-
 
     private void startRMI(int port)
     {
@@ -300,23 +250,5 @@ public class Server extends UnicastRemoteObject implements Observable<String>, S
 
     public synchronized void setActive(boolean active) {
         isActive = active;
-    }
-
-    private transient final List<Observer<String>> observers = new ArrayList<>();
-
-    @Override
-    public void addObserver(Observer<String> observer) {
-        synchronized (observers) {
-            observers.add(observer);
-        }
-    }
-
-    @Override
-    public void notify(String message) {
-        synchronized (observers) {
-            for (Observer<String> observer : observers) {
-                observer.update(message);
-            }
-        }
     }
 }

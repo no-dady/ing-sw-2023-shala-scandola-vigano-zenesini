@@ -119,8 +119,4 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
     public void receive(ClientHandler clientHandler) throws RemoteException
     {
     }
-
-    @Override
-    public void close() throws IOException {
-    }
 }
