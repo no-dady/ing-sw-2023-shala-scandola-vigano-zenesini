@@ -2,13 +2,8 @@ package it.polimi.server.network;
 
 import it.polimi.client.network.ClientInterface;
 import it.polimi.observer.Observer;
-import it.polimi.client.network.State;
 import it.polimi.server.model.Lobby;
-import it.polimi.server.network.Server;
 import it.polimi.setup.Setup;
-import it.polimi.util.Messages.AskSetupMessage;
-import it.polimi.util.Messages.Message;
-import it.polimi.util.Parser;
 
 import java.io.*;
 import java.net.Socket;
@@ -19,7 +14,6 @@ import java.util.List;
 
 
 public class ClientSkeleton implements ClientInterface, Runnable {
-    private State currState = State.WAITINGFORRESPONSE;
 
     private final Socket socket;
 
@@ -49,15 +43,6 @@ public class ClientSkeleton implements ClientInterface, Runnable {
             out.writeUTF(json);
             out.flush();
         } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
-    void register() {
-        try {
-            Message msg = new AskSetupMessage();
-            this.send(Parser.toJson(msg, Message.class));
-        } catch (RemoteException e) {
             System.err.println(e.getMessage());
         }
     }
