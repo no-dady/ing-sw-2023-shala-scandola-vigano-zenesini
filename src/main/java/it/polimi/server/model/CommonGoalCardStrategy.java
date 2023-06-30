@@ -110,6 +110,7 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
     }
 
     public void setNumPlayers(int numPlayers) {
+        this.points = new LinkedList<>();
         this.numPlayers = numPlayers;
         int m = 8;
         do {
