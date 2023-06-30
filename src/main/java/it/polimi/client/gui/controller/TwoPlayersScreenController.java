@@ -41,7 +41,7 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
     }
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override
@@ -90,7 +90,6 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
                     pl.setStyle("-fx-background-image: url('" + imageUrl + "');");
                 }
                 else {
-                    //pl.setStyle("-fx-background-image: "");
                 }
             }
         }

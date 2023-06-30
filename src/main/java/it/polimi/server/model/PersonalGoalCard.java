@@ -15,10 +15,8 @@ import it.polimi.util.Messages.Message;
  */
 public class PersonalGoalCard implements Serializable, Observable<Message> {
     private final Map<String, Coordinates> goals;
-    private String fileName;
+    private final String fileName;
 
-
-    private Map<Integer, String> mapPoints = new HashMap<>();
     /**
      * Instantiates a new Personal goal card.
      *

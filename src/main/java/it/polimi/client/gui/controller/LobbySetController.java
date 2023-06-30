@@ -17,8 +17,6 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-import static java.lang.Thread.sleep;
-
 public class LobbySetController implements GenericInterface, Initializable {
 
     Integer selectedNumber = null;
@@ -50,20 +48,20 @@ public class LobbySetController implements GenericInterface, Initializable {
         selectedNumber = playersNumberBox.getValue();
     }
 
-    public void onSubmitClick(ActionEvent event) throws IOException, InterruptedException {
+    public void onSubmitClick(ActionEvent event) {
         selectedNumber = playersNumberBox.getValue();
         if (!(selectedNumber < 2 || selectedNumber > 4)) {
             CreateLobbyMessage createLobbyMessage = new CreateLobbyMessage(gui.getNickname(), selectedNumber);
             String messageParsed = Parser.toJson(createLobbyMessage, CreateLobbyMessage.class);
             try {
                 gui.getClient().sendToServer(messageParsed);
-            } catch (RemoteException e) {
+            } catch (RemoteException ignored) {
             }
         }
     }
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override

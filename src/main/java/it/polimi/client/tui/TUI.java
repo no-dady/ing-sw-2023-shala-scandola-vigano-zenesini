@@ -16,6 +16,7 @@ import it.polimi.util.Parser;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class TUI implements UI, Runnable {
@@ -143,11 +144,7 @@ public class TUI implements UI, Runnable {
                     boardAndBookshelfArt = setPGCart(boardAndBookshelfArt);
                 }
                 System.out.println("[it's now your turn]");
-                try {
-                    printState();
-                } catch (RemoteException e) {
-                    throw new RuntimeException(e);
-                }
+                printState();
                 try {
                     client.getClientConnection().getServerInterface().sendAction(Parser.toJson(new TUISelectTiles(nickname, client.getLobbyId()).updateCLI(client.getGame(), in), Move.class));
                 } catch (RemoteException e) {
@@ -161,6 +158,7 @@ public class TUI implements UI, Runnable {
             }
             case GAMEENDED -> {
                 printEndGame();
+                System.exit(0);
             }
             case SETUPFIRST -> {
                 SetupFirst setup = new TUISetupFirst().create(in, true);
@@ -335,7 +333,7 @@ public class TUI implements UI, Runnable {
         return art;
     }
 
-    public void printState() throws RemoteException {
+    public void printState() {
         Game game = this.client.getGame();
         int x = 0, y = 0;
         Tile[][] slots = game.getBoard().getSlots();
@@ -354,7 +352,7 @@ public class TUI implements UI, Runnable {
                     if (slots[x][y].Empty()) color = RESET;
                     System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(slots[x][y].getTileType()).sign + PRESET + RESET);
                 } else {
-                    if (places[Bookshelf.getRows() - (x - (slots.length - 1 - places.length - 1) - 2) - 1 ][y - slots[0].length] != null) {
+                    if (Objects.requireNonNull(places)[Bookshelf.getRows() - (x - (slots.length - 1 - places.length - 1) - 2) - 1 ][y - slots[0].length] != null) {
                         color = TileType.getTileMap().get(places[Bookshelf.getRows() - (x - (slots.length - 1 - places.length - 1) - 2) - 1][y - slots[0].length].getTileType()).color;
                         System.out.print(PRESET + color + PRESET + BLACK_BOLD + TileType.getTileMap().get(places[Bookshelf.getRows() - (x - (slots.length - 1 - places.length - 1) - 2) - 1 ][y - slots[0].length].getTileType()).sign + PRESET + RESET);
                     }

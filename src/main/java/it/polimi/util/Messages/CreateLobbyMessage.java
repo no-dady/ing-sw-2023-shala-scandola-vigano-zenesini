@@ -13,13 +13,8 @@ public class CreateLobbyMessage implements Message {
             this.nickName = nickName;
             this.numberOfPlayer = numberOfPlayer;
         }
-        //This could be used as handleMessage
-        //public ClientInterface getClientInterface()
-        //{
-        //    return clientInterface;
-        //}
 
-        public String getNickName()
+    public String getNickName()
         {
             return nickName;
         }

@@ -57,7 +57,7 @@ public class LobbySetNicknameController implements GenericInterface, Initializab
     }
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override

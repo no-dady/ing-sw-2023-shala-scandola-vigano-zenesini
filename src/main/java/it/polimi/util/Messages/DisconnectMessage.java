@@ -11,7 +11,7 @@ public class DisconnectMessage extends ConnectionMessage implements Message {
         super(playersName, playerName);
     }
     @Override
-    public void handleMessage(Client client) throws RemoteException {
+    public void handleMessage(Client client) {
         //it.polimi.client.getUI().printConnectionMessage(this);
     }
 

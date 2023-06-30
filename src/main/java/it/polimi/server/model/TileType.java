@@ -13,10 +13,10 @@ import java.util.*;
  */
 public class TileType implements Serializable {
     private static Map<String, TileTypeRecord> tileMap = new HashMap<>();
-    private String key;
-    private String color;
-    private String sign;
-    private String image;
+    private final String key;
+    private final String color;
+    private final String sign;
+    private final String image;
 
     static {
         try {

@@ -41,7 +41,7 @@ public class MenuScreenController implements GenericInterface, Initializable {
     }
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override

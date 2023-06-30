@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 
 public interface UI {
 
-    void update() throws RemoteException;
+    void update();
 
     void printServerMessage(String message);
 

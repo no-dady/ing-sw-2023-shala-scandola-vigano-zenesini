@@ -12,7 +12,7 @@ import it.polimi.util.Messages.Message;
  * The type Board.
  */
 public class Board implements Serializable, Observable<Message> {
-    private ArrayList<CommonGoalCardStrategy> commonGoalCardStrategies = new ArrayList<>(2);
+    private final ArrayList<CommonGoalCardStrategy> commonGoalCardStrategies = new ArrayList<>(2);
     private Tile[][] slots;
 
     /**

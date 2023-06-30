@@ -18,12 +18,12 @@ public class Lobby implements Runnable {
     private final int playerNumber;
     private LobbyStatus lobbyStatus;
     private Game game;
-    private int lobbyId;
-    private Map<String, ClientInterface> playerMap;
+    private final int lobbyId;
+    private final Map<String, ClientInterface> playerMap;
     private GameController controller;
     private final ArrayList<String> disconnectedPlayers = new ArrayList<>();
     private boolean active = false;
-    private String lobbyName;
+    private final String lobbyName;
     private final Server server;
 
     public GameController getController() {
@@ -155,7 +155,7 @@ public class Lobby implements Runnable {
             }
             setActive(true);
             controller.start();
-        } catch (IllegalPlayersNumberException | IOException | InterruptedException e)
+        } catch (IllegalPlayersNumberException | IOException e)
         {
             System.out.println(e.getMessage());
         } finally

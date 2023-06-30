@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static java.lang.Thread.sleep;
-
 public class InitErrorController implements GenericInterface, Initializable {
     private GUI gui;
     public final String dim = "1386x430";
@@ -36,7 +34,7 @@ public class InitErrorController implements GenericInterface, Initializable {
     public String getDimensions() {
         return  this.dim;
     }
-    public void onSubmitClick(ActionEvent event) throws IOException, InterruptedException {
+    public void onSubmitClick(ActionEvent event) throws IOException {
 
         nickname = nickname_field.getText();
 
@@ -48,7 +46,7 @@ public class InitErrorController implements GenericInterface, Initializable {
     }
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override

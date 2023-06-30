@@ -52,7 +52,7 @@ public class ThreePlayersScreenController implements GenericInterface, Initializ
     }
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override
