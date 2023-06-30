@@ -93,7 +93,7 @@ public class Lobby implements Runnable {
             client.send(Parser.toJson(messageItself, Message.class));
             if (this.playerMap.size() == playerNumber)
             {
-                System.out.println("Let's start the game");
+                //System.out.println("Let's start the game");
                 for (var entity : playerMap.entrySet())
                 {
                     StateMessage stateMessage = new StateMessage(State.WAITINGFORGAMESTART);
@@ -137,16 +137,11 @@ public class Lobby implements Runnable {
         try
         {
             lobbyStatus = LobbyStatus.Playing;
-            System.out.println("Creating Game");
+            //System.out.println("Creating Game");
             controller = new GameController(this);
             controller.createLobby(playerNumber, playerMap.keySet().stream().toList());
             game = controller.getGame();
-            if (game!= null){
-                System.out.println(game);
-            }
-            else {
-                return;
-            }
+            if (game == null) { return; }
             for (var entry : playerMap.entrySet()) {
                 InitialMessage initialMessage = new InitialMessage(game);
                 entry.getValue().send(Parser.toJson(initialMessage, Message.class));

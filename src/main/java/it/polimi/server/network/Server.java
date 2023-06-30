@@ -63,7 +63,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
             try {
                 registeringClient = true;
                 tempClientInterface = client;
-                System.out.println("Registering new it.polimi.client");
+                //System.out.println("Registering new Client");
                 Map.Entry<Integer, Lobby> lobbyFound = null;
                 for (var lobby : lobbyList.entrySet())
                 {
@@ -109,21 +109,21 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
             ClientInterface cli = clientQueue.remove();
             register(cli);
         } catch (Exception e) {
-            System.out.println("Finished Registering queue");
+            //System.out.println("Finished Registering queue");
         }
     }
 
     // RMI
     @Override
     public void sendAction(String json) throws RemoteException {
-        System.out.print("Ricevuto: " + json);
+        //System.out.print("Ricevuto: " + json);
         Move movereceived = Parser.fromJson(json, Move.class);
         if (movereceived instanceof MoveSelectColumn){
-            System.out.println("Ricevuto: " + movereceived.getLobbyId());
+            //System.out.println("Ricevuto: " + movereceived.getLobbyId());
             lobbyList.get(movereceived.getLobbyId()).getController().update(new ColumnSelectAction((MoveSelectColumn) movereceived));
         }
         else if (movereceived instanceof MoveSelectTiles){
-            System.out.println("Ricevuto: " + movereceived.getLobbyId());
+            //System.out.println("Ricevuto: " + movereceived.getLobbyId());
             lobbyList.get(movereceived.getLobbyId()).getController().update(new TileSelectAction((MoveSelectTiles) movereceived));
         }
     }
@@ -140,7 +140,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
     @Override
     public void sendSetupAll(String json) throws RemoteException
     {
-        System.out.println("SetupAll");
+        //System.out.println("SetupAll");
         SetupAll setupAll = Parser.fromJson(json, SetupAll.class);
         Lobby lobbyToJoin =  lobbyList.get(lobbyList.size() - 1);
         if (lobbyToJoin.checkNicknameAvailable(setupAll.getNickname()))

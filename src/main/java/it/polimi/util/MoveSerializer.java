@@ -32,10 +32,10 @@ public class MoveSerializer implements JsonSerializer<Move>, JsonDeserializer<Mo
     public JsonElement serialize(Move move, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject ret = new JsonObject();
         ret.addProperty(CLASSNAME, move.getClassName());
-        System.out.println(move.getClassName());
+        //System.out.println(move.getClassName());
         JsonElement e = context.serialize(move);
         ret.add(INSTANCE, e);
-        System.out.println(ret);
+        //System.out.println(ret);
         return ret;
     }
 }

@@ -9,7 +9,7 @@ public class TUISetupFirst implements TUISetupInterface{
     public SetupFirst create(Scanner stdin, boolean firstTime) {
         String nickname;
         String numOfPlayers;
-        System.out.println("[Welcome to the it.polimi.server!]");
+        System.out.println("[Welcome to the Server!]");
         System.out.println("[Please enter your nickname]");
         nickname = stdin.nextLine();
         System.out.println("[Please enter the number of players]");

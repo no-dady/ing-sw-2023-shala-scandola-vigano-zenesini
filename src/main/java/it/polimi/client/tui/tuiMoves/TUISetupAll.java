@@ -11,7 +11,7 @@ public class TUISetupAll implements TUISetupInterface{
         String nickname;
         if (firstTime)
         {
-            System.out.println("[Welcome to the it.polimi.server!]");
+            System.out.println("[Welcome to the Server!]");
             System.out.println("[Please enter your nickname]");
         } else {
             System.out.println("[The nickname was already taken, please enter another nickname]");

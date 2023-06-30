@@ -26,13 +26,13 @@ public class Board implements Serializable, Observable<Message> {
     }
 
     public Board(Tile[][] slots, int numPlayers){
-        System.out.println("Creating array");
-        System.out.println("Adding cgc");
+        //System.out.println("Creating array");
+        //System.out.println("Adding cgc");
         commonGoalCardStrategies.addAll(CommonGoalCardStrategy.getRandomCards());
         for (CommonGoalCardStrategy c: commonGoalCardStrategies) {
             c.setNumPlayers(numPlayers);
         }
-        System.out.println("Saving slots");
+        //System.out.println("Saving slots");
         this.slots = slots;
     }
 

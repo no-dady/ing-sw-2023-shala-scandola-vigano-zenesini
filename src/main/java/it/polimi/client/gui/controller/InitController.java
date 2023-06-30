@@ -50,11 +50,11 @@ public class InitController implements GenericInterface, Initializable {
     public void onPlayButtonClick(ActionEvent event) throws IOException, NotBoundException {
         do {
             Ip = ip_field.getText();
-            System.out.println(Ip);
+            //System.out.println(Ip);
             port = port_field.getText();
-            System.out.println(port);
+            //System.out.println(port);
             connection = option;
-            System.out.println(connection);
+            //System.out.println(connection);
         }while (!Ip.matches("\\b\\d{1,3}(?:\\.\\d{1,3}){3}\\b") && port.equals("") && !(connection.equals("RMI") || connection.equals("SOCKET")));
 
             gui.getClient().setConnection(Ip,Integer.parseInt(port),option);

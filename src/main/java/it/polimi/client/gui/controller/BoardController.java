@@ -165,14 +165,14 @@ public class BoardController implements GenericInterface, Initializable {
                 char x = (char) (entry.getId().charAt(2) - '1' + 'A');
                 char y = (entry.getId().charAt(4));
                 temp += (x + "" + y + " ");
-                for (Pane r : changedBookshelfTiles
-                ) {
-                    System.out.println(r.getId());
-
-                }
+                //for (Pane r : changedBookshelfTiles
+                //) {
+                //    System.out.println(r.getId());
+                //
+                //}
             }
 
-            System.out.println(temp);
+            //System.out.println(temp);
             tileMove = (MoveSelectTiles) new GUISelectTiles(gui.getNickname(), gui.getClient().getLobbyId() , temp.substring(0,temp.length()-1)).updateGUI(gui.getGame());
 
             if (tileMove != null) {

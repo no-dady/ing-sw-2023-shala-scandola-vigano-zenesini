@@ -46,7 +46,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
 
     @Override
     public void run() {
-        System.out.println("Start thread");
+        //System.out.println("Start thread");
         try {
             DataInputStream in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());

@@ -61,7 +61,7 @@ public class Client {
         clientConnection.initialize();
 
         online = true;
-        System.out.println("Connection established");
+        //System.out.println("Connection established");
     }
 
 
@@ -130,7 +130,7 @@ public class Client {
     public void setLobbyId(int lobbyId)
     {
         this.lobbyId = lobbyId;
-        System.out.println("Sono in lobby" + lobbyId);
+        //System.out.println("Sono in lobby" + lobbyId);
     }
 
     public int getLobbyId()

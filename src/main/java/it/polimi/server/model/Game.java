@@ -71,7 +71,7 @@ public class Game implements Serializable, Observable<Message> {
                  return p;}
 
         };
-        System.out.println("no such player");
+        //System.out.println("no such player");
         return null;
     }
 

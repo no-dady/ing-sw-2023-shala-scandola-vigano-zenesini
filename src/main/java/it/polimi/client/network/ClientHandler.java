@@ -59,7 +59,7 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
     @Override
     public void send(String string) throws RemoteException
     {
-        System.out.println("Ricevuto: " + string);
+        //System.out.println("Ricevuto: " + string);
         Message msg = Parser.fromJson(string, Message.class);
         msg.handleMessage(this.client);
     }

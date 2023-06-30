@@ -1,4 +1,5 @@
 package it.polimi.server.model;
+import com.google.gson.reflect.TypeToken;
 import it.polimi.server.cgc.*;
 import it.polimi.setup.ConfigsFromJson;
 import it.polimi.util.Messages.Message;
@@ -108,10 +109,10 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         }
 
         Set<CommonGoalCardStrategy> res = new HashSet<>();
+
         res.add(listCommonGoalList.get(firstRandom));
         res.add(listCommonGoalList.get(secondRandom));
-
-        return res;
+        return Parser.fromJson(Parser.toJson(res, new TypeToken<Set<CommonGoalCardStrategy>>(){}.getType()), new TypeToken<Set<CommonGoalCardStrategy>>(){}.getType());
     }
 
     public void setNumPlayers(int numPlayers) {

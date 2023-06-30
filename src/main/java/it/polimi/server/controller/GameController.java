@@ -65,7 +65,7 @@ public class GameController implements Observer<Action>{
 
         game = new Game(players, new HashSet<>(board.getCommonGoalCards()), board, pocket, playerNumber);
         game.getBoard().updatePickable();
-        System.out.println("created game for" + playerNicknames);
+        //System.out.println("created game for" + playerNicknames);
     }
 
     /**
@@ -110,7 +110,7 @@ public class GameController implements Observer<Action>{
             for (CommonGoalCardStrategy cgc : game.getBoard().getCommonGoalCards()) {
                 cgcPoints += cgc.getPlayer(player);
             }
-            System.out.println(cgcPoints + ":cgc " + calculateBookshelfPoints(player.getBookshelf()) + ":adjacent " + player.getPersonalGoalCard().completed(player.getBookshelf().getSlots()) + ":pgc ");
+            //System.out.println(cgcPoints + ":cgc " + calculateBookshelfPoints(player.getBookshelf()) + ":adjacent " + player.getPersonalGoalCard().completed(player.getBookshelf().getSlots()) + ":pgc ");
             player.setScore(calculateBookshelfPoints(player.getBookshelf()) + player.getPersonalGoalCard().getPoints(player) + cgcPoints);
         }
     }
