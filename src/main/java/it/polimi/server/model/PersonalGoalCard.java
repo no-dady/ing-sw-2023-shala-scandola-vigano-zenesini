@@ -2,6 +2,7 @@ package it.polimi.server.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,8 @@ public class PersonalGoalCard implements Serializable, Observable<Message> {
     private final Map<String, Coordinates> goals;
     private String fileName;
 
+
+    private Map<Integer, String> mapPoints = new HashMap<>();
     /**
      * Instantiates a new Personal goal card.
      *
@@ -29,6 +32,7 @@ public class PersonalGoalCard implements Serializable, Observable<Message> {
 
     public String getFileName() {
         return fileName;
+
     }
 
     /**
@@ -57,6 +61,19 @@ public class PersonalGoalCard implements Serializable, Observable<Message> {
         }
 
         return count;
+    }
+
+    public int getPoints(Player player){
+        int total = 0;
+        return switch (completed(player.getBookshelf().getSlots())) {
+            case 1 -> 1;
+            case 2 -> 2;
+            case 3 -> 4;
+            case 4 -> 6;
+            case 5 -> 9;
+            case 6 -> 12;
+            default -> total;
+        };
     }
 
     private transient final List<Observer<Message>> observers = new ArrayList<>();

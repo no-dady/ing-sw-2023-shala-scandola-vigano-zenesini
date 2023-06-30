@@ -27,10 +27,13 @@ class TileTypeTest {
 
     @Test
     void parseTile() {
-        TileType t = new TileType();
+        TileType t = new TileType("CAT", 0);
         String test = Parser.toJson(t, TileType.class);
         System.out.println(test);
-        assertEquals(t, Parser.fromJson(test, TileType.class));
+        assertEquals(t.getKey(), Parser.fromJson(test, TileType.class).getKey());
+        assertEquals(t.getImage(), Parser.fromJson(test, TileType.class).getImage());
+        assertEquals(t.getColor(), Parser.fromJson(test, TileType.class).getColor());
+        assertEquals(t.getSign(), Parser.fromJson(test, TileType.class).getSign());
     }
 
     @Test

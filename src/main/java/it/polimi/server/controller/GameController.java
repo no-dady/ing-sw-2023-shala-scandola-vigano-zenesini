@@ -111,7 +111,7 @@ public class GameController implements Observer<Action>{
                 cgcPoints += cgc.getPlayer(player);
             }
             System.out.println(cgcPoints + ":cgc " + calculateBookshelfPoints(player.getBookshelf()) + ":adjacent " + player.getPersonalGoalCard().completed(player.getBookshelf().getSlots()) + ":pgc ");
-            player.setScore(calculateBookshelfPoints(player.getBookshelf()) + player.getPersonalGoalCard().completed(player.getBookshelf().getSlots()) + cgcPoints);
+            player.setScore(calculateBookshelfPoints(player.getBookshelf()) + player.getPersonalGoalCard().getPoints(player) + cgcPoints);
         }
     }
     public int calculateBookshelfPoints(Bookshelf bookshelf){
