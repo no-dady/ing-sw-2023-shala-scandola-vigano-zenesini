@@ -7,9 +7,13 @@ import java.io.Serializable;
 
 /**
  * The type Cross direction.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 //CROSSDIRECTION
 public class CrossDirection extends CommonGoalCardStrategy implements Serializable {
+    /** Constant <code>className="CrossDirection"</code> */
     public static final String className = "CrossDirection";
     private final int numToLook;
     private final String name;
@@ -18,16 +22,23 @@ public class CrossDirection extends CommonGoalCardStrategy implements Serializab
      * Instantiates a new Cross direction.
      *
      * @param numToLook the num to look
+     * @param name a {@link java.lang.String} object
      */
     public CrossDirection(int numToLook, String name) {
         this.numToLook = numToLook;
         this.name = name;
     }
 
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public String getName() {
         return name;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean conditionCheck(Tile[][] shelf) {
         int rowMax = shelf.length - numToLook + 1;
@@ -51,6 +62,7 @@ public class CrossDirection extends CommonGoalCardStrategy implements Serializab
         }
         return false;
     }
+    /** {@inheritDoc} */
     @Override
     public String getClassName() {
         return className;

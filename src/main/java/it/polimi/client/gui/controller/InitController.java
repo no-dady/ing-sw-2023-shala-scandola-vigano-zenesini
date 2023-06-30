@@ -16,6 +16,12 @@ import java.net.URL;
 import java.rmi.NotBoundException;
 import java.util.ResourceBundle;
 
+/**
+ * <p>InitController class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class InitController implements GenericInterface, Initializable {
     private GUI gui;
     public final String dim = "1386x430";
@@ -38,14 +44,27 @@ public class InitController implements GenericInterface, Initializable {
     @FXML
     public TextField port_field;
 
+    /** Constant <code>name="init-screen"</code> */
     public static final String name = "init-screen";
 
+    /**
+     * <p>onBoxChoiceClick.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     */
     @FXML
     public void onBoxChoiceClick(ActionEvent event) {
-        option = (String) connection_box.getValue();
+        option = connection_box.getValue();
     }
 
 
+    /**
+     * <p>onPlayButtonClick.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     * @throws java.io.IOException if any.
+     * @throws java.rmi.NotBoundException if any.
+     */
     @FXML
     public void onPlayButtonClick(ActionEvent event) throws IOException, NotBoundException {
         do {
@@ -62,31 +81,37 @@ public class InitController implements GenericInterface, Initializable {
             gui.getClient().setActive(true);
 
     }
+    /** {@inheritDoc} */
     @Override
     public String getDimensions() {
         return  this.dim;
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return name;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void update() {
 
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         connection_box.getItems().addAll("RMI","SOCKET");
     }
+    /** {@inheritDoc} */
     @Override
     public void setStage(Stage stage) {
     }

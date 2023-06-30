@@ -12,6 +12,12 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * <p>MenuScreenController class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class MenuScreenController implements GenericInterface, Initializable {
     private GUI gui;
     public final String dim = "500x600";
@@ -21,37 +27,54 @@ public class MenuScreenController implements GenericInterface, Initializable {
     public StackPane mainContainer;
     public GridPane mainGrid;
     public Pane menuImage;
+    /** Constant <code>name="menu-screen"</code> */
     public static final String name ="menu-screen";
 
+    /** {@inheritDoc} */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+    /** {@inheritDoc} */
     @Override
     public String getDimensions() {
         return  this.dim;
     }
 
+    /**
+     * <p>onQuitButtonPress.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     */
     public void onQuitButtonPress(ActionEvent event) {
         System.exit(0);
     }
 
+    /**
+     * <p>onBackButtonPress.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     */
     public void onBackButtonPress(ActionEvent event) {
         gui.activate(BoardController.name);
     }
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return name;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void update() {
 
     }
+    /** {@inheritDoc} */
     @Override
     public void setStage(Stage stage) {
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;

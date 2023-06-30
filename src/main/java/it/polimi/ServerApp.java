@@ -5,7 +5,16 @@ import it.polimi.server.network.Server;
 import java.io.IOException;
 import java.util.Arrays;
 
+/**
+ * <p>ServerApp class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class ServerApp {
+    /**
+     * <p>printHelper.</p>
+     */
     public static void printHelper() {
         System.out.println("SYNTAX:");
         System.out.println("\tjava -jar SERVER_GC49.jar [--rmi | PORT] [--socket | PORT]");
@@ -13,6 +22,11 @@ public class ServerApp {
         System.out.println("\t--rmi\tSpecify rmi port, default is 1900");
         System.out.println("\t--socket\tSpecify socket port, default is 1337");
     }
+    /**
+     * <p>main.</p>
+     *
+     * @param args an array of {@link java.lang.String} objects
+     */
     public static void main(String[] args) {
         Server server;
         int rmiPort = 1900;

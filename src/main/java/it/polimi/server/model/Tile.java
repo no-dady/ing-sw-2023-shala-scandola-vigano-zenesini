@@ -5,6 +5,9 @@ import java.io.Serializable;
 
 /**
  * The type Tile.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class Tile implements Serializable {
     private Integer tileID;
@@ -48,10 +51,16 @@ public class Tile implements Serializable {
     {
         return this.tileType.getKey();
     }
+    /**
+     * <p>getImage.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public String getImage(){return this.tileType.getImage();}
 
     /**
      * Gets pickable
+     *
      * @return the boolean pickable
      */
     public boolean isPickable() {
@@ -67,23 +76,22 @@ public class Tile implements Serializable {
         this.pickable = pickable;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {
         if(obj == this) return true;
 
-        if (obj == null || this.tileType.getKey().equals("EMPTY") || ((Tile) obj).getTileType().equals("EMPTY")) {
+        if (obj == null || !(obj instanceof Tile) ||  this.tileType.getKey().equals("EMPTY") || ((Tile) obj).getTileType().equals("EMPTY")) {
             return false;
         }
 
-        if (!(obj instanceof Tile)) {
-            return false;
-        }
 
-        final Tile t = (Tile) obj;
+        Tile t = (Tile) obj;
 
         return this.getTileType().equals(t.getTileType());
     }
 
+    /** {@inheritDoc} */
     @Override
     public int hashCode() {
         return TileType.getTileMap().keySet().stream().toList().indexOf(this.getTileType());

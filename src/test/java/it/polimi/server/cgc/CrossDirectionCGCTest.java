@@ -15,6 +15,13 @@ import java.nio.file.Paths;
 import java.util.List;
 
 
+/**
+ * <p>CrossDirectionCGCTest class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class CrossDirectionCGCTest extends TestCase {
     public List<Tile[][]> shelves;
     /**
@@ -37,6 +44,8 @@ public class CrossDirectionCGCTest extends TestCase {
     }
 
     /**
+     * <p>suite.</p>
+     *
      * @return the suite of tests being tested
      */
     public static Test suite()
@@ -46,6 +55,8 @@ public class CrossDirectionCGCTest extends TestCase {
 
     /**
      * Rigourous Test :-)
+     *
+     * @throws java.io.IOException if any.
      */
     public void testCGC10() throws IOException {
         Tile[][] shelf = shelves.get(0);

@@ -2,6 +2,9 @@ package it.polimi.server.exceptions;
 
 /**
  * The type Illegal players number exception.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class IllegalPlayersNumberException extends Throwable {
     /**

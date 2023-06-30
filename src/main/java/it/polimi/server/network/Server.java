@@ -22,23 +22,35 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.server.*;
 import java.util.*;
 
+/**
+ * <p>Server class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class Server extends UnicastRemoteObject implements ServerInterface, Runnable {
 
     /**
      * The Client.
      */
     private final ServerSocket serverSocket;
-    private static Map<Integer, Lobby> lobbyList = new HashMap<Integer, Lobby>();
+    private static final Map<Integer, Lobby> lobbyList = new HashMap<Integer, Lobby>();
     private int lobbyIdProgressive = 0;
-    private static List<Thread> memory = new ArrayList<Thread>();
+    private static final List<Thread> memory = new ArrayList<Thread>();
     private boolean registeringClient = false;
-    private static Queue<ClientInterface> clientQueue = new LinkedList<>();
+    private static final Queue<ClientInterface> clientQueue = new LinkedList<>();
     private boolean isActive = true;
 
-    private int portRmi;
-    private int portSocket;
+    private final int portRmi;
+    private final int portSocket;
     private ClientInterface tempClientInterface;
 
+    /**
+     * <p>Constructor for Server.</p>
+     *
+     * @throws java.io.IOException if any.
+     * @throws java.rmi.RemoteException if any.
+     */
     public Server() throws IOException, RemoteException {
         super();
         this.portRmi = 1900;
@@ -47,6 +59,13 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
     }
 
 
+    /**
+     * <p>Constructor for Server.</p>
+     *
+     * @param portRmi a int
+     * @param portSocket a int
+     * @throws java.io.IOException if any.
+     */
     public Server(int portRmi, int portSocket) throws IOException {
         super();
         this.portRmi = portRmi;
@@ -55,6 +74,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
     }
 
     // RMI
+    /** {@inheritDoc} */
     @Override
     public void register(ClientInterface client)
     {
@@ -98,10 +118,18 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         }
     }
 
+    /**
+     * <p>getLobby.</p>
+     *
+     * @return a {@link it.polimi.server.model.Lobby} object
+     */
     public static Lobby getLobby() {
         return lobbyList.get(lobbyList.size() - 1);
     }
 
+    /**
+     * <p>registrationFinished.</p>
+     */
     public void registrationFinished()
     {
         try {
@@ -114,6 +142,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
     }
 
     // RMI
+    /** {@inheritDoc} */
     @Override
     public void sendAction(String json) throws RemoteException {
         //System.out.print("Ricevuto: " + json);
@@ -128,6 +157,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void sendSetupFirst(String json) throws RemoteException {
         SetupFirst setupFirst = Parser.fromJson(json, SetupFirst.class);
@@ -137,6 +167,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         registrationFinished();
     }
 
+    /** {@inheritDoc} */
     @Override
     public void sendSetupAll(String json) throws RemoteException
     {
@@ -159,6 +190,12 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         }
     }
 
+    /**
+     * <p>findLobby.</p>
+     *
+     * @param name a {@link java.lang.String} object
+     * @return a boolean
+     */
     public synchronized boolean findLobby(String name) {
         for(Lobby l : lobbyList.values()) {
             if(l.getLobbyName().equals(name)) {
@@ -169,6 +206,11 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         return false;
     }
 
+    /**
+     * <p>removeLobby.</p>
+     *
+     * @param lobbyId a int
+     */
     public void removeLobby(int lobbyId) {
         lobbyList.remove(lobbyId);
     }
@@ -204,6 +246,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void run() {
         System.out.println("Server is running...");
@@ -238,10 +281,20 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         }
     }
 
+    /**
+     * <p>isActive.</p>
+     *
+     * @return a boolean
+     */
     public synchronized boolean isActive() {
         return isActive;
     }
 
+    /**
+     * <p>setActive.</p>
+     *
+     * @param active a boolean
+     */
     public synchronized void setActive(boolean active) {
         isActive = active;
     }

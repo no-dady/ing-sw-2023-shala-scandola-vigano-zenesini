@@ -4,9 +4,16 @@ import it.polimi.setup.SetupAll;
 
 import java.util.Scanner;
 
+/**
+ * <p>TUISetupAll class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class TUISetupAll implements TUISetupInterface{
     private SetupAll setupAll;
 
+    /** {@inheritDoc} */
     public SetupAll create(Scanner stdin, boolean firstTime) {
         String nickname;
         if (firstTime)

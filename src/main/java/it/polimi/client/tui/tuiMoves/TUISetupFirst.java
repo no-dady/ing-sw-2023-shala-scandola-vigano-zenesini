@@ -4,8 +4,15 @@ import it.polimi.setup.SetupFirst;
 
 import java.util.Scanner;
 
+/**
+ * <p>TUISetupFirst class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class TUISetupFirst implements TUISetupInterface{
 
+    /** {@inheritDoc} */
     public SetupFirst create(Scanner stdin, boolean firstTime) {
         String nickname;
         String numOfPlayers;

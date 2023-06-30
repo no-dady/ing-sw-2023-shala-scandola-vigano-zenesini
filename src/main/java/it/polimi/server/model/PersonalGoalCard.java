@@ -2,7 +2,6 @@ package it.polimi.server.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +11,9 @@ import it.polimi.util.Messages.Message;
 
 /**
  * The type Personal goal card.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class PersonalGoalCard implements Serializable, Observable<Message> {
     private final Map<String, Coordinates> goals;
@@ -21,13 +23,18 @@ public class PersonalGoalCard implements Serializable, Observable<Message> {
      * Instantiates a new Personal goal card.
      *
      * @param goals     the goals
+     * @param fileName a {@link java.lang.String} object
      */
-
     public PersonalGoalCard(Map<String, Coordinates> goals, String fileName) {
         this.goals = goals;
         this.fileName = fileName;
     }
 
+    /**
+     * <p>Getter for the field <code>fileName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public String getFileName() {
         return fileName;
 
@@ -61,6 +68,12 @@ public class PersonalGoalCard implements Serializable, Observable<Message> {
         return count;
     }
 
+    /**
+     * <p>getPoints.</p>
+     *
+     * @param player a {@link it.polimi.server.model.Player} object
+     * @return a int
+     */
     public int getPoints(Player player){
         int total = 0;
         return switch (completed(player.getBookshelf().getSlots())) {
@@ -76,6 +89,7 @@ public class PersonalGoalCard implements Serializable, Observable<Message> {
 
     private transient final List<Observer<Message>> observers = new ArrayList<>();
 
+    /** {@inheritDoc} */
     @Override
     public void addObserver(Observer<Message> observer){
         synchronized (observers) {
@@ -83,6 +97,7 @@ public class PersonalGoalCard implements Serializable, Observable<Message> {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void notify(Message move) {
         synchronized (observers) {

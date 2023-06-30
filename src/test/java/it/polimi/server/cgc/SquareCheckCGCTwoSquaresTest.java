@@ -14,6 +14,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * <p>SquareCheckCGCTwoSquaresTest class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class SquareCheckCGCTwoSquaresTest extends TestCase {
 
     public List<Tile[][]> shelves;
@@ -37,6 +44,8 @@ public class SquareCheckCGCTwoSquaresTest extends TestCase {
     }
 
     /**
+     * <p>suite.</p>
+     *
      * @return the suite of tests being tested
      */
     public static Test suite()

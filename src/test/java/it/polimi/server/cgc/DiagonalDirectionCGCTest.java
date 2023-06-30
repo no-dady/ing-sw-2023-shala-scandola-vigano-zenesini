@@ -13,6 +13,13 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * <p>DiagonalDirectionCGCTest class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class DiagonalDirectionCGCTest extends TestCase {
     public List<Tile[][]> shelves;
     /**
@@ -35,6 +42,8 @@ public class DiagonalDirectionCGCTest extends TestCase {
     }
 
     /**
+     * <p>suite.</p>
+     *
      * @return the suite of tests being tested
      */
     public static Test suite()
@@ -58,6 +67,9 @@ public class DiagonalDirectionCGCTest extends TestCase {
         assertTrue("CGC11 Not Passed", cgc11.conditionCheck(shelf));
     }
 
+    /**
+     * <p>testCGC12.</p>
+     */
     public void testCGC12()
     {
         Tile[][] shelf = shelves.get(0);

@@ -14,6 +14,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <p>Lobby class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class Lobby implements Runnable {
     private final int playerNumber;
     private LobbyStatus lobbyStatus;
@@ -26,10 +32,24 @@ public class Lobby implements Runnable {
     private final String lobbyName;
     private final Server server;
 
+    /**
+     * <p>Getter for the field <code>controller</code>.</p>
+     *
+     * @return a {@link it.polimi.server.controller.GameController} object
+     */
     public GameController getController() {
         return controller;
     }
 
+    /**
+     * <p>Constructor for Lobby.</p>
+     *
+     * @param playerNumber a int
+     * @param adminPlayer a {@link it.polimi.client.network.ClientInterface} object
+     * @param adminNickname a {@link java.lang.String} object
+     * @param lobbyId a int
+     * @param server a {@link it.polimi.server.network.Server} object
+     */
     public Lobby(int playerNumber, ClientInterface adminPlayer, String adminNickname, int lobbyId, Server server)
     {
         this.playerNumber = playerNumber;
@@ -51,32 +71,69 @@ public class Lobby implements Runnable {
         }
     }
 
+    /**
+     * <p>Getter for the field <code>lobbyStatus</code>.</p>
+     *
+     * @return a {@link it.polimi.server.model.LobbyStatus} object
+     */
     public LobbyStatus getLobbyStatus() {
         return lobbyStatus;
     }
 
+    /**
+     * <p>isFull.</p>
+     *
+     * @return a boolean
+     */
     public boolean isFull()
     {
         return playerMap.size() == playerNumber;
     }
 
+    /**
+     * <p>isActive.</p>
+     *
+     * @return a boolean
+     */
     public boolean isActive(){
         return active;
     }
 
+    /**
+     * <p>Setter for the field <code>active</code>.</p>
+     *
+     * @param b a boolean
+     */
     public void setActive(boolean b){
         active=b;
     }
 
+    /**
+     * <p>Setter for the field <code>game</code>.</p>
+     *
+     * @param game a {@link it.polimi.server.model.Game} object
+     */
     public void setGame(Game game) {
         this.game = game;
     }
 
+    /**
+     * <p>checkNicknameAvailable.</p>
+     *
+     * @param nickName a {@link java.lang.String} object
+     * @return a boolean
+     */
     public boolean checkNicknameAvailable(String nickName)
     {
         return !playerMap.containsKey(nickName);
     }
 
+    /**
+     * <p>addPlayer.</p>
+     *
+     * @param client a {@link it.polimi.client.network.ClientInterface} object
+     * @param nickName a {@link java.lang.String} object
+     */
     public void addPlayer(ClientInterface client, String nickName)
     {
         try
@@ -109,10 +166,22 @@ public class Lobby implements Runnable {
         }
     }
 
+    /**
+     * <p>Getter for the field <code>lobbyName</code>.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public String getLobbyName() {
         return lobbyName;
     }
 
+    /**
+     * <p>disconnectPlayer.</p>
+     *
+     * @param nickname a {@link java.lang.String} object
+     * @return a boolean
+     * @throws java.rmi.RemoteException if any.
+     */
     public boolean disconnectPlayer(String nickname) throws RemoteException {
         if(playerMap.remove(nickname) != null) {
             if(isActive()) {
@@ -132,6 +201,7 @@ public class Lobby implements Runnable {
         return false;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void run() {
         try
@@ -159,10 +229,18 @@ public class Lobby implements Runnable {
         }
     }
 
+    /**
+     * <p>getConnections.</p>
+     *
+     * @return a {@link java.util.Map} object
+     */
     public Map<String, ClientInterface> getConnections() {
         return playerMap;
     }
 
+    /**
+     * <p>clear.</p>
+     */
     public void clear() {
         if(game!=null){
             //game.close();

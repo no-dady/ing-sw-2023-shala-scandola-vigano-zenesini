@@ -8,7 +8,6 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import it.polimi.server.model.Tile;
 
-import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -16,6 +15,10 @@ import java.util.List;
 
 /**
  * Unit test for Cgc 9 algorithm.
+ *
+ * @author daniel
+ * @version $Id: $Id
+ * @since 1.0
  */
 public class ShiftedCheckerboardCGCTest
         extends TestCase
@@ -29,7 +32,6 @@ public class ShiftedCheckerboardCGCTest
      *
      * @param testName name of the test case
      */
-
     public ShiftedCheckerboardCGCTest(String testName )
     {
         super( testName );
@@ -55,6 +57,8 @@ public class ShiftedCheckerboardCGCTest
     }
 
     /**
+     * <p>suite.</p>
+     *
      * @return the suite of tests being tested
      */
     public static Test suite()
@@ -64,9 +68,9 @@ public class ShiftedCheckerboardCGCTest
 
     /**
      * Rigourous Test
+     *
      */
-
-    public void testApp() throws IOException {
+    public void testApp() {
         ShiftedCheckerboard cgc9 = new ShiftedCheckerboard("ShiftedCheckerboard");
 
         Tile[][] shelf1 = shelfa.get(0);

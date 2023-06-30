@@ -10,6 +10,9 @@ import java.util.*;
 
 /**
  * The type Tile type.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class TileType implements Serializable {
     private static Map<String, TileTypeRecord> tileMap = new HashMap<>();
@@ -26,6 +29,9 @@ public class TileType implements Serializable {
         }
     }
 
+    /**
+     * <p>Constructor for TileType.</p>
+     */
     public TileType() {
         this.key = "EMPTY";
         this.color = tileMap.get(this.key).color;
@@ -33,6 +39,12 @@ public class TileType implements Serializable {
         this.image = this.key.charAt(0) + this.key.substring(1).toLowerCase() + tileMap.get(this.key).images.get(0) + ".png";
     }
 
+    /**
+     * <p>Constructor for TileType.</p>
+     *
+     * @param tileType a {@link java.lang.String} object
+     * @param index a int
+     */
     public TileType(String tileType, int index) {
         this.key = tileType;
         this.color = tileMap.get(tileType).color;

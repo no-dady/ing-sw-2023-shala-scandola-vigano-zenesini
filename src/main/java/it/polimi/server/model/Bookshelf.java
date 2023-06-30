@@ -10,6 +10,9 @@ import it.polimi.util.Messages.Message;
 
 /**
  * The type Bookshelf.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class Bookshelf implements Serializable, Observable<Message> {
     private final Tile[][] slots;
@@ -80,7 +83,7 @@ public class Bookshelf implements Serializable, Observable<Message> {
      *
      * @param index the index
      * @return the tile per col
-     **/
+     */
     public int getEmptyTilesColumn(int index) {
 
         int count = 0;
@@ -92,6 +95,12 @@ public class Bookshelf implements Serializable, Observable<Message> {
         }
         return count;
     }
+    /**
+     * <p>lastTileOnColumnIndex.</p>
+     *
+     * @param index a int
+     * @return a int
+     */
     public int lastTileOnColumnIndex(int index){
         for (int j = 0; j < rows ; j ++){
             if (slots[j][index] == null || slots[j][index].Empty()){
@@ -112,10 +121,7 @@ public class Bookshelf implements Serializable, Observable<Message> {
      //Observable implementation
     private transient final List<Observer<Message>> observers = new ArrayList<>();
 
-    /**
-     *
-     * @param observer of type Observer<Message>: the it.polimi.observer to add
-     */
+    /** {@inheritDoc} */
     @Override
     public void addObserver(Observer<Message> observer){
         synchronized (observers) {
@@ -123,10 +129,7 @@ public class Bookshelf implements Serializable, Observable<Message> {
         }
     }
 
-    /**
-     *
-     * @param message of type Message: the notifying message
-     */
+    /** {@inheritDoc} */
     @Override
     public void notify(Message message) {
         synchronized (observers) {
@@ -136,6 +139,11 @@ public class Bookshelf implements Serializable, Observable<Message> {
         }
     }
 
+    /**
+     * <p>isFull.</p>
+     *
+     * @return a boolean
+     */
     public boolean isFull() {
         return tileCount == rows * cols;
     }

@@ -7,6 +7,12 @@ import it.polimi.server.model.CommonGoalCardStrategy;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
+/**
+ * <p>CommonGoalSerializer class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class CommonGoalSerializer  implements JsonSerializer<CommonGoalCardStrategy>, JsonDeserializer<CommonGoalCardStrategy> {
     private static final HashMap<String, Class> classNameMap = new HashMap<>();
     private static final String CLASSNAME = "CLASSNAME";
@@ -23,6 +29,7 @@ public class CommonGoalSerializer  implements JsonSerializer<CommonGoalCardStrat
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public CommonGoalCardStrategy deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         String className = json.getAsJsonObject().get(CLASSNAME).getAsString();
@@ -30,6 +37,7 @@ public class CommonGoalSerializer  implements JsonSerializer<CommonGoalCardStrat
         return context.deserialize(json.getAsJsonObject().get(INSTANCE), c);
     }
 
+    /** {@inheritDoc} */
     @Override
     public JsonElement serialize(CommonGoalCardStrategy cgc, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject ret = new JsonObject();

@@ -1,11 +1,8 @@
 package it.polimi.server.cgc;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.server.model.Bookshelf;
 import it.polimi.util.Parser;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.polimi.server.model.CommonGoalCardStrategy;
 import it.polimi.server.model.Tile;
@@ -14,18 +11,28 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * <p>MaxNTypesTest class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class MaxNTypesTest {
 
     private CommonGoalCardStrategy toTest;
 
+    /**
+     * <p>printShelf.</p>
+     *
+     * @param shelf an array of {@link it.polimi.server.model.Tile} objects
+     */
     public static void printShelf(Tile[][] shelf) {
         System.out.println();
         for(int i = 5; i >= 0; i--) {
@@ -37,6 +44,13 @@ public class MaxNTypesTest {
         }
     }
 
+    /**
+     * <p>getTilesForTest.</p>
+     *
+     * @param jsonPath a {@link java.lang.String} object
+     * @return a {@link java.util.List} object
+     * @throws java.io.IOException if any.
+     */
     public static List<Tile[][]> getTilesForTest(String jsonPath) throws IOException {
         BufferedReader reader = Files.newBufferedReader(Paths.get(Parser.getResourcePath(jsonPath)));
         String json = reader.lines().collect(Collectors.joining());

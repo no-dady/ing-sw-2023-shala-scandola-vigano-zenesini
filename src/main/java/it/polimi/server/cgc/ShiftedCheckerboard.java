@@ -7,17 +7,32 @@ import java.io.Serializable;
 
 /**
  * The type Shifted checkerboard.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class ShiftedCheckerboard extends CommonGoalCardStrategy implements Serializable {
+    /** Constant <code>className="ShiftedCheckerboard"</code> */
     public static final String className = "ShiftedCheckerboard";
     private final String name;
+    /**
+     * <p>Constructor for ShiftedCheckerboard.</p>
+     *
+     * @param name a {@link java.lang.String} object
+     */
     public ShiftedCheckerboard(String name){
         this.name = name;
     }
 
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public String getName() {
         return name;
     }
+    /** {@inheritDoc} */
     @Override
     public boolean conditionCheck(Tile[][] shelf) {
 
@@ -30,6 +45,7 @@ public class ShiftedCheckerboard extends CommonGoalCardStrategy implements Seria
         }
         return false;
     }
+    /** {@inheritDoc} */
     @Override
     public String getClassName() {
         return className;

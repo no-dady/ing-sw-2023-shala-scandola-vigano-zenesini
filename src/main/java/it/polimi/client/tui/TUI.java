@@ -19,6 +19,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
+/**
+ * <p>TUI class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class TUI implements UI, Runnable {
     private String cgcs;
     boolean moveHandled;
@@ -30,12 +36,18 @@ public class TUI implements UI, Runnable {
     String COLOR = "0;100m";
     String RESET = "0m";
 
+    /**
+     * <p>Constructor for TUI.</p>
+     *
+     * @param client a {@link it.polimi.client.Client} object
+     */
     public TUI(Client client){
         this.client = client;
     }
     private String nickname;
     Scanner in = new Scanner(System.in);
 
+    /** {@inheritDoc} */
     @Override
     public void run() {
         String connectionType;
@@ -102,6 +114,7 @@ public class TUI implements UI, Runnable {
         
     }
 
+    /** {@inheritDoc} */
     @Override
     public void update() {
         client.setStateChanged(false);
@@ -273,6 +286,7 @@ public class TUI implements UI, Runnable {
         System.out.print("won the game!]");
     }
 
+    /** {@inheritDoc} */
     @Override
     public void printServerMessage(String message) {
         System.out.println("[" + message + "]");
@@ -333,6 +347,9 @@ public class TUI implements UI, Runnable {
         return art;
     }
 
+    /**
+     * <p>printState.</p>
+     */
     public void printState() {
         Game game = this.client.getGame();
         int x = 0, y = 0;

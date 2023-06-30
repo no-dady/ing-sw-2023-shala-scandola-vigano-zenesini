@@ -22,6 +22,9 @@ import it.polimi.util.Parser;
 
 /**
  * The type Game controller.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class GameController implements Observer<Action>{
 
@@ -37,6 +40,8 @@ public class GameController implements Observer<Action>{
 
     /**
      * Instantiates a new Game controller.
+     *
+     * @param lobby a {@link it.polimi.server.model.Lobby} object
      */
     public GameController( Lobby lobby ) {
         this.lobby = lobby;
@@ -46,7 +51,9 @@ public class GameController implements Observer<Action>{
      * Create lobby.
      *
      * @param playerNumber the player number
-     * @throws IllegalPlayersNumberException the illegal players number exception
+     * @throws it.polimi.server.exceptions.IllegalPlayersNumberException the illegal players number exception
+     * @param playerNicknames a {@link java.util.List} object
+     * @throws java.io.IOException if any.
      */
     public void createLobby(int playerNumber, List<String> playerNicknames) throws IllegalPlayersNumberException, IOException {
         ArrayList<Player> players = new ArrayList<>();
@@ -114,6 +121,12 @@ public class GameController implements Observer<Action>{
             player.setScore(calculateBookshelfPoints(player.getBookshelf()) + player.getPersonalGoalCard().getPoints(player) + cgcPoints);
         }
     }
+    /**
+     * <p>calculateBookshelfPoints.</p>
+     *
+     * @param bookshelf a {@link it.polimi.server.model.Bookshelf} object
+     * @return a int
+     */
     public int calculateBookshelfPoints(Bookshelf bookshelf){
         int points = 0;
         Tile[][] slots = bookshelf.getSlots();
@@ -174,10 +187,16 @@ public class GameController implements Observer<Action>{
         return boardToRefill() && game.getPocket().getLeft() == 0;
     }
 
+    /**
+     * <p>Getter for the field <code>game</code>.</p>
+     *
+     * @return a {@link it.polimi.server.model.Game} object
+     */
     public Game getGame(){
         return game;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void update(Action action) {
         if (action.canPerformAction(game)) {

@@ -10,6 +10,9 @@ import java.util.Set;
 
 /**
  * The type Straight direction.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class StraightDirection extends CommonGoalCardStrategy implements Serializable {
     private final int numToLook;
@@ -17,6 +20,7 @@ public class StraightDirection extends CommonGoalCardStrategy implements Seriali
     private final boolean isEqual;
     private final boolean isVert;
     private final String name;
+    /** Constant <code>className="StraightDirection"</code> */
     public static final String className = "StraightDirection";
 
     /**
@@ -26,6 +30,7 @@ public class StraightDirection extends CommonGoalCardStrategy implements Seriali
      * @param numToLook   the num to look
      * @param isEqual     the is equal
      * @param isVert      the is vert
+     * @param name a {@link java.lang.String} object
      */
     public StraightDirection(int timesToLook, int numToLook, boolean isEqual, boolean isVert, String name) {
         this.timesToLook = timesToLook;
@@ -34,11 +39,17 @@ public class StraightDirection extends CommonGoalCardStrategy implements Seriali
         this.isVert = isVert;
         this.name = name;
     }
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public String getName() {
         return name;
     }
 
     // 4 vertical strips of 4 tiles of the same type
+    /** {@inheritDoc} */
     @Override
     public boolean conditionCheck(Tile[][] slots) {
         return isVert ? checkColumns(slots) : checkRows(slots);
@@ -107,6 +118,7 @@ public class StraightDirection extends CommonGoalCardStrategy implements Seriali
 
         return (checked == timesToLook);
     }
+    /** {@inheritDoc} */
     @Override
     public String getClassName() {
         return className;

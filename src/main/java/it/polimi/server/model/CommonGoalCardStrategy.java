@@ -7,7 +7,6 @@ import it.polimi.util.Messages.Message;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import it.polimi.observer.Observable;
 import it.polimi.observer.Observer;
@@ -15,7 +14,11 @@ import it.polimi.util.Parser;
 
 /**
  * The type Common goal card strategy.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
+@SuppressWarnings("StaticInitializerReferencesSubClass")
 public abstract class CommonGoalCardStrategy implements Serializable, Observable<Message> {
     /**
      * The List common goal list.
@@ -26,6 +29,11 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
 
     private int numPlayers;
 
+    /**
+     * <p>getClassName.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public abstract String getClassName();
 
     /**
@@ -36,10 +44,20 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
      */
     public abstract boolean conditionCheck (Tile[][] shelf);
 
+    /**
+     * <p>getName.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public String getName() {
         return nameCgC;
     }
     private final HashMap<String, Integer> completedMap = new HashMap<>();
+    /**
+     * <p>Print.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void Print() throws IOException {
         System.out.println(ConfigsFromJson.getArt(Parser.getResourcePath("json/cgcArts/" + this.getName() + ".json")));
     }
@@ -115,6 +133,11 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         return Parser.fromJson(Parser.toJson(res, new TypeToken<Set<CommonGoalCardStrategy>>(){}.getType()), new TypeToken<Set<CommonGoalCardStrategy>>(){}.getType());
     }
 
+    /**
+     * <p>Setter for the field <code>numPlayers</code>.</p>
+     *
+     * @param numPlayers a int
+     */
     public void setNumPlayers(int numPlayers) {
         this.points = new LinkedList<>();
         this.numPlayers = numPlayers;
@@ -138,6 +161,11 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
          }
     }
 
+    /**
+     * <p>Getter for the field <code>numPlayers</code>.</p>
+     *
+     * @return a int
+     */
     public int getNumPlayers()
     {
         return numPlayers;
@@ -156,6 +184,7 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
      * Get players list.
      *
      * @return the list
+     * @param player a {@link it.polimi.server.model.Player} object
      */
     public Integer getPlayer(Player player){
         if (completedMap.containsKey(player.getUserName()))
@@ -166,16 +195,28 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         }
     }
 
+    /**
+     * <p>isCompletedByPlayer.</p>
+     *
+     * @param player a {@link it.polimi.server.model.Player} object
+     * @return a boolean
+     */
     public boolean isCompletedByPlayer(Player player){
         return completedMap.containsKey(player.getUserName());
     }
 
+    /**
+     * <p>Getter for the field <code>listCommonGoalList</code>.</p>
+     *
+     * @return a {@link java.util.List} object
+     */
     public static List<CommonGoalCardStrategy> getListCommonGoalList() {
         return listCommonGoalList;
     }
 
     private transient final List<Observer<Message>> observers = new ArrayList<>();
 
+    /** {@inheritDoc} */
     @Override
     public void addObserver(Observer<Message> observer){
         synchronized (observers) {
@@ -183,6 +224,7 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void notify(Message move) {
         synchronized (observers) {
@@ -192,6 +234,11 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
         }
     }
 
+    /**
+     * <p>Getter for the field <code>points</code>.</p>
+     *
+     * @return a {@link java.util.Queue} object
+     */
     public Queue<Integer> getPoints() {
         return points;
     }

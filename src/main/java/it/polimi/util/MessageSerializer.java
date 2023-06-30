@@ -6,6 +6,12 @@ import it.polimi.util.Messages.*;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
+/**
+ * <p>MessageSerializer class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class MessageSerializer implements JsonSerializer<Message>, JsonDeserializer<Message> {
 
     private static final HashMap<String, Class> classNameMap = new HashMap<>();
@@ -22,6 +28,7 @@ public class MessageSerializer implements JsonSerializer<Message>, JsonDeseriali
         classNameMap.put(InitialMessage.className, InitialMessage.class);
         classNameMap.put(BoardMessage.className, BoardMessage.class);
     }
+    /** {@inheritDoc} */
     @Override
     public Message deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         String className = json.getAsJsonObject().get(CLASSNAME).getAsString();
@@ -29,6 +36,7 @@ public class MessageSerializer implements JsonSerializer<Message>, JsonDeseriali
         return context.deserialize(json.getAsJsonObject().get(INSTANCE), c);
     }
 
+    /** {@inheritDoc} */
     @Override
     public JsonElement serialize(Message message, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject ret = new JsonObject();

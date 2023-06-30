@@ -5,18 +5,37 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import it.polimi.util.Parser;
 
-import java.io.IOException;
-
+/**
+ * <p>GameParserTest class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class GameParserTest extends TestCase {
 
 
+    /**
+     * <p>Constructor for GameParserTest.</p>
+     *
+     * @param testName a {@link java.lang.String} object
+     */
     public GameParserTest( String testName) { super( testName ); }
 
+    /**
+     * <p>suite.</p>
+     *
+     * @return a {@link junit.framework.Test} object
+     */
     public static Test suite() { return new TestSuite(GameParserTest.class);
     }
 
 
-    public void test_gameSerialization()  throws IOException {
+    /**
+     * <p>test_gameSerialization.</p>
+     *
+     */
+    public void test_gameSerialization() {
         Game game = new Game();
         String jsongame = Parser.toJson(game, Game.class);
         System.out.println(jsongame);

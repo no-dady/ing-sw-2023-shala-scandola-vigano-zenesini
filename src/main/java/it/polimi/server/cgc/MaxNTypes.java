@@ -7,7 +7,14 @@ import it.polimi.server.model.Tile;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * <p>MaxNTypes class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class MaxNTypes extends CommonGoalCardStrategy implements Serializable {
+    /** Constant <code>className="MaxNTypes"</code> */
     public static final String className = "MaxNTypes";
     private final boolean isVertical;
     private final int timesToCheck;
@@ -16,12 +23,21 @@ public class MaxNTypes extends CommonGoalCardStrategy implements Serializable {
     private final String name;
 
 
+    /**
+     * <p>Constructor for MaxNTypes.</p>
+     *
+     * @param isVertical a boolean
+     * @param maxDistincts a int
+     * @param timesToCheck a int
+     * @param name a {@link java.lang.String} object
+     */
     public MaxNTypes(boolean isVertical, int maxDistincts, int timesToCheck, String name) {
         this.isVertical = isVertical;
         this.timesToCheck = timesToCheck;
         this.maxDistincts = maxDistincts;
         this.name = name;
     }
+    /** {@inheritDoc} */
     @Override
     public boolean conditionCheck(Tile[][] shelf) {
         return isVertical ? checkColumns(shelf) :  checkRows(shelf);
@@ -59,10 +75,16 @@ public class MaxNTypes extends CommonGoalCardStrategy implements Serializable {
         return count == timesToCheck;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getClassName() {
         return className;
     }
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public String getName() {
         return name;
     }

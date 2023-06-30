@@ -6,9 +6,14 @@ import junit.framework.TestSuite;
 
 import it.polimi.server.model.*;
 
-import java.io.IOException;
 
-
+/**
+ * <p>TestBoardCreationAndFill class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class TestBoardCreationAndFill extends TestCase {
 
 
@@ -22,14 +27,17 @@ public class TestBoardCreationAndFill extends TestCase {
     }
 
     /**
+     * <p>suite.</p>
+     *
      * @return the suite of tests being tested
      */
     public static Test suite() {return new TestSuite( TestBoardCreationAndFill.class );}
 
     /**
      * Rigourous Test :-)
+     *
      */
-    public void test_Board() throws IOException {
+    public void test_Board() {
         Bookshelf bookshelf = new Bookshelf();
         Tile[][] tiles = bookshelf.getSlots();
         board = BoardConfig.newEmptyBoard();

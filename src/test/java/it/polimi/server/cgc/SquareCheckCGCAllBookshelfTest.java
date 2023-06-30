@@ -12,14 +12,21 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * <p>SquareCheckCGCAllBookshelfTest class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class SquareCheckCGCAllBookshelfTest extends TestCase {
 
         public List<Tile[][]> shelves;
-        /**
-         * Create the test case
-         *
-         * @param testName name of the test case
-         */
+    /**
+     * Create the test case
+     *
+     * @param testName name of the test case
+     */
     public SquareCheckCGCAllBookshelfTest(String testName )
         {
             super( testName );
@@ -35,6 +42,8 @@ public class SquareCheckCGCAllBookshelfTest extends TestCase {
         }
 
         /**
+         * <p>suite.</p>
+         *
          * @return the suite of tests being tested
          */
         public static Test suite()
