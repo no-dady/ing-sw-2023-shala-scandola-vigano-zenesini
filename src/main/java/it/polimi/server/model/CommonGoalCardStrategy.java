@@ -6,6 +6,7 @@ import it.polimi.util.Messages.Message;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import it.polimi.observer.Observable;
 import it.polimi.observer.Observer;
@@ -18,7 +19,7 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
     /**
      * The List common goal list.
      */
-    protected static List<CommonGoalCardStrategy> listCommonGoalList = null;
+    protected static List<CommonGoalCardStrategy> listCommonGoalList;
     private Queue<Integer> points = new LinkedList<>();
     private String nameCgC = "";
 
@@ -99,12 +100,13 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
     public static Set<CommonGoalCardStrategy> getRandomCards() {
 
         Random random = new Random();
+        Queue<Integer> randomNumbers = new LinkedList<>();
+        randomNumbers.addAll(random.ints(listCommonGoalList.size(), 0, listCommonGoalList.size()).boxed().toList());
+        randomNumbers.stream().distinct().collect(Collectors.toList());
 
         Set<CommonGoalCardStrategy> res = new HashSet<>();
-        CommonGoalCardStrategy cgcFirst = listCommonGoalList.remove(random.nextInt(listCommonGoalList.size()));
-        res.add(cgcFirst);
-        res.add(listCommonGoalList.get(random.nextInt(listCommonGoalList.size())));
-        listCommonGoalList.add(cgcFirst);
+        res.add(listCommonGoalList.get(randomNumbers.remove()));
+        res.add(listCommonGoalList.get(randomNumbers.remove()));
 
         return res;
     }
@@ -167,6 +169,10 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
 
     public boolean isCompletedByPlayer(Player player){
         return completedMap.containsKey(player.getUserName());
+    }
+
+    public static List<CommonGoalCardStrategy> getListCommonGoalList() {
+        return listCommonGoalList;
     }
 
     private transient final List<Observer<Message>> observers = new ArrayList<>();

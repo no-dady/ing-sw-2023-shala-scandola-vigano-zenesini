@@ -14,7 +14,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,6 +46,12 @@ public class MaxNTypesTest {
     @Test
     void conditionCheck() throws IOException {
         String path = "json/shelves/StraightDirectionTest";
+
+        Set<CommonGoalCardStrategy> cgcs = CommonGoalCardStrategy.getRandomCards();
+
+        cgcs.forEach(x -> System.out.println(x));
+        System.out.println("*******************************");
+
 
         List<Tile[][]> shelf = StraightDirectionCGCTest.getTilesForTest(path + "/testOne.json");
         toTest = new StraightDirection(2, Bookshelf.getCols(), false, true, "");
