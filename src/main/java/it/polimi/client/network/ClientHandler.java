@@ -81,9 +81,4 @@ public class ClientHandler extends UnicastRemoteObject implements ClientInterfac
             UnicastRemoteObject.unexportObject(this, true);
         }
     }
-
-    @Override
-    public void addObserver(Observer<String> observer) {
-
-    }
 }

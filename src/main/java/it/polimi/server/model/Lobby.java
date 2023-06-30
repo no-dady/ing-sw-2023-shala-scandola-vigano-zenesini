@@ -4,6 +4,7 @@ import it.polimi.client.network.ClientInterface;
 import it.polimi.client.network.State;
 import it.polimi.server.controller.GameController;
 import it.polimi.server.exceptions.IllegalPlayersNumberException;
+import it.polimi.server.network.Server;
 import it.polimi.util.Messages.*;
 import it.polimi.util.Parser;
 
@@ -15,33 +16,28 @@ import java.util.Map;
 
 public class Lobby implements Runnable {
     private final int playerNumber;
-
     private LobbyStatus lobbyStatus;
-
     private Game game;
-
     private int lobbyId;
-
     private Map<String, ClientInterface> playerMap;
-
     private GameController controller;
-
     private final ArrayList<String> disconnectedPlayers = new ArrayList<>();
     private boolean active = false;
-
     private String lobbyName;
+    private final Server server;
 
     public GameController getController() {
         return controller;
     }
 
-    public Lobby(int playerNumber, ClientInterface adminPlayer, String adminNickname, int lobbyId)
+    public Lobby(int playerNumber, ClientInterface adminPlayer, String adminNickname, int lobbyId, Server server)
     {
         this.playerNumber = playerNumber;
         this.lobbyId = lobbyId;
         this.playerMap = new HashMap<String, ClientInterface>();
         this.playerMap.put(adminNickname, adminPlayer);
         this.lobbyName = adminNickname + "'s Lobby";
+        this.server = server;
         lobbyStatus = LobbyStatus.Setup;
         try
         {
@@ -68,8 +64,8 @@ public class Lobby implements Runnable {
         return active;
     }
 
-    public void setActive(){
-        active=true;
+    public void setActive(boolean b){
+        active=b;
     }
 
     public void setGame(Game game) {
@@ -157,11 +153,14 @@ public class Lobby implements Runnable {
                 BoardMessage boardMessage = new BoardMessage(game.getBoard());
                 entry.getValue().send(Parser.toJson(boardMessage, Message.class));
             }
-            setActive();
+            setActive(true);
             controller.start();
         } catch (IllegalPlayersNumberException | IOException | InterruptedException e)
         {
             System.out.println(e.getMessage());
+        } finally
+        {
+            server.removeLobby(lobbyId);
         }
     }
 

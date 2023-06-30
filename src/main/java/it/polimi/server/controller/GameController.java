@@ -206,6 +206,7 @@ public class GameController implements Observer<Action>{
                             BoardMessage boardMessage = new BoardMessage(game.getBoard());
                             lobby.getConnections().get(p.getUserName()).send(Parser.toJson(boardMessage, Message.class));
                             lobby.getConnections().get(p.getUserName()).send(Parser.toJson(new StateMessage(State.GAMEENDED), Message.class));
+                            lobby.setActive(false);
                         } catch (RemoteException e) {
                             throw new RuntimeException(e);
                         }

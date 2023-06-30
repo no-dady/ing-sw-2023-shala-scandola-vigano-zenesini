@@ -131,7 +131,7 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
     @Override
     public void sendSetupFirst(String json) throws RemoteException {
         SetupFirst setupFirst = Parser.fromJson(json, SetupFirst.class);
-        Lobby newLobby = new Lobby(setupFirst.getNumOfPlayers(), tempClientInterface, setupFirst.getParameter(), lobbyIdProgressive);
+        Lobby newLobby = new Lobby(setupFirst.getNumOfPlayers(), tempClientInterface, setupFirst.getParameter(), lobbyIdProgressive, this);
         lobbyList.put(lobbyIdProgressive, newLobby);
         lobbyIdProgressive++;
         registrationFinished();
@@ -169,14 +169,8 @@ public class Server extends UnicastRemoteObject implements ServerInterface, Runn
         return false;
     }
 
-    public void removeLobby(Lobby lobby) {
-        for (var entryLobby : lobbyList.entrySet())
-        {
-            if (lobby.equals(entryLobby.getValue()))
-            {
-                lobbyList.remove(entryLobby.getKey());
-            }
-        }
+    public void removeLobby(int lobbyId) {
+        lobbyList.remove(lobbyId);
     }
 
     private void startRMI(int port)
