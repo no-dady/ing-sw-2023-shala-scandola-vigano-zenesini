@@ -36,6 +36,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
     @Override
     public void send(String json) throws RemoteException {
         try {
+            out.writeInt(0);
             out.writeUTF(json);
             out.flush();
         } catch (IOException e) {
@@ -93,7 +94,12 @@ public class ClientSkeleton implements ClientInterface, Runnable {
 
     @Override
     public void close() throws IOException {
-
+        try {
+            out.writeInt(1);
+            out.flush();
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public String getNickname() {

@@ -36,8 +36,19 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
             out = new DataOutputStream(socket.getOutputStream());
             String read;
             while (client.isActive()) {
-                read = in.readUTF();
-                clientinterface.send(read);
+                int whatIsSending;
+                whatIsSending = in.readInt();
+                switch(whatIsSending)
+                {
+                    case 0:
+                        read = in.readUTF();
+                        clientinterface.send(read);
+                        break;
+
+                    case 1:
+                        client.setActive(false);
+                        break;
+                }
             }
         } catch(Exception e) {
             client.setActive(false);
