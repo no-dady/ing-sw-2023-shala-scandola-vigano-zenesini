@@ -20,7 +20,7 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
      * The List common goal list.
      */
     protected static List<CommonGoalCardStrategy> listCommonGoalList;
-    private Queue<Integer> points = new LinkedList<>();
+    public Queue<Integer> points = new LinkedList<>();
     private final String nameCgC = "";
 
     private int numPlayers;
@@ -186,5 +186,9 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
                 observer.update(move);
             }
         }
+    }
+
+    public Queue<Integer> getPoints() {
+        return points;
     }
 }

@@ -66,6 +66,9 @@
 #bookshelf_grid {
     -fx-grid-lines-visible: true;
 }
+#values {
+    -fx-grid-lines-visible: true;
+}
 
 */
 #arrow1 {
@@ -156,6 +159,18 @@
     -fx-text-fill: black;
     -fx-alignment: center;
     -fx-cursor: hand;
+}
+
+#P1 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-alignment: center;
+}
+
+#P2 {
+    -fx-font-family: 'Garamond';
+    -fx-font-size: 2em;
+    -fx-alignment: center;
 }
 
 #L1 {

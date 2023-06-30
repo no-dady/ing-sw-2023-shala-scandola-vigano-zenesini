@@ -31,6 +31,8 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 public class BoardController implements GenericInterface, Initializable {
+    public Label P1;
+    public Label P2;
     private GUI gui;
     private GenericInterface popupController;
     public final String dim = "1920x1000";
@@ -188,7 +190,6 @@ public class BoardController implements GenericInterface, Initializable {
                     confirm.setDisable(true);
                     confirm.setOpacity(0);
                     for (Pane x : selectedIds) {
-                        //x.setDisable(true);
                         x.setOpacity(0);
                     }
 
@@ -417,6 +418,9 @@ public class BoardController implements GenericInterface, Initializable {
 
         List<Button> arrows = List.of(arrow1,arrow2,arrow3,arrow4,arrow5);
 
+        P1.setText(gui.getClient().getGame().getBoard().getCommonGoalCards().get(0).getPoints().poll().toString());
+        P2.setText(gui.getClient().getGame().getBoard().getCommonGoalCards().get(1).getPoints().poll().toString());
+
         try {
             m = ConfigsFromJson.getBoardConfig(Parser.getResourcePath("json/board_config.json")).pattern;
         } catch (IOException e) {
@@ -425,7 +429,7 @@ public class BoardController implements GenericInterface, Initializable {
 
         for(Player player : gui.getClient().getGame().getPlayers()) //initializing some labels
         {
-            if(player.getUserName().equals(gui.getNickname()) /*&& player.getUserId() == gui.getGame().getCurrPlayerId()*/)
+            if(player.getUserName().equals(gui.getNickname()))
             {
                 bookshelf=player.getBookshelf();
                 L1.setText(gui.getNickname() + "'s goal: ");
@@ -474,7 +478,7 @@ public class BoardController implements GenericInterface, Initializable {
                 p.setStyle("-fx-background-image: url('" + imageUrl + "');");
                 p.setOpacity(1);
                 p.setDisable(true);
-                if(action){//gui.getGame().getPlayers().get(0).getUserId() == gui.getGame().getCurrPlayerId() && gui.getNickname().equals(gui.getGame().getPlayers().get(0).getUserName())) {
+                if(action){
                     if (gui.getGame().getBoard().getTile(x, y).isPickable()) {
                         p.setDisable(false);
                         p.setOnMouseEntered(event -> {
@@ -507,7 +511,6 @@ public class BoardController implements GenericInterface, Initializable {
             } else if(gui.getGame().getBoard().getTile(x,y) == null || gui.getGame().getBoard().getTile(x,y).Empty()) {
                 p.setBackground(null);
                 for (Pane k : selectedIds) {
-                    //k.setDisable(true);
                     k.setOpacity(0);
                 }
             }

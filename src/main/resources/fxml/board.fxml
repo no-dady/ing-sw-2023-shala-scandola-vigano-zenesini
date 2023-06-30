@@ -76,6 +76,31 @@
 
         </GridPane>
 
+        <GridPane fx:id="values" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.columnSpan="1"
+                  GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <rowConstraints>
+                <RowConstraints percentHeight="40"/>
+                <RowConstraints percentHeight="60"/>
+            </rowConstraints>
+            <columnConstraints>
+                <ColumnConstraints percentWidth="28"/>
+                <ColumnConstraints percentWidth="3"/>
+                <ColumnConstraints percentWidth="31"/>
+                <ColumnConstraints percentWidth="3"/>
+                <ColumnConstraints percentWidth="35"/>
+            </columnConstraints>
+            <Pane  GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Label fx:id="P1" text="2" textAlignment="CENTER" textFill="White" wrapText="true"
+                       alignment="BOTTOM_CENTER"/>
+            </Pane>
+            <Pane  GridPane.columnIndex="3" GridPane.rowIndex="0" GridPane.columnSpan="1"
+                   GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                <Label fx:id="P2" text="2" textAlignment="CENTER" textFill="White" wrapText="true"
+                       alignment="BOTTOM_CENTER"/>
+            </Pane>
+        </GridPane>
+
         <Pane fx:id="Board" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.columnSpan="1"
               GridPane.halignment="CENTER" GridPane.valignment="CENTER">
             <GridPane fx:id="board_grid" prefHeight="${Board.height}" prefWidth="${Board.width}">

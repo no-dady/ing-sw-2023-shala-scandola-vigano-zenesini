@@ -25,7 +25,7 @@ public class Game implements Serializable, Observable<Message> {
     private Pocket pocket;
     private boolean gameStarted;
     private List<Tile> selectedTiles;
-    private Set<CommonGoalCardStrategy> cgcs;
+    public Set<CommonGoalCardStrategy> cgcs;
     private String currPlayerNick;
 
     /**
