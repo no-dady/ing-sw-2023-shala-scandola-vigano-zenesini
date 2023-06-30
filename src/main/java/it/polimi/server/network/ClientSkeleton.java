@@ -62,14 +62,9 @@ public class ClientSkeleton implements ClientInterface, Runnable {
             in.close();
             out.close();
             socket.close();
-            //removeClientSkeletonThread
             System.out.println("Disconnected");
         } catch (IOException e) {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                close(nickName, lobby);
-            } catch (RemoteException ignored) {}
         }
     }
 
@@ -107,27 +102,6 @@ public class ClientSkeleton implements ClientInterface, Runnable {
 
     public String getNickname() {
         return this.nickName;
-    }
-
-    private void close(String playerName, Lobby lobby) throws RemoteException {
-        System.out.println("Deregistering Client");
-        if (lobby != null && server.findLobby(lobby.getLobbyName())) {
-            if (lobby.disconnectPlayer(playerName)) {
-                server.removeLobby(lobby);
-            }
-        }
-
-        System.out.println("Done!");
-    }
-
-
-    private transient final List<Observer<String>> observers = new ArrayList<>();
-
-    @Override
-    public void addObserver(Observer<String> observer) {
-        synchronized (observers) {
-            observers.add(observer);
-        }
     }
 
     public boolean isActive() {

@@ -11,7 +11,5 @@ import java.rmi.*;
 public interface ClientInterface extends Remote
 {
     void send(String string) throws RemoteException;
-    void addObserver(Observer<String> observer) throws RemoteException;
-
     void close() throws IOException, RemoteException;
 }
