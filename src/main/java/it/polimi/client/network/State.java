@@ -11,8 +11,6 @@ public enum State {
     MYTURN,
     WAITINGFORRESPONSE,
     WAITINGFORGAMESTART,
-
     INQUEUE,
-    PLAYERSQUIT,
     GAMEENDED
 }

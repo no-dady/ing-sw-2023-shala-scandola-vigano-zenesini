@@ -5,14 +5,12 @@ import it.polimi.server.model.CommonGoalCardStrategy;
 import it.polimi.server.model.Tile;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * The type Straight direction.
  */
-// TODO: Test algorithms for performance and correctness
 public class StraightDirection extends CommonGoalCardStrategy implements Serializable {
     private int numToLook;
     private int timesToLook;

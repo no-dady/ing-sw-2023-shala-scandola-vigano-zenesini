@@ -3,14 +3,9 @@ package it.polimi.server.cgc;
 import it.polimi.server.model.Bookshelf;
 import it.polimi.server.model.CommonGoalCardStrategy;
 import it.polimi.server.model.Tile;
-import it.polimi.server.model.TileType;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-
 
 /**
  * The type Square check.

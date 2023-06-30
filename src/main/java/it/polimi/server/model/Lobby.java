@@ -55,9 +55,6 @@ public class Lobby implements Runnable {
         }
     }
 
-    public int getPlayerNumber() {
-        return playerNumber;
-    }
     public LobbyStatus getLobbyStatus() {
         return lobbyStatus;
     }
@@ -100,13 +97,6 @@ public class Lobby implements Runnable {
             client.send(Parser.toJson(messageItself, Message.class));
             if (this.playerMap.size() == playerNumber)
             {
-                //messageToSend = new ConfirmMessage("Joined " + lobbyName, 3);
-                //it.polimi.client.send(Parser.toJson(messageToSend, ConfirmMessage.class));
-                //for (var entry : playerMap.entrySet())
-                //{
-                //    JoinedMessage joinedMessage = new JoinedMessage(entry.getKey());
-                //    it.polimi.client.send(Parser.toJson(joinedMessage, JoinedMessage.class));
-                //}
                 System.out.println("Let's start the game");
                 for (var entity : playerMap.entrySet())
                 {
@@ -117,17 +107,10 @@ public class Lobby implements Runnable {
                 StateMessage stateMessage = new StateMessage(State.WAITINGINLOBBY);
                 client.send(Parser.toJson(stateMessage, Message.class));
             }
-        } catch (IOException e)//| IllegalPlayersNumberException e)
+        } catch (IOException e)
         {
-            System.out.println("Lobby cannot send confirm to it.polimi.client");
-        } //catch (InterruptedException e) {
-        //catch (InterruptedException e) {
-        //    throw new RuntimeException(e);
-        //} catch (IllegalPlayersNumberException e) {
-        //    throw new RuntimeException(e);
-        //}
-        // throw new RuntimeException(e);
-        //}
+            System.out.println("Lobby cannot send confirm to client");
+        }
     }
 
     public String getLobbyName() {
@@ -155,17 +138,6 @@ public class Lobby implements Runnable {
 
     @Override
     public void run() {
-        //for (var entry : playerMap.entrySet()) {
-
-            //ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", all " + playerNumber + " players have joined, now the game will start" + entry.getValue().getState(), 4);
-            //try
-            //{
-            //    entry.getValue().send(Parser.toJson(messageToSend, ConfirmMessage.class));
-            //} catch(RemoteException e)
-            //{
-            //    System.out.println("Cannot send ConfirmMessage from it.polimi.server lobby to it.polimi.client");
-            //}
-        //}]
         try
         {
             lobbyStatus = LobbyStatus.Playing;
@@ -184,14 +156,6 @@ public class Lobby implements Runnable {
                 entry.getValue().send(Parser.toJson(initialMessage, Message.class));
                 BoardMessage boardMessage = new BoardMessage(game.getBoard());
                 entry.getValue().send(Parser.toJson(boardMessage, Message.class));
-                //ConfirmMessage messageToSend = new ConfirmMessage("Hi " + entry.getKey() + ", now you have the game model", 5);
-                //try
-                //{
-                //   entry.getValue().send(Parser.toJson(messageToSend, ConfirmMessage.class));
-                //} catch(RemoteException e)
-                //{
-                //    System.out.println("Cannot send ConfirmMessage from it.polimi.server lobby to it.polimi.client");
-                //}
             }
             setActive();
             controller.start();
@@ -199,10 +163,6 @@ public class Lobby implements Runnable {
         {
             System.out.println(e.getMessage());
         }
-    }
-
-    public boolean findDisconnectedPlayers(String nickname) {
-        return disconnectedPlayers.contains(nickname);
     }
 
     public Map<String, ClientInterface> getConnections() {

@@ -18,7 +18,6 @@ public class Game implements Serializable, Observable<Message> {
 
     private List<Player> players;
     private int currPlayerId;
-    private int gameID;
     private int numPlayers;
     @Exclude
     private Board board;
@@ -46,19 +45,6 @@ public class Game implements Serializable, Observable<Message> {
         this.board = board;
         this.pocket = pocket;
         this.numPlayers = numPlayers;
-    }
-
-    /**
-     * New game game.
-     *
-     * @return the game
-     */
-    public static Game newGame() {
-        return new Game();
-    }
-
-    public int getPlayerIndex(Player player) {
-        return players.indexOf(player);
     }
 
 
@@ -130,30 +116,6 @@ public class Game implements Serializable, Observable<Message> {
             this.players.add(player);
     }
 
-    /**
-     * Can start boolean.
-     *
-     * @return the boolean
-     */
-    public boolean canStart() {
-        return players.size() == numPlayers;
-    }
-
-    /**
-     * Has winner boolean.
-     *
-     * @return the boolean
-     */
-    public boolean hasWinner() {
-        return players.stream().anyMatch((x) -> x.isWinner());
-    }
-
-    public void lastMessage() {
-    }
-
-    public void errorMessage(String nickName) {
-    }
-
     public int getCurrPlayerId() {
         return currPlayerId;
     }
@@ -166,10 +128,6 @@ public class Game implements Serializable, Observable<Message> {
 
     public int getNumPlayers() {
         return numPlayers;
-    }
-
-    public boolean isGameStarted() {
-        return gameStarted;
     }
 
     public Set<CommonGoalCardStrategy> getCgcs() {
