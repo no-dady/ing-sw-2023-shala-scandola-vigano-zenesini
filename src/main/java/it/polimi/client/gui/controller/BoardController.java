@@ -418,8 +418,8 @@ public class BoardController implements GenericInterface, Initializable {
 
         List<Button> arrows = List.of(arrow1,arrow2,arrow3,arrow4,arrow5);
 
-        P1.setText(gui.getClient().getGame().getBoard().getCommonGoalCards().get(0).getPoints().poll().toString());
-        P2.setText(gui.getClient().getGame().getBoard().getCommonGoalCards().get(1).getPoints().poll().toString());
+        P1.setText(gui.getClient().getGame().getBoard().getCommonGoalCards().get(0).getPoints().peek().toString());
+        P2.setText(gui.getClient().getGame().getBoard().getCommonGoalCards().get(1).getPoints().peek().toString());
 
         try {
             m = ConfigsFromJson.getBoardConfig(Parser.getResourcePath("json/board_config.json")).pattern;
