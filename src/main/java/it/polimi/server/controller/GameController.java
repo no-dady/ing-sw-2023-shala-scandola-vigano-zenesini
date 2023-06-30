@@ -191,7 +191,7 @@ public class GameController implements Observer<Action>{
             if (action instanceof ColumnSelectAction) {
                 try {
                     for (CommonGoalCardStrategy cgc : game.getBoard().getCommonGoalCards()) {
-                        if (cgc.conditionCheck(player.getBookshelf().getSlots()) && ! cgc.isCompletedByPlayer(player)) {
+                        if (cgc.conditionCheck(player.getBookshelf().getSlots()) && !cgc.isCompletedByPlayer(player)) {
                             cgc.addPlayer(player);
                         }
                     }
