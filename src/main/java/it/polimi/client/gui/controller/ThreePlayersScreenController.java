@@ -13,13 +13,21 @@ import it.polimi.server.model.Player;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * <p>ThreePlayersScreenController class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class ThreePlayersScreenController implements GenericInterface, Initializable {
+    /** Constant <code>name="three-players-screen"</code> */
     public static final String name ="three-players-screen";
     private GUI gui;
     public Label L3;
     public Label L4;
     public final String dim = "1920x1080";
     private Stage stage;
+    /** {@inheritDoc} */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -34,27 +42,37 @@ public class ThreePlayersScreenController implements GenericInterface, Initializ
                 t3_1_5, t3_3_5, t3_5_5, t3_7_5, t3_9_5, t3_11_5,
                 t3_1_7, t3_3_7, t3_5_7, t3_7_7, t3_9_7, t3_11_7,
                 t3_1_9, t3_3_9, t3_5_9, t3_7_9, t3_9_9, t3_11_9;
+    /** {@inheritDoc} */
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;
     }
+    /** {@inheritDoc} */
     @Override
     public String getDimensions() {
         return  this.dim;
     }
+    /** {@inheritDoc} */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 
+    /**
+     * <p>onBackPress.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     */
     public void onBackPress(ActionEvent event) {
         stage.hide();
     }
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return name;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void update() {
         List<Label> textFields = List.of(L3, L4);

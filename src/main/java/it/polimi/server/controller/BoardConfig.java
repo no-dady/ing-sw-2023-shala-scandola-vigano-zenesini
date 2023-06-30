@@ -7,6 +7,9 @@ import it.polimi.util.Parser;
 
 /**
  * The type Board config.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class BoardConfig {
 

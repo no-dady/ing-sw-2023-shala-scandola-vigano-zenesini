@@ -9,8 +9,12 @@ import java.util.Arrays;
 
 /**
  * The type Square check.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class SquareCheck extends CommonGoalCardStrategy implements Serializable {
+    /** Constant <code>className="SquareCheck"</code> */
     public static final String className = "SquareCheck";
     private final String name;
 
@@ -23,15 +27,22 @@ public class SquareCheck extends CommonGoalCardStrategy implements Serializable 
      * Instantiates a new Square check.
      *
      * @param numToLook the num to look
+     * @param name a {@link java.lang.String} object
      */
     public SquareCheck(int numToLook, String name){
         this.numToLook = numToLook;
         this.name = name;
     }
+    /** {@inheritDoc} */
     @Override
     public String getClassName() {
         return className;
     }
+    /**
+     * <p>Getter for the field <code>name</code>.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public String getName() {
         return name;
     }
@@ -45,6 +56,7 @@ public class SquareCheck extends CommonGoalCardStrategy implements Serializable 
         return Arrays.stream(toCheck).distinct().count() == 1;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean conditionCheck(Tile[][] shelf) {
         int count = 0;

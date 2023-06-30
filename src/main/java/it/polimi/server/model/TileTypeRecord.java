@@ -5,6 +5,9 @@ import java.util.List;
 
 /**
  * The type Tile type record.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class TileTypeRecord implements Serializable {
     /**

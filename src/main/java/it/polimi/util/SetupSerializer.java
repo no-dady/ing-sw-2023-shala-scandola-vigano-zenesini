@@ -8,6 +8,12 @@ import it.polimi.setup.SetupFirst;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
+/**
+ * <p>SetupSerializer class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class SetupSerializer implements JsonSerializer<Setup>, JsonDeserializer<Setup> {
 
     private static final HashMap<String, Class> classNameMap = new HashMap<>();
@@ -19,6 +25,7 @@ public class SetupSerializer implements JsonSerializer<Setup>, JsonDeserializer<
         classNameMap.put(SetupAll.className, SetupAll.class);
     }
 
+    /** {@inheritDoc} */
     @Override
     public Setup deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         String className = json.getAsJsonObject().get(CLASSNAME).getAsString();
@@ -26,6 +33,7 @@ public class SetupSerializer implements JsonSerializer<Setup>, JsonDeserializer<
         return context.deserialize(json.getAsJsonObject().get(INSTANCE), c);
     }
 
+    /** {@inheritDoc} */
     @Override
     public JsonElement serialize(Setup setup, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject ret = new JsonObject();

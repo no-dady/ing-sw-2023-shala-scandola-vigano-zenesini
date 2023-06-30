@@ -5,10 +5,16 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import it.polimi.server.model.Tile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * <p>PocketBuilderTest class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class PocketBuilderTest extends TestCase {
     public PocketBuilder x = new PocketBuilder();
     public final AtomicReference<ArrayList<Tile>> pocket = new AtomicReference<ArrayList<Tile>>();
@@ -20,14 +26,17 @@ public class PocketBuilderTest extends TestCase {
     public PocketBuilderTest( String testName) { super( testName );
     }
     /**
+     * <p>suite.</p>
+     *
      * @return the suite of tests being tested
      */
     public static Test suite() {return new TestSuite( PocketBuilderTest.class );}
 
     /**
      * Rigourous Test :-)
+     *
      */
-    public void test_Pocket() throws IOException {
+    public void test_Pocket() {
         int i;
         int n = 132;
         ArrayList<Tile> pocket = x.createTileListPocket(n);

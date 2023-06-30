@@ -9,6 +9,12 @@ import java.net.Socket;
 import java.rmi.RemoteException;
 
 
+/**
+ * <p>ClientSkeleton class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class ClientSkeleton implements ClientInterface, Runnable {
 
     private final Socket socket;
@@ -24,6 +30,13 @@ public class ClientSkeleton implements ClientInterface, Runnable {
     private boolean isActive = false;
 
 
+    /**
+     * <p>Constructor for ClientSkeleton.</p>
+     *
+     * @param socket a {@link java.net.Socket} object
+     * @param server a {@link it.polimi.server.network.Server} object
+     * @throws java.rmi.RemoteException if any.
+     */
     public ClientSkeleton(Socket socket, Server server) throws RemoteException {
         this.socket = socket;
         this.server = server;
@@ -33,6 +46,7 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         return setup.getParameter() != null;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void send(String json) throws RemoteException {
         try {
@@ -44,9 +58,10 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void run() {
-        System.out.println("Start thread");
+        //System.out.println("Start thread");
         try {
             DataInputStream in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
@@ -92,8 +107,9 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
-    public void close() throws IOException {
+    public void close() {
         try {
             out.writeInt(1);
             out.flush();
@@ -102,14 +118,27 @@ public class ClientSkeleton implements ClientInterface, Runnable {
         }
     }
 
+    /**
+     * <p>getNickname.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public String getNickname() {
         return this.nickName;
     }
 
+    /**
+     * <p>isActive.</p>
+     *
+     * @return a boolean
+     */
     public boolean isActive() {
         return isActive;
     }
 
+    /**
+     * <p>closeConnection.</p>
+     */
     public void closeConnection()
     {
         isActive = false;

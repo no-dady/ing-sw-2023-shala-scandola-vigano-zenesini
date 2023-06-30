@@ -8,6 +8,12 @@ import it.polimi.moves.MoveSelectTiles;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
+/**
+ * <p>MoveSerializer class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class MoveSerializer implements JsonSerializer<Move>, JsonDeserializer<Move> {
     private static final HashMap<String, Class> classNameMap = new HashMap<>();
     private static final String CLASSNAME = "CLASSNAME";
@@ -20,6 +26,7 @@ public class MoveSerializer implements JsonSerializer<Move>, JsonDeserializer<Mo
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public Move deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         String className = json.getAsJsonObject().get(CLASSNAME).getAsString();
@@ -28,14 +35,15 @@ public class MoveSerializer implements JsonSerializer<Move>, JsonDeserializer<Mo
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public JsonElement serialize(Move move, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject ret = new JsonObject();
         ret.addProperty(CLASSNAME, move.getClassName());
-        System.out.println(move.getClassName());
+        //System.out.println(move.getClassName());
         JsonElement e = context.serialize(move);
         ret.add(INSTANCE, e);
-        System.out.println(ret);
+        //System.out.println(ret);
         return ret;
     }
 }

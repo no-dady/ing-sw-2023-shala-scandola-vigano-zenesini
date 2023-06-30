@@ -9,6 +9,9 @@ import it.polimi.observer.Observable;
 
 /**
  * The type Pocket.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class Pocket implements Serializable, Observable<Message> {
     private final ArrayList<Tile> tileList;
@@ -54,6 +57,7 @@ public class Pocket implements Serializable, Observable<Message> {
 
     private transient final List<Observer<Message>> observers = new ArrayList<>();
 
+    /** {@inheritDoc} */
     @Override
     public void addObserver(Observer<Message> observer){
         synchronized (observers) {
@@ -61,6 +65,7 @@ public class Pocket implements Serializable, Observable<Message> {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void notify(Message message) {
         synchronized (observers) {

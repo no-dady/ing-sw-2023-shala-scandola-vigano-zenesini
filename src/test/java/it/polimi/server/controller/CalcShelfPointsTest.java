@@ -1,7 +1,6 @@
 package it.polimi.server.controller;
 
 import com.google.gson.reflect.TypeToken;
-import it.polimi.server.cgc.StraightDirection;
 import it.polimi.server.cgc.StraightDirectionCGCTest;
 import it.polimi.server.model.Bookshelf;
 import it.polimi.server.model.Tile;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +19,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class CalcShelfPointsTest {
 
 
+    /**
+     * <p>printShelf.</p>
+     *
+     * @param shelf an array of {@link it.polimi.server.model.Tile} objects
+     */
     public static void printShelf(Tile[][] shelf) {
         System.out.println();
         for(int i = 5; i >= 0; i--) {
@@ -32,6 +35,13 @@ class CalcShelfPointsTest {
         }
     }
 
+    /**
+     * <p>getTilesForTest.</p>
+     *
+     * @param jsonPath a {@link java.lang.String} object
+     * @return a {@link java.util.List} object
+     * @throws java.io.IOException if any.
+     */
     public static List<Tile[][]> getTilesForTest(String jsonPath) throws IOException {
         BufferedReader reader = Files.newBufferedReader(Paths.get(Parser.getResourcePath(jsonPath)));
         String json = reader.lines().collect(Collectors.joining());

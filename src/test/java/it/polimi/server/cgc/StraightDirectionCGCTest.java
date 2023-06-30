@@ -1,19 +1,13 @@
 package it.polimi.server.cgc;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import it.polimi.server.model.CommonGoalCardStrategy;
 import it.polimi.util.Parser;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import it.polimi.server.model.Bookshelf;
 import it.polimi.server.model.Tile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -22,11 +16,20 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit test for simple App.
+ *
+ * @author daniel
+ * @version $Id: $Id
+ * @since 1.0
  */
 public class StraightDirectionCGCTest
 {
     private CommonGoalCardStrategy toTest;
 
+    /**
+     * <p>printShelf.</p>
+     *
+     * @param shelf an array of {@link it.polimi.server.model.Tile} objects
+     */
     public static void printShelf(Tile[][] shelf) {
         System.out.println();
         for(int i = 5; i >= 0; i--) {
@@ -38,12 +41,24 @@ public class StraightDirectionCGCTest
         }
     }
 
+    /**
+     * <p>getTilesForTest.</p>
+     *
+     * @param jsonPath a {@link java.lang.String} object
+     * @return a {@link java.util.List} object
+     * @throws java.io.IOException if any.
+     */
     public static List<Tile[][]> getTilesForTest(String jsonPath) throws IOException {
         BufferedReader reader = Files.newBufferedReader(Paths.get(Parser.getResourcePath(jsonPath)));
         String json = reader.lines().collect(Collectors.joining());
         return Parser.fromJson(json, new TypeToken<List<Tile[][]>>(){}.getType());
     }
 
+    /**
+     * <p>testApp.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     @org.junit.jupiter.api.Test
     public void testApp() throws IOException {
         String path = "json/shelves/StraightDirectionTest";

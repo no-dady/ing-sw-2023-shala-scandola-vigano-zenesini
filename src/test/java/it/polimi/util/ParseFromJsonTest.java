@@ -15,6 +15,10 @@ import java.util.Map;
 
 /**
  * Unit test for simple App.
+ *
+ * @author daniel
+ * @version $Id: $Id
+ * @since 1.0
  */
 public class ParseFromJsonTest
     extends TestCase
@@ -31,6 +35,8 @@ public class ParseFromJsonTest
     }
 
     /**
+     * <p>suite.</p>
+     *
      * @return the suite of tests being tested
      */
     public static Test suite()

@@ -8,31 +8,48 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+/**
+ * <p>MoveSelectTiles class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class MoveSelectTiles implements Move {
     private final String nickName;
     private final int lobbyId;
     private String selectedTiles;
+    /** Constant <code>className="MoveSelectTiles"</code> */
     public static final String className = "MoveSelectTiles";
 
+    /**
+     * <p>Constructor for MoveSelectTiles.</p>
+     *
+     * @param nickName a {@link java.lang.String} object
+     * @param lobbyId a int
+     */
     public MoveSelectTiles(String nickName, int lobbyId) {
             this.nickName = nickName;
             this.lobbyId = lobbyId;
     }
+    /** {@inheritDoc} */
     @Override
     public String getNickName() {
         return this.nickName;
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getLobbyId() {
         return this.lobbyId;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getClassName() {
         return className;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean canPerform(Game game) {
         int min = Math.max(game.getBoard().getSlots()[0].length,game.getBoard().getSlots().length) , max = 0;
@@ -121,9 +138,19 @@ public class MoveSelectTiles implements Move {
         }
     }
 
+    /**
+     * <p>Setter for the field <code>selectedTiles</code>.</p>
+     *
+     * @param selectedTiles a {@link java.lang.String} object
+     */
     public void setSelectedTiles(String selectedTiles) {
         this.selectedTiles = selectedTiles;
     }
+    /**
+     * <p>Getter for the field <code>selectedTiles</code>.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public String getSelectedTiles(){
         return this.selectedTiles;
     }

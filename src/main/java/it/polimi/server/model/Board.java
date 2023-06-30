@@ -10,6 +10,9 @@ import it.polimi.util.Messages.Message;
 
 /**
  * The type Board.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class Board implements Serializable, Observable<Message> {
     private final ArrayList<CommonGoalCardStrategy> commonGoalCardStrategies = new ArrayList<>(2);
@@ -20,19 +23,22 @@ public class Board implements Serializable, Observable<Message> {
      *
      * @param slots the slots
      */
-
     public Board(Tile[][] slots) {
         this.slots = slots;
     }
 
+    /**
+     * <p>Constructor for Board.</p>
+     *
+     * @param slots an array of {@link it.polimi.server.model.Tile} objects
+     * @param numPlayers a int
+     */
     public Board(Tile[][] slots, int numPlayers){
-        System.out.println("Creating array");
-        System.out.println("Adding cgc");
         commonGoalCardStrategies.addAll(CommonGoalCardStrategy.getRandomCards());
         for (CommonGoalCardStrategy c: commonGoalCardStrategies) {
             c.setNumPlayers(numPlayers);
         }
-        System.out.println("Saving slots");
+        //System.out.println("Saving slots");
         this.slots = slots;
     }
 
@@ -83,6 +89,9 @@ public class Board implements Serializable, Observable<Message> {
     public ArrayList<CommonGoalCardStrategy> getCommonGoalCards() {
         return commonGoalCardStrategies;
     }
+    /**
+     * <p>updatePickable.</p>
+     */
     public void updatePickable() {
         int rows = slots.length;
         int cols = slots[0].length;
@@ -100,6 +109,7 @@ public class Board implements Serializable, Observable<Message> {
     private transient final List<Observer<Message>> observers = new ArrayList<>();
 
     
+    /** {@inheritDoc} */
     @Override
     public void addObserver(Observer<Message> observer){
         synchronized (observers) {
@@ -108,6 +118,7 @@ public class Board implements Serializable, Observable<Message> {
     }
 
     
+    /** {@inheritDoc} */
     @Override
     public void notify(Message message) {
         synchronized (observers) {

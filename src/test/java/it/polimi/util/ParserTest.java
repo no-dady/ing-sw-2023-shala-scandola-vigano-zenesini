@@ -3,7 +3,6 @@ package it.polimi.util;
 import it.polimi.client.network.State;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import it.polimi.server.model.Bookshelf;
 import it.polimi.server.model.Game;
 import it.polimi.server.model.Player;
 import it.polimi.util.Messages.*;

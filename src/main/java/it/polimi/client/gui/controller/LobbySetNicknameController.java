@@ -18,11 +18,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * <p>LobbySetNicknameController class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class LobbySetNicknameController implements GenericInterface, Initializable {
 
     Integer selectedNumber = null;
     public final String dim = "1000x830";
     private GUI gui;
+    /** Constant <code>name="lobby-set-nickname"</code> */
     public static final String name ="lobby-set-nickname";
     @FXML
     public ChoiceBox<String> playersNumberBox;
@@ -35,6 +42,7 @@ public class LobbySetNicknameController implements GenericInterface, Initializab
     @FXML
     public TextField nicknameField;
 
+    /** {@inheritDoc} */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         playersNumberBox.getItems().add("2");
@@ -42,11 +50,22 @@ public class LobbySetNicknameController implements GenericInterface, Initializab
         playersNumberBox.getItems().add("4");
 
     }
+    /**
+     * <p>onNumChoice.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     */
     @FXML
     public void onNumChoice(ActionEvent event) {
         selectedNumber = Integer.valueOf(playersNumberBox.getValue());
     }
 
+    /**
+     * <p>onSubmitClick.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     * @throws java.io.IOException if any.
+     */
     public void onSubmitClick(ActionEvent event) throws IOException {
         selectedNumber = Integer.parseInt(playersNumberBox.getValue());
         String nickname = nicknameField.getText();
@@ -55,24 +74,29 @@ public class LobbySetNicknameController implements GenericInterface, Initializab
             gui.getClient().getClientConnection().getServerInterface().sendSetupFirst(Parser.toJson(new GUISetupFirst().create(nickname, playersNumberBox.getValue()), SetupFirst.class));
         }
     }
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return name;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getDimensions() {
         return this.dim;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void update() {
 
     }
+    /** {@inheritDoc} */
     @Override
     public void setStage(Stage stage) {
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;

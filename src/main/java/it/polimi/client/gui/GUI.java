@@ -16,6 +16,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * <p>GUI class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class GUI extends Application implements UI {
     HashMap<String, FXMLLoader> loaderMap = new HashMap<>();
     HashMap<String, String> sizeMap = new HashMap<>();
@@ -24,32 +30,53 @@ public class GUI extends Application implements UI {
     private GenericInterface current;
     private String nickname = "";
 
+    /**
+     * <p>Getter for the field <code>nickname</code>.</p>
+     *
+     * @return a {@link java.lang.String} object
+     */
     public String getNickname() {
         return nickname;
     }
 
+    /**
+     * <p>Getter for the field <code>client</code>.</p>
+     *
+     * @return a {@link it.polimi.client.Client} object
+     */
     public Client getClient() {
         return client;
     }
 
     private static Client client;
 
+    /**
+     * <p>Constructor for GUI.</p>
+     */
     public GUI() {
         super();
     }
 
+    /** {@inheritDoc} */
     @Override
     public void update(){
         Platform.runLater(this::intUpdate);
     }
+    /**
+     * <p>entry.</p>
+     *
+     * @param client a {@link it.polimi.client.Client} object
+     */
     public static void entry(Client client) {
         GUI.client = client;
         launch("");
     }
 
+    /** {@inheritDoc} */
     @Override
     public void printServerMessage(String message) {}
 
+    /** {@inheritDoc} */
     public void start(Stage primaryStage) {
         client.setUi(this);
         primaryStage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResource("/images/icon.png")).toString()));
@@ -78,7 +105,7 @@ public class GUI extends Application implements UI {
                 this.loaderMap.put(controller.getName(), loader);
                 this.sizeMap.put(controller.getName(),controller.getDimensions());
             }
-            catch (Exception e){
+            catch (Exception ignored){
             }
         }
         this.activate(InitController.name);
@@ -108,9 +135,19 @@ public class GUI extends Application implements UI {
     }
 
 
+    /**
+     * <p>Setter for the field <code>nickname</code>.</p>
+     *
+     * @param nickname a {@link java.lang.String} object
+     */
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+    /**
+     * <p>activate.</p>
+     *
+     * @param name a {@link java.lang.String} object
+     */
     public void activate(String name) {
         FXMLLoader loader = this.loaderMap.get(name);
         String[] Dimensions = this.sizeMap.get(name).split("x");
@@ -122,9 +159,17 @@ public class GUI extends Application implements UI {
 
     }
 
+    /**
+     * <p>getGame.</p>
+     *
+     * @return a {@link it.polimi.server.model.Game} object
+     */
     public Game getGame(){
         return client.getGame();
     }
+    /**
+     * <p>stop.</p>
+     */
     public void stop() {
         Platform.exit();
         System.exit(0);

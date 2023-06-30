@@ -9,17 +9,29 @@ import java.rmi.RemoteException;
 
 /**
  * The type Server stub.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 //It implements the Server, but it will be used on the it.polimi.client-side to communicate
 public class ClientSocketMiddleware implements ServerInterface, Runnable {
-    private Client client;
+    private final Client client;
     private DataInputStream in;
     private DataOutputStream out;
 
-    private Socket socket;
+    private final Socket socket;
 
-    private ClientInterface clientinterface;
+    private final ClientInterface clientinterface;
 
+    /**
+     * <p>Constructor for ClientSocketMiddleware.</p>
+     *
+     * @param client a {@link it.polimi.client.Client} object
+     * @param ip a {@link java.lang.String} object
+     * @param port a int
+     * @param clientInterface a {@link it.polimi.client.network.ClientInterface} object
+     * @throws java.io.IOException if any.
+     */
     public ClientSocketMiddleware(Client client, String ip, int port, ClientInterface clientInterface) throws IOException {
         this.client = client;
         this.clientinterface = clientInterface;
@@ -27,6 +39,7 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         socket = new Socket(ip, port);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void run()
     {
@@ -71,10 +84,12 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void register(ClientInterface client) throws RemoteException
     {}
 
+    /** {@inheritDoc} */
     @Override
     public void sendAction(String json) throws RemoteException
     {
@@ -90,6 +105,7 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void sendSetupFirst(String json) throws RemoteException
     {
@@ -105,6 +121,7 @@ public class ClientSocketMiddleware implements ServerInterface, Runnable {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void sendSetupAll(String json) throws RemoteException
     {

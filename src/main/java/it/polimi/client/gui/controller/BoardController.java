@@ -30,12 +30,19 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.*;
 
+/**
+ * <p>BoardController class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class BoardController implements GenericInterface, Initializable {
     public Label P1;
     public Label P2;
     private GUI gui;
     private GenericInterface popupController;
     public final String dim = "1920x1000";
+    /** Constant <code>name="board"</code> */
     public static final String name ="board";
     @FXML //utils label
     public Label L1, L2;
@@ -73,19 +80,27 @@ public class BoardController implements GenericInterface, Initializable {
 
 
 
+    /** {@inheritDoc} */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
+    /** {@inheritDoc} */
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;
     }
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return name;
     }
 
+    /**
+     * <p>onArrowOnePress.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     */
     public void onArrowOnePress(ActionEvent event) {
         if(selectedColumn==0){
             selectedColumn = 1;
@@ -94,6 +109,11 @@ public class BoardController implements GenericInterface, Initializable {
             end_turn.setDisable(false);
         }
     }
+    /**
+     * <p>onArrowTwoPress.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     */
     public void onArrowTwoPress(ActionEvent event) {
         if(selectedColumn==0){
             selectedColumn = 2;
@@ -102,6 +122,11 @@ public class BoardController implements GenericInterface, Initializable {
             end_turn.setDisable(false);
         }
     }
+    /**
+     * <p>onArrowThreePress.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     */
     public void onArrowThreePress(ActionEvent event) {
         if(selectedColumn==0){
             selectedColumn = 3;
@@ -110,6 +135,11 @@ public class BoardController implements GenericInterface, Initializable {
             end_turn.setDisable(false);
         }
     }
+    /**
+     * <p>onArrowFourPress.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     */
     public void onArrowFourPress(ActionEvent event) {
         if(selectedColumn==0){
             selectedColumn = 4;
@@ -118,6 +148,11 @@ public class BoardController implements GenericInterface, Initializable {
             end_turn.setDisable(false);
         }
     }
+    /**
+     * <p>onArrowFivePress.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     */
     public void onArrowFivePress(ActionEvent event) {
         if(selectedColumn==0){
             selectedColumn = 5;
@@ -127,6 +162,12 @@ public class BoardController implements GenericInterface, Initializable {
         }
     }
 
+    /**
+     * <p>onPlayerButtonPress.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     * @throws java.io.IOException if any.
+     */
     public void onPlayerButtonPress(ActionEvent event) throws IOException {
         loader = new FXMLLoader();
         Parent layout;
@@ -158,21 +199,22 @@ public class BoardController implements GenericInterface, Initializable {
         popupStage.showAndWait();
 
     }
+    /**
+     * <p>onConfirmButtonPress.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     * @throws java.rmi.RemoteException if any.
+     */
     public void onConfirmButtonPress(ActionEvent event) throws RemoteException { //when you confirm your actions
             String temp = "";
 
             for (Pane entry : selectedIds) {
                 char x = (char) (entry.getId().charAt(2) - '1' + 'A');
                 char y = (entry.getId().charAt(4));
-                temp += (x + "" + y + " ");
-                for (Pane r : changedBookshelfTiles
-                ) {
-                    System.out.println(r.getId());
-
-                }
+                temp += (x + String.valueOf(y) + " ");
             }
 
-            System.out.println(temp);
+            //System.out.println(temp);
             tileMove = (MoveSelectTiles) new GUISelectTiles(gui.getNickname(), gui.getClient().getLobbyId() , temp.substring(0,temp.length()-1)).updateGUI(gui.getGame());
 
             if (tileMove != null) {
@@ -234,15 +276,23 @@ public class BoardController implements GenericInterface, Initializable {
                 count = 0;
             }
     }
+    /** {@inheritDoc} */
     @Override
     public String getDimensions() {
         return  this.dim;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setStage(Stage stage) {
     }
 
+    /**
+     * <p>onEndTurnButtonPress.</p>
+     *
+     * @param event1 a {@link javafx.event.ActionEvent} object
+     * @throws java.rmi.RemoteException if any.
+     */
     public void onEndTurnButtonPress(ActionEvent event1) throws RemoteException { //if you press the end button
         if(end_turn.getText().equals("End turn")){ //when you end your action
             gui.getClient().getClientConnection().getServerInterface().sendAction(Parser.toJson(columnMove, Move.class));
@@ -307,6 +357,11 @@ public class BoardController implements GenericInterface, Initializable {
         }
     }
 
+    /**
+     * <p>onTilePressed.</p>
+     *
+     * @param p a {@link javafx.scene.layout.Pane} object
+     */
     public void onTilePressed(Pane p) { //this method add tiles to the selected ones and show them on the selection panel
         if(action) {
             List<Pane> frames = List.of(first_tile, second_tile, third_tile);
@@ -326,6 +381,7 @@ public class BoardController implements GenericInterface, Initializable {
     }
 
 
+    /** {@inheritDoc} */
     @Override
     public void update() {
         if (gui.getClient().getState().equals(State.MYTURN)) action = true;

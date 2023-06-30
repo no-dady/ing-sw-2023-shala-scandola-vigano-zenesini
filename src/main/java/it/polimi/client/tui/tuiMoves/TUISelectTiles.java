@@ -7,11 +7,24 @@ import it.polimi.server.model.Game;
 
 import java.util.Scanner;
 
+/**
+ * <p>TUISelectTiles class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class TUISelectTiles implements TUIMoveInterface {
     public final MoveSelectTiles move;
+    /**
+     * <p>Constructor for TUISelectTiles.</p>
+     *
+     * @param nickName a {@link java.lang.String} object
+     * @param lobbyId a int
+     */
     public TUISelectTiles(String nickName, int lobbyId){
         this.move = new MoveSelectTiles(nickName, lobbyId);
     }
+    /** {@inheritDoc} */
     @Override
     public Move updateCLI(Game game, Scanner stdin) {
         String selectedTiles;
@@ -40,6 +53,7 @@ public class TUISelectTiles implements TUIMoveInterface {
         return move;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean canPerform(Game game) {
         return move.canPerform(game);

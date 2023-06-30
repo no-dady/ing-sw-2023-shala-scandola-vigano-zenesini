@@ -10,6 +10,9 @@ import java.util.Set;
 
 /**
  * The type Pocket builder.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class PocketBuilder {
     /**

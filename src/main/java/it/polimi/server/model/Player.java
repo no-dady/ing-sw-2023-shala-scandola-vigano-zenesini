@@ -10,6 +10,9 @@ import it.polimi.util.Messages.Message;
 
 /**
  * The type Player.
+ *
+ * @author daniel
+ * @version $Id: $Id
  */
 public class Player implements Serializable, Observable<Message> {
     private final int userId;
@@ -62,6 +65,11 @@ public class Player implements Serializable, Observable<Message> {
     {
         return this.personalBookshelf;
     }
+    /**
+     * <p>Setter for the field <code>personalBookshelf</code>.</p>
+     *
+     * @param personalBookshelf a {@link it.polimi.server.model.Bookshelf} object
+     */
     public void setPersonalBookshelf(Bookshelf personalBookshelf) {
         this.personalBookshelf = personalBookshelf;
     }
@@ -108,6 +116,7 @@ public class Player implements Serializable, Observable<Message> {
 
     private transient final List<Observer<Message>> observers = new ArrayList<>();
 
+    /** {@inheritDoc} */
     @Override
     public void addObserver(Observer<Message> observer){
         synchronized (observers) {
@@ -115,6 +124,7 @@ public class Player implements Serializable, Observable<Message> {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public void notify(Message message) {
         synchronized (observers) {

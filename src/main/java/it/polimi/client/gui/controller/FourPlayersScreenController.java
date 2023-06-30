@@ -13,7 +13,14 @@ import it.polimi.server.model.Player;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * <p>FourPlayersScreenController class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class FourPlayersScreenController implements GenericInterface, Initializable {
+    /** Constant <code>name="four-players-screen"</code> */
     public static final String name = "four-players-screen";
     public final String dim = "1920x1080";
     public Label L3;
@@ -22,6 +29,7 @@ public class FourPlayersScreenController implements GenericInterface, Initializa
     private GUI gui;
     private Stage stage;
 
+    /** {@inheritDoc} */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -44,24 +52,33 @@ public class FourPlayersScreenController implements GenericInterface, Initializa
                 t4_1_7, t4_3_7, t4_5_7, t4_7_7, t4_9_7, t4_11_7,
                 t4_1_9, t4_3_9, t4_5_9, t4_7_9, t4_9_9, t4_11_9;
 
+    /** {@inheritDoc} */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
+    /**
+     * <p>onBackPress.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     */
     public void onBackPress(ActionEvent event) {
         stage.hide();
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return name;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getDimensions() {
         return  this.dim;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void update() {
         List<Label> textFields = List.of(L3,L4,L5);
@@ -176,6 +193,7 @@ public class FourPlayersScreenController implements GenericInterface, Initializa
             }
         }
 
+    /** {@inheritDoc} */
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;

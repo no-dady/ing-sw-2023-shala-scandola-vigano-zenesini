@@ -14,6 +14,12 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * <p>LobbyWaitController class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class LobbyWaitController implements GenericInterface, Initializable {
     @FXML
     public ImageView spinning_cat;
@@ -24,7 +30,9 @@ public class LobbyWaitController implements GenericInterface, Initializable {
     public Label player_2 = null;
     public Label player_3 = null;
     public Label player_4 = null;
+    /** Constant <code>name="lobby-wait"</code> */
     public static final String name ="lobby-wait";
+    /** {@inheritDoc} */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         RotateTransition spinning = new RotateTransition();
@@ -37,24 +45,29 @@ public class LobbyWaitController implements GenericInterface, Initializable {
 
         spinning.play();
     }
+    /** {@inheritDoc} */
     @Override
     public String getDimensions() {
         return  this.dim;
     }
 
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return name;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;
     }
+    /** {@inheritDoc} */
     @Override
     public void setStage(Stage stage) {
     }
 
+    /** {@inheritDoc} */
     @Override
     public void update() {
         if(gui!=null){

@@ -6,12 +6,25 @@ import it.polimi.server.model.Game;
 
 import java.util.Scanner;
 
+/**
+ * <p>TUISelectColumn class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class TUISelectColumn implements TUIMoveInterface {
     public final MoveSelectColumn move;
 
+    /**
+     * <p>Constructor for TUISelectColumn.</p>
+     *
+     * @param nickName a {@link java.lang.String} object
+     * @param lobbyId a int
+     */
     public TUISelectColumn(String nickName, int lobbyId){
         this.move = new MoveSelectColumn(nickName, lobbyId);
     }
+    /** {@inheritDoc} */
     @Override
     public Move updateCLI(Game game, Scanner stdin) {
         int selectedColumn;
@@ -29,6 +42,7 @@ public class TUISelectColumn implements TUIMoveInterface {
         return move;
     }
 
+    /** {@inheritDoc} */
     @Override
     public boolean canPerform(Game game) {
        return move.canPerform(game);

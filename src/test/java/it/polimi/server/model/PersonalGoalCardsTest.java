@@ -16,6 +16,13 @@ import java.nio.file.Paths;
 
 import java.util.List;
 
+/**
+ * <p>PersonalGoalCardsTest class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ * @since 1.0
+ */
 public class PersonalGoalCardsTest extends TestCase {
     public List<Tile[][]> shelves;
     public List<PersonalGoalCard> pgcList;
@@ -47,6 +54,8 @@ public class PersonalGoalCardsTest extends TestCase {
     }
 
     /**
+     * <p>suite.</p>
+     *
      * @return the suite of tests being tested
      */
     public static Test suite()
@@ -57,8 +66,9 @@ public class PersonalGoalCardsTest extends TestCase {
     /**
      * Rigourous Test :-)
      *
+     * @param pgc a {@link it.polimi.server.model.PersonalGoalCard} object
+     * @throws java.io.IOException if any.
      */
-
     public void Print(PersonalGoalCard pgc) throws IOException {
         String art = ConfigsFromJson.getArt(Parser.getResourcePath("json/board_bookshelf_pgc_art.json"));
                 int x = Bookshelf.getRows()+10, y = 0;
@@ -94,6 +104,11 @@ public class PersonalGoalCardsTest extends TestCase {
         }
 
 
+    /**
+     * <p>testPersonalGoalCard1.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void testPersonalGoalCard1() throws IOException {
         Tile[][] shelf = shelves.get(0);
         System.out.println();
@@ -103,6 +118,11 @@ public class PersonalGoalCardsTest extends TestCase {
         assertEquals("PGC1 Not Passed", card.completed(shelf), 6);
     }
 
+    /**
+     * <p>testPersonalGoalCard2.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void testPersonalGoalCard2() throws IOException {
         Tile[][] shelf = shelves.get(1);
         System.out.println();
@@ -111,6 +131,11 @@ public class PersonalGoalCardsTest extends TestCase {
         assertEquals("PGC2 Not Passed", card.completed(shelf), 6);
     }
 
+    /**
+     * <p>testPersonalGoalCard3.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void testPersonalGoalCard3() throws IOException {
         Tile[][] shelf = shelves.get(2);
         System.out.println();
@@ -119,6 +144,11 @@ public class PersonalGoalCardsTest extends TestCase {
         assertEquals("PGC3 Not Passed", card.completed(shelf), 6);
     }
 
+    /**
+     * <p>testPersonalGoalCard4.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void testPersonalGoalCard4() throws IOException {
         Tile[][] shelf = shelves.get(3);
         System.out.println();
@@ -127,6 +157,11 @@ public class PersonalGoalCardsTest extends TestCase {
         assertEquals("PGC4 Not Passed", card.completed(shelf), 6);
     }
 
+    /**
+     * <p>testPersonalGoalCard5.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void testPersonalGoalCard5() throws IOException {
         Tile[][] shelf = shelves.get(4);
         System.out.println();
@@ -134,6 +169,11 @@ public class PersonalGoalCardsTest extends TestCase {
         Print(card);
         assertEquals("PGC5 Not Passed", card.completed(shelf), 6);    }
 
+    /**
+     * <p>testPersonalGoalCard6.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void testPersonalGoalCard6() throws IOException {
         Tile[][] shelf = shelves.get(5);
         System.out.println();
@@ -141,6 +181,11 @@ public class PersonalGoalCardsTest extends TestCase {
         Print(card);
         assertEquals("PGC6 Not Passed", card.completed(shelf), 6);    }
 
+    /**
+     * <p>testPersonalGoalCard7.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void testPersonalGoalCard7() throws IOException {
         Tile[][] shelf = shelves.get(6);
         System.out.println();
@@ -148,6 +193,11 @@ public class PersonalGoalCardsTest extends TestCase {
         Print(card);
         assertEquals("PGC7 Not Passed", card.completed(shelf), 6);    }
 
+    /**
+     * <p>testPersonalGoalCard8.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void testPersonalGoalCard8() throws IOException {
         Tile[][] shelf = shelves.get(7);
         System.out.println();
@@ -155,6 +205,11 @@ public class PersonalGoalCardsTest extends TestCase {
         Print(card);
         assertEquals("PGC8 Not Passed", card.completed(shelf), 6);    }
 
+    /**
+     * <p>testPersonalGoalCard9.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void testPersonalGoalCard9() throws IOException {
         Tile[][] shelf = shelves.get(8);
         System.out.println();
@@ -162,6 +217,11 @@ public class PersonalGoalCardsTest extends TestCase {
         Print(card);
         assertEquals("PGC9 Not Passed", card.completed(shelf), 6);    }
 
+    /**
+     * <p>testPersonalGoalCard10.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void testPersonalGoalCard10() throws IOException {
         Tile[][] shelf = shelves.get(9);
         System.out.println();
@@ -169,6 +229,11 @@ public class PersonalGoalCardsTest extends TestCase {
         Print(card);
         assertEquals("PGC10 Not Passed", card.completed(shelf), 6);    }
 
+    /**
+     * <p>testPersonalGoalCard11.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void testPersonalGoalCard11() throws IOException {
         Tile[][] shelf = shelves.get(10);
         System.out.println();
@@ -176,6 +241,11 @@ public class PersonalGoalCardsTest extends TestCase {
         Print(card);
         assertEquals("PGC11 Not Passed", card.completed(shelf), 6);    }
 
+    /**
+     * <p>testPersonalGoalCard12.</p>
+     *
+     * @throws java.io.IOException if any.
+     */
     public void testPersonalGoalCard12() throws IOException {
         Tile[][] shelf = shelves.get(11);
         System.out.println();

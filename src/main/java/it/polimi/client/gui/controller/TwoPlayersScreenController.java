@@ -13,10 +13,18 @@ import it.polimi.server.model.Player;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * <p>TwoPlayersScreenController class.</p>
+ *
+ * @author daniel
+ * @version $Id: $Id
+ */
 public class TwoPlayersScreenController implements GenericInterface, Initializable {
+    /** Constant <code>name="two-players-screen"</code> */
     public static final String name ="two-players-screen";
     public Label L3;
     private Stage stage;
+    /** {@inheritDoc} */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -27,6 +35,7 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
                 t2_1_9, t2_3_9, t2_5_9, t2_7_9, t2_9_9, t2_11_9;
     private GUI gui;
     public final String dim = "1920x1080";
+    /** {@inheritDoc} */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
@@ -36,14 +45,21 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
     }
 
 
+    /**
+     * <p>onBackPress.</p>
+     *
+     * @param event a {@link javafx.event.ActionEvent} object
+     */
     public void onBackPress(ActionEvent event) {
         stage.hide();
     }
+    /** {@inheritDoc} */
     @Override
     public String getName() {
         return name;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void update() {
         HashMap<Pane, Coordinates> bookshelfMap1 = new HashMap<>();
@@ -94,11 +110,13 @@ public class TwoPlayersScreenController implements GenericInterface, Initializab
             }
         }
     }
+    /** {@inheritDoc} */
     @Override
     public String getDimensions() {
         return  this.dim;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void setGUI(GUI gui) {
         this.gui = gui;
