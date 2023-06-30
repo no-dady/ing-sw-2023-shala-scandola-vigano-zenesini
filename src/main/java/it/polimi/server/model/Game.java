@@ -33,7 +33,7 @@ public class Game implements Serializable, Observable<Message> {
      */
     public Game() {
         this.players = new ArrayList<>();
-        this.cgcs = null;
+        this.cgcs = CommonGoalCardStrategy.getRandomCards();;
         this.board = new Board(BoardConfig.newEmptyBoard());
         this.pocket = new Pocket();
         this.numPlayers = 0;
