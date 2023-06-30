@@ -161,6 +161,7 @@ public class TUI implements UI, Runnable {
             }
             case GAMEENDED -> {
                 printEndGame();
+                System.exit(0);
             }
             case SETUPFIRST -> {
                 SetupFirst setup = new TUISetupFirst().create(in, true);
