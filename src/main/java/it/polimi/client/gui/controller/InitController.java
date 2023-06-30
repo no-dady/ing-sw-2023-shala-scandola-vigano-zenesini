@@ -16,8 +16,6 @@ import java.net.URL;
 import java.rmi.NotBoundException;
 import java.util.ResourceBundle;
 
-import static java.lang.Thread.sleep;
-
 public class InitController implements GenericInterface, Initializable {
     private GUI gui;
     public final String dim = "1386x430";
@@ -49,7 +47,7 @@ public class InitController implements GenericInterface, Initializable {
 
 
     @FXML
-    public void onPlayButtonClick(ActionEvent event) throws IOException, InterruptedException, NotBoundException {
+    public void onPlayButtonClick(ActionEvent event) throws IOException, NotBoundException {
         do {
             Ip = ip_field.getText();
             System.out.println(Ip);
@@ -72,7 +70,7 @@ public class InitController implements GenericInterface, Initializable {
 
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override

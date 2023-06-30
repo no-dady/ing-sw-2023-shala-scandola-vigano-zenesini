@@ -18,6 +18,7 @@ import java.lang.reflect.Type;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 public class Parser {
     private static final Gson gson;
@@ -41,8 +42,6 @@ public class Parser {
         builder.registerTypeAdapter(Move.class, new MoveSerializer());
         builder.registerTypeAdapter(CommonGoalCardStrategy.class, new CommonGoalSerializer());
         builder.addSerializationExclusionStrategy(strategy);
-        //builder.serializeNulls();
-        //builder.setPrettyPrinting();
 
         gson = builder.create();
     }
@@ -51,7 +50,7 @@ public class Parser {
         URL resource = ClassLoader.getSystemClassLoader().getResource(filename);
 
         try {
-            File file = Paths.get(resource.toURI()).toFile();
+            File file = Paths.get(Objects.requireNonNull(resource).toURI()).toFile();
             return file.getAbsolutePath();
         } catch (Exception e) {
             throw new IOException(e);

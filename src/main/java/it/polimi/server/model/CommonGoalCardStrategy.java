@@ -21,7 +21,7 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
      */
     protected static List<CommonGoalCardStrategy> listCommonGoalList;
     private Queue<Integer> points = new LinkedList<>();
-    private String nameCgC = "";
+    private final String nameCgC = "";
 
     private int numPlayers;
 
@@ -38,7 +38,7 @@ public abstract class CommonGoalCardStrategy implements Serializable, Observable
     public String getName() {
         return nameCgC;
     }
-    private HashMap<String, Integer> completedMap = new HashMap<>();
+    private final HashMap<String, Integer> completedMap = new HashMap<>();
     public void Print() throws IOException {
         System.out.println(ConfigsFromJson.getArt(Parser.getResourcePath("json/cgcArts/" + this.getName() + ".json")));
     }

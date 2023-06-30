@@ -157,7 +157,7 @@ public class BoardController implements GenericInterface, Initializable {
 
     }
     public void onConfirmButtonPress(ActionEvent event) throws RemoteException { //when you confirm your actions
-            String temp = new String();
+            String temp = "";
 
             for (Pane entry : selectedIds) {
                 char x = (char) (entry.getId().charAt(2) - '1' + 'A');
@@ -489,7 +489,7 @@ public class BoardController implements GenericInterface, Initializable {
                     }
 
                     for(i = 0; i < Bookshelf.getCols(); i++){ //initializing arrow buttons - what columns you can select
-                        if(bookshelf.getEmptyTilesColumn(i) >= selectedIds.size()){
+                        if(Objects.requireNonNull(bookshelf).getEmptyTilesColumn(i) >= selectedIds.size()){
                             arrows.get(i).setDisable(false);
                             int finalI = i;
                             arrows.get(i).setOnMouseEntered(event -> {
@@ -527,7 +527,7 @@ public class BoardController implements GenericInterface, Initializable {
         for (Pane p : bookshelfMap.keySet()) {
             int x = bookshelfMap.get(p).x() - 1;
             int y = bookshelfMap.get(p).y() -1;
-            if (bookshelf.getSlots()[y][x] != null && !(bookshelf.getSlots()[y][x].Empty())) {
+            if (Objects.requireNonNull(bookshelf).getSlots()[y][x] != null && !(bookshelf.getSlots()[y][x].Empty())) {
                 String imageUrl = Objects.requireNonNull(getClass().getResource("/images/itemTiles/" + bookshelf.getSlots()[y][x].getImage())).toExternalForm();
                 p.setStyle("-fx-background-image: url('" + imageUrl + "');");
             }else {
@@ -552,7 +552,7 @@ public class BoardController implements GenericInterface, Initializable {
             //preview on the bookshelf
             if (selectedColumn > 0 && selectedColumn <= Bookshelf.getCols() && selectedIds.size() != 0) {
                 int ind = 0;
-                int first = bookshelf.lastTileOnColumnIndex(selectedColumn - 1 ) + 1;
+                int first = Objects.requireNonNull(bookshelf).lastTileOnColumnIndex(selectedColumn - 1 ) + 1;
                 HashMap<Pane,Integer> k = new HashMap<>();
                     for (Pane x : bookshelfMap.keySet()) {if (bookshelfMap.get(x).x() == selectedColumn) {k.put(x, bookshelfMap.get(x).y());}}
                     while (ind < selectedIds.size()) {

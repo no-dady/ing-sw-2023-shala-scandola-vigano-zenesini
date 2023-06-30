@@ -71,7 +71,7 @@ public class GameController implements Observer<Action>{
     /**
      * Start.
      */
-    public void start() throws InterruptedException {
+    public void start() {
         game.setGameStarted(true);
         try {
         for (Player p : game.getPlayers()) {
@@ -171,11 +171,7 @@ public class GameController implements Observer<Action>{
                 return true;
             }
         }
-        if (boardToRefill() && game.getPocket().getLeft() == 0)
-        {
-            return true;
-        }
-       return false;
+        return boardToRefill() && game.getPocket().getLeft() == 0;
     }
 
     public Game getGame(){
@@ -195,7 +191,7 @@ public class GameController implements Observer<Action>{
                             cgc.addPlayer(player);
                         }
                     }
-                } catch (NullPointerException e) {
+                } catch (NullPointerException ignored) {
                 }
                 if (gameEnded()) {
                     calculatePoints();

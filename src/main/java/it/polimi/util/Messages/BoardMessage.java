@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 
 public class BoardMessage implements Message{
     public static final String className = "BoardMessage";
-    private Board board;
+    private final Board board;
 
     public BoardMessage(Board board)
     {
@@ -15,8 +15,7 @@ public class BoardMessage implements Message{
     }
 
     @Override
-    public void handleMessage(Client client) throws RemoteException
-    {
+    public void handleMessage(Client client) {
         client.getGame().setBoard(board);
     }
 

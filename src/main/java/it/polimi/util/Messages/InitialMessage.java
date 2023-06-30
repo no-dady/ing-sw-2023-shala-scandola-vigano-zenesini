@@ -14,7 +14,7 @@ public class InitialMessage implements Message {
     }
 
     @Override
-    public void handleMessage(Client client) throws RemoteException {
+    public void handleMessage(Client client) {
         client.setGame(game);
     }
 

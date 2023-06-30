@@ -1,7 +1,6 @@
 package it.polimi.server.model;
 
 import java.io.Serializable;
-import java.util.Optional;
 
 
 /**
@@ -9,7 +8,7 @@ import java.util.Optional;
  */
 public class Tile implements Serializable {
     private Integer tileID;
-    private TileType tileType;
+    private final TileType tileType;
     
     private boolean pickable;
 

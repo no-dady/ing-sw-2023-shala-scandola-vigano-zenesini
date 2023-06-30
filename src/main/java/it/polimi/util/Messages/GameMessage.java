@@ -14,7 +14,7 @@ public class GameMessage implements Message {
     }
 
     @Override
-    public void handleMessage(Client client) throws RemoteException {
+    public void handleMessage(Client client) {
         Game game = client.getGame();
         game.setCurrPlayerId(id);
     }

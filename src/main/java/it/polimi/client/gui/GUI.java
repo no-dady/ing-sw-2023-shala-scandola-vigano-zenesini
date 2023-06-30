@@ -14,6 +14,7 @@ import it.polimi.server.model.Game;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class GUI extends Application implements UI {
     HashMap<String, FXMLLoader> loaderMap = new HashMap<>();
@@ -49,9 +50,9 @@ public class GUI extends Application implements UI {
     @Override
     public void printServerMessage(String message) {}
 
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         client.setUi(this);
-        primaryStage.getIcons().add(new Image(this.getClass().getResource("/images/icon.png").toString()));
+        primaryStage.getIcons().add(new Image(Objects.requireNonNull(this.getClass().getResource("/images/icon.png")).toString()));
         primaryStage.setTitle("My Shelfie");
         Pane root = new Pane();
         this.main = new Scene(root);
@@ -78,7 +79,6 @@ public class GUI extends Application implements UI {
                 this.sizeMap.put(controller.getName(),controller.getDimensions());
             }
             catch (Exception e){
-                System.out.println(e);
             }
         }
         this.activate(InitController.name);
@@ -91,31 +91,19 @@ public class GUI extends Application implements UI {
         switch (client.getState()){
             case SETUP ->{
                     activate(InitErrorController.name);
-            break;
             }
             case SETUPFIRST ->{
                     activate(LobbySetNicknameController.name);
-            break;
             }
             case WAITINGINLOBBY ->{
                     activate(LobbyWaitController.name);
-            break;
             }
-            case WAITINGFORMYTURN -> {
+            case WAITINGFORMYTURN, MYTURN -> {
                 activate(BoardController.name);
-                break;
-            }
-            case MYTURN ->{
-                activate(BoardController.name);
-                break;
             }
             case GAMEENDED -> {
                 activate(VictoryScreenController.name);
-                break;
             }
-            /*case PLAYERSQUIT -> {
-
-            }*/
         }
     }
 

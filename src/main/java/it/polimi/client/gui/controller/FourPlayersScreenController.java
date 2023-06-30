@@ -54,7 +54,7 @@ public class FourPlayersScreenController implements GenericInterface, Initializa
 
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     @Override

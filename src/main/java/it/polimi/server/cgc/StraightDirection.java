@@ -12,10 +12,10 @@ import java.util.Set;
  * The type Straight direction.
  */
 public class StraightDirection extends CommonGoalCardStrategy implements Serializable {
-    private int numToLook;
-    private int timesToLook;
-    private boolean isEqual;
-    private boolean isVert;
+    private final int numToLook;
+    private final int timesToLook;
+    private final boolean isEqual;
+    private final boolean isVert;
     private final String name;
     public static final String className = "StraightDirection";
 

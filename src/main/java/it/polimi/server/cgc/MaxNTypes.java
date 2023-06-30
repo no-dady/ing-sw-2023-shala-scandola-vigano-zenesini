@@ -9,11 +9,11 @@ import java.util.*;
 
 public class MaxNTypes extends CommonGoalCardStrategy implements Serializable {
     public static final String className = "MaxNTypes";
-    private boolean isVertical;
-    private int timesToCheck;
+    private final boolean isVertical;
+    private final int timesToCheck;
 
-    private int maxDistincts;
-    private String name;
+    private final int maxDistincts;
+    private final String name;
 
 
     public MaxNTypes(boolean isVertical, int maxDistincts, int timesToCheck, String name) {

@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 
 public interface Message {
 
-    void handleMessage(Client client) throws RemoteException;
+    void handleMessage(Client client);
 
     String getName();
 }
