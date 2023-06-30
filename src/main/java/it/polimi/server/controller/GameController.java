@@ -151,7 +151,7 @@ public class GameController implements Observer<Action>{
 
             if (isValidTileBookshelf(newRow, newCol) && !visited[newRow][newCol]) {
                 Tile adjacentTile = slots[newRow][newCol];
-                if (adjacentTile != null && Objects.equals(adjacentTile.getTileType(), currentTile.getTileType())) {
+                if (adjacentTile != null && adjacentTile.equals(currentTile)) {
                     consecutiveTiles += exploreAdjacentTiles(newRow, newCol, visited, slots);
                 }
             }
