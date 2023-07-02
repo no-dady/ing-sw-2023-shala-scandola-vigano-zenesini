@@ -45,7 +45,7 @@ public class PersonalGoalCardsTest extends TestCase {
         }
 
         try {
-            Reader reader = Files.newBufferedReader(Paths.get(Parser.getResourcePath("json/personalgoalcards.json")));
+            Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/json/personalgoalcards.json"));
             pgcList = new Gson().fromJson(reader, new TypeToken<List<PersonalGoalCard>>() {}.getType());
         } catch (Exception e) {
             System.out.println(e.getMessage());

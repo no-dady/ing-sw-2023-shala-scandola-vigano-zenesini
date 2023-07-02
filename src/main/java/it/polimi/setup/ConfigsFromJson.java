@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import it.polimi.server.controller.BoardConfig;
 import it.polimi.server.model.PersonalGoalCard;
 import it.polimi.server.model.TileTypeRecord;
+import it.polimi.util.Parser;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -31,8 +32,9 @@ public class ConfigsFromJson {
      * @throws java.io.IOException if any.
      */
     public static List<PersonalGoalCard> getpgcList(String jsonPath) throws RuntimeException, IOException{
-        Reader reader = Files.newBufferedReader(Paths.get(jsonPath));// Parser.getFilePath("personalgoalcards.json"
-        return new Gson().fromJson(reader, new TypeToken<List<PersonalGoalCard>>() {}.getType());
+        // Reader reader = Files.newBufferedReader(Paths.get(jsonPath));// Parser.getFilePath("personalgoalcards.json"
+        // return new Gson().fromJson(reader, new TypeToken<List<PersonalGoalCard>>() {}.getType());
+        return Parser.parseFromJson(jsonPath, new TypeToken<List<PersonalGoalCard>>() {});
     }
 
     /**
@@ -44,8 +46,9 @@ public class ConfigsFromJson {
      * @throws java.io.IOException if any.
      */
     public static Map<String, TileTypeRecord> getTileType(String jsonPath) throws RuntimeException, IOException {
-        Reader reader = Files.newBufferedReader(Paths.get(jsonPath)); // Parser.getFilePath("tiletypes_config.json"
-        return new Gson().fromJson(reader, new TypeToken<Map<String, TileTypeRecord>>() {}.getType());
+        //Reader reader = Files.newBufferedReader(Paths.get(jsonPath)); // Parser.getFilePath("tiletypes_config.json"
+        //return new Gson().fromJson(reader, new TypeToken<Map<String, TileTypeRecord>>() {}.getType());
+        return Parser.parseFromJson(jsonPath, new TypeToken<Map<String, TileTypeRecord>>() {});
     }
 
     /**
@@ -57,8 +60,9 @@ public class ConfigsFromJson {
      * @throws java.io.IOException if any.
      */
     public static BoardConfig getBoardConfig(String jsonPath) throws RuntimeException, IOException{
-        Reader reader = Files.newBufferedReader(Paths.get(jsonPath)); // Parser.getFilePath("board_config.json"
-        return new Gson().fromJson(reader, BoardConfig.class);
+        // Reader reader = Files.newBufferedReader(Paths.get(jsonPath)); // Parser.getFilePath("board_config.json"
+        // return new Gson().fromJson(reader, BoardConfig.class);
+        return Parser.parseFromJson(jsonPath, BoardConfig.class);
     }
 
     /**
@@ -70,8 +74,9 @@ public class ConfigsFromJson {
      * @throws java.io.IOException if any.
      */
     public static String getBoardArt(String jsonPath) throws RuntimeException, IOException {
-        FileReader reader = new FileReader(jsonPath);//Parser.getFilePath("board_art.json"
-        return new Gson().fromJson(reader, String.class);
+        // FileReader reader = new FileReader(jsonPath);//Parser.getFilePath("board_art.json"
+        // return new Gson().fromJson(reader, String.class);
+        return Parser.parseFromJson(jsonPath, String.class);
     }
     /**
      * <p>getBoardAndBookshelfArt.</p>
@@ -82,8 +87,9 @@ public class ConfigsFromJson {
      * @throws java.io.IOException if any.
      */
     public static String getBoardAndBookshelfArt(String jsonPath) throws RuntimeException, IOException {
-        FileReader reader = new FileReader(jsonPath);//Parser.getFilePath("board_bookshelf_pgc_art.json"
-        return new Gson().fromJson(reader, String.class);
+        // FileReader reader = new FileReader(jsonPath);//Parser.getFilePath("board_bookshelf_pgc_art.json"
+        // return new Gson().fromJson(reader, String.class);
+        return Parser.parseFromJson(jsonPath, String.class);
     }
 
     /**
@@ -95,8 +101,9 @@ public class ConfigsFromJson {
      * @throws java.io.IOException if any.
      */
     public static String getBookshelfArt(String jsonPath) throws RuntimeException, IOException {
-        FileReader reader = new FileReader(jsonPath); // Parser.getFilePath("bookshelf_art.json"
-        return new Gson().fromJson(reader, String.class);
+        // FileReader reader = new FileReader(jsonPath); // Parser.getFilePath("bookshelf_art.json"
+        // return new Gson().fromJson(reader, String.class);
+        return Parser.parseFromJson(jsonPath, String.class);
     }
     /**
      * <p>getArt.</p>
@@ -107,7 +114,8 @@ public class ConfigsFromJson {
      * @throws java.io.IOException if any.
      */
     public static String getArt(String jsonPath) throws RuntimeException, IOException {
-        FileReader reader = new FileReader(jsonPath);//Parser.getFilePath("PGCArt.json"
-        return new Gson().fromJson(reader, String.class);
+        // FileReader reader = new FileReader(jsonPath);//Parser.getFilePath("PGCArt.json"
+        // return new Gson().fromJson(reader, String.class);
+        return Parser.parseFromJson(jsonPath, String.class);
     }
 }

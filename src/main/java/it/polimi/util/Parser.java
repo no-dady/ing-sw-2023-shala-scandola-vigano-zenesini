@@ -59,15 +59,15 @@ public class Parser {
      * @return a {@link java.lang.String} object
      * @throws java.io.IOException if any.
      */
-    public static String getResourcePath(String filename) throws IOException {
-        URL resource = ClassLoader.getSystemClassLoader().getResource(filename);
+    public static String getResourcePath(String filename) throws IOException, NullPointerException {
+        return "/" + filename;
 
-        try {
-            File file = Paths.get(Objects.requireNonNull(resource).toURI()).toFile();
-            return file.getAbsolutePath();
-        } catch (Exception e) {
-            throw new IOException(e);
-        }
+        // try {
+        //     File file = Paths.get(Objects.requireNonNull(resource).toURI()).toFile();
+        //     return file.getAbsolutePath();
+        // } catch (Exception e) {
+        //     throw new IOException(e);
+        // }
 
     }
     /**
@@ -114,7 +114,8 @@ public class Parser {
      * @throws java.io.IOException if any.
      */
     public static <T> T parseFromJson(String filePath, Class<T> cls) throws IOException {
-        Reader reader = Files.newBufferedReader(Paths.get(filePath));
+        String reader = new String(Parser.class.getResourceAsStream(filePath).readAllBytes(), "UTF-8");
+        // Reader reader = Files.newBufferedReader(Paths.get(filePath));
         return new Gson().fromJson(reader, cls);
     }
     /**
@@ -127,7 +128,7 @@ public class Parser {
      * @throws java.io.IOException if any.
      */
     public static <T> T parseFromJson(String filePath, TypeToken<T> typeToken) throws IOException {
-        Reader reader = Files.newBufferedReader(Paths.get(filePath));
+        String reader = new String(Parser.class.getResourceAsStream(filePath).readAllBytes(), "UTF-8");
         return new Gson().fromJson(reader, typeToken.getType());
     }
 }
