@@ -43,13 +43,13 @@ class CalcShelfPointsTest {
      * @throws java.io.IOException if any.
      */
     public static List<Tile[][]> getTilesForTest(String jsonPath) throws IOException {
-        BufferedReader reader = Files.newBufferedReader(Paths.get(Parser.getResourcePath(jsonPath)));
+        BufferedReader reader = Files.newBufferedReader(Paths.get(jsonPath));
         String json = reader.lines().collect(Collectors.joining());
         return Parser.fromJson(json, new TypeToken<List<Tile[][]>>(){}.getType());
     }
     @Test
     void calculateBookshelfPoints() throws IOException {
-        String path = "json/shelves/StraightDirectionTest";
+        String path = "src/test/resources/json/shelves/StraightDirectionTest";
 
         List<Tile[][]> shelf = StraightDirectionCGCTest.getTilesForTest(path + "/testOne.json");
         assertEquals(0, calculateBookshelfPoints(shelf.get(0)));
